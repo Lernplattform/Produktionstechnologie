@@ -42,7 +42,6 @@ nav.tabs .dot{width:8px; height:8px; border-radius:50%; background:var(--line)}
 nav.tabs .done .dot{background:var(--ok)}
 main{max-width:1000px; margin:0 auto; padding-inline:16px; padding-block:28px 80px; display:flex; flex-direction:column; gap:64px}
 section.station{display:flex; flex-direction:column; gap:22px; scroll-margin-top:110px}
-section.station + section.station{border-top:3px solid var(--border); padding-top:48px}
 .eyebrow{font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--rust); margin:0}
 h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.2}
 h1{font-size:clamp(28px,4vw,38px)}
@@ -400,6 +399,7 @@ body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-
   <div id="task-k1"></div>
   <div id="ex-k2"></div>
   <div id="task-k2"></div>
+  <div class="row"><button type="button" class="btn secondary" data-go="s2">Weiter zu Station 2 →</button></div>
 </section>
 
 <!-- STATION 2 -->
@@ -429,6 +429,7 @@ body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-
   <div id="task-r1"></div>
   <div id="ex-r2"></div>
   <div id="task-r2"></div>
+  <div class="row"><button type="button" class="btn secondary" data-go="s3">Weiter zu Station 3 →</button></div>
 </section>
 
 <!-- STATION 3 -->
@@ -457,6 +458,7 @@ body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-
   </div>
   <div id="ex-d1"></div>
   <div id="task-d1"></div>
+  <div class="row"><button type="button" class="btn secondary" data-go="s4">Weiter zu Station 4 →</button></div>
 </section>
 
 <!-- STATION 4 -->
@@ -487,6 +489,7 @@ body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-
     <div id="err4"></div>
   </div>
   <div id="task-d2"></div>
+  <div class="row"><button type="button" class="btn secondary" data-go="s5">Weiter zu Station 5 →</button></div>
 </section>
 
 <!-- STATION 5 -->
@@ -1387,16 +1390,15 @@ $("#checklist").addEventListener("click", e => { const b=e.target.closest("[data
 /* ---------- Navigation ---------- */
 const stations = $$("section.station");
 let current = "s0";
-const smooth = !G.reduced();
-function show(id){ const el=document.getElementById(id); if(!el) return; if(id==="s5") updateSummary(); el.scrollIntoView({behavior:smooth?"smooth":"auto", block:"start"}); current=id; renderTabs(); }
-function spy(){
-  const top = $("header.top").getBoundingClientRect().bottom + 40;
-  let id = stations[0].id;
-  stations.forEach(s => { if(s.getBoundingClientRect().top <= top) id = s.id; });
-  if((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 4) id = stations[stations.length-1].id;
-  if(id !== current){ current = id; renderTabs(); }
+function show(id){
+  if(!document.getElementById(id)) return;
+  stations.forEach(s => { s.hidden = s.id !== id; });
+  current = id; S.tab = id; SK.changed(true);
+  if(id==="s5") updateSummary();
+  renderTabs();
+  document.dispatchEvent(new CustomEvent("lm-show", {detail:id}));
+  window.scrollTo({top:0, behavior:"auto"});
 }
-window.addEventListener("scroll", spy, {passive:true});
 function doneFor(id){
   if(id==="s0") return !!S._ts;
   if(id==="s5") return (S.rounds.fin||0)>=1 && Object.keys(S.ck).length===CK.length;
@@ -1775,7 +1777,8 @@ function renderAll(){
 }
 renderAll();
 SK.init();
-if(location.hash && /^#s[0-5]$/.test(location.hash)) show(location.hash.slice(1)); else spy();
+const hs = location.hash.slice(1);
+show(/^s[0-5]$/.test(hs) ? hs : (/^s[0-5]$/.test(S.tab||"") ? S.tab : stations[0].id));
 window.__lm = {SK, get S(){ return S; }};
 })();
 

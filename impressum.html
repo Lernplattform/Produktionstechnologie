@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="de">
+<title>Impressum – Produktionstechnologie</title>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{
+  --bg:#F4F5F6; --surface:#FFFFFF; --surface2:#F1F7FB; --ink:#1D1D1B; --muted:#56616B;
+  --line:#A9B4BD; --border:#E1E4E7; --blue:#0C77B7; --blue-soft:#E1EFF8;
+  --rust:#0A5A8C; --rust-soft:#E1EFF8; --ok:#2C7A4B; --ok-soft:#DDF0E3; --err:#B3261E; --err-soft:#F8DEDC;
+  --maybe:#8A6A12; --maybe-soft:#F5ECCF;
+  --display:'Segoe UI', Arial, sans-serif; --sans:'Segoe UI', Arial, sans-serif; --mono:Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+    --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+    --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+    --maybe:#E3C46A; --maybe-soft:#352C12;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+  --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+  --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+  --maybe:#E3C46A; --maybe-soft:#352C12;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.55}
+header.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--surface); border-bottom:1px solid var(--border)}
+.top-inner{max-width:1000px; margin:0 auto; padding:10px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px}
+.brand{font-family:var(--display); font-weight:700; font-size:18px; margin-right:auto}
+nav.tabs{display:flex; flex-wrap:wrap; gap:6px}
+nav.tabs button{font:inherit; font-size:15px; font-weight:600; border:1px solid var(--border); background:var(--surface); color:var(--ink); border-radius:999px; padding:5px 13px; cursor:pointer; display:inline-flex; gap:6px; align-items:center}
+nav.tabs button[aria-current="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+nav.tabs .dot{width:8px; height:8px; border-radius:50%; background:var(--line)}
+nav.tabs .done .dot{background:var(--ok)}
+[hidden]{display:none!important}
+main{max-width:1000px; margin:0 auto; padding-inline:16px; padding-block:28px 80px; display:flex; flex-direction:column; gap:64px}
+section.station{display:flex; flex-direction:column; gap:22px; scroll-margin-top:110px}
+
+.saved{font-family:var(--sans); font-weight:500; font-size:13px; color:var(--ok); margin-left:10px}
+.io{display:flex; flex-direction:column; gap:10px; padding:18px 22px; border:1px dashed var(--line); border-radius:12px}
+.io h3{font-size:17px}
+.filebtn{display:inline-block; font-weight:600; border-radius:8px; padding:10px 18px; cursor:pointer; background:transparent; color:var(--blue); border:1px solid var(--blue)}
+.visually-hidden{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+input.visually-hidden:focus-visible + *, .filebtn:focus-within{outline:3px solid var(--rust)}
+.linkbtn{font:inherit; font-size:14px; background:none; border:0; color:var(--blue); text-decoration:underline; cursor:pointer; padding:4px}
+.eyebrow{font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--rust); margin:0}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.2}
+h1{font-size:clamp(28px,4vw,38px)}
+h2{font-size:24px}
+h3{font-size:19px}
+p{margin:0}
+.lead{font-size:19px; color:var(--muted)}
+.input{background:var(--surface2); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:14px}
+.input .tag, .task .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase}
+.input .tag{color:var(--blue)}
+.input p, .input li{max-width:none}
+.input ul{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px}
+.task{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:16px}
+.task .tag{color:var(--rust)}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.grid3{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:8px}
+.card h3{font-size:17px}
+.card .then{font-size:15px; color:var(--muted)}
+.mono{font-family:var(--mono); font-size:.92em}
+label{font-weight:600}
+textarea, input[type=text], select{font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:9px 11px; width:100%}
+textarea{min-height:90px; resize:vertical}
+button.btn{font:inherit; font-weight:600; border:0; border-radius:8px; padding:10px 18px; cursor:pointer; background:var(--blue); color:var(--bg)}
+button.btn.secondary{background:transparent; color:var(--blue); border:1px solid var(--blue)}
+button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible{outline:3px solid var(--rust); outline-offset:2px}
+.row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.score{font-weight:700; font-variant-numeric:tabular-nums}
+.fb{font-size:15px; border-radius:8px; padding:10px 12px}
+.fb.ok{background:var(--ok-soft); color:var(--ink); border-left:4px solid var(--ok)}
+.fb.err{background:var(--err-soft); color:var(--ink); border-left:4px solid var(--err)}
+.fb.maybe{background:var(--maybe-soft); color:var(--ink); border-left:4px solid var(--maybe)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* Rohstoff/Werkstoff toggles */
+.rw{display:flex; flex-direction:column; gap:8px}
+.rw-item{display:grid; grid-template-columns:1fr auto; gap:6px 12px; align-items:center; padding:10px 12px; border:1px solid var(--border); border-radius:8px}
+.rw-item .seg{display:flex; gap:0}
+.seg button{font:inherit; font-size:14px; font-weight:600; border:1px solid var(--line); background:var(--surface); color:var(--ink); padding:5px 12px; cursor:pointer}
+.seg button:first-child{border-radius:6px 0 0 6px}
+.seg button:last-child{border-radius:0 6px 6px 0; border-left:0}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.rw-item .fb{grid-column:1 / -1}
+
+/* Baum */
+.bank{display:flex; flex-wrap:wrap; gap:8px; min-height:44px; padding:10px; border:1px dashed var(--line); border-radius:10px}
+.chip{font:inherit; font-size:15px; font-weight:600; padding:6px 12px; border-radius:6px; border:1px solid var(--blue); background:var(--blue-soft); color:var(--ink); cursor:grab}
+.chip[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.tree-wrap{overflow-x:auto; padding-bottom:6px}
+.tree{min-width:920px}
+.tree ul{position:relative; display:flex; justify-content:center; margin:0; padding:22px 0 0}
+.tree li{list-style:none; position:relative; padding:22px 5px 0; display:flex; flex-direction:column; align-items:center; flex:1}
+.tree li::before,.tree li::after{content:''; position:absolute; top:0; right:50%; width:50%; height:22px; border-top:2px solid var(--line)}
+.tree li::after{right:auto; left:50%; border-left:2px solid var(--line)}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:only-child{padding-top:0}
+.tree li:first-child::before,.tree li:last-child::after{border:0}
+.tree li:last-child::before{border-right:2px solid var(--line); border-radius:0 6px 0 0}
+.tree li:first-child::after{border-radius:6px 0 0 0}
+.tree ul ul::before{content:''; position:absolute; top:0; left:50%; height:22px; border-left:2px solid var(--line)}
+.node{font-weight:700; padding:8px 14px; border-radius:8px; background:var(--ink); color:var(--bg); white-space:nowrap}
+.slot{font:inherit; font-size:14px; font-weight:600; min-width:128px; min-height:40px; padding:7px 10px; border-radius:8px; border:2px dashed var(--line); background:var(--surface); color:var(--muted); cursor:pointer; white-space:nowrap}
+.slot.filled{border-style:solid; border-color:var(--blue); color:var(--ink); background:var(--blue-soft)}
+.slot.ok{border-color:var(--ok); background:var(--ok-soft)}
+.slot.err{border-color:var(--err); background:var(--err-soft)}
+.slot.over{border-color:var(--rust)}
+.ex{font-size:13px; color:var(--muted); margin-top:5px; text-align:center; line-height:1.35}
+
+/* Tabellen */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; min-width:560px}
+th,td{padding:9px 10px; border-bottom:1px solid var(--border); text-align:left; vertical-align:middle}
+th{font-size:14px; color:var(--muted); font-weight:600}
+td.c{text-align:center}
+td.c input{width:22px; height:22px; accent-color:var(--blue); cursor:pointer}
+td.ok{background:var(--ok-soft)} td.err{background:var(--err-soft)} td.maybe{background:var(--maybe-soft)}
+.legend{display:flex; flex-wrap:wrap; gap:14px; font-size:14px}
+.legend span::before{content:''; display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px}
+.legend .l-ok::before{background:var(--ok-soft); border:1px solid var(--ok)}
+.legend .l-err::before{background:var(--err-soft); border:1px solid var(--err)}
+.legend .l-maybe::before{background:var(--maybe-soft); border:1px solid var(--maybe)}
+
+/* Multiple Choice */
+.mc{display:flex; flex-direction:column; gap:10px; padding:16px; border:1px solid var(--border); border-radius:10px}
+.mc .q{font-weight:600}
+.mc .opts{display:flex; flex-direction:column; gap:6px}
+.opt{font:inherit; text-align:left; padding:8px 12px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt.ok{background:var(--ok-soft); border-color:var(--ok)}
+.opt.err{background:var(--err-soft); border-color:var(--err)}
+.opt:disabled{cursor:default}
+
+/* Fälle */
+.case{display:flex; flex-direction:column; gap:12px; padding:18px; border:1px solid var(--border); border-radius:10px; background:var(--surface)}
+.case .head{display:flex; gap:10px; align-items:baseline}
+.case .num{font-family:var(--mono); color:var(--rust); font-weight:500}
+.crit{display:flex; flex-wrap:wrap; gap:8px}
+.crit span{font-size:14px; padding:4px 10px; border-radius:999px; background:var(--surface); border:1px solid var(--border)}
+.summary{font-family:var(--mono); font-size:13px; min-height:220px}
+.save-note{font-size:14px; color:var(--muted)}
+@media (prefers-reduced-motion: no-preference){ .opt, .slot, .chip{transition:background-color .15s, border-color .15s} }
+
+/* Seiten-Design */
+.start-cta{display:flex; justify-content:center; padding:16px 0 8px}
+.btn.big{font-size:19px; padding:16px 36px; border-radius:6px; box-shadow:0 2px 6px rgba(12,119,183,.25)}
+
+td.c .mark{display:block; font-size:12px; font-weight:700; margin-top:3px; white-space:nowrap}
+td.ok .mark{color:var(--ok)} td.err .mark{color:var(--err)} td.maybe .mark{color:var(--maybe)}
+button[aria-disabled="true"]{opacity:.55; cursor:not-allowed}
+.lock-msg{color:var(--err); font-weight:600}
+.site-head{background:#FFFFFF; border-bottom:1px solid #E6E6E6}
+.site-inner{max-width:1000px; margin:0 auto; padding:18px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px}
+.logo{height:72px; width:auto; display:block}
+.unit{display:flex; flex-direction:column; gap:2px; border-left:3px solid #0C77B7; padding-left:16px}
+.unit-k{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#56616B}
+.site-head .brand{font-family:'Segoe UI',Arial,sans-serif; font-weight:700; font-size:20px; color:#0C77B7; margin:0}
+header.top{box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.top-inner{padding:0 16px; gap:0 16px; justify-content:space-between}
+nav.tabs{gap:0 4px}
+nav.tabs button{border:0; border-radius:0; background:transparent; color:var(--blue); text-transform:uppercase; font-size:14px; font-weight:700; letter-spacing:.02em; padding:14px 12px 11px; border-bottom:3px solid transparent}
+nav.tabs button:hover{border-bottom-color:var(--blue-soft)}
+nav.tabs button[aria-current="true"]{background:transparent; color:var(--blue); border-bottom-color:var(--blue)}
+.saved{margin-left:0; padding:6px 0}
+section.station{scroll-margin-top:70px}
+h1,h2,h3{font-weight:700; letter-spacing:-.01em}
+h1{font-weight:800}
+.eyebrow{color:var(--blue)}
+button.btn, .filebtn, textarea, input[type=text], select{border-radius:4px}
+.input, .task, .calc, .io, .case, .card, .mc{border-radius:6px}
+@media (max-width:560px){ nav.tabs button{padding:9px 7px 7px; font-size:13px} .logo{height:56px} .saved{font-size:12px} }
+.site-foot{max-width:1000px; margin:0 auto; padding:24px 16px 40px; border-top:1px solid var(--border); font-size:13px; color:var(--muted)}
+
+/* ===== Gemeinsame Ergänzungen (Speichern, Musterbeispiel, Grafiken) ===== */
+.saved.warn{color:var(--err)}
+.resumebar{max-width:1000px; margin:12px auto 0; padding:14px 18px; display:flex; flex-direction:column; gap:10px; background:var(--maybe-soft); border:2px solid var(--maybe); border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.resumebar-wrap{padding-inline:16px}
+.lm-more summary{cursor:pointer; font-weight:600; font-size:15px; color:var(--blue)}
+body.lm-drop::after{content:"Speicherstand-Datei hier loslassen"; position:fixed; inset:12px; border:4px dashed var(--blue); border-radius:16px; background:color-mix(in srgb, var(--surface) 85%, transparent); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; color:var(--blue); z-index:50; pointer-events:none}
+.muster{display:flex; flex-direction:column; gap:10px; padding:18px; border:2px solid var(--blue); border-radius:6px; background:var(--blue-soft)}
+.muster .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin:0}
+.muster .solbox{background:var(--surface)}
+.msteps{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:8px}
+.msteps li.off{color:var(--muted)}
+.msteps li.off b{font-weight:600}
+.msteps .solbox{margin-top:4px; font-family:var(--sans); line-height:1.6}
+.solbox{font-size:15px; background:var(--surface2); border-radius:6px; padding:10px 12px; line-height:1.7; overflow-x:auto}
+.helpbar{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center}
+.hintbox, .solution{font-size:15px}
+.fb.info{background:var(--blue-soft); border-left:4px solid var(--blue)}
+
+/* Grafiken */
+.figure{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:14px; display:flex; flex-direction:column; gap:12px}
+.figure .cap{font-size:14px; color:var(--muted)}
+svg.gfx{width:100%; height:auto; display:block; overflow:visible}
+svg.gfx text{font-family:var(--sans); fill:var(--ink)}
+svg.gfx .lbl{font-size:14px; font-weight:600}
+svg.gfx .lbl-s{font-size:12px; fill:var(--muted)}
+svg.gfx .axis{stroke:var(--ink); stroke-width:1.2; fill:none}
+svg.gfx .grid{stroke:var(--border); stroke-width:1; fill:none}
+svg.gfx .lead{stroke:var(--muted); stroke-width:1; fill:none}
+svg.gfx .hot{cursor:pointer}
+svg.gfx .hot:focus{outline:none}
+svg.gfx .hot:focus-visible .ring, svg.gfx .hot.on .ring{stroke:var(--rust); stroke-width:3}
+svg.gfx .ring{fill:var(--surface); stroke:var(--blue); stroke-width:2}
+svg.gfx .ringtxt{font-size:13px; font-weight:700; fill:var(--blue); text-anchor:middle; dominant-baseline:central; pointer-events:none}
+.sim{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr); gap:16px; align-items:start}
+@media (max-width:760px){ .sim{grid-template-columns:1fr} }
+.ctrl{display:flex; flex-direction:column; gap:12px}
+.ctrl label{font-size:14px; display:flex; flex-direction:column; gap:4px}
+.ctrl input[type=range]{width:100%; accent-color:var(--blue)}
+.ctrl .val{font-family:var(--mono); font-size:14px; color:var(--blue)}
+.readout{display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:15px; background:var(--surface2); padding:10px 12px; border-radius:6px}
+.readout b{font-family:var(--mono); font-weight:500}
+.question{font-size:15px; border-left:4px solid var(--maybe); background:var(--maybe-soft); padding:9px 12px; border-radius:6px}
+.segbtns{display:flex; flex-wrap:wrap; gap:6px}
+.segbtns button{font:inherit; font-size:14px; font-weight:600; padding:6px 12px; border-radius:4px; border:1px solid var(--blue); background:var(--surface); color:var(--blue); cursor:pointer}
+.segbtns button[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.infobox{min-height:64px}
+#savepanel .mono, .resumebar .mono{word-break:break-all; overflow-wrap:anywhere}
+/* Struktur: Einführung, Schritte, Problemstellung, Antwort */
+.intro{display:flex; flex-direction:column; gap:10px}
+.stepbox{background:var(--surface); border:1px solid var(--border); border-left:6px solid var(--blue); border-radius:6px; padding:20px 22px; display:flex; flex-direction:column; gap:14px}
+.stepbox h2, .stepbox .sumh{display:flex; align-items:center; gap:12px; font-size:22px; font-weight:700; margin:0}
+.stepbox .no{flex:none; display:inline-flex; width:36px; height:36px; border-radius:50%; background:var(--blue); color:var(--bg); align-items:center; justify-content:center; font-size:18px; font-weight:800}
+.stepbox.save{border-left-color:var(--maybe); background:var(--maybe-soft)}
+.stepbox.save .no{background:var(--maybe)}
+.stepbox.save.done{border-left-color:var(--ok); background:var(--ok-soft)}
+.stepbox.save.done .no{background:var(--ok)}
+details.stepbox > summary{cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px}
+details.stepbox > summary::-webkit-details-marker{display:none}
+details.stepbox[open] > summary{margin-bottom:6px}
+.problem{font-size:20px; font-weight:700; color:var(--rust); border-left:4px solid var(--rust); padding:4px 0 4px 14px; margin:0}
+.answer{background:var(--ok-soft); border:2px solid var(--ok); border-radius:6px; padding:16px 18px; display:flex; flex-direction:column; gap:8px}
+.goals{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:4px}
+table.plan td, table.plan th{vertical-align:top}
+.okmark{color:var(--ok); font-weight:700; white-space:nowrap}
+.nowrap{white-space:nowrap}
+.saved .linkbtn{font-size:13px; padding:0 2px; color:var(--err); font-weight:700}
+/* Startfenster: Speicherort als Pflichtschritt */
+body.lm-gated{overflow:hidden}
+#lm-gate{position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; align-items:center; justify-content:center; padding:16px; overflow:auto}
+.lm-gate-card{background:var(--surface); color:var(--ink); max-width:640px; width:100%; margin:auto; border-radius:10px; border-top:10px solid var(--maybe); padding:26px 28px; display:flex; flex-direction:column; gap:14px; box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lm-gate-card h2{display:flex; align-items:center; gap:12px; font-size:24px; margin:0}
+.lm-gate-card .no{flex:none; display:inline-flex; width:40px; height:40px; border-radius:50%; background:var(--maybe); color:#fff; align-items:center; justify-content:center; font-weight:800; font-size:20px}
+.lm-gate-steps{margin:0; padding-left:24px; display:flex; flex-direction:column; gap:6px}
+.lm-gate-card .mono{word-break:break-all}
+.btn.big{font-size:19px; padding:14px 30px}
+.saved.warn{background:var(--err); color:#fff; padding:5px 12px; border-radius:999px; font-weight:700; margin:4px 0}
+.saved.warn .linkbtn{color:#fff; text-decoration:underline; font-weight:800}
+@media (max-width:560px){ .lm-gate-card{padding:20px 18px} .lm-gate-card h2{font-size:20px} }
+
+.lm-gate-card.ok{border-top-color:var(--ok)} .lm-gate-card .no.ok{background:var(--ok)}
+body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-gated .site-foot{visibility:hidden}
+
+/* Das Wichtigste auf einen Blick */
+.merke{border-top:6px solid var(--ok)}
+.mk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px}
+.mk-item{display:flex; gap:10px; align-items:flex-start; background:var(--surface2); border-radius:8px; padding:12px 14px}
+.mk-no{flex:none; width:28px; height:28px; border-radius:50%; background:var(--ok); color:var(--bg); display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+.mk-f{grid-column:1/-1; background:var(--blue-soft); border-radius:8px; padding:12px 14px}
+.mk-f > div{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:6px}
+
+/* Link zurück zur Übersicht (nur sichtbar, wenn die Übersicht bekannt ist) */
+.site-inner .lm-back{margin-left:auto; flex:none; font-size:14px; font-weight:600; color:var(--blue); text-decoration:none; border:1px solid var(--blue); border-radius:999px; padding:5px 12px; white-space:nowrap}
+.site-inner .lm-back:hover{background:var(--blue-soft)}
+@media print{ .lm-back{display:none} }
+
+/* Impressum / Datenschutz */
+main.recht{max-width:1000px; margin:0 auto; padding:28px 16px 40px; display:flex; flex-direction:column; gap:12px}
+main.recht h1{font-size:34px; margin:0 0 6px}
+main.recht h2{font-size:21px; margin:22px 0 0; scroll-margin-top:16px}
+main.recht p, main.recht ul, main.recht ol{margin:0}
+main.recht ul{padding-left:22px}
+main.recht a{color:var(--blue)}
+main.recht .lead{font-size:18px}
+main.recht .toc{background:var(--surface2); border-radius:6px; padding:12px 18px}
+main.recht .toc ol{padding-left:22px; display:grid; gap:2px}
+main.recht .tbl-wrap{overflow-x:auto}
+main.recht table{border-collapse:collapse; width:100%; font-size:15px; background:var(--surface)}
+main.recht th, main.recht td{border:1px solid var(--border); padding:8px 10px; text-align:left; vertical-align:top}
+main.recht th{background:var(--surface2)}
+.small{font-size:14px} .muted{color:var(--muted)}
+.site-inner .lm-back{margin-left:auto}
+@media (max-width:560px){ main.recht h1{font-size:28px} }
+</style>
+<div class="site-head">
+  <div class="site-inner">
+    <div class="unit"><span class="unit-k">Fachschule für Technik – Chemie</span><span class="brand">Produktionstechnologie · Impressum</span></div>
+    <a class="lm-back" href="index.html">← Alle Lerneinheiten</a>
+  </div>
+</div>
+
+<main class="recht">
+  <p class="eyebrow">Rechtliches</p>
+  <h1>Impressum</h1>
+
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>Andreas Höfler<br>Rosenstr. 94<br>76287 Rheinstetten<br>Deutschland</p>
+
+  <h2>Kontakt</h2>
+  <p>E-Mail: <a href="mailto:info@ahoefler.de">info@ahoefler.de</a></p>
+
+  <h2>Umsatzsteuer-ID</h2>
+  <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: DE370183042</p>
+
+  <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+  <p>Andreas Höfler, Rosenstr. 94, 76287 Rheinstetten</p>
+
+  <h2>Haftung für Inhalte</h2>
+  <p>Die Inhalte dieser Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Diensteanbieter bin ich nach den allgemeinen Gesetzen für eigene Inhalte auf diesen Seiten verantwortlich. Ich bin jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden entsprechender Rechtsverletzungen werde ich diese Inhalte umgehend entfernen.</p>
+
+  <h2>Haftung für Links</h2>
+  <p>Diese Seiten enthalten Links zu externen Websites Dritter (z. B. Videos auf YouTube), auf deren Inhalte ich keinen Einfluss habe. Für diese fremden Inhalte ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft; rechtswidrige Inhalte waren zu diesem Zeitpunkt nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werde ich derartige Links umgehend entfernen.</p>
+
+  <h2>Urheberrecht</h2>
+  <p>Die auf diesen Seiten erstellten Inhalte und Werke (Texte, Aufgaben, Grafiken, Simulationen) unterliegen dem deutschen Urheberrecht. Die Nutzung im Unterricht und zum eigenen Lernen ist ausdrücklich erwünscht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb dieser Zwecke bedürfen der schriftlichen Zustimmung des Autors. Soweit Inhalte nicht von mir erstellt wurden, werden die Urheberrechte Dritter beachtet; so wird der Formelsatz mit KaTeX (MIT-Lizenz) erzeugt. Solltest du trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitte ich um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werde ich derartige Inhalte umgehend entfernen.</p>
+
+  <p class="small muted">Siehe auch die <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+</main>
+
+<footer class="site-foot">Fachschule für Technik, Chemietechnik · Produktionstechnologie</footer>
+
+<script>
+/* ============================================================
+   Rechtliches (alle Seiten): Hinweis-Banner „Keine Cookies“ + Links Impressum/Datenschutz
+   - Setzt KEINE Cookies. Die Bestätigung des Hinweises wird nur im Browser gemerkt
+     (localStorage "lm-hinweis"), technisch notwendig, wird nie übertragen.
+   - Banner nur, wenn die Seite von einem Webserver kommt (GitHub Pages), nicht bei lokaler Datei
+     und nicht im unsichtbaren Prüfmodus der Übersicht (#lm-probe / iframe).
+   - Links zeigen online relativ auf impressum.html / datenschutz.html, offline auf die Website.
+   ============================================================ */
+(function(){
+"use strict";
+if(window.__lmRecht) return; window.__lmRecht = true;
+const SITE = "https://lernplattform.github.io/Produktionstechnologie/";
+const ONLINE = /^https?:$/.test(location.protocol);
+const PROBE = /lm-probe/.test(location.hash) || window.top !== window;
+if(PROBE) return;
+const base = ONLINE ? "" : SITE;
+const IMP = base + "impressum.html", DS = base + "datenschutz.html";
+const KEY = "lm-hinweis", VER = "1";
+
+const css = `
+.lm-recht{display:flex; flex-wrap:wrap; gap:4px 16px; margin-top:8px}
+.lm-recht a{color:var(--muted, #56616B); text-decoration:underline}
+.lm-recht a:hover{color:var(--blue, #0C77B7)}
+.lm-foot-auto{max-width:1000px; margin:0 auto; padding:16px 16px 32px; border-top:1px solid var(--border, #E1E4E7); font-size:13px; color:var(--muted, #56616B); font-family:var(--sans, 'Segoe UI', Arial, sans-serif)}
+#lm-hinweis{position:fixed; left:12px; right:12px; bottom:12px; z-index:200; max-width:760px; margin:0 auto;
+  background:var(--surface, #fff); color:var(--ink, #1D1D1B); border:1px solid var(--border, #E1E4E7); border-left:6px solid var(--blue, #0C77B7);
+  border-radius:8px; box-shadow:0 10px 40px rgba(0,0,0,.25); padding:14px 16px; display:flex; gap:12px 16px; align-items:center; flex-wrap:wrap;
+  font-family:var(--sans, 'Segoe UI', Arial, sans-serif); font-size:15px; line-height:1.45}
+#lm-hinweis p{margin:0; flex:1 1 320px}
+#lm-hinweis a{color:var(--blue, #0C77B7)}
+#lm-hinweis button{font:inherit; font-weight:600; border:0; border-radius:4px; padding:9px 18px; cursor:pointer; background:var(--blue, #0C77B7); color:var(--bg, #fff); flex:0 0 auto}
+#lm-hinweis button:focus-visible{outline:3px solid var(--rust, #0A5A8C); outline-offset:2px}
+@media print{ #lm-hinweis, .lm-recht, .lm-foot-auto{display:none !important} }
+`;
+
+function ready(fn){ if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn); else fn(); }
+ready(function(){
+  const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
+
+  /* Links im Fuß */
+  let foot = document.querySelector(".site-foot");
+  if(!foot){ foot = document.createElement("footer"); foot.className = "lm-foot-auto"; document.body.appendChild(foot); }
+  if(!foot.querySelector(".lm-recht")){
+    const nav = document.createElement("nav"); nav.className = "lm-recht"; nav.setAttribute("aria-label", "Rechtliches");
+    nav.innerHTML = `<a href="${IMP}">Impressum</a><a href="${DS}">Datenschutz</a><span>Diese Seite setzt keine Cookies.</span>`;
+    foot.appendChild(nav);
+  }
+
+  /* Hinweis-Banner (nur online, einmal je Browser) */
+  if(!ONLINE) return;
+  let seen = false; try { seen = localStorage.getItem(KEY) === VER; } catch(e){}
+  if(seen || document.getElementById("lm-hinweis")) return;
+  const b = document.createElement("div"); b.id = "lm-hinweis"; b.setAttribute("role", "region"); b.setAttribute("aria-label", "Hinweis zum Datenschutz");
+  b.innerHTML = `<p><b>Keine Cookies, kein Tracking.</b> Dein Lernstand wird nur auf deinem Gerät gespeichert (im Browser bzw. in deinem Speicherordner) und nie übertragen. Videos von YouTube werden erst geladen, wenn du sie anklickst. Mehr in der <a href="${DS}">Datenschutzerklärung</a> · <a href="${IMP}">Impressum</a></p><button type="button">Verstanden</button>`;
+  b.querySelector("button").addEventListener("click", () => { try { localStorage.setItem(KEY, VER); } catch(e){} b.remove(); });
+  document.body.appendChild(b);
+});
+})();
+
+</script>

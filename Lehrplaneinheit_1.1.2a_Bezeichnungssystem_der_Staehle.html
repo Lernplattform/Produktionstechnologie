@@ -1,0 +1,1808 @@
+<!doctype html>
+<html lang="de">
+<title>Lehrplaneinheit 1.1.2a Bezeichnungssystem der Stähle – Verwendungszweck</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{
+  --bg:#F4F5F6; --surface:#FFFFFF; --surface2:#F1F7FB; --ink:#1D1D1B; --muted:#56616B;
+  --line:#A9B4BD; --border:#E1E4E7; --blue:#0C77B7; --blue-soft:#E1EFF8;
+  --rust:#0A5A8C; --rust-soft:#E1EFF8; --ok:#2C7A4B; --ok-soft:#DDF0E3; --err:#B3261E; --err-soft:#F8DEDC;
+  --maybe:#8A6A12; --maybe-soft:#F5ECCF;
+  --display:'Segoe UI', Arial, sans-serif; --sans:'Segoe UI', Arial, sans-serif; --mono:Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+    --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+    --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+    --maybe:#E3C46A; --maybe-soft:#352C12;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+  --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+  --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+  --maybe:#E3C46A; --maybe-soft:#352C12;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.55}
+header.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--surface); border-bottom:1px solid var(--border)}
+.top-inner{max-width:1000px; margin:0 auto; padding:10px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px}
+.brand{font-family:var(--display); font-weight:700; font-size:18px; margin-right:auto}
+nav.tabs{display:flex; flex-wrap:wrap; gap:6px}
+nav.tabs button{font:inherit; font-size:15px; font-weight:600; border:1px solid var(--border); background:var(--surface); color:var(--ink); border-radius:999px; padding:5px 13px; cursor:pointer; display:inline-flex; gap:6px; align-items:center}
+nav.tabs button[aria-current="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+nav.tabs .dot{width:8px; height:8px; border-radius:50%; background:var(--line)}
+nav.tabs .done .dot{background:var(--ok)}
+[hidden]{display:none!important}
+main{max-width:1000px; margin:0 auto; padding-inline:16px; padding-block:28px 80px; display:flex; flex-direction:column; gap:64px}
+section.station{display:flex; flex-direction:column; gap:22px; scroll-margin-top:110px}
+
+.saved{font-family:var(--sans); font-weight:500; font-size:13px; color:var(--ok); margin-left:10px}
+.io{display:flex; flex-direction:column; gap:10px; padding:18px 22px; border:1px dashed var(--line); border-radius:12px}
+.io h3{font-size:17px}
+.filebtn{display:inline-block; font-weight:600; border-radius:8px; padding:10px 18px; cursor:pointer; background:transparent; color:var(--blue); border:1px solid var(--blue)}
+.visually-hidden{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+input.visually-hidden:focus-visible + *, .filebtn:focus-within{outline:3px solid var(--rust)}
+.linkbtn{font:inherit; font-size:14px; background:none; border:0; color:var(--blue); text-decoration:underline; cursor:pointer; padding:4px}
+.eyebrow{font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--rust); margin:0}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.2}
+h1{font-size:clamp(28px,4vw,38px)}
+h2{font-size:24px}
+h3{font-size:19px}
+p{margin:0}
+.lead{font-size:19px; color:var(--muted)}
+.input{background:var(--surface2); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:14px}
+.input .tag, .task .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase}
+.input .tag{color:var(--blue)}
+.input p, .input li{max-width:none}
+.input ul{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px}
+.task{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:16px}
+.task .tag{color:var(--rust)}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.grid3{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:8px}
+.card h3{font-size:17px}
+.card .then{font-size:15px; color:var(--muted)}
+.mono{font-family:var(--mono); font-size:.92em}
+label{font-weight:600}
+textarea, input[type=text], select{font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:9px 11px; width:100%}
+textarea{min-height:90px; resize:vertical}
+button.btn{font:inherit; font-weight:600; border:0; border-radius:8px; padding:10px 18px; cursor:pointer; background:var(--blue); color:var(--bg)}
+button.btn.secondary{background:transparent; color:var(--blue); border:1px solid var(--blue)}
+button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible{outline:3px solid var(--rust); outline-offset:2px}
+.row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.score{font-weight:700; font-variant-numeric:tabular-nums}
+.fb{font-size:15px; border-radius:8px; padding:10px 12px}
+.fb.ok{background:var(--ok-soft); color:var(--ink); border-left:4px solid var(--ok)}
+.fb.err{background:var(--err-soft); color:var(--ink); border-left:4px solid var(--err)}
+.fb.maybe{background:var(--maybe-soft); color:var(--ink); border-left:4px solid var(--maybe)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* Rohstoff/Werkstoff toggles */
+.rw{display:flex; flex-direction:column; gap:8px}
+.rw-item{display:grid; grid-template-columns:1fr auto; gap:6px 12px; align-items:center; padding:10px 12px; border:1px solid var(--border); border-radius:8px}
+.rw-item .seg{display:flex; gap:0}
+.seg button{font:inherit; font-size:14px; font-weight:600; border:1px solid var(--line); background:var(--surface); color:var(--ink); padding:5px 12px; cursor:pointer}
+.seg button:first-child{border-radius:6px 0 0 6px}
+.seg button:last-child{border-radius:0 6px 6px 0; border-left:0}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.rw-item .fb{grid-column:1 / -1}
+
+/* Baum */
+.bank{display:flex; flex-wrap:wrap; gap:8px; min-height:44px; padding:10px; border:1px dashed var(--line); border-radius:10px}
+.chip{font:inherit; font-size:15px; font-weight:600; padding:6px 12px; border-radius:6px; border:1px solid var(--blue); background:var(--blue-soft); color:var(--ink); cursor:grab}
+.chip[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.tree-wrap{overflow-x:auto; padding-bottom:6px}
+.tree{min-width:920px}
+.tree ul{position:relative; display:flex; justify-content:center; margin:0; padding:22px 0 0}
+.tree li{list-style:none; position:relative; padding:22px 5px 0; display:flex; flex-direction:column; align-items:center; flex:1}
+.tree li::before,.tree li::after{content:''; position:absolute; top:0; right:50%; width:50%; height:22px; border-top:2px solid var(--line)}
+.tree li::after{right:auto; left:50%; border-left:2px solid var(--line)}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:only-child{padding-top:0}
+.tree li:first-child::before,.tree li:last-child::after{border:0}
+.tree li:last-child::before{border-right:2px solid var(--line); border-radius:0 6px 0 0}
+.tree li:first-child::after{border-radius:6px 0 0 0}
+.tree ul ul::before{content:''; position:absolute; top:0; left:50%; height:22px; border-left:2px solid var(--line)}
+.node{font-weight:700; padding:8px 14px; border-radius:8px; background:var(--ink); color:var(--bg); white-space:nowrap}
+.slot{font:inherit; font-size:14px; font-weight:600; min-width:128px; min-height:40px; padding:7px 10px; border-radius:8px; border:2px dashed var(--line); background:var(--surface); color:var(--muted); cursor:pointer; white-space:nowrap}
+.slot.filled{border-style:solid; border-color:var(--blue); color:var(--ink); background:var(--blue-soft)}
+.slot.ok{border-color:var(--ok); background:var(--ok-soft)}
+.slot.err{border-color:var(--err); background:var(--err-soft)}
+.slot.over{border-color:var(--rust)}
+.ex{font-size:13px; color:var(--muted); margin-top:5px; text-align:center; line-height:1.35}
+
+/* Tabellen */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; min-width:560px}
+th,td{padding:9px 10px; border-bottom:1px solid var(--border); text-align:left; vertical-align:middle}
+th{font-size:14px; color:var(--muted); font-weight:600}
+td.c{text-align:center}
+td.c input{width:22px; height:22px; accent-color:var(--blue); cursor:pointer}
+td.ok{background:var(--ok-soft)} td.err{background:var(--err-soft)} td.maybe{background:var(--maybe-soft)}
+.legend{display:flex; flex-wrap:wrap; gap:14px; font-size:14px}
+.legend span::before{content:''; display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px}
+.legend .l-ok::before{background:var(--ok-soft); border:1px solid var(--ok)}
+.legend .l-err::before{background:var(--err-soft); border:1px solid var(--err)}
+.legend .l-maybe::before{background:var(--maybe-soft); border:1px solid var(--maybe)}
+
+/* Multiple Choice */
+.mc{display:flex; flex-direction:column; gap:10px; padding:16px; border:1px solid var(--border); border-radius:10px}
+.mc .q{font-weight:600}
+.mc .opts{display:flex; flex-direction:column; gap:6px}
+.opt{font:inherit; text-align:left; padding:8px 12px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt.ok{background:var(--ok-soft); border-color:var(--ok)}
+.opt.err{background:var(--err-soft); border-color:var(--err)}
+.opt:disabled{cursor:default}
+
+/* Fälle */
+.case{display:flex; flex-direction:column; gap:12px; padding:18px; border:1px solid var(--border); border-radius:10px; background:var(--surface)}
+.case .head{display:flex; gap:10px; align-items:baseline}
+.case .num{font-family:var(--mono); color:var(--rust); font-weight:500}
+.crit{display:flex; flex-wrap:wrap; gap:8px}
+.crit span{font-size:14px; padding:4px 10px; border-radius:999px; background:var(--surface); border:1px solid var(--border)}
+.summary{font-family:var(--mono); font-size:13px; min-height:220px}
+.save-note{font-size:14px; color:var(--muted)}
+@media (prefers-reduced-motion: no-preference){ .opt, .slot, .chip{transition:background-color .15s, border-color .15s} }
+
+/* Schul-Design Carl Engler Schule */
+.start-cta{display:flex; justify-content:center; padding:16px 0 8px}
+.btn.big{font-size:19px; padding:16px 36px; border-radius:6px; box-shadow:0 2px 6px rgba(12,119,183,.25)}
+
+td.c .mark{display:block; font-size:12px; font-weight:700; margin-top:3px; white-space:nowrap}
+td.ok .mark{color:var(--ok)} td.err .mark{color:var(--err)} td.maybe .mark{color:var(--maybe)}
+button[aria-disabled="true"]{opacity:.55; cursor:not-allowed}
+.lock-msg{color:var(--err); font-weight:600}
+.site-head{background:#FFFFFF; border-bottom:1px solid #E6E6E6}
+.site-inner{max-width:1000px; margin:0 auto; padding:18px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px}
+.logo{height:72px; width:auto; display:block}
+.unit{display:flex; flex-direction:column; gap:2px; border-left:3px solid #0C77B7; padding-left:16px}
+.unit-k{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#56616B}
+.site-head .brand{font-family:'Segoe UI',Arial,sans-serif; font-weight:700; font-size:20px; color:#0C77B7; margin:0}
+header.top{box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.top-inner{padding:0 16px; gap:0 16px; justify-content:space-between}
+nav.tabs{gap:0 4px}
+nav.tabs button{border:0; border-radius:0; background:transparent; color:var(--blue); text-transform:uppercase; font-size:14px; font-weight:700; letter-spacing:.02em; padding:14px 12px 11px; border-bottom:3px solid transparent}
+nav.tabs button:hover{border-bottom-color:var(--blue-soft)}
+nav.tabs button[aria-current="true"]{background:transparent; color:var(--blue); border-bottom-color:var(--blue)}
+.saved{margin-left:0; padding:6px 0}
+section.station{scroll-margin-top:70px}
+h1,h2,h3{font-weight:700; letter-spacing:-.01em}
+h1{font-weight:800}
+.eyebrow{color:var(--blue)}
+button.btn, .filebtn, textarea, input[type=text], select{border-radius:4px}
+.input, .task, .calc, .io, .case, .card, .mc{border-radius:6px}
+@media (max-width:560px){ nav.tabs button{padding:9px 7px 7px; font-size:13px} .logo{height:56px} .saved{font-size:12px} }
+.site-foot{max-width:1000px; margin:0 auto; padding:24px 16px 40px; border-top:1px solid var(--border); font-size:13px; color:var(--muted)}
+
+/* ===== Gemeinsame Ergänzungen (Speichern, Musterbeispiel, Grafiken) ===== */
+.saved.warn{color:var(--err)}
+.resumebar{max-width:1000px; margin:12px auto 0; padding:14px 18px; display:flex; flex-direction:column; gap:10px; background:var(--maybe-soft); border:2px solid var(--maybe); border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.resumebar-wrap{padding-inline:16px}
+.lm-more summary{cursor:pointer; font-weight:600; font-size:15px; color:var(--blue)}
+body.lm-drop::after{content:"Speicherstand-Datei hier loslassen"; position:fixed; inset:12px; border:4px dashed var(--blue); border-radius:16px; background:color-mix(in srgb, var(--surface) 85%, transparent); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; color:var(--blue); z-index:50; pointer-events:none}
+.muster{display:flex; flex-direction:column; gap:10px; padding:18px; border:2px solid var(--blue); border-radius:6px; background:var(--blue-soft)}
+.muster .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin:0}
+.muster .solbox{background:var(--surface)}
+.msteps{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:8px}
+.msteps li.off{color:var(--muted)}
+.msteps li.off b{font-weight:600}
+.msteps .solbox{margin-top:4px; font-family:var(--sans); line-height:1.6}
+.solbox{font-size:15px; background:var(--surface2); border-radius:6px; padding:10px 12px; line-height:1.7; overflow-x:auto}
+.helpbar{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center}
+.hintbox, .solution{font-size:15px}
+.fb.info{background:var(--blue-soft); border-left:4px solid var(--blue)}
+
+/* Grafiken */
+.figure{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:14px; display:flex; flex-direction:column; gap:12px}
+.figure .cap{font-size:14px; color:var(--muted)}
+svg.gfx{width:100%; height:auto; display:block; overflow:visible}
+svg.gfx text{font-family:var(--sans); fill:var(--ink)}
+svg.gfx .lbl{font-size:14px; font-weight:600}
+svg.gfx .lbl-s{font-size:12px; fill:var(--muted)}
+svg.gfx .axis{stroke:var(--ink); stroke-width:1.2; fill:none}
+svg.gfx .grid{stroke:var(--border); stroke-width:1; fill:none}
+svg.gfx .lead{stroke:var(--muted); stroke-width:1; fill:none}
+svg.gfx .hot{cursor:pointer}
+svg.gfx .hot:focus{outline:none}
+svg.gfx .hot:focus-visible .ring, svg.gfx .hot.on .ring{stroke:var(--rust); stroke-width:3}
+svg.gfx .ring{fill:var(--surface); stroke:var(--blue); stroke-width:2}
+svg.gfx .ringtxt{font-size:13px; font-weight:700; fill:var(--blue); text-anchor:middle; dominant-baseline:central; pointer-events:none}
+.sim{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr); gap:16px; align-items:start}
+@media (max-width:760px){ .sim{grid-template-columns:1fr} }
+.ctrl{display:flex; flex-direction:column; gap:12px}
+.ctrl label{font-size:14px; display:flex; flex-direction:column; gap:4px}
+.ctrl input[type=range]{width:100%; accent-color:var(--blue)}
+.ctrl .val{font-family:var(--mono); font-size:14px; color:var(--blue)}
+.readout{display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:15px; background:var(--surface2); padding:10px 12px; border-radius:6px}
+.readout b{font-family:var(--mono); font-weight:500}
+.question{font-size:15px; border-left:4px solid var(--maybe); background:var(--maybe-soft); padding:9px 12px; border-radius:6px}
+.segbtns{display:flex; flex-wrap:wrap; gap:6px}
+.segbtns button{font:inherit; font-size:14px; font-weight:600; padding:6px 12px; border-radius:4px; border:1px solid var(--blue); background:var(--surface); color:var(--blue); cursor:pointer}
+.segbtns button[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.infobox{min-height:64px}
+#savepanel .mono, .resumebar .mono{word-break:break-all; overflow-wrap:anywhere}
+/* Struktur: Einführung, Schritte, Problemstellung, Antwort */
+.intro{display:flex; flex-direction:column; gap:10px}
+.stepbox{background:var(--surface); border:1px solid var(--border); border-left:6px solid var(--blue); border-radius:6px; padding:20px 22px; display:flex; flex-direction:column; gap:14px}
+.stepbox h2, .stepbox .sumh{display:flex; align-items:center; gap:12px; font-size:22px; font-weight:700; margin:0}
+.stepbox .no{flex:none; display:inline-flex; width:36px; height:36px; border-radius:50%; background:var(--blue); color:var(--bg); align-items:center; justify-content:center; font-size:18px; font-weight:800}
+.stepbox.save{border-left-color:var(--maybe); background:var(--maybe-soft)}
+.stepbox.save .no{background:var(--maybe)}
+.stepbox.save.done{border-left-color:var(--ok); background:var(--ok-soft)}
+.stepbox.save.done .no{background:var(--ok)}
+details.stepbox > summary{cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px}
+details.stepbox > summary::-webkit-details-marker{display:none}
+details.stepbox[open] > summary{margin-bottom:6px}
+.problem{font-size:20px; font-weight:700; color:var(--rust); border-left:4px solid var(--rust); padding:4px 0 4px 14px; margin:0}
+.answer{background:var(--ok-soft); border:2px solid var(--ok); border-radius:6px; padding:16px 18px; display:flex; flex-direction:column; gap:8px}
+.goals{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:4px}
+table.plan td, table.plan th{vertical-align:top}
+.okmark{color:var(--ok); font-weight:700; white-space:nowrap}
+.nowrap{white-space:nowrap}
+.saved .linkbtn{font-size:13px; padding:0 2px; color:var(--err); font-weight:700}
+/* Startfenster: Speicherort als Pflichtschritt */
+body.lm-gated{overflow:hidden}
+#lm-gate{position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; align-items:center; justify-content:center; padding:16px; overflow:auto}
+.lm-gate-card{background:var(--surface); color:var(--ink); max-width:640px; width:100%; margin:auto; border-radius:10px; border-top:10px solid var(--maybe); padding:26px 28px; display:flex; flex-direction:column; gap:14px; box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lm-gate-card h2{display:flex; align-items:center; gap:12px; font-size:24px; margin:0}
+.lm-gate-card .no{flex:none; display:inline-flex; width:40px; height:40px; border-radius:50%; background:var(--maybe); color:#fff; align-items:center; justify-content:center; font-weight:800; font-size:20px}
+.lm-gate-steps{margin:0; padding-left:24px; display:flex; flex-direction:column; gap:6px}
+.lm-gate-card .mono{word-break:break-all}
+.btn.big{font-size:19px; padding:14px 30px}
+.saved.warn{background:var(--err); color:#fff; padding:5px 12px; border-radius:999px; font-weight:700; margin:4px 0}
+.saved.warn .linkbtn{color:#fff; text-decoration:underline; font-weight:800}
+@media (max-width:560px){ .lm-gate-card{padding:20px 18px} .lm-gate-card h2{font-size:20px} }
+
+.lm-gate-card.ok{border-top-color:var(--ok)} .lm-gate-card .no.ok{background:var(--ok)}
+body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-gated .site-foot{visibility:hidden}
+
+/* Das Wichtigste auf einen Blick */
+.merke{border-top:6px solid var(--ok)}
+.mk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px}
+.mk-item{display:flex; gap:10px; align-items:flex-start; background:var(--surface2); border-radius:8px; padding:12px 14px}
+.mk-no{flex:none; width:28px; height:28px; border-radius:50%; background:var(--ok); color:var(--bg); display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+.mk-f{grid-column:1/-1; background:var(--blue-soft); border-radius:8px; padding:12px 14px}
+.mk-f > div{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:6px}
+
+/* Engine-Bausteine */
+.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:10px}
+.tile{display:flex; flex-direction:column; gap:6px; padding:12px; border:1px solid var(--border); border-radius:6px; background:var(--surface)}
+.tile .num{font-size:22px; color:var(--blue)}
+.tile.ok{background:var(--ok-soft); border-color:var(--ok)}
+.tile.err{background:var(--err-soft); border-color:var(--err)}
+.tile .seg{display:flex; flex-wrap:wrap; gap:4px}
+.tile .seg button{border:1px solid var(--line)!important; border-radius:6px!important}
+.helpbar button[aria-disabled="true"]{opacity:.5}
+.numlist{display:flex; flex-direction:column; gap:12px}
+.numrow{display:flex; flex-direction:column; gap:6px}
+.numrow label{font-weight:500}
+input.numin{width:9em; max-width:100%}
+input.txtin{width:16em; max-width:100%}
+input.ok{border-color:var(--ok)!important; background:var(--ok-soft)}
+input.err{border-color:var(--err)!important; background:var(--err-soft)}
+.assign{display:flex; flex-direction:column; gap:8px; margin-top:10px}
+.arow{display:grid; grid-template-columns:minmax(150px,210px) 1fr; gap:10px; align-items:center}
+.arow .slot{min-height:44px; width:100%}
+@media (max-width:560px){ .arow{grid-template-columns:1fr} }
+.okmark{color:var(--ok); font-weight:600}
+.errmark{color:var(--err); font-weight:600}
+.errl{display:flex; flex-direction:column; gap:6px}
+.eline{font:inherit; text-align:left; display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--ink); cursor:pointer}
+.eline .emark{font-weight:700; color:var(--muted); min-width:1em}
+.eline.marked{border-color:var(--err); background:var(--err-soft)}
+.eline.marked .emark{color:var(--err)}
+.eline.ok{outline:2px solid var(--ok)}
+.eline.err{outline:2px dashed var(--err)}
+.sortl{display:flex; flex-direction:column; gap:6px; padding-left:1.6em; margin:0}
+.sortl li{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:6px; background:var(--surface)}
+.sortl li.ok{border-color:var(--ok); background:var(--ok-soft)}
+.sortl li.err{border-color:var(--err); background:var(--err-soft)}
+.sortl .sbtn{display:flex; gap:4px}
+.sortl .sbtn .btn{padding:4px 10px}
+/* Kurznamen-Analysator */
+.ana{display:flex; flex-direction:column; gap:10px}
+.ana-in{font-size:20px!important; width:14em; max-width:100%}
+.ana-name{font-size:26px; display:flex; flex-wrap:wrap; gap:3px; padding:8px 0}
+.ap{display:inline-block; padding:2px 6px; border-radius:4px; font-family:var(--mono)}
+.ap sup{font-size:11px; margin-left:2px; opacity:.8}
+.ap-g{background:#FCE7D6; color:#7A2E00}
+.ap-h{background:var(--blue-soft); color:var(--ink); border:1px solid var(--blue)}
+.ap-z{background:var(--ok-soft); color:var(--ink); border:1px solid var(--ok)}
+.ap-e{background:#F3E8FF; color:#4B1D7A}
+:root[data-theme="dark"] .ap-g{background:#4A2610; color:#FFD9BD}
+:root[data-theme="dark"] .ap-e{background:#33204A; color:#E9D5FF}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .ap-g{background:#4A2610; color:#FFD9BD} :root:not([data-theme="light"]) .ap-e{background:#33204A; color:#E9D5FF} }
+.ana-list{display:flex; flex-direction:column; gap:4px; margin:0; padding-left:1.4em}
+.ana-list .ap{font-size:14px; margin-right:6px}
+.ana-leg .ap{font-size:12px; margin:0 2px 0 8px}
+.video-q{display:flex; flex-wrap:wrap; gap:6px}
+.glossar{border:1px solid var(--border); border-left:4px solid var(--blue); border-radius:6px; background:var(--surface); padding:10px 14px}
+.glossar summary{cursor:pointer; font-weight:600}
+.glossar dl{display:grid; grid-template-columns:minmax(140px,220px) 1fr; gap:6px 14px; margin:12px 0 4px}
+.glossar dt{font-weight:600}
+.glossar dd{margin:0}
+@media (max-width:560px){ .glossar dl{grid-template-columns:1fr} .glossar dd{margin-bottom:6px} }
+
+.ezelle{margin:4px 0 10px; display:flex; flex-direction:column; align-items:center; gap:2px}
+.ezelle .ez-svg{width:100%; max-width:240px}
+.ezelle label{display:flex; gap:6px; align-items:center}
+.ezelle figcaption{text-align:center}
+
+
+/* Link zurück zur Übersicht (nur sichtbar, wenn die Übersicht bekannt ist) */
+.site-inner .lm-back{margin-left:auto; flex:none; font-size:14px; font-weight:600; color:var(--blue); text-decoration:none; border:1px solid var(--blue); border-radius:999px; padding:5px 12px; white-space:nowrap}
+.site-inner .lm-back:hover{background:var(--blue-soft)}
+@media print{ .lm-back{display:none} }
+</style>
+<div class="site-head">
+  <div class="site-inner">
+    <img class="logo" alt="Carl Engler Schule Karlsruhe" src="data:image/png;base64,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">
+    <div class="unit"><span class="unit-k">Fachschule für Technik – Chemie · Produktionstechnologie</span><span class="brand">LPE 1.1.2a · Bezeichnungssystem der Stähle – Verwendungszweck</span></div>
+  </div>
+</div>
+<header class="top">
+  <div class="top-inner">
+    <nav class="tabs" id="tabs" aria-label="Stationen"></nav>
+    <span id="saved" class="saved" role="status"></span>
+  </div>
+</header>
+<div class="resumebar-wrap"><div id="resumebar" class="resumebar" hidden></div></div>
+
+<main>
+
+<!-- START -->
+<section class="station" id="s0" data-title="Start">
+  <p class="eyebrow">Lehrplaneinheit 1.1.2a · Start · 0–5 Min.</p>
+  <h1>Bezeichnungssystem der Stähle: nach dem Verwendungszweck</h1>
+  <div class="intro">
+    <p class="lead">In jeder Stückliste, auf jedem Typenschild und in jedem Werkszeugnis steht ein Kurzname wie <span class="mono">S235JR</span> oder <span class="mono">P265GH</span>. Wer ihn lesen kann, weiß sofort, wofür ein Stahl gedacht ist und was er aushält.</p>
+    <p>Es gibt zwei Systeme für Kurznamen: nach dem <b>Verwendungszweck</b> und nach der <b>chemischen Zusammensetzung</b>. Diese Lerneinheit (Teil a) behandelt den Verwendungszweck. Teil b folgt in der nächsten Einheit.</p>
+  </div>
+
+  <div class="stepbox save" id="savestep">
+    <h2><span class="no">0</span>Speicherort festlegen</h2>
+    <p>Bevor du anfängst: Lege fest, wo deine Ergebnisse gespeichert werden. Danach wird jede Eingabe automatisch gesichert, und beim nächsten Öffnen ist alles wieder da.</p>
+    <div id="savepanel" style="display:flex;flex-direction:column;gap:10px"></div>
+  </div>
+
+  <div class="stepbox">
+    <h2><span class="no">1</span>Die Problemstellung: das Blech aus dem Lager</h2>
+    <p>Ein Kondensatsammler ist ein Druckbehälter, in dem sich heißes Kondenswasser aus Dampfleitungen sammelt. Sein Mantel ist beschädigt und muss ersetzt werden. Laut Zeichnung ist er aus <span class="mono"><b>P265GH</b></span>. Im Lager liegt nur Blech <span class="mono"><b>S355J2+N</b></span> in derselben Dicke. Ein Kollege meint: „355 ist doch mehr als 265, also ist das Blech sogar besser.“</p>
+    <div class="figure"><div id="fig-problem"></div><p class="small muted">Auf dem Typenschild: PS = höchster zulässiger Druck, TS = höchste zulässige Temperatur.</p></div>
+    <p class="problem">Darf das Blech S355J2+N für den Behälter verwendet werden? Begründe.</p>
+    <div>
+      <label for="hyp1">Deine Vermutung in 2–3 Sätzen</label>
+      <textarea id="hyp1" data-field data-req data-label="Erste Vermutung" placeholder="Ich denke, das Blech darf (nicht) verwendet werden, weil …"></textarea>
+    </div>
+    <p class="muted small">Hier gibt es noch kein Richtig oder Falsch. In Station 5 beantwortest du die Frage mit dem, was du gelernt hast.</p>
+  </div>
+
+  <div class="stepbox">
+    <h2><span class="no">2</span>Deine Lernziele und der Ablauf</h2>
+    <p><b>Am Ende dieser 90 Minuten kannst du …</b></p>
+    <ul class="goals">
+      <li>Stahl und Gusseisen über den Kohlenstoffgehalt abgrenzen und den Einfluss von Kohlenstoff auf Festigkeit, Zähigkeit und Schweißbarkeit beschreiben,</li>
+      <li>Streckgrenze, Zugfestigkeit, Bruchdehnung und Kerbschlagarbeit erklären und aus Messwerten berechnen,</li>
+      <li>Kurznamen nach dem Verwendungszweck entschlüsseln (Hauptsymbole, Zusatzsymbole, Stahlguss),</li>
+      <li>aus einem Anforderungsprofil einen Kurznamen bilden und einen Stahl für ein Bauteil der Chemieanlage begründet auswählen.</li>
+    </ul>
+    <div id="plan"></div>
+    <div class="fb info small"><b>So arbeitest du:</b> Jede Aufgabe hat <b>Prüfen</b>, <b>Tipp</b> und <b>Lösung</b>. Versuche es immer zuerst selbst, nutze dann den Tipp und vergleiche erst danach mit der Lösung. Vor neuen Aufgabentypen zeigt dir ein <b>Musterbeispiel</b>, wie es geht.</div>
+  </div>
+  <div class="start-cta"><button type="button" class="btn big" data-go="s1">Los geht’s mit Station 1 →</button></div>
+</section>
+
+<!-- STATION 1 -->
+<section class="station" id="s1" data-title="1 Stahl">
+  <p class="eyebrow">Station 1 · 5–25 Min.</p>
+  <h1>Stahl und Kohlenstoff</h1>
+  <details class="glossar"><summary>📖 Begriffe dieser Station <span class="small muted">(antippen zum Aufklappen)</span></summary><dl><dt>Kohlenstoff (C)</dt><dd>Chemisches Element, das dem Eisen zugesetzt wird. Schon wenige Zehntel Prozent machen Eisen deutlich fester und härter.</dd><dt>Zementit (Fe₃C)</dt><dd>Eisencarbid, eine harte, spröde Verbindung aus Eisen und Kohlenstoff. So liegt der Kohlenstoff im Stahl meist vor.</dd><dt>Graphit</dt><dd>Reiner Kohlenstoff in Plättchen- oder Kugelform. So liegt der Kohlenstoff im Gusseisen meist vor.</dd><dt>Zugfestigkeit Rm</dt><dd>Gibt an, welche Zugbelastung ein Werkstoff höchstens aushält, bevor er reißt. Angegeben als Kraft pro Quadratmillimeter Querschnitt in N/mm². Beispiel: Rm = 400 N/mm² heißt, ein Stab mit 1 mm² Querschnitt reißt bei etwa 400 N (das Gewicht von rund 40 kg).</dd><dt>Streckgrenze Re</dt><dd>Kraft pro mm², bis zu der sich ein Werkstoff nur elastisch (federnd) verformt. Darüber bleibt er dauerhaft verbogen oder gedehnt. Sie liegt immer unter der Zugfestigkeit.</dd><dt>Bruchdehnung A</dt><dd>Um wie viel Prozent sich eine Probe bis zum Bruch dauerhaft verlängert hat. Großes A = gut verformbar, kleines A = spröde.</dd><dt>zäh</dt><dd>Ein zäher Werkstoff verformt sich deutlich, bevor er bricht, und nimmt dabei viel Energie auf. Ein Versagen kündigt sich an.</dd><dt>spröde</dt><dd>Gegenteil von zäh: Der Werkstoff bricht plötzlich, fast ohne sich vorher zu verformen (wie Glas).</dd><dt>umformen</dt><dd>Form eines Bauteils im festen Zustand ändern: walzen, schmieden, biegen, tiefziehen.</dd><dt>gießen</dt><dd>Flüssiges Metall in eine Form füllen, wo es erstarrt. Gut für komplizierte Formen wie Pumpengehäuse.</dd><dt>schweißbar</dt><dd>Bauteile lassen sich durch örtliches Aufschmelzen fest verbinden, ohne dass die Naht spröde wird oder reißt.</dd></dl></details>
+  <p class="lead">Ziel: Du kannst Stahl und Gusseisen abgrenzen und weißt, was Kohlenstoff im Stahl bewirkt.</p>
+
+  <div class="input">
+    <p class="tag">Einführungsauftrag · ca. 8 Min.</p>
+    <h2>Video Teil 1: Bezeichnung nach dem Verwendungszweck</h2>
+    <p>Schau dir das Video von <b>0:00 bis 7:42</b> an. Achte dabei auf die vier Beobachtungsfragen darunter. Du kannst die Fragen schon vorher lesen.</p>
+    <p><a class="btn" href="https://www.youtube.com/watch?v=lOUD6R2bOrM" target="_blank" rel="noopener">▶ Video öffnen (YouTube)</a></p>
+    <div data-yt="lOUD6R2bOrM" data-start="0"></div>
+    <p class="small">Kapitel: <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=0s" target="_blank" rel="noopener">0:00 Was ist Stahl?</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=55s" target="_blank" rel="noopener">0:55 Gusseisen</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=81s" target="_blank" rel="noopener">1:21 Kurzname</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=149s" target="_blank" rel="noopener">2:29 Verwendungszweck</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=212s" target="_blank" rel="noopener">3:32 Beispiel S235JRC+C</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=288s" target="_blank" rel="noopener">4:48 Kerbschlagarbeit</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=354s" target="_blank" rel="noopener">5:54 Kaltumformbarkeit</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=381s" target="_blank" rel="noopener">6:21 Beispiel GP240GH</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=436s" target="_blank" rel="noopener">7:16 Stahlguss</a></p>
+  </div>
+  <div id="task-a1"></div>
+
+  <div class="input">
+    <p class="tag">Input</p>
+    <h2>Stahl oder Gusseisen? Der Kohlenstoff entscheidet</h2>
+    <p>Reines Eisen ist weich und wenig fest. Erst <b>Kohlenstoff</b> macht daraus einen Konstruktionswerkstoff. Im Stahl liegt er meist als Eisencarbid <span class="mono">Fe₃C</span> (Zementit) vor.</p>
+    <ul>
+      <li><b>Stahl:</b> bis etwa <span class="mono">2 % C</span>. Gut umformbar (walzen, schmieden, biegen), meist schweißbar.</li>
+      <li><b>Gusseisen:</b> über <span class="mono">2 % C</span>, Kohlenstoff meist als Graphit. Gut gießbar, aber kaum umformbar und schlecht schweißbar.</li>
+      <li><b>Je mehr Kohlenstoff, desto fester und härter, aber auch spröder</b> ist ein unlegierter Stahl.</li>
+      <li><b>Zwei Kennwerte</b> brauchst du gleich in der Simulation: Die <b>Zugfestigkeit Rm</b> sagt, welche Zugbelastung der Stahl höchstens aushält, bevor er reißt (Kraft pro mm² Querschnitt, in N/mm²). Die <b>Bruchdehnung A</b> sagt, um wie viel Prozent er sich bis zum Bruch dauerhaft verlängert: Großes A heißt gut verformbar, kleines A heißt spröde. Wie man diese Werte misst, lernst du in Station 2.</li>
+      <li>Zum <b>Schweißen</b> sollten unlegierte Stähle höchstens etwa <span class="mono">0,2 % C</span> enthalten. Deshalb sind Behälter und Rohrleitungen aus kohlenstoffarmem Stahl.</li>
+    </ul>
+  </div>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Simulation · Kohlenstoffgehalt</p>
+    <div class="sim"><div id="fig-c"></div><div class="ctrl" id="ctrl-c"></div></div>
+    <p class="question">Schiebe den Regler langsam nach rechts. Was passiert mit Zugfestigkeit und Bruchdehnung? Wo endet der grüne Bereich?</p>
+    <p class="small muted">Richtwerte für unlegierten, normalgeglühten Stahl und Gusseisen mit Lamellengraphit.</p>
+  </div>
+  <div id="task-a2"></div>
+  <div class="row"><button class="btn secondary" data-go="s2">Weiter zu Station 2 →</button></div>
+</section>
+
+<!-- STATION 2 -->
+<section class="station" id="s2" data-title="2 Kennwerte">
+  <p class="eyebrow">Station 2 · 25–40 Min.</p>
+  <h1>Kennwerte aus dem Zugversuch</h1>
+  <details class="glossar"><summary>📖 Begriffe dieser Station <span class="small muted">(antippen zum Aufklappen)</span></summary><dl><dt>Probe</dt><dd>Genormtes Prüfstück, z. B. ein Rundstab mit dickeren Enden zum Einspannen.</dd><dt>Querschnitt S₀</dt><dd>Fläche des Schnitts quer durch die Probe vor dem Versuch, in mm². Rund: S₀ = π · d² / 4; rechteckig: Breite · Dicke.</dd><dt>Spannung σ</dt><dd>Kraft geteilt durch Querschnitt, in N/mm². So kann man dicke und dünne Proben vergleichen.</dd><dt>Dehnung ε</dt><dd>Verlängerung bezogen auf die Ausgangslänge, in %.</dd><dt>elastisch</dt><dd>Die Verformung geht nach dem Entlasten vollständig zurück, wie bei einer Feder.</dd><dt>plastisch</dt><dd>Die Verformung bleibt nach dem Entlasten erhalten, wie bei einem verbogenen Draht.</dd><dt>Fließen</dt><dd>Beginn der plastischen Verformung: Die Probe dehnt sich, ohne dass die Kraft weiter steigt. Hier liegt die Streckgrenze.</dd><dt>Einschnürung</dt><dd>Kurz vor dem Bruch wird die Probe an einer Stelle deutlich dünner. Die Kraft sinkt, bis die Probe reißt.</dd><dt>Messlänge L₀ / Lu</dt><dd>Abstand zweier Markierungen auf der Probe vor dem Versuch (L₀) und nach dem Bruch (Lu).</dd><dt>kN</dt><dd>Kilonewton: 1 kN = 1000 N.</dd></dl></details>
+  <p class="lead">Die Zahl im Kurznamen ist ein Messwert aus dem Zugversuch. Hier siehst du, wie er entsteht.</p>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Simulation · Zugversuch</p>
+    <div class="sim"><div id="fig-zug"></div><div class="ctrl" id="ctrl-zug"></div></div>
+    <p class="question">Spiele den Versuch für alle drei Stähle ab. Bei welchem Stahl ist Re am größten? Welcher dehnt sich bis zum Bruch am wenigsten?</p>
+  </div>
+  <div class="input">
+    <p class="tag">Input</p>
+    <h2>Was im Zugversuch gemessen wird</h2>
+    <p>Eine genormte Probe wird langsam auseinandergezogen, bis sie bricht. Die Kraft <span class="mono">F</span> wird auf den Anfangsquerschnitt <span class="mono">S₀</span> bezogen: <span class="mono">σ = F / S₀</span> in <span class="mono">N/mm²</span>.</p>
+    <ul>
+      <li><b>Streckgrenze Re:</b> Bis hierhin verformt sich die Probe nur <b>elastisch</b>. Danach bleibt eine Verformung zurück. Bauteile werden mit Re ausgelegt, denn ein bleibend verformtes Bauteil ist meist unbrauchbar.</li>
+      <li><b>Zugfestigkeit Rm:</b> höchste Spannung, die die Probe erträgt: <span class="mono">Rm = Fm / S₀</span>.</li>
+      <li><b>Bruchdehnung A:</b> bleibende Verlängerung nach dem Bruch: <span class="mono">A = (Lu − L₀) / L₀ · 100 %</span>. Großes A heißt: Der Stahl verformt sich deutlich, bevor er bricht.</li>
+    </ul>
+  </div>
+  <div id="task-a3"></div>
+  <div id="ex-a2"></div>
+  <div id="task-a4"></div>
+  <div class="row"><button class="btn secondary" data-go="s3">Weiter zu Station 3 →</button></div>
+</section>
+
+<!-- STATION 3 -->
+<section class="station" id="s3" data-title="3 Aufbau">
+  <p class="eyebrow">Station 3 · 40–52 Min.</p>
+  <h1>Aufbau des Kurznamens nach dem Verwendungszweck</h1>
+  <details class="glossar"><summary>📖 Begriffe dieser Station <span class="small muted">(antippen zum Aufklappen)</span></summary><dl><dt>Kennbuchstabe / Kennzahl</dt><dd>Der erste Buchstabe des Kurznamens nennt den Verwendungszweck, die Zahl danach den wichtigsten Kennwert.</dd><dt>Kerbschlagarbeit KV</dt><dd>Energie in Joule (J), die eine gekerbte Probe beim Durchschlagen mit einem Pendelhammer aufnimmt. Viel Energie = zäh, wenig Energie = spröde.</dd><dt>Joule (J)</dt><dd>Einheit der Energie. 27 J entsprechen etwa der Energie, wenn 2,7 kg aus 1 m Höhe fallen.</dd><dt>Hochlage / Tieflage</dt><dd>In der Kerbschlag-Kurve: oberer Bereich (hohe Energie, zäher Bruch) und unterer Bereich (niedrige Energie, spröder Bruch).</dd><dt>Übergangstemperatur</dt><dd>Temperatur, bei der ein Stahl von zäh zu spröde wechselt. Unterhalb davon kann er bei Stößen plötzlich brechen.</dd><dt>kaltumformbar</dt><dd>Lässt sich ohne Erwärmen gut biegen oder abkanten.</dd><dt>kaltverfestigt (+C)</dt><dd>Durch Umformen im kalten Zustand fester geworden.</dd><dt>normalgeglüht (+N)</dt><dd>Wärmebehandlung: erhitzen und an Luft abkühlen. Ergibt ein gleichmäßiges, feines Gefüge.</dd><dt>vergütet (+QT)</dt><dd>Härten und anschließend Anlassen. Ergibt hohe Festigkeit bei guter Zähigkeit.</dd><dt>weichgeglüht (+A)</dt><dd>Wärmebehandlung, die den Stahl weich und gut bearbeitbar macht.</dd><dt>angelassen (+T)</dt><dd>Erneutes, mäßiges Erwärmen nach dem Härten, um Sprödigkeit abzubauen.</dd><dt>thermomechanisch gewalzt (M)</dt><dd>Walzen bei genau gesteuerten Temperaturen. Ergibt ein feines Gefüge, hohe Festigkeit und gute Zähigkeit.</dd><dt>wetterfest (W)</dt><dd>Bildet an Luft eine dichte, schützende Rostschicht (Patina) und braucht keinen Anstrich.</dd><dt>Hohlprofil (H)</dt><dd>Rohr- oder Kastenquerschnitt im Stahlbau.</dd><dt>Stahlguss (G)</dt><dd>Stahl (unter 2 % C), der in Formen gegossen wird. Zäh wie Stahl. Nicht mit Gusseisen (über 2 % C, spröder) verwechseln.</dd></dl></details>
+  <div class="input">
+    <p class="tag">Input · Hauptsymbole</p>
+    <p class="fb info small">📋 Alle Symbole und Faktoren findest du in der Übersichtstabelle: Button <b>📋 Tabelle</b> rechts oben. Diese Tabelle darfst du auch in der Klausur verwenden.</p>
+    <p>Das Hauptsymbol besteht aus einem <b>Kennbuchstaben</b> für den Verwendungszweck und einer <b>Kennzahl</b>. Steht davor ein <span class="mono">G</span>, handelt es sich um <b>Stahlguss</b> (in Formen gegossener Stahl, kein Gusseisen).</p>
+    <div class="tbl-wrap"><table>
+      <tr><th>Buchstabe</th><th>Verwendung</th><th>Zahl bedeutet</th></tr>
+      <tr><td class="mono"><b>S</b></td><td>Stahlbau</td><td>Mindeststreckgrenze in N/mm²</td></tr>
+      <tr><td class="mono"><b>E</b></td><td>Maschinenbau</td><td>Mindeststreckgrenze in N/mm²</td></tr>
+      <tr><td class="mono"><b>P</b></td><td>Druckbehälterbau</td><td>Mindeststreckgrenze in N/mm²</td></tr>
+      <tr><td class="mono"><b>L</b></td><td>Leitungsrohre</td><td>Mindeststreckgrenze in N/mm²</td></tr>
+      <tr><td class="mono"><b>B</b></td><td>Betonstahl</td><td>charakteristische Streckgrenze in N/mm²</td></tr>
+      <tr><td class="mono"><b>Y</b></td><td>Spannstahl</td><td>Mindestzugfestigkeit in N/mm²</td></tr>
+      <tr><td class="mono"><b>R</b></td><td>Schienenstahl</td><td>Mindesthärte nach Brinell (HBW)</td></tr>
+    </table></div>
+    <p class="tag" style="margin-top:12px">Input · Zusatzsymbole</p>
+    <ul>
+      <li><b>Gruppe 1</b>, beim Stahlbau die <b>Kerbschlagarbeit</b>: Buchstabe = Mindestenergie (<span class="mono">J</span> 27 J, <span class="mono">K</span> 40 J, <span class="mono">L</span> 60 J), Zeichen dahinter = Prüftemperatur (<span class="mono">R</span> +20 °C, <span class="mono">0</span> 0 °C, <span class="mono">2</span> −20 °C). Bei Druckbehälterstählen z. B. <span class="mono">H</span> Hochtemperatur, <span class="mono">L</span> Tieftemperatur, <span class="mono">N</span> normalgeglüht, <span class="mono">G</span> andere Merkmale folgen.</li>
+      <li><b>Gruppe 2:</b> z. B. <span class="mono">C</span> besondere Kaltumformbarkeit, <span class="mono">W</span> wetterfest, <span class="mono">H</span> Hohlprofil.</li>
+      <li><b>Stahlerzeugnisse</b> (mit „+“): Behandlungszustand, z. B. <span class="mono">+N</span> normalgeglüht, <span class="mono">+C</span> kaltverfestigt, <span class="mono">+QT</span> vergütet, <span class="mono">+A</span> weichgeglüht, <span class="mono">+AR</span> wie gewalzt.</li>
+    </ul>
+    <p>Die <b>Kerbschlagarbeit</b> ist ein Maß für die Zähigkeit: Ein Pendel schlägt eine gekerbte Probe durch und misst die Energie, die dabei aufgenommen wird. Bei Kälte können Stähle verspröden. Deshalb gehört zur Energie immer die Prüftemperatur.</p>
+  </div>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Simulation · Kerbschlagbiegeversuch</p>
+    <div class="sim"><div id="fig-kerb"></div><div class="ctrl" id="ctrl-kerb"></div></div>
+    <p class="question">Prüfe S235JR bei +20 °C und bei −20 °C. Was ändert sich am Bruch? Welcher der drei Stähle wäre für eine Stahlkonstruktion im Winter geeignet?</p>
+  </div>
+  <div id="ex-a3"></div>
+  <div id="task-a5"></div>
+  <div id="task-a6"></div>
+  <div class="row"><button class="btn secondary" data-go="s4">Weiter zu Station 4 →</button></div>
+</section>
+
+<!-- STATION 4 -->
+<section class="station" id="s4" data-title="4 Anwenden">
+  <p class="eyebrow">Station 4 · 52–77 Min.</p>
+  <h1>Kurznamen entschlüsseln und bilden</h1>
+  <details class="glossar"><summary>📖 Begriffe dieser Station <span class="small muted">(antippen zum Aufklappen)</span></summary><dl><dt>Druckbehälter</dt><dd>Behälter, in dem ein Überdruck herrscht. Er muss aus geprüften, dafür zugelassenen Werkstoffen gebaut werden.</dd><dt>warmfest / Hochtemperatur (H)</dt><dd>Der Stahl behält auch bei erhöhter Temperatur eine festgelegte Mindestfestigkeit.</dd><dt>Werkszeugnis</dt><dd>Bescheinigung des Herstellers über die geprüften Werte eines gelieferten Stahls.</dd><dt>Rohrbrücke</dt><dd>Stahlgerüst, auf dem Rohrleitungen über Wege und Straßen geführt werden.</dd><dt>Mitnehmerbolzen</dt><dd>Bolzen, der in einer Kupplung die Drehbewegung von einem Teil auf das andere überträgt.</dd></dl></details>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Werkzeug · Kurznamen-Analysator</p>
+    <p class="small">Tippe ein Beispiel an oder gib selbst einen Kurznamen ein. Der Analysator zerlegt ihn in seine Bausteine. Nutze ihn zum Kontrollieren, nicht zum Abschreiben. In der Klausur hast du nur die Übersichtstabelle (Button <b>📋 Tabelle</b> rechts oben).</p>
+    <div id="ana-a"></div>
+  </div>
+  <div id="task-a7"></div>
+  <div id="ex-a4"></div>
+  <div id="task-a8"></div>
+  <div id="task-a9"></div>
+  <div class="row"><button class="btn secondary" data-go="s5">Weiter zu Station 5 →</button></div>
+</section>
+
+<!-- STATION 5 -->
+<section class="station" id="s5" data-title="5 Lösung &amp; Abgabe">
+  <p class="eyebrow">Station 5 · 77–90 Min.</p>
+  <h1>Quiz, Antwort auf die Problemstellung, Abgabe</h1>
+  <div id="task-quiz"></div>
+  <div class="task">
+    <p class="tag">Aufgabe 5b · Antwort auf die Problemstellung</p>
+    <h2>Zurück zum Kondensatsammler</h2>
+    <p class="problem">Darf das Blech S355J2+N für den Behälter aus P265GH verwendet werden?</p>
+    <div class="fb maybe" id="hyp1-show"></div>
+    <label for="hyp2">Überarbeite deine Vermutung. Verwende die Fachbegriffe Kennbuchstabe, Streckgrenze und Zusatzsymbol.</label>
+    <textarea id="hyp2" data-field data-req data-label="Überarbeitete Antwort"></textarea>
+    <div class="row helpbar"><button type="button" class="btn secondary" data-phelp="hint">Tipp</button><button type="button" class="btn secondary" data-phelp="sol">Musterantwort</button></div>
+    <div id="hyp-help"></div>
+    <label for="frage">Was ist noch unklar? Deine Frage für den Unterricht:</label>
+    <textarea id="frage" data-field data-label="Offene Frage"></textarea>
+  </div>
+  <div id="merke"></div>
+  <div class="task">
+    <p class="tag">Abgabe</p>
+    <h2>Ergebnisse sichern</h2>
+    <p>Ist der Speicherordner verbunden, liegt deine Speicherdatei schon fertig im Ordner. Sie ist gleichzeitig deine Abgabe. Sonst speichere sie hier oder kopiere den Text und gib ihn auf dem Weg ab, den deine Lehrkraft genannt hat.</p>
+    <div class="row">
+      <button type="button" class="btn" data-lm="download">Als Textdatei speichern</button>
+      <button class="btn secondary" id="copy">Text kopieren</button>
+      <span class="score" id="save-msg" role="status"></span>
+    </div>
+    <label for="summary">Vorschau</label>
+    <textarea id="summary" class="summary" readonly></textarea>
+  </div>
+</section>
+
+</main>
+<footer class="site-foot">Carl Engler Schule Karlsruhe · Fachschule für Technik – Chemie · Produktionstechnologie</footer>
+
+<script>
+/* ============================================================
+   Gemeinsame Bausteine der Lernmodule (Carl-Engler-Schule)
+   - SaveKit: Speichern in drei Ebenen (Browser, Speicherordner, Datei)
+   - Steps:   Musterbeispiel Schritt für Schritt
+   - G:       SVG-Hilfen für plastische Bilder und flache Diagramme
+   ============================================================ */
+const LM = (function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MARK = "=== WIEDERHERSTELLUNG – diese Zeilen nicht verändern ===";
+const toB64 = s => btoa(unescape(encodeURIComponent(s)));
+const fromB64 = s => decodeURIComponent(escape(atob(s)));
+const hhmm = d => d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+
+/* ---------- IndexedDB: gemerkter Speicherordner ---------- */
+const IDB = {
+  open(){ return new Promise((res,rej)=>{ const r=indexedDB.open("lernmodul-speicher",1); r.onupgradeneeded=()=>r.result.createObjectStore("handles"); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); },
+  async get(k){ try{ const db=await this.open(); return await new Promise((res)=>{ const q=db.transaction("handles").objectStore("handles").get(k); q.onsuccess=()=>res(q.result); q.onerror=()=>res(undefined); }); }catch(e){ return undefined; } },
+  async set(k,v){ try{ const db=await this.open(); await new Promise((res)=>{ const t=db.transaction("handles","readwrite"); t.objectStore("handles").put(v,k); t.oncomplete=res; t.onerror=res; }); }catch(e){} },
+  async del(k){ try{ const db=await this.open(); await new Promise((res)=>{ const t=db.transaction("handles","readwrite"); t.objectStore("handles").delete(k); t.oncomplete=res; t.onerror=res; }); }catch(e){} }
+};
+
+/* ============================================================
+   SaveKit
+   cfg: key, moduleId, moduleTitle, fileStem,
+        getState(), setState(obj), summary() -> lesbarer Text (ohne Speicherblock)
+   ============================================================ */
+function SaveKit(cfg){
+  const PROBE = /lm-probe/.test(location.hash);   // Prüfmodus für die Übersicht
+  const FS_OK = typeof window.showDirectoryPicker === "function" && typeof indexedDB !== "undefined";
+  let dir = null;          // FileSystemDirectoryHandle
+  let perm = "none";       // none | prompt | granted
+  let lastFileSave = null, lastErr = "", writing = false, pending = false, timer = null, choice = null;
+  const statusEl = () => $("#saved"), panel = () => $("#savepanel"), bar = () => $("#resumebar");
+
+  /* --- Text der Datei --- */
+  function fullText(){
+    const st = cfg.getState();
+    const pr = progress();
+    return cfg.summary() + (pr ? `\n\nFORTSCHRITT: ${pr.done}/${pr.total} Stationen erledigt` : "") + "\n\nMODUL-ID: " + cfg.moduleId + "\n" + MARK + "\n" + toB64(JSON.stringify(st)) + "\n";
+  }
+  function parse(txt){
+    const mm = txt.match(/MODUL-ID: (\S+)/);
+    if(mm && mm[1] !== cfg.moduleId){ const t=(txt.match(/LEHRPLANEINHEIT: (.+)/)||[])[1]||mm[1]; return {err:`Diese Datei gehört zu einer anderen Lehrplaneinheit (${t}). Bitte die Datei zu „${cfg.moduleTitle}“ wählen.`}; }
+    const i = txt.indexOf(MARK);
+    if(i<0) return {err:"Diese Datei enthält keinen Speicherstand. Bitte die Datei wählen, die dieses Lernmodul gespeichert hat."};
+    try { return {data: JSON.parse(fromB64(txt.slice(i+MARK.length).trim().split(/\s+/)[0]))}; }
+    catch(e){ return {err:"Der Speicherstand in dieser Datei ist beschädigt."}; }
+  }
+  /* Dateiname nur mit sicheren Zeichen: Umlaute umschreiben, Leerzeichen als _ */
+  const safe = t => String(t||"").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/Ä/g,"Ae").replace(/Ö/g,"Oe").replace(/Ü/g,"Ue").replace(/ß/g,"ss")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[–—]/g,"-").replace(/[^A-Za-z0-9.\- ]+/g,"").trim().replace(/\s+/g,"_");
+  function fileName(){ return `${safe(cfg.fileStem)}_Speicherstand.txt`; }
+
+  /* --- Ebene 1: Browser --- */
+  let lsOk = true;
+  function writeLocal(){ if(PROBE) return; try { localStorage.setItem(cfg.key, JSON.stringify(cfg.getState())); lsOk = true; } catch(e){ lsOk = false; } writeProgress(); }
+  /* Fortschritt für die Übersicht (Stationen wie in der Ablauftabelle) */
+  function progress(){ try { const p = cfg.progress && cfg.progress(); return p && p.total ? {done:p.done|0, total:p.total|0} : null; } catch(e){ return null; } }
+  function writeProgress(){
+    const p = progress(), st = cfg.getState(); if(!p || !st._ts) return;
+    try { const all = JSON.parse(localStorage.getItem("lm-fortschritt")||"{}") || {}; all[cfg.moduleId] = {done:p.done, total:p.total, ts:st._ts}; localStorage.setItem("lm-fortschritt", JSON.stringify(all)); } catch(e){}
+  }
+  function readLocal(){ if(PROBE) return {}; try { return JSON.parse(localStorage.getItem(cfg.key)||"{}") || {}; } catch(e){ return {}; } }
+
+  /* --- Ebene 2: Speicherordner --- */
+  async function writeFile(){
+    if(!dir || perm!=="granted") return;
+    if(writing){ pending = true; return; }
+    writing = true;
+    try {
+      const st = cfg.getState(), name = fileName();
+      const fh = await dir.getFileHandle(name, {create:true});
+      const w = await fh.createWritable(); await w.write(fullText()); await w.close();
+      if(st._file && st._file !== name){ try { await dir.removeEntry(st._file); } catch(e){} }
+      if(st._file !== name){ st._file = name; writeLocal(); }
+      lastFileSave = new Date(); lastErr = "";
+    } catch(e){
+      lastErr = "Datei konnte nicht geschrieben werden."; try{ console.warn("Speicherfehler:", e && e.name, e && e.message); }catch(_){}
+      try { if(await dir.queryPermission({mode:"readwrite"}) !== "granted") perm = "prompt"; } catch(_){}
+    }
+    writing = false; render();
+    if(pending){ pending = false; writeFile(); }
+  }
+  function scheduleFile(){ if(PROBE) return; if(dir && perm==="granted"){ clearTimeout(timer); timer = setTimeout(writeFile, 700); } }
+
+  async function listFiles(){
+    const out = [];
+    for await (const [n,h] of dir.entries()){
+      if(h.kind!=="file" || !/\.txt$/i.test(n)) continue;
+      try {
+        const f = await h.getFile(); if(f.size > 3e6) continue;
+        const txt = await f.text(); if(!txt.includes("MODUL-ID: "+cfg.moduleId)) continue;
+        const p = parse(txt); if(!p.data) continue;
+        out.push({file:n, data:p.data, ts:p.data._ts||f.lastModified, who:(p.data.name||"").trim()});
+      } catch(e){}
+    }
+    return out.sort((a,b)=>b.ts-a.ts);
+  }
+  /* Nach dem Verbinden: passenden Speicherstand suchen und einlesen */
+  async function syncFromDir(){
+    let files = [];
+    try { files = await listFiles(); } catch(e){ files = []; }
+    const st = cfg.getState();
+    const hit = files.find(f => f.file===fileName()) || files[0] || null;   // neuester Speicherstand dieser Einheit
+    if(hit && (!st._ts || hit.ts > st._ts)){ apply(hit.data, `Speicherstand aus „${hit.file}“ eingelesen.`); }
+    else { scheduleFile(); flash(hit ? "Dein Stand im Browser ist neuer als die Datei. Die Datei wird aktualisiert." : "Verbunden. Ab jetzt wird automatisch gespeichert."); }
+  }
+  function apply(data, msg){
+    cfg.setState(data); writeLocal(); flash(msg); render(); scheduleFile();
+  }
+  let skipped = false, failed = false, begun = false;
+  try { skipped = sessionStorage.getItem("lm-skip-"+cfg.moduleId)==="1"; } catch(e){}
+  function skip(){ skipped = true; try { sessionStorage.setItem("lm-skip-"+cfg.moduleId, "1"); } catch(e){} render(); }
+  async function connect(){
+    try {
+      const h = await window.showDirectoryPicker({id:"lernmodul", mode:"readwrite"});
+      dir = h; perm = "granted"; failed = false; await IDB.set("ordner", h); choice = null; render(); await syncFromDir();
+    } catch(e){ failed = true; render(); if(e && e.name!=="AbortError") flash("Ordner konnte nicht verbunden werden."); }
+  }
+  async function resume(){
+    if(!dir) return;
+    try { perm = await dir.requestPermission({mode:"readwrite"}); } catch(e){ perm = "prompt"; }
+    if(perm!=="granted") failed = true;
+    render(); if(perm==="granted") await syncFromDir();
+  }
+
+  /* --- Startfenster: Speicherort ist Schritt 1, erst danach beginnt die Einheit --- */
+  function renderGate(){
+    let g = document.getElementById("lm-gate");
+    const ready = FS_OK && dir && perm==="granted";
+    const need = !skipped && !begun;
+    if(!need){ if(g){ g.remove(); document.body.classList.remove("lm-gated"); window.scrollTo(0,0); } return; }
+    const first = !g;
+    if(!g){ g = document.createElement("div"); g.id = "lm-gate"; g.setAttribute("role","dialog"); g.setAttribute("aria-modal","true"); g.setAttribute("aria-labelledby","lm-gate-h"); document.body.appendChild(g); document.body.classList.add("lm-gated"); }
+    const head = `<p class="eyebrow">${esc(cfg.moduleTitle)}</p>`;
+    let body;
+    if(ready){
+      body = `<h2 id="lm-gate-h"><span class="no ok">✓</span>Speicherort ist verbunden</h2>
+        <p>Ordner <b>„${esc(dir.name)}“</b> · Datei <span class="mono">${esc(fileName())}</span></p>
+        <p>Ab jetzt wird jede Eingabe automatisch gespeichert. Oben rechts siehst du jederzeit, wann zuletzt gespeichert wurde.</p>
+        <div class="row"><button type="button" class="btn big" data-lm="begin">Lerneinheit beginnen →</button></div>`;
+    } else if(!FS_OK){
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Bevor es losgeht: So sicherst du deine Arbeit</h2>
+        <p>Dein Browser kann nicht automatisch in eine Datei speichern (z. B. Firefox, Safari, iPad, Smartphone). Deine Eingaben bleiben in diesem Browser erhalten, aber nur auf diesem Gerät.</p>
+        <ol class="lm-gate-steps"><li>Hast du schon eine Speicherdatei? Dann lade sie jetzt.</li><li>Sichere am Ende der Stunde mit <b>„Zwischenstand als Datei sichern“</b> (Startseite oder letzte Station).</li><li>Tipp: Am PC mit <b>Chrome oder Edge</b> wird automatisch gespeichert.</li></ol>
+        <div class="row"><label class="filebtn" for="lm-gate-load">Speicherdatei laden</label><input type="file" id="lm-gate-load" accept=".txt,text/plain" class="visually-hidden">
+        <button type="button" class="btn big" data-lm="skip">Verstanden – Lerneinheit starten</button></div>`;
+    } else if(dir){
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Willkommen zurück!</h2>
+        <p>Dein Speicherordner <b>„${esc(dir.name)}“</b> ist bekannt. Klicke auf <b>„Weiterarbeiten“</b> und bestätige die Frage des Browsers. Dann wird dein Speicherstand geladen und jede Eingabe wieder automatisch gespeichert.</p>
+        <div class="row"><button type="button" class="btn big" data-lm="resume">Weiterarbeiten</button><button type="button" class="btn secondary" data-lm="connect">Anderen Ordner wählen</button></div>`;
+    } else {
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Bevor es losgeht: Speicherort wählen</h2>
+        <p>Diese Lerneinheit speichert jede deiner Eingaben automatisch in eine Datei. So geht nichts verloren, und beim nächsten Öffnen ist alles wieder da.</p>
+        <ol class="lm-gate-steps"><li>Klicke auf <b>„Speicherordner wählen“</b>.</li><li>${location.protocol==="file:" ? "Wähle den Ordner, in dem diese HTML-Datei liegt (oder deinen eigenen Schulordner)" : "Wähle einen Ordner auf deinem Rechner für deine Speicherdateien, z. B. deinen Schulordner für Produktionstechnologie"}, und klicke auf <b>„Ordner auswählen“</b>.</li><li>Bestätige die Frage des Browsers mit <b>„Dateien bearbeiten“</b> bzw. <b>„Zulassen“</b>.</li></ol>
+        <div class="row"><button type="button" class="btn big" data-lm="connect">Speicherordner wählen</button></div>
+        <p class="small muted">Deine Datei heißt dann: <span class="mono">${esc(fileName())}</span></p>`;
+    }
+    const esc2 = FS_OK && failed ? `<div class="fb maybe small">Kein Ordner gewählt. Versuche es noch einmal. <b>Geht es gar nicht</b> (z. B. gesperrter Schulrechner)? <button type="button" class="linkbtn" data-lm="skip">Ohne automatisches Speichern starten</button> – dann am Ende unbedingt per Datei sichern.</div>` : "";
+    g.innerHTML = `<div class="lm-gate-card${ready?" ok":""}">${head}${body}${esc2}${msg&&!ready?`<p class="score small" role="status">${esc(msg)}</p>`:""}</div>`;
+    const bt = g.querySelector(".btn.big"); if(bt && (first || ready)) bt.focus();
+  }
+  async function disconnect(){ dir = null; perm = "none"; choice = null; await IDB.del("ordner"); render(); flash("Speicherordner getrennt. Gespeichert wird nur noch im Browser."); }
+
+  /* --- Ebene 3: Datei herunterladen / laden --- */
+  function download(){
+    const t = fullText();
+    try {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([t], {type:"text/plain;charset=utf-8"}));
+      a.download = fileName(); document.body.appendChild(a); a.click(); a.remove();
+      flash(`Datei „${fileName()}“ gespeichert (meist im Ordner „Downloads“).`);
+    } catch(e){ flash("Speichern nicht möglich. Bitte den Text unten kopieren."); }
+    return t;
+  }
+  function loadText(txt){ const p = parse(String(txt)); if(p.err){ flash(p.err); return false; } apply(p.data, "Zwischenstand geladen."); return true; }
+  function loadBlob(f){ if(!f) return; const r = new FileReader(); r.onload = () => loadText(r.result); r.readAsText(f, "utf-8"); }
+
+  /* --- Anzeige --- */
+  let msg = "", msgT = null;
+  function flash(m){ msg = m; render(); clearTimeout(msgT); msgT = setTimeout(()=>{ msg=""; render(); }, 9000); }
+  function render(){
+    const s = statusEl();
+    if(s){
+      const base = lsOk ? "Automatisch gespeichert" : "Speichern im Browser nicht möglich";
+      if(dir && perm==="granted") s.textContent = lastErr ? "⚠ " + lastErr : `✓ Gespeichert in Datei${lastFileSave?" · "+hhmm(lastFileSave):""}`;
+      else if(dir) s.innerHTML = `⚠ Speicherordner: <button type="button" class="linkbtn" data-lm="resume">Weiterarbeiten</button>`;
+      else if(FS_OK) s.innerHTML = `⚠ Nicht in Datei gespeichert · <button type="button" class="linkbtn" data-lm="connect">Speicherort wählen</button>`;
+      else s.textContent = base;
+      s.classList.toggle("warn", !!(lastErr || (FS_OK && !(dir && perm==="granted")) || !lsOk));
+    }
+    const b = bar();
+    if(b){
+      if(choice){
+        b.hidden = false;
+        b.innerHTML = `<div><b>Im Speicherordner liegen mehrere Speicherstände.</b> Wer bist du?</div><div class="row">${choice.map((f,i)=>`<button type="button" class="btn small" data-lm-pick="${i}">${esc(f.file)} · ${new Date(f.ts).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</button>`).join("")}<button type="button" class="btn small secondary" data-lm-pick="new">Neu beginnen</button></div>`;
+      } else { b.hidden = true; b.innerHTML = ""; }
+    }
+    renderGate();
+    const step = document.getElementById("savestep"); if(step) step.classList.toggle("done", !!(dir && perm==="granted"));
+    const p = panel(); if(!p) return;
+    let lvl2;
+    if(!FS_OK){
+      lvl2 = `<div class="fb maybe small"><b>Dieser Browser kann nicht automatisch in eine Datei speichern</b> (z. B. Firefox, Safari, iPad, Smartphone). Deine Eingaben bleiben in diesem Browser gespeichert. Sichere den Zwischenstand zusätzlich am Ende jeder Stunde als Datei. Am PC geht es mit Chrome oder Edge auch automatisch.</div>`;
+    } else if(dir && perm==="granted"){
+      lvl2 = `<div class="fb ok small"><b>✓ Automatisches Speichern ist aktiv.</b> Jede Eingabe wird in den Ordner „${esc(dir.name)}“ geschrieben: <span class="mono">${esc(fileName())}</span>${lastFileSave?` · zuletzt ${hhmm(lastFileSave)}`:""}. Beim nächsten Öffnen genügt ein Klick auf „Weiterarbeiten“.</div>
+        <div class="row"><button type="button" class="btn small secondary" data-lm="connect">Anderen Ordner wählen</button><button type="button" class="linkbtn" data-lm="disconnect">Speicherordner trennen</button></div>`;
+    } else if(dir){
+      lvl2 = `<div class="row"><button type="button" class="btn" data-lm="resume">Weiterarbeiten mit Ordner „${esc(dir.name)}“</button><button type="button" class="btn secondary" data-lm="connect">Anderen Ordner wählen</button></div>`;
+    } else {
+      lvl2 = `<p class="small"><b>Empfohlen am PC (Chrome oder Edge):</b> Wähle einmal den Ordner, in dem diese HTML-Datei liegt. Danach wird jede Eingabe automatisch in die Datei <span class="mono">${esc(fileName())}</span> geschrieben. Beim nächsten Öffnen liest das Lernmodul sie nach einem Klick automatisch wieder ein.</p>
+        <div class="row"><button type="button" class="btn" data-lm="connect">Speicherordner verbinden</button></div>`;
+    }
+    p.innerHTML = `${lvl2}
+      <details class="lm-more" ${FS_OK?"":"open"}><summary>Zwischenstand von Hand sichern oder laden</summary>
+        <div class="row" style="margin-top:10px">
+          <button type="button" class="btn secondary" data-lm="download">Zwischenstand als Datei sichern</button>
+          <label class="filebtn" for="lm-load">Zwischenstand laden</label>
+          <input type="file" id="lm-load" accept=".txt,text/plain" class="visually-hidden">
+          <button type="button" class="linkbtn" data-lm="askreset">Alles löschen</button>
+        </div>
+        <p class="small muted" style="margin-top:6px">Tipp: Du kannst deine txt-Datei auch einfach auf diese Seite ziehen.</p>
+        <div class="fb err small" id="lm-reset" hidden>Wirklich alle Eingaben löschen? <button type="button" class="linkbtn" data-lm="reset">Ja, löschen</button> <button type="button" class="linkbtn" data-lm="askreset">Abbrechen</button></div>
+      </details>
+      <p class="score small" role="status">${esc(msg)}</p>`;
+  }
+
+  /* --- Ereignisse --- */
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-lm],[data-lm-pick]"); if(!b) return;
+    if(b.dataset.lmPick!=null){
+      const k = b.dataset.lmPick, files = choice || []; choice = null;
+      if(k==="new"){ render(); scheduleFile(); flash("Neuer Speicherstand angelegt."); }
+      else apply(files[+k].data, `Speicherstand „${files[+k].file}“ eingelesen.`);
+      return;
+    }
+    const a = b.dataset.lm;
+    if(a==="begin"){ begun = true; render(); }
+    else if(a==="connect") connect();
+    else if(a==="resume") resume();
+    else if(a==="disconnect") disconnect();
+    else if(a==="skip") skip();
+    else if(a==="download") download();
+    else if(a==="askreset"){ const r = $("#lm-reset"); if(r) r.hidden = !r.hidden; }
+    else if(a==="reset"){ cfg.setState({}); writeLocal(); scheduleFile(); flash("Alle Eingaben gelöscht."); }
+  });
+  document.addEventListener("change", e => { if(e.target && (e.target.id==="lm-load" || e.target.id==="lm-gate-load")){ if(e.target.id==="lm-gate-load") skip(); loadBlob(e.target.files && e.target.files[0]); e.target.value=""; } });
+  const hasFiles = e => e.dataTransfer && Array.from(e.dataTransfer.types||[]).includes("Files");
+  document.addEventListener("dragover", e => { if(hasFiles(e)){ e.preventDefault(); document.body.classList.add("lm-drop"); } });
+  document.addEventListener("dragleave", e => { if(e.target===document.documentElement || e.clientX<=0 || e.clientY<=0) document.body.classList.remove("lm-drop"); });
+  document.addEventListener("drop", e => { if(!hasFiles(e)) return; e.preventDefault(); document.body.classList.remove("lm-drop"); loadBlob(e.dataTransfer.files[0]); });
+
+  /* --- Start --- */
+  async function init(){
+    if(PROBE){ probe(); return; }
+    backLink();
+    render();
+    if(!FS_OK) return;
+    const h = window.__lmTestDir || await IDB.get("ordner");
+    if(!h) return;
+    dir = h;
+    try { perm = await h.queryPermission({mode:"readwrite"}); } catch(e){ perm = "prompt"; }
+    render();
+    if(perm==="granted") await syncFromDir();
+  }
+
+  /* Prüfmodus (#lm-probe, unsichtbar im iframe der Übersicht): Speicherstand einlesen, Fortschritt melden, nichts speichern */
+  function probe(){
+    window.addEventListener("message", e => {
+      const m = e.data; if(!m || !m.lmProbe) return;
+      const res = {lmProbeResult:true, req:m.req, id:cfg.moduleId};
+      try { const p = parse(String(m.txt||"")); if(p.data){ cfg.setState(p.data); const pr = progress(); if(pr) Object.assign(res, pr); } else res.err = p.err; } catch(err){ res.err = String(err); }
+      parent.postMessage(res, "*");
+    });
+    const ready = () => setTimeout(() => parent.postMessage({lmProbeReady:true, id:cfg.moduleId}, "*"), 30);
+    if(document.readyState === "complete") ready(); else window.addEventListener("load", ready);
+  }
+
+  return {
+    initial: readLocal,
+    changed(meta){ const st = cfg.getState(); if(meta){ writeLocal(); return; } st._ts = Date.now(); writeLocal(); scheduleFile(); render(); },   // meta: nur Ansicht (z. B. Station), kein neuer Arbeitsstand
+    init, download, fullText, loadText, render,
+    _test:{ setDir(h){ dir=h; perm="granted"; return syncFromDir(); }, writeNow: writeFile, listFiles }
+  };
+}
+
+/* Link „Alle Lerneinheiten“: nur wenn die Übersicht in diesem Browser schon einmal geöffnet wurde */
+function backLink(){
+  let href = ""; try { href = localStorage.getItem("lm-uebersicht") || ""; } catch(e){}
+  const host = $(".site-inner"); if(!href || !host || $(".lm-back", host)) return;
+  const a = document.createElement("a"); a.className = "lm-back"; a.href = href; a.textContent = "← Alle Lerneinheiten";
+  host.appendChild(a);
+}
+
+/* ============================================================
+   Musterbeispiel Schritt für Schritt
+   ex = {title, given, sought, steps:[{h, b}], result}
+   ============================================================ */
+function Steps(host, ex){
+  let n = 0;
+  function render(){
+    host.innerHTML = `<div class="muster">
+      <p class="tag">Musterbeispiel</p>
+      <h3>${ex.title}</h3>
+      ${ex.text?`<p>${ex.text}</p>`:""}
+      ${ex.given?`<p class="small"><b>Gegeben:</b> ${ex.given}</p>`:""}
+      ${ex.sought?`<p class="small"><b>Gesucht:</b> ${ex.sought}</p>`:""}
+      <ol class="msteps">${ex.steps.map((s,i)=>`<li class="${i<n?"on":"off"}" ${i<n?"":"aria-hidden=\"true\""}><b>${s.h}</b>${i<n?`<div class="solbox">${s.b}</div>`:""}</li>`).join("")}</ol>
+      ${n>=ex.steps.length && ex.result?`<div class="fb ok small">${ex.result}</div>`:""}
+      <div class="row">
+        <button type="button" class="btn small" data-step="next" ${n>=ex.steps.length?"disabled":""}>${n===0?"Ersten Schritt zeigen":"Nächster Schritt"}</button>
+        <button type="button" class="btn small secondary" data-step="all" ${n>=ex.steps.length?"disabled":""}>Alle Schritte</button>
+        ${n>0?`<button type="button" class="linkbtn" data-step="reset">Von vorn</button>`:""}
+        <span class="small muted">${n} von ${ex.steps.length} Schritten</span>
+      </div>
+      ${n<ex.steps.length?`<p class="small muted">Überlege vor jedem Klick, wie der nächste Schritt aussehen könnte.</p>`:""}
+    </div>`;
+  }
+  host.addEventListener("click", e => {
+    const b = e.target.closest("[data-step]"); if(!b) return;
+    const a = b.dataset.step;
+    n = a==="next" ? Math.min(n+1, ex.steps.length) : a==="all" ? ex.steps.length : 0;
+    render();
+  });
+  render();
+}
+
+/* ============================================================
+   Merke: „Das Wichtigste auf einen Blick“ (Zusammenfassung, druckbar)
+   m = {title, items:[[Begriff, Text], …], formeln:[…]}
+   ============================================================ */
+function Merke(host, m, unitTitle){
+  if(!host || !m) return;
+  const inner = `${m.items.map((it,i)=>`<div class="mk-item"><span class="mk-no">${i+1}</span><div><b>${it[0]}</b><div>${it[1]}</div></div></div>`).join("")}${m.formeln?`<div class="mk-f"><b>Formeln</b><div>${m.formeln.map(x=>`<span class="mono">${x}</span>`).join("")}</div></div>`:""}`;
+  host.classList.add("task","merke");
+  host.innerHTML = `<p class="tag">Das Wichtigste auf einen Blick</p><h2>${m.title||unitTitle}</h2><p class="muted small">Lies die Kernaussagen und prüfe dich: Kannst du jede mit eigenen Worten erklären? Diese Seite kannst du ausdrucken oder als PDF speichern.</p><div class="mk-grid">${inner}</div><div class="row"><button type="button" class="btn secondary mk-print">🖨 Drucken / als PDF</button></div>`;
+  host.querySelector(".mk-print").addEventListener("click", () => {
+    const css = [...document.querySelectorAll("style")].map(x=>x.textContent).join("\n");
+    const w = window.open("", "_blank"); if(!w) return;
+    w.document.write(`<!doctype html><html lang="de" data-theme="light"><head><meta charset="utf-8"><title>${esc(unitTitle)} – Das Wichtigste</title><style>${css} body{background:#fff;padding:24px} .mk-item{break-inside:avoid}</style></head><body><p class="eyebrow">${esc(unitTitle)}</p><h1>Das Wichtigste auf einen Blick</h1><div class="mk-grid">${inner}</div></body></html>`);
+    w.document.close(); w.focus(); setTimeout(()=>w.print(), 300);
+  });
+}
+
+/* ============================================================
+   SVG-Hilfen
+   ============================================================ */
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, kids){
+  const e = document.createElementNS(NS, tag);
+  if(attrs) for(const k in attrs){ if(attrs[k]!=null) e.setAttribute(k, attrs[k]); }
+  (kids||[]).forEach(k => { if(k==null) return; e.appendChild(typeof k==="string" ? document.createTextNode(k) : k); });
+  return e;
+}
+let gid = 0;
+const uid = p => `${p}${++gid}`;
+/* Farbverlauf: stops = [[offset, color, opacity?], …] */
+function lin(defs, stops, x1=0,y1=0,x2=0,y2=1){
+  const id = uid("lg");
+  defs.appendChild(el("linearGradient",{id,x1,y1,x2,y2}, stops.map(s=>el("stop",{offset:s[0],"stop-color":s[1],"stop-opacity":s[2]??1}))));
+  return `url(#${id})`;
+}
+function rad(defs, stops, cx=.35, cy=.3, r=.75){
+  const id = uid("rg");
+  defs.appendChild(el("radialGradient",{id,cx,cy,r}, stops.map(s=>el("stop",{offset:s[0],"stop-color":s[1],"stop-opacity":s[2]??1}))));
+  return `url(#${id})`;
+}
+function shadow(defs, blur=3, dy=2, op=.3){
+  const id = uid("sh");
+  defs.appendChild(el("filter",{id, x:"-20%", y:"-20%", width:"140%", height:"150%"},[ el("feDropShadow",{dx:0, dy, stdDeviation:blur, "flood-color":"#000", "flood-opacity":op}) ]));
+  return `url(#${id})`;
+}
+/* typische Materialien (plastisch) */
+const MAT = {
+  steel: [[0,"#5b6670"],[.18,"#c9d1d8"],[.32,"#f4f7f9"],[.5,"#a9b4bd"],[.78,"#6f7b85"],[1,"#47515a"]],
+  steelDark: [[0,"#3a434b"],[.3,"#8c98a2"],[.5,"#b8c2ca"],[.8,"#56616b"],[1,"#2f363d"]],
+  enamel: [[0,"#0b3f66"],[.25,"#2f86c4"],[.45,"#8fc6ec"],[.6,"#3b8fcb"],[1,"#0a3558"]],
+  copper: [[0,"#6b3416"],[.25,"#d98a52"],[.4,"#ffd2a8"],[.6,"#c87640"],[1,"#5a2a10"]],
+  brass:  [[0,"#6e5410"],[.3,"#d9b44a"],[.45,"#fff0b3"],[.65,"#c39a2c"],[1,"#5c460c"]],
+  water:  [[0,"#5fb7e8",.85],[1,"#1f6fa8",.9]],
+  oil:    [[0,"#e0a83a",.9],[1,"#9a6512",.95]]
+};
+function svgRoot(host, w, h, label){
+  host.innerHTML = "";
+  const s = el("svg",{viewBox:`0 0 ${w} ${h}`, role:"img", "aria-label":label||"", class:"gfx"});
+  const defs = el("defs"); s.appendChild(defs); host.appendChild(s);
+  return {svg:s, defs};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* Animationsschleife: läuft nur, wenn die Grafik sichtbar ist */
+function anim(host, step){
+  let run = !reduced(), vis = false, last = 0, raf = 0;
+  const tick = t => { const dt = Math.min(0.05, (t-(last||t))/1000); last = t; step(dt); raf = (run&&vis) ? requestAnimationFrame(tick) : 0; };
+  const go = () => { if(run && vis && !raf){ last = 0; raf = requestAnimationFrame(tick); } };
+  if("IntersectionObserver" in window){ new IntersectionObserver(es => { vis = es[0].isIntersecting; go(); }).observe(host); } else { vis = true; go(); }
+  return { toggle(){ run = !run; go(); return run; }, start(){ run = true; go(); }, get running(){ return run; } };
+}
+function arrowDefs(defs, color){
+  const id = uid("ar");
+  defs.appendChild(el("marker",{id, viewBox:"0 0 10 10", refX:9, refY:5, markerWidth:7, markerHeight:7, orient:"auto-start-reverse"},[el("path",{d:"M0,0 L10,5 L0,10 z", style:`fill:${color}`})]));
+  return `url(#${id})`;
+}
+
+return { SaveKit, Steps, Merke, G:{el, lin, rad, shadow, MAT, svgRoot, uid, reduced, anim, arrowDefs}, esc, MARK };
+})();
+
+</script>
+<script>
+const U = {
+  id:"lpe-1.1.2a", key:"lernmodul-stahlbezeichnung-a-v1",
+  title:"LPE 1.1.2a Bezeichnungssystem der Stähle – Verwendungszweck",
+  fileStem:"LPE 1.1.2a Bezeichnungssystem der Staehle",
+  plan:[
+    ["s1","Stahl und Kohlenstoff","5–25 Min.","Video Teil 1, Kohlenstoff-Simulation, Aussagen prüfen"],
+    ["s2","Kennwerte aus dem Zugversuch","25–40 Min.","Zugversuch-Simulation, Begriffe zuordnen, Kennwerte berechnen"],
+    ["s3","Aufbau des Kurznamens","40–52 Min.","Haupt- und Zusatzsymbole, Kerbschlag-Simulation, Kennbuchstaben und Kerbschlagsymbole"],
+    ["s4","Kurznamen entschlüsseln und bilden","52–77 Min.","Analysator, Fehler finden, Kurznamen bilden, Stahl für die Anlage auswählen"],
+    ["s5","Quiz, Problemstellung, Abgabe","77–90 Min.","Quiz, Frage zum Kondensatsammler beantworten, Ergebnisse sichern"]
+  ],
+  merke:{title:"Bezeichnung der Stähle nach dem Verwendungszweck",
+    items:[
+      ["Stahl oder Gusseisen","Stahl enthält höchstens etwa 2 % C, Gusseisen mehr. Mehr Kohlenstoff macht unlegierten Stahl fester und härter, aber spröder. Gut schweißbar sind unlegierte Stähle bis etwa 0,2 % C."],
+      ["Kennwerte aus dem Zugversuch","Streckgrenze R<sub>e</sub>: bis hierhin nur elastische Verformung. Zugfestigkeit R<sub>m</sub>: höchste Spannung. Bruchdehnung A: bleibende Verlängerung nach dem Bruch. Bauteile werden mit R<sub>e</sub> ausgelegt."],
+      ["Aufbau des Kurznamens","(G für Stahlguss) → Kennbuchstabe → Kennzahl → Zusatzsymbole → +Behandlungszustand, z. B. S355J2+N."],
+      ["Kennbuchstaben","S Stahlbau, E Maschinenbau, P Druckbehälter, L Leitungsrohre, B Betonstahl: Die Zahl ist die Mindeststreckgrenze in N/mm². Y Spannstahl (Zugfestigkeit), R Schienenstahl (Härte)."],
+      ["Kerbschlagarbeit","Mindestenergie J = 27 J, K = 40 J, L = 60 J; Prüftemperatur R = +20 °C, 0 = 0 °C, 2 = −20 °C. Stähle können bei Kälte verspröden, deshalb gehört die Temperatur immer dazu."],
+      ["Weitere Symbole","H Hochtemperatur, C besondere Kaltumformbarkeit, W wetterfest. Nach dem +: N normalgeglüht, C kaltverfestigt, QT vergütet, A weichgeglüht."],
+      ["Stahlguss ist kein Gusseisen","Ein vorangestelltes G (z. B. GP240GH) bedeutet: in Formen gegossener Stahl mit unter 2 % C, zäh wie Stahl."],
+      ["Auswahl","Eine höhere Zahl ist nicht automatisch besser. Entscheidend sind Kennbuchstabe (Verwendungszweck) und Zusatzsymbole, z. B. P und H für einen warmen Druckbehälter."]
+    ],
+    formeln:["σ = F / S<sub>0</sub>","S<sub>0</sub> = π · d² / 4","R<sub>e</sub> = F<sub>e</sub> / S<sub>0</sub>","R<sub>m</sub> = F<sub>m</sub> / S<sub>0</sub>","A = (L<sub>u</sub> − L<sub>0</sub>) / L<sub>0</sub> · 100 %"]
+  },
+  problem:{
+    hint:"Gliedere in drei Schritte: (1) Was sagt der Kennbuchstabe S, was sagt P? (2) Was bedeutet die Zahl, und bei welcher Temperatur gilt sie? (3) Was bedeuten G und H im Kurznamen P265GH? Denk an Fall 4 in Station 4.",
+    sol:"Nein, das Blech darf nicht eingebaut werden. <b>S</b>355J2+N ist ein Stahl für den <b>Stahlbau</b>, P265GH ein Stahl für <b>Druckbehälter</b>. Die Zahl 355 ist die Mindeststreckgrenze bei Raumtemperatur. Für 190 °C garantiert ein S-Stahl keine Werte. Das <b>H</b> in P265GH steht für Hochtemperatur: Für diesen Stahl sind die Festigkeitswerte auch bei erhöhter Temperatur festgelegt und geprüft. Eine höhere Zahl im Kurznamen heißt also nicht automatisch „besser“. Entscheidend sind Kennbuchstabe (Verwendungszweck) und Zusatzsymbole. Außerdem muss ein Druckbehälter mit dem geprüften, dokumentierten Werkstoff aus der Zeichnung gebaut werden."
+  },
+  tasks:{
+    a1:{type:"mc", tag:"Einführungsauftrag · Beobachtungsfragen", title:"Was hast du im Video gesehen?", intro:"Beantworte die Fragen direkt nach dem Video. Unsicher? Spring mit den Kapitel-Links zur passenden Stelle.",
+      items:[
+        {q:"Ab welchem Kohlenstoffgehalt spricht man nicht mehr von Stahl, sondern von Gusseisen?", o:["ab 0,2 %","ab 0,8 %","über 2 %","über 5 %"], a:2, h:"Kapitel 0:55 „Was ist Gusseisen?“", e:"Bis etwa 2 % C heißt die Eisen-Kohlenstoff-Legierung Stahl, darüber Gusseisen."},
+        {q:"Woraus besteht ein Kurzname eines Stahls grundsätzlich?", o:["nur aus der Werkstoffnummer","aus Hauptsymbolen und gegebenenfalls Zusatzsymbolen","aus Herstellername und Festigkeit","aus Dichte und Schmelztemperatur"], a:1, h:"Kapitel 1:21 „Kurzname“", e:"Hauptsymbole stehen immer da, Zusatzsymbole nur bei Bedarf."},
+        {q:"Was gibt die Zahl 235 im Kurznamen S235JRC+C an?", o:["die Zugfestigkeit in N/mm²","den Kohlenstoffgehalt mal 100","die Mindeststreckgrenze in N/mm²","die Kerbschlagarbeit in J"], a:2, h:"Kapitel 3:32 „Beispiel S235JRC+C“", e:"Bei S, E, P, L, B steht die Zahl für die Mindeststreckgrenze in N/mm²."},
+        {q:"Was bedeutet das vorangestellte G in GP240GH?", o:["Gusseisen","Stahlguss","geglüht","Gruppe 1"], a:1, h:"Kapitel 7:16 „Stahlguss“", e:"G vor dem Hauptsymbol heißt Stahlguss: Stahl, der in Formen gegossen wurde. Das ist kein Gusseisen."}
+      ]},
+    a2:{type:"toggle", tag:"Aufgabe 1 · Umschalten", title:"Stimmt das?", intro:"Entscheide für jede Aussage. Nutze die Simulation oben.", opts:["stimmt","stimmt nicht"],
+      hint:"Schiebe den Regler langsam von 0 % auf 4 % und beobachte: Was passiert mit Rm, was mit A? Wo endet der grüne Bereich?",
+      items:[
+        {t:"Mehr Kohlenstoff macht unlegierten Stahl fester, aber auch spröder.", a:0, e:"Rm steigt, die Bruchdehnung A sinkt."},
+        {t:"Ein Stahl mit 0,45 % C ist besonders gut schweißbar.", a:1, e:"Gut schweißbar sind unlegierte Stähle bis etwa 0,2 % C."},
+        {t:"Ein Eisenwerkstoff mit 3,5 % C ist Gusseisen.", a:0, e:"Über 2 % C spricht man von Gusseisen."},
+        {t:"Gusseisen lässt sich besser schmieden und walzen als Stahl.", a:1, e:"Gusseisen ist kaum umformbar, aber gut gießbar."},
+        {t:"In Stahl liegt der Kohlenstoff meist als Eisencarbid Fe₃C (Zementit) vor.", a:0, e:"Im Gusseisen liegt er dagegen meist als Graphit vor."},
+        {t:"Für Behälter und Rohrleitungen, die geschweißt werden, wählt man kohlenstoffarme Stähle.", a:0, e:"Wenig C (≤ 0,2 %) bedeutet gute Schweißbarkeit und hohe Zähigkeit."}
+      ]},
+    a3:{type:"assign", tag:"Aufgabe 2a · Zuordnen", title:"Begriffe aus dem Zugversuch", intro:"Tippe einen Begriff an und dann das passende Feld. Am Computer kannst du die Begriffe auch hineinziehen. Ein gefülltes Feld antippen legt den Begriff zurück.",
+      chips:["Bruchdehnung A","Spannung σ","Zugfestigkeit Rm","elastische Verformung","Streckgrenze Re"],
+      hint:"Spiele den Zugversuch noch einmal ab und achte darauf, wann Re, Rm und A im Diagramm erscheinen. „Elastisch“ heißt: Die Verformung geht vollständig zurück.",
+      items:[
+        {t:"Kraft geteilt durch den Anfangsquerschnitt der Probe, Einheit N/mm².", a:"Spannung σ"},
+        {t:"Spannung, bis zu der sich die Probe nur elastisch verformt. Wird sie überschritten, bleibt eine Verformung zurück.", a:"Streckgrenze Re"},
+        {t:"Größte Spannung, die die Probe erträgt: Höchstkraft geteilt durch den Anfangsquerschnitt.", a:"Zugfestigkeit Rm"},
+        {t:"Bleibende Verlängerung nach dem Bruch, bezogen auf die Anfangsmesslänge, in %.", a:"Bruchdehnung A"},
+        {t:"Verformung, die nach dem Entlasten vollständig zurückgeht.", a:"elastische Verformung"}
+      ]},
+    a4:{type:"num", tag:"Aufgabe 2b · Rechnen", title:"Kennwerte aus einem Zugversuch", intro:"Gehe vor wie im Musterbeispiel. Komma oder Punkt sind beide erlaubt. Runde auf ganze Zahlen.",
+      hint:"σ = F / S₀. Rechne die Kraft zuerst in N um (1 kN = 1000 N). Bruchdehnung: A = (Lu − L₀) / L₀ · 100 %. Kreisfläche: S₀ = π · d² / 4.",
+      items:[
+        {t:"Eine Flachprobe 20 mm × 4 mm beginnt bei F = 28,4 kN zu fließen. Streckgrenze Re =", a:355, tol:1, u:"N/mm²", e:"S₀ = 80 mm², Re = 28 400 N / 80 mm² = 355 N/mm²: Das passt zu S355.", w:"S₀ = 20 mm · 4 mm = 80 mm²; Re = 28 400 N / 80 mm² = 355 N/mm²"},
+        {t:"Die Höchstkraft derselben Probe beträgt 41,6 kN. Zugfestigkeit Rm =", a:520, tol:1, u:"N/mm²", e:"Rm = 41 600 N / 80 mm² = 520 N/mm².", w:"Rm = 41 600 N / 80 mm² = 520 N/mm²"},
+        {t:"Messlänge vorher L₀ = 80 mm, nach dem Bruch Lu = 97,6 mm. Bruchdehnung A =", a:22, tol:0.3, u:"%", e:"A = 17,6 mm / 80 mm · 100 % = 22 %.", w:"A = (97,6 mm − 80 mm) / 80 mm · 100 % = 22 %"},
+        {t:"Eine Rundprobe mit d = 8 mm fließt bei F = 11,8 kN. Streckgrenze Re =", a:235, tol:1.5, u:"N/mm²", e:"S₀ = π · (8 mm)² / 4 = 50,3 mm², Re ≈ 235 N/mm²: Das passt zu S235.", w:"S₀ = π · 64 mm² / 4 = 50,27 mm²; Re = 11 800 N / 50,27 mm² = 234,7 N/mm² ≈ 235 N/mm²"}
+      ]},
+    a5:{type:"tiles", tag:"Aufgabe 3a · Kacheln", title:"Wofür ist der Stahl gedacht?", intro:"Tippe für jeden Kurznamen den Verwendungszweck an. Entscheidend ist der Kennbuchstabe. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).",
+      opts:["Stahlbau","Maschinenbau","Druckbehälter","Leitungsrohre","Betonstahl"],
+      hint:"Nur der erste Buchstabe zählt (ein vorangestelltes G für Stahlguss überspringst du). S = Stahlbau, E = Engineering (Maschinenbau), P = Pressure (Druck), L = Line pipe (Leitung), B = Beton.",
+      items:[
+        {t:"S275JR", sub:"Träger einer Rohrbrücke", a:0},
+        {t:"E295", sub:"Welle einer Pumpe", a:1},
+        {t:"P355NH", sub:"Mantel eines Autoklaven", a:2},
+        {t:"L360", sub:"Ferngasleitung", a:3},
+        {t:"B500B", sub:"Bewehrung im Fundament", a:4},
+        {t:"GP240GH", sub:"Gehäuse eines Dampfventils", a:2}
+      ]},
+    a6:{type:"select", tag:"Aufgabe 3b · Dropdown", title:"Welches Kerbschlagsymbol passt?", intro:"Wähle das Symbol, das genau die Anforderung beschreibt. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).", head:["Anforderung","Symbol"],
+      opts:["JR","J0","J2","KR","K0","K2","LR","L0","L2"],
+      hint:"Der Buchstabe steht für die Mindestenergie (J = 27 J, K = 40 J, L = 60 J). Das zweite Zeichen steht für die Prüftemperatur (R = +20 °C, 0 = 0 °C, 2 = −20 °C).",
+      items:[
+        {t:"mindestens 27 J bei +20 °C", a:"JR"},
+        {t:"mindestens 27 J bei 0 °C", a:"J0"},
+        {t:"mindestens 27 J bei −20 °C", a:"J2"},
+        {t:"mindestens 40 J bei −20 °C", a:"K2"},
+        {t:"mindestens 60 J bei 0 °C", a:"L0"}
+      ]},
+    a7:{type:"errors", tag:"Aufgabe 4a · Fehler finden", title:"Der Prüfbericht des Praktikanten", intro:"Ein Praktikant hat Kurznamen entschlüsselt. Tippe jede Zeile an, die einen Fehler enthält. Richtige Zeilen lässt du unmarkiert. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).",
+      hint:"Prüfe in jeder Zeile drei Dinge: Stimmt der Verwendungszweck? Ist die Zahl die Streckgrenze? Passen Kerbschlagsymbol und Temperatur? Der Analysator oben hilft.",
+      items:[
+        {t:"S275JR: Stahlbaustahl, Mindeststreckgrenze 275 N/mm², 27 J bei +20 °C.", f:false},
+        {t:"E295: Maschinenbaustahl mit einer Zugfestigkeit von 295 N/mm².", f:true, e:"Die 295 ist die Mindeststreckgrenze, nicht die Zugfestigkeit."},
+        {t:"S355J0W: Stahlbaustahl, 355 N/mm², 27 J bei 0 °C, wetterfest.", f:false},
+        {t:"GP240GH: Gusseisen für Druckbehälter, warmfest.", f:true, e:"G vorne heißt Stahlguss, nicht Gusseisen."},
+        {t:"S235JRC+C: C bedeutet besondere Kaltumformbarkeit, +C bedeutet kaltverfestigt.", f:false},
+        {t:"S355J2: 27 J bei +20 °C.", f:true, e:"J2 heißt 27 J bei −20 °C."},
+        {t:"P265GH: Druckbehälterstahl, Mindeststreckgrenze 265 N/mm², für hohe Temperaturen.", f:false}
+      ]},
+    a8:{type:"text", tag:"Aufgabe 4b · Kurznamen bilden", title:"Vom Anforderungsprofil zum Kurznamen", intro:"Schreibe den Kurznamen ohne Leerzeichen. Groß- und Kleinschreibung wird nicht bewertet. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).",
+      hint:"Reihenfolge: (G für Stahlguss) → Kennbuchstabe → Streckgrenze → Kerbschlagsymbol → weitere Zusatzsymbole → +Behandlungszustand. Bei Druckbehälterstählen kündigt G an, dass weitere Merkmale folgen, z. B. GH.",
+      items:[
+        {t:"Stahlbaustahl, Mindeststreckgrenze 355 N/mm²", a:"S355"},
+        {t:"Druckbehälterstahl für einen Stickstoffbehälter, Mindeststreckgrenze 295 N/mm²", a:"P295"},
+        {t:"Maschinenbaustahl, Mindeststreckgrenze 360 N/mm²", a:"E360"},
+        {t:"Stahlguss für Druckbehälter, Mindeststreckgrenze 235 N/mm², für hohe Temperaturen", a:["GP235GH","GP235H"], e:"Üblich ist die Schreibweise GP235GH (wie P265GH): G = weitere Merkmale folgen, H = Hochtemperatur."},
+        {t:"Stahlbaustahl, 275 N/mm², 27 J bei −20 °C, normalgeglüht geliefert", a:"S275J2+N"},
+        {t:"Stahlbaustahl, 355 N/mm², 27 J bei 0 °C, wetterfest", a:"S355J0W"}
+      ]},
+    a9:{type:"cases", tag:"Aufgabe 4c · Fallaufgabe mit Begründung", title:"Welcher Stahl für welches Bauteil?", intro:"Wähle aus der Liste und begründe in 1–2 Sätzen mit den Symbolen im Kurznamen. Der Lösungsvorschlag öffnet sich erst nach deiner Begründung. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).",
+      choiceLabel:"Stahl", opts:["S235JR","S355J2","S355J0W","E360","P265GH","GP240GH"],
+      items:[
+        {t:"Rohrbrücke im Freien", d:"Eine Rohrbrücke über die Werksstraße soll ohne Anstrich auskommen. Im Winter wird es bis etwa 0 °C kalt.", a:["S355J0W"], h:"Ohne Anstrich im Freien: Welches Zusatzsymbol hilft gegen Witterung? Und welches Kerbschlagsymbol deckt 0 °C ab?", s:"S355J0W: S = Stahlbau, J0 = 27 J bei 0 °C, W = wetterfest. Wetterfeste Stähle bilden eine schützende Rostschicht (Patina) und brauchen keinen Anstrich."},
+        {t:"Kondensatsammler", d:"Mantelblech eines Druckbehälters, Betriebsdruck 12 bar, Betriebstemperatur 190 °C.", a:["P265GH"], h:"Druck → welcher Kennbuchstabe? Hohe Temperatur → welches Zusatzsymbol? Gegossen wird hier nichts.", s:"P265GH: P = Druckbehälterbau, 265 N/mm² Mindeststreckgrenze, H = Hochtemperatur. Ein gewalztes Blech, also kein Stahlguss."},
+        {t:"Ventilgehäuse einer Dampfleitung", d:"Das Gehäuse hat eine komplizierte Innenform und wird gegossen. Dampf mit 250 °C und 16 bar.", a:["GP240GH"], h:"Komplizierte Form → gegossen. Wie kennzeichnet man Stahlguss? Und Druck + Temperatur?", s:"GP240GH: G = Stahlguss, P = Druckbehälter, H = Hochtemperatur. Gusseisen wäre hier zu spröde, Stahlguss ist zäh und warmfest."},
+        {t:"Stützkonstruktion eines Außentanks", d:"Hoch belastete Stahlkonstruktion im Freien, im Winter bis −20 °C, wird beschichtet.", a:["S355J2"], h:"Hohe Last → hohe Streckgrenze. −20 °C → welches Kerbschlagsymbol? Denk an die Simulation in Station 3.", s:"S355J2: hohe Streckgrenze, J2 = 27 J bei −20 °C. S235JR wäre bei Kälte nicht zäh genug: Er ist nur bei +20 °C geprüft."},
+        {t:"Mitnehmerbolzen einer Rührwerkskupplung", d:"Ein gedrehtes Maschinenteil, das auf Verschleiß und Biegung beansprucht wird. Es wird nicht geschweißt.", a:["E360"], h:"Maschinenteil, nicht Stahlbau und nicht Druckbehälter: Welcher Kennbuchstabe passt?", s:"E360: Maschinenbaustahl mit hoher Streckgrenze. Er hat viel Kohlenstoff, ist dadurch fest und verschleißfest, aber schlecht schweißbar. Das spielt hier keine Rolle."}
+      ]},
+    quiz:{type:"mc", tag:"Aufgabe 5a · Quiz", title:"Quiz: 8 Fragen",
+      items:[
+        {q:"Welcher Kennwert steht bei einem S-Stahl im Hauptsymbol?", o:["Zugfestigkeit","Mindeststreckgrenze","Kerbschlagarbeit","Härte"], a:1, h:"Station 3: Die Zahl nach S, E, P, L, B …", e:"Konstruiert wird mit der Streckgrenze, weil sich Bauteile nicht bleibend verformen dürfen."},
+        {q:"Ein Bauteil darf sich im Betrieb nicht bleibend verformen. Welcher Kennwert ist deshalb für die Auslegung entscheidend?", o:["Bruchdehnung","Zugfestigkeit","Streckgrenze","Kerbschlagarbeit"], a:2, h:"Ab welchem Wert bleibt im Zugversuch eine Verformung zurück?", e:"Oberhalb der Streckgrenze bleibt eine plastische Verformung zurück."},
+        {q:"Was bedeutet J2 in S355J2?", o:["27 J bei −20 °C","27 J bei +20 °C","40 J bei −20 °C","2 % Kohlenstoff"], a:0, h:"J = 27 J, die Ziffer steht für die Temperatur.", e:"R = +20 °C, 0 = 0 °C, 2 = −20 °C."},
+        {q:"Warum muss bei der Kerbschlagarbeit immer die Prüftemperatur angegeben werden?", o:["Weil Stähle bei Kälte verspröden können","Weil das Pendel bei Kälte langsamer ist","Weil sich die Probe bei Wärme verlängert","Weil die Norm das aus Tradition fordert"], a:0, h:"Erinnere dich an die Kurve in der Kerbschlag-Simulation.", e:"Unterhalb der Übergangstemperatur bricht der Stahl spröde und nimmt kaum Energie auf."},
+        {q:"Was bedeutet +N am Ende eines Kurznamens?", o:["Nickel legiert","normalgeglüht","nicht schweißbar","für Offshore"], a:1, h:"Symbole nach dem + beschreiben den Behandlungszustand.", e:"+N = normalgeglüht bzw. normalisierend gewalzt."},
+        {q:"Welcher Stahl ist für einen Druckbehälter bei 200 °C gedacht?", o:["S355J2","E335","P265GH","S235JRC"], a:2, h:"P und H …", e:"P = Druckbehälter, H = Hochtemperatur."},
+        {q:"GP240GH ist …", o:["Gusseisen","Stahlguss","ein Grauguss","ein Gleitlagerwerkstoff"], a:1, h:"Was bedeutet das G vor dem Hauptsymbol?", e:"Stahlguss ist in Formen gegossener Stahl, mit unter 2 % C. Gusseisen hat über 2 % C."},
+        {q:"Welcher unlegierte Stahl ist am besten schweißbar?", o:["mit 0,15 % C","mit 0,45 % C","mit 0,8 % C","mit 1,0 % C"], a:0, h:"Station 1: Wo endet der grüne Bereich im Diagramm?", e:"Bis etwa 0,2 % C gilt unlegierter Stahl als gut schweißbar."}
+      ]}
+  }
+};
+
+/* ============================================================
+   Aufgaben-Engine (datengetrieben) für Lerneinheiten
+   Erwartet global: U = {id, title, fileStem, key, plan, tasks, problem}
+   Aufgabentypen: toggle, tiles, select, num, text, assign, sort, matrix, errors, mc, cases
+   ============================================================ */
+const E = (function(){
+"use strict";
+const {SaveKit} = LM;
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = LM.esc;
+
+let S = {};
+const SK = SaveKit({
+  key:U.key, moduleId:U.id, moduleTitle:U.title, fileStem:U.fileStem,
+  getState:()=>S, setState:o=>{ S = o||{}; ensure(); renderAll(); }, summary:()=>summaryText(),
+  progress:()=>({done:U.plan.filter(p=>doneFor(p[0])).length, total:U.plan.length})
+});
+S = SK.initial();
+function ensure(){ ["t","sc","dirty"].forEach(k => { if(!S[k] || typeof S[k] !== "object") S[k] = {}; }); Object.keys(U.tasks).forEach(id => { if(!S.t[id] || typeof S.t[id] !== "object") S.t[id] = {}; }); }
+ensure();
+function save(){ SK.changed(); renderTabs(); if(current===last) updateSummary(); }
+const H = {};
+
+/* ---------- Navigation ---------- */
+const stations = $$("section.station");
+const last = stations[stations.length-1].id;
+let current = stations[0].id;
+function show(id){
+  if(!document.getElementById(id)) return;
+  stations.forEach(s => { s.hidden = s.id !== id; });
+  current = id; S.tab = id; SK.changed(true); renderTabs();
+  if(id === last) updateSummary();
+  document.dispatchEvent(new CustomEvent("lm-show", {detail:id}));
+  window.scrollTo({top:0, behavior:"auto"});
+}
+function taskDone(id){
+  const t = U.tasks[id], a = S.t[id];
+  if(t.type==="mc") return Object.keys(a).length === t.items.length;
+  if(t.type==="cases") return t.items.every((c,i)=>a[i] && a[i].revealed);
+  return S.sc[id] != null;
+}
+function doneFor(sid){
+  const sec = document.getElementById(sid);
+  const tasks = $$("[data-task]", sec).map(d => d.dataset.task);
+  const req = $$("[data-req]", sec).map(d => d.id);
+  if(!tasks.length && !req.length) return false;
+  return tasks.every(taskDone) && req.every(id => (S[id]||"").trim().length > 0);
+}
+function renderPlan(){
+  const h = $("#plan"); if(!h) return;
+  h.innerHTML = `<div class="tbl-wrap"><table class="plan"><tr><th>Station</th><th>Zeit</th><th>Was du tust</th><th>Stand</th></tr>${U.plan.map(([id,t,z,w],i)=>`<tr><td><a href="#${id}" data-go="${id}"><b>${i+1} · ${t}</b></a></td><td class="nowrap">${z}</td><td class="small">${w}</td><td>${doneFor(id)?'<span class="okmark">✓ erledigt</span>':'<span class="muted small">offen</span>'}</td></tr>`).join("")}</table></div>`;
+}
+function renderTabs(){
+  renderPlan();
+  $("#tabs").innerHTML = stations.map(s => `<button type="button" data-tab="${s.id}" class="${doneFor(s.id)?"done":""}" aria-current="${s.id===current}"><span class="dot" aria-hidden="true"></span>${s.dataset.title}${doneFor(s.id)?' <span class="visually-hidden">erledigt</span>':''}</button>`).join("");
+}
+document.addEventListener("click", e => { const t = e.target.closest("[data-tab],[data-go]"); if(t){ e.preventDefault(); show(t.dataset.tab || t.dataset.go); } });
+
+/* ---------- Freitexte ---------- */
+const fields = $$("textarea[data-field]");
+fields.forEach(f => f.addEventListener("input", () => { S[f.id] = f.value; save(); if(f.id==="hyp2") renderProblemHelp(); if(current===last) updateSummary(); }));
+
+/* ---------- Hilfsfunktionen ---------- */
+const num = v => { const x = parseFloat(String(v||"").replace(/\s/g,"").replace(",", ".")); return isFinite(x) ? x : NaN; };
+const fmt = x => String(x).replace(".", ",");
+const norm = v => String(v||"").replace(/[\s ]/g,"").replace(/[–—]/g,"-").toUpperCase();
+const ckd = id => S.sc[id] != null && !S.dirty[id];
+const fbLine = (ok, it) => ok ? `<div class="fb ok small">✓ Richtig.${it.e?" "+it.e:""}</div>` : `<div class="fb err small">✗ Noch nicht richtig. Nutze den Tipp.</div>`;
+function shuffled(n, seed){ const a = [...Array(n).keys()]; let s = seed||7; for(let i=n-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } if(a.every((v,i)=>v===i) && n>1) [a[0],a[1]]=[a[1],a[0]]; return a; }
+
+/* ---------- Aufgabentypen ---------- */
+const T = {};
+T.toggle = {
+  body(t,a,ck){ const tiles = t.type==="tiles";
+    return `<div class="${tiles?"tiles":"rw"}">` + t.items.map((it,i)=>{ const v=a[i], ok = v===it.a;
+      return `<div class="${tiles?"tile":"rw-item"} ${tiles&&ck&&v!=null?(ok?"ok":"err"):""}">${tiles?`<div class="num mono">${it.t}</div>${it.sub?`<div class="small muted">${it.sub}</div>`:""}`:`<span>${it.t}</span>`}<div class="seg" role="group" aria-label="${esc(String(it.t).replace(/<[^>]+>/g,""))}">${t.opts.map((o,j)=>`<button type="button" data-v="${i}:${j}" aria-pressed="${v===j}">${o}</button>`).join("")}</div>${ck&&v!=null?(tiles?`<div class="small">${ok?"✓ richtig":"✗ falsch"}</div>`:fbLine(ok,it)):""}</div>`; }).join("") + `</div>`; },
+  click(t,a,b){ if(!b.dataset.v) return false; const [i,j]=b.dataset.v.split(":").map(Number); a[i]=j; return true; },
+  ok:(t,it,v)=>v===it.a,
+  sol:t=>`<div class="solbox">${t.items.map(it=>`<b>${it.t}</b> → ${t.opts[it.a]}${it.e?". "+it.e:""}`).join("<br>")}</div>`
+};
+T.tiles = T.toggle;
+T.select = {
+  body(t,a,ck){ return `<div class="tbl-wrap"><table>${t.head?`<tr>${t.head.map(h=>`<th>${h}</th>`).join("")}</tr>`:""}${t.items.map((it,i)=>{ const v=a[i]||"", ok=v===it.a;
+    return `<tr><td>${it.t}</td>${it.sub!=null?`<td class="muted small">${it.sub}</td>`:""}<td class="${ck&&v?(ok?"ok":"err"):""}"><select data-i="${i}" aria-label="Auswahl ${i+1}"><option value="">– wählen –</option>${(it.opts||t.opts).map(o=>`<option ${o===v?"selected":""}>${o}</option>`).join("")}</select>${ck&&v?`<div class="small" style="margin-top:4px">${ok?"✓ "+(it.e||"Richtig."):"✗ Falsch."}</div>`:""}</td></tr>`; }).join("")}</table></div>`; },
+  input(t,a,e){ const s=e.target.closest("select"); if(!s) return false; a[s.dataset.i]=s.value; return true; },
+  ok:(t,it,v)=>v===it.a,
+  sol:t=>`<div class="tbl-wrap"><table>${t.items.map(it=>`<tr><td>${it.t}</td><td><b>${it.a}</b>${it.e?`<div class="small muted">${it.e}</div>`:""}</td></tr>`).join("")}</table></div>`
+};
+T.num = {
+  body(t,a,ck){ return `<div class="numlist">${t.items.map((it,i)=>{ const v=a[i]||"", ok=T.num.ok(t,it,v);
+    return `<div class="numrow"><label for="${t.id}-n${i}">${it.t}</label><div class="row" style="gap:6px;flex-wrap:nowrap"><input type="text" inputmode="decimal" id="${t.id}-n${i}" data-i="${i}" value="${esc(v)}" class="numin ${ck&&v?(ok?"ok":"err"):""}" autocomplete="off"><span class="mono">${it.u||""}</span></div>${ck&&v?fbLine(ok,it):""}</div>`; }).join("")}</div>`; },
+  input(t,a,e){ const s=e.target.closest("input[data-i]"); if(!s) return false; a[s.dataset.i]=s.value; return "soft"; },
+  ok:(t,it,v)=>{ const x=num(v); return isFinite(x) && Math.abs(x-it.a) <= (it.tol!=null?it.tol:Math.abs(it.a)*0.01+1e-9); },
+  sol:t=>`<div class="solbox">${t.items.map(it=>`${it.t} <b>${fmt(it.a)} ${it.u||""}</b>${it.w?`<div class="small">${it.w}</div>`:""}`).join("<br>")}</div>`
+};
+T.text = {
+  body(t,a,ck){ return `<div class="numlist">${t.items.map((it,i)=>{ const v=a[i]||"", ok=T.text.ok(t,it,v);
+    return `<div class="numrow"><label for="${t.id}-x${i}">${it.t}</label><input type="text" id="${t.id}-x${i}" data-i="${i}" value="${esc(v)}" class="mono txtin ${ck&&v?(ok?"ok":"err"):""}" autocomplete="off" spellcheck="false" placeholder="Kurzname">${ck&&v?fbLine(ok,it):""}</div>`; }).join("")}</div>`; },
+  input:T.num.input,
+  ok:(t,it,v)=>v && [].concat(it.a).some(x=>norm(x)===norm(v)),
+  sol:t=>`<div class="solbox">${t.items.map(it=>`${it.t} → <b class="mono">${[].concat(it.a)[0]}</b>${it.e?`<div class="small">${it.e}</div>`:""}`).join("<br>")}</div>`
+};
+let pick = {};
+T.assign = {
+  body(t,a,ck){ const used = Object.values(a);
+    const bank = t.chips.filter(c=>!used.includes(c)).map(c=>`<button type="button" class="chip" draggable="true" data-chip="${esc(c)}" aria-pressed="${pick[t.id]===c}">${c}</button>`).join("") || `<span class="small muted">Alle Begriffe verteilt.</span>`;
+    return `<div class="bank">${bank}</div><div class="assign">${t.items.map((it,i)=>{ const v=a[i], ok=v===it.a;
+      return `<div class="arow"><button type="button" class="slot ${v?"filled":""} ${ck&&v?(ok?"ok":"err"):""}" data-slot="${i}" aria-label="Feld ${i+1}">${v||"…"}</button><div class="small">${it.t}${ck&&v?`<div class="${ok?"okmark":"errmark"}">${ok?"✓":"✗"}</div>`:""}</div></div>`; }).join("")}</div>`; },
+  click(t,a,b){
+    const c=b.closest("[data-chip]"), s=b.closest("[data-slot]");
+    if(c){ pick[t.id] = pick[t.id]===c.dataset.chip ? null : c.dataset.chip; return "view"; }
+    if(s){ const i=s.dataset.slot; if(a[i]){ delete a[i]; return true; } if(pick[t.id]){ a[i]=pick[t.id]; pick[t.id]=null; return true; } }
+    return false; },
+  ok:(t,it,v)=>v===it.a,
+  sol:t=>`<div class="solbox">${t.items.map(it=>`<b>${it.a}</b>: ${it.t}`).join("<br>")}</div>`
+};
+T.sort = {
+  order(t,a){ if(!a.o || a.o.length!==t.items.length) a.o = shuffled(t.items.length, t.items.length*13+t.id.length); return a.o; },
+  body(t,a,ck){ const o=T.sort.order(t,a);
+    return `<ol class="sortl">${o.map((k,p)=>`<li class="${ck?(k===p?"ok":"err"):""}"><span class="mono">${t.items[k].t}</span><span class="sbtn"><button type="button" class="btn small secondary" data-mv="${p}:-1" aria-label="nach oben" ${p===0?"disabled":""}>▲</button><button type="button" class="btn small secondary" data-mv="${p}:1" aria-label="nach unten" ${p===o.length-1?"disabled":""}>▼</button></span></li>`).join("")}</ol>`; },
+  click(t,a,b){ if(!b.dataset.mv) return false; const [p,d]=b.dataset.mv.split(":").map(Number), o=T.sort.order(t,a), q=p+d; if(q<0||q>=o.length) return false; [o[p],o[q]]=[o[q],o[p]]; return true; },
+  score(t,a){ const o=T.sort.order(t,a); return o.filter((k,p)=>k===p).length; },
+  sol:t=>`<div class="solbox"><ol>${t.items.map(it=>`<li><span class="mono"><b>${it.t}</b></span>${it.e?` – ${it.e}`:""}</li>`).join("")}</ol></div>`
+};
+T.matrix = {
+  body(t,a,ck){ return `<div class="tbl-wrap"><table><tr><th>${t.rowHead||""}</th>${t.cols.map(c=>`<th style="text-align:center">${c}</th>`).join("")}</tr>${t.items.map((it,i)=>{ const r=a[i]||[], ok=T.matrix.ok(t,it,r);
+    return `<tr><td>${it.t}${ck?`<div class="small ${ok?"okmark":"errmark"}">${ok?"✓ "+(it.e||""):"✗ Zeile prüfen"}</div>`:""}</td>${t.cols.map((c,j)=>`<td class="c"><input type="checkbox" data-m="${i}:${j}" aria-label="${esc(c)}" ${r[j]?"checked":""}></td>`).join("")}</tr>`; }).join("")}</table></div>`; },
+  input(t,a,e){ const c=e.target.closest("[data-m]"); if(!c) return false; const [i,j]=c.dataset.m.split(":").map(Number); a[i]=a[i]||[]; a[i][j]=c.checked; return true; },
+  ok:(t,it,r)=>it.v.every((v,j)=>!!v===!!(r&&r[j])),
+  sol:t=>`<div class="tbl-wrap"><table><tr><th></th>${t.cols.map(c=>`<th style="text-align:center">${c}</th>`).join("")}</tr>${t.items.map(it=>`<tr><td>${it.t}</td>${it.v.map(v=>`<td style="text-align:center">${v?"✓":"–"}</td>`).join("")}</tr>`).join("")}</table></div>`
+};
+T.errors = {
+  body(t,a,ck){ return `<div class="errl">${t.items.map((it,i)=>{ const m=!!a[i], ok=m===!!it.f;
+    return `<button type="button" class="eline ${m?"marked":""} ${ck?(ok?"ok":"err"):""}" data-el="${i}" aria-pressed="${m}"><span class="emark" aria-hidden="true">${m?"✗":"○"}</span><span>${it.t}${ck&&!ok?`<span class="small"> – ${it.f?"enthält einen Fehler":"stimmt"}</span>`:""}</span></button>`; }).join("")}</div>`; },
+  click(t,a,b){ if(b.dataset.el==null) return false; a[b.dataset.el] = !a[b.dataset.el]; return true; },
+  ok:(t,it,v)=>!!v===!!it.f,
+  sol:t=>`<div class="solbox">${t.items.map(it=>`${it.f?"✗":"✓"} ${it.t}${it.f?`<div class="small"><b>Richtig:</b> ${it.e}</div>`:""}`).join("<br>")}</div>`
+};
+T.mc = {
+  score:(t,a)=>t.items.filter((it,i)=>a[i]===it.a).length,
+  body(t,a){ return `<div style="display:flex;flex-direction:column;gap:12px">${t.items.map((it,i)=>{ const ans=a[i], hk=t.id+"-"+i;
+    const opts = it.o.map((o,j)=>`<button type="button" class="opt ${ans!=null?(j===it.a?"ok":j===ans?"err":""):""}" data-q="${i}" data-o="${j}" ${ans!=null?"disabled":""}>${o}</button>`).join("");
+    const tip = ans==null ? `<div class="row"><button type="button" class="linkbtn" data-mctip="${hk}">${H[hk]?"Tipp ausblenden":"Tipp"}</button></div>${H[hk]?`<div class="fb info small">${it.h}</div>`:""}` : "";
+    const fb = ans!=null ? `<div class="fb ${ans===it.a?"ok":"err"} small"><b>${ans===it.a?"Richtig.":"Nicht ganz."}</b> Lösung: ${it.o[it.a]}. ${it.e}</div>` : "";
+    return `<div class="mc"><div class="q">${i+1}. ${it.q}</div><div class="opts">${opts}</div>${tip}${fb}</div>`; }).join("")}</div>`; },
+  click(t,a,b){ const tp=b.closest("[data-mctip]"); if(tp){ H[tp.dataset.mctip]=!H[tp.dataset.mctip]; return "view"; }
+    const o=b.closest(".opt"); if(!o||o.disabled) return false; a[o.dataset.q]=+o.dataset.o; return true; }
+};
+T.cases = {
+  score:(t,a)=>t.items.filter((c,i)=>a[i]&&a[i].revealed).length,
+  body(t,a){ return `<div style="display:flex;flex-direction:column;gap:14px">${t.items.map((c,i)=>{ const st=a[i]||{}, txt=(st.text||"").trim(), ready=st.choice&&txt.length>=15;
+    const sol = st.revealed ? `<div class="fb ${c.a.includes(st.choice)?"ok":"maybe"}"><b>${c.a.includes(st.choice)?"Deine Wahl passt.":"Vergleiche mit deiner Wahl."}</b> ${c.s}</div>` : "";
+    return `<div class="case"><div class="head"><span class="num">Fall ${i+1}</span><h3>${c.t}</h3></div><p>${c.d}</p>
+      <div class="grid2"><div><label for="${t.id}-c${i}">${t.choiceLabel||"Auswahl"}</label><select id="${t.id}-c${i}" data-ci="${i}" data-f="choice"><option value="">– wählen –</option>${t.opts.map(g=>`<option ${g===st.choice?"selected":""}>${g}</option>`).join("")}</select></div>
+      <div><label for="${t.id}-t${i}">Begründung</label><textarea id="${t.id}-t${i}" data-ci="${i}" data-f="text" style="min-height:70px">${esc(st.text||"")}</textarea></div></div>
+      <div class="row"><button type="button" class="btn secondary small" data-casetip="${i}">${H[t.id+"c"+i]?"Tipp ausblenden":"Tipp"}</button><button type="button" class="btn secondary" data-reveal="${i}" aria-disabled="${ready||st.revealed?"false":"true"}">${st.revealed?"Lösungsvorschlag angezeigt":"Lösungsvorschlag anzeigen"}</button><span class="lock-msg small" role="status" id="${t.id}-lock${i}"></span></div>
+      ${H[t.id+"c"+i]?`<div class="fb info small"><b>Tipp:</b> ${c.h}</div>`:""}${sol}</div>`; }).join("")}</div>`; },
+  input(t,a,e){ const x=e.target; if(x.dataset.ci==null) return false; const i=x.dataset.ci; a[i]=a[i]||{}; a[i][x.dataset.f]=x.value;
+    const st=a[i], b=document.querySelector(`#task-${t.id} [data-reveal="${i}"]`); if(b&&!st.revealed) b.setAttribute("aria-disabled", st.choice&&(st.text||"").trim().length>=15?"false":"true"); return "soft"; },
+  click(t,a,b){ const tp=b.closest("[data-casetip]"); if(tp){ H[t.id+"c"+tp.dataset.casetip]=!H[t.id+"c"+tp.dataset.casetip]; return "view"; }
+    const r=b.closest("[data-reveal]"); if(!r) return false; const i=r.dataset.reveal, st=a[i]||{};
+    if(!st.revealed){ const miss=[]; if(!st.choice) miss.push("eine Auswahl treffen"); if((st.text||"").trim().length<15) miss.push("eine Begründung schreiben");
+      if(miss.length){ document.getElementById(`${t.id}-lock${i}`).textContent = "Erst "+miss.join(" und ")+"."; return false; } }
+    a[i]=st; st.revealed=true; return true; }
+};
+
+/* ---------- Aufgaben rendern ---------- */
+function scoreOf(id){ const t=U.tasks[id], a=S.t[id], ty=T[t.type];
+  if(ty.score) return ty.score(t,a);
+  return t.items.filter((it,i)=>ty.ok(t,it,a[i])).length; }
+function scoreText(id){ const t=U.tasks[id], a=S.t[id];
+  if(t.type==="mc"){ const d=Object.keys(a).length, r=t.items.filter((it,i)=>a[i]===it.a).length; return d?`${r} von ${d} beantworteten Fragen richtig`+(d===t.items.length?" · abgeschlossen":""):""; }
+  if(t.type==="cases") return "";
+  if(S.sc[id]==null) return "";
+  if(S.dirty[id]) return "Geändert: bitte erneut prüfen.";
+  const N=t.items.length, n=S.sc[id];
+  return `${n} von ${N} richtig` + (t.goal ? (n>=t.goal?" · Ziel erreicht":` · Ziel: ${t.goal}`) : ""); }
+function frame(id){
+  const t=U.tasks[id], host=document.getElementById("task-"+id);
+  const help = !["mc","cases"].includes(t.type);
+  host.innerHTML = `<p class="tag">${t.tag}</p><h2>${t.title}</h2>${t.intro?`<p class="muted small">${t.intro}</p>`:""}<div class="tb"></div>
+    ${help?`<div class="row helpbar"><button type="button" class="btn" data-check>Prüfen</button><button type="button" class="btn secondary" data-help="hint">Tipp</button><button type="button" class="btn secondary" data-help="sol">Lösung</button><span class="score" role="status"></span></div><div class="th"></div>`:`<div class="row"><span class="score" role="status"></span></div>`}${t.after||""}`;
+}
+function renderTask(id){
+  const t=U.tasks[id], host=document.getElementById("task-"+id); if(!host) return;
+  $(".tb",host).innerHTML = T[t.type].body(t, S.t[id], ckd(id));
+  $(".score",host).textContent = scoreText(id);
+  renderHelp(id);
+}
+function renderHelp(id){
+  const t=U.tasks[id], host=document.getElementById("task-"+id), th=$(".th",host); if(!th) return;
+  const ready = S.sc[id]!=null;
+  $$("[data-help='sol']",host).forEach(b=>{ b.setAttribute("aria-disabled", ready?"false":"true"); b.title = ready?"":"Erst prüfen, dann ist die Lösung freigeschaltet."; });
+  th.innerHTML = (H[id+"hint"]?`<div class="fb info small"><b>Tipp:</b> ${t.hint}</div>`:"") +
+    (H[id+"sol"] ? (ready ? (t.sol || T[t.type].sol(t)) : `<div class="fb err small">Erst prüfen, dann ist die Lösung freigeschaltet.</div>`) : "");
+}
+function initTasks(){
+  Object.keys(U.tasks).forEach(id => {
+    const t=U.tasks[id]; t.id=id; const host=document.getElementById("task-"+id); if(!host) return;
+    host.classList.add("task"); host.dataset.task=id; frame(id);
+    host.addEventListener("click", e => {
+      const b=e.target.closest("button"); if(!b || b.closest(".th")) return;
+      if(b.hasAttribute("data-check")){ S.sc[id]=scoreOf(id); delete S.dirty[id]; save(); renderTask(id); return; }
+      if(b.dataset.help){ H[id+b.dataset.help]=!H[id+b.dataset.help]; renderHelp(id); return; }
+      const ty=T[t.type]; if(!ty.click) return;
+      const r=ty.click(t,S.t[id],b); if(!r) return;
+      if(r===true){ if(t.type==="mc"||t.type==="cases") S.sc[id]=scoreOf(id); else if(S.sc[id]!=null) S.dirty[id]=true; save(); }
+      renderTask(id);
+    });
+    const onIn = e => { const ty=T[t.type]; if(!ty.input) return; const r=ty.input(t,S.t[id],e); if(!r) return;
+      if(S.sc[id]!=null && t.type!=="cases"){ S.dirty[id]=true; $(".score",host).textContent="Geändert: bitte erneut prüfen."; }
+      save(); if(r!=="soft") renderTask(id); };
+    host.addEventListener("input", onIn);
+    if(t.type==="assign"){
+      host.addEventListener("dragstart", e => { const c=e.target.closest("[data-chip]"); if(c){ e.dataTransfer.setData("text/plain", c.dataset.chip); } });
+      host.addEventListener("dragover", e => { if(e.target.closest("[data-slot]")) e.preventDefault(); });
+      host.addEventListener("drop", e => { const s=e.target.closest("[data-slot]"); if(!s) return; e.preventDefault(); const c=e.dataTransfer.getData("text/plain"); if(!c) return;
+        const a=S.t[id]; Object.keys(a).forEach(k=>{ if(a[k]===c) delete a[k]; }); a[s.dataset.slot]=c; if(S.sc[id]!=null) S.dirty[id]=true; save(); renderTask(id); });
+    }
+  });
+}
+
+
+/* ---------- YouTube: eingebettet nur, wenn die Seite von einem Webserver kommt (lokal blockiert YouTube die Einbettung) ---------- */
+$$("[data-yt]").forEach(h => {
+  if(!/^https?:$/.test(location.protocol)) return;
+  const st = +(h.dataset.start||0);
+  h.innerHTML = `<div style="position:relative;padding-top:56.25%;border-radius:6px;overflow:hidden;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/${h.dataset.yt}?start=${st}&rel=0" title="Video der Lehrkraft" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+});
+
+/* ---------- Problemstellung ---------- */
+function renderProblemHelp(){
+  const h=$("#hyp-help"); if(!h) return; const ready=(S.hyp2||"").trim().length>=40;
+  $$("[data-phelp='sol']").forEach(b=>b.setAttribute("aria-disabled", ready?"false":"true"));
+  h.innerHTML = (H.phint?`<div class="fb info small"><b>Tipp:</b> ${U.problem.hint}</div>`:"") +
+    (H.psol ? (ready?`<div class="solbox"><b>Musterantwort:</b> ${U.problem.sol}</div>`:`<div class="fb err small">Schreib zuerst deine eigene überarbeitete Antwort (mindestens zwei Sätze).</div>`) : "");
+}
+document.addEventListener("click", e => { const b=e.target.closest("[data-phelp]"); if(!b) return; H["p"+b.dataset.phelp]=!H["p"+b.dataset.phelp]; renderProblemHelp(); });
+
+/* ---------- Zusammenfassung ---------- */
+function summaryText(){
+  const L=[], d=new Date();
+  L.push("Carl Engler Schule Karlsruhe · Fachschule für Technik – Chemie · Produktionstechnologie");
+  L.push("LERNEINHEIT: " + U.title);
+  L.push("Stand: " + d.toLocaleDateString("de-DE") + " " + d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}));
+  stations.forEach(sec => {
+    L.push(""); L.push(sec.dataset.title.toUpperCase());
+    $$("[data-task],textarea[data-field]", sec).forEach(x => {
+      if(x.dataset.task){ const id=x.dataset.task, t=U.tasks[id], a=S.t[id];
+        if(t.type==="cases"){ L.push("  "+t.tag); t.items.forEach((c,i)=>{ const st=a[i]||{}; L.push(`    Fall ${i+1} ${c.t}: ${st.choice||"–"}`); L.push(`       Begründung: ${(st.text||"–").trim()}`); }); }
+        else if(t.type==="mc"){ L.push(`  ${t.tag}: ${t.items.filter((it,i)=>a[i]===it.a).length}/${t.items.length} richtig (${Object.keys(a).length} beantwortet)`); }
+        else L.push(`  ${t.tag}: ${S.sc[id]!=null?S.sc[id]+"/"+t.items.length+" richtig":"nicht geprüft"}`);
+      } else { L.push("  " + (x.dataset.label||x.id) + ": " + ((S[x.id]||"–").trim())); }
+    });
+  });
+  return L.join("\n");
+}
+function updateSummary(){
+  const s=$("#summary"); if(s) s.value = SK.fullText();
+  const h=$("#hyp1-show"); if(h) h.innerHTML = "<b>Deine erste Vermutung:</b> " + (esc((S.hyp1||"").trim()) || "<i>noch nichts notiert (siehe Start)</i>");
+}
+const cp=$("#copy"); if(cp) cp.addEventListener("click", () => {
+  const t=SK.fullText(); $("#summary").value=t;
+  const fb=()=>{ const ta=$("#summary"); ta.focus(); ta.select(); $("#save-msg").textContent="Text markiert: jetzt Strg+C drücken."; };
+  try { navigator.clipboard.writeText(t).then(()=>{ $("#save-msg").textContent="Kopiert."; }, fb); } catch(e){ fb(); }
+});
+
+function renderAll(){
+  fields.forEach(f => { f.value = S[f.id] || ""; });
+  Object.keys(U.tasks).forEach(renderTask);
+  renderProblemHelp(); updateSummary(); renderTabs();
+}
+initTasks();
+renderAll();
+SK.init();
+/* ---------- Das Wichtigste auf einen Blick (U.merke) → LM.Merke in common.js ---------- */
+if(U.merke) LM.Merke(document.getElementById("merke"), U.merke, U.title);
+const hs = location.hash.slice(1);
+show(document.getElementById(hs) && hs[0]==="s" ? hs : (document.getElementById(S.tab) ? S.tab : stations[0].id));
+window.__lm = {SK, get S(){ return S; }};
+return {$, $$, esc, num, fmt, get S(){ return S; }, save, show};
+})();
+
+/* ============================================================
+   Kurznamen-Analysator für Stähle (DIN EN 10027-1, Auszug)
+   STAHL.parse(name) -> {art, teile:[{s, k:"g|h|z|e", t}]} | {err}
+   k: g = Stahlguss, h = Hauptsymbol, z = Zusatzsymbol, e = Erzeugnis
+   ============================================================ */
+const STAHL = (function(){
+"use strict";
+const VZ = {S:["Stahl für den Stahlbau","Mindeststreckgrenze","N/mm²"], E:["Maschinenbaustahl","Mindeststreckgrenze","N/mm²"], P:["Stahl für Druckbehälter","Mindeststreckgrenze","N/mm²"],
+  L:["Stahl für Leitungsrohre","Mindeststreckgrenze","N/mm²"], B:["Betonstahl","charakteristische Streckgrenze","N/mm²"], Y:["Spannstahl","Mindestzugfestigkeit","N/mm²"],
+  R:["Schienenstahl","Mindesthärte","HBW"], H:["Flacherzeugnis aus höherfestem Stahl zum Kaltumformen","Mindeststreckgrenze","N/mm²"]};
+const KS = {J:27, K:40, L:60}, KT = {R:"+20", "0":"0", "2":"−20", "3":"−30", "4":"−40", "5":"−50", "6":"−60"};
+const Z1 = {S:{M:"thermomechanisch gewalzt", N:"normalgeglüht bzw. normalisierend gewalzt", Q:"vergütet", G:"andere Merkmale folgen"},
+  P:{G:"andere Merkmale folgen", H:"für Hochtemperatur (warmfest)", L:"für Tieftemperatur", M:"thermomechanisch gewalzt", N:"normalgeglüht bzw. normalisierend gewalzt", Q:"vergütet", R:"für Raumtemperatur", X:"für Hoch- und Tieftemperatur", B:"für Gasflaschen", S:"für einfache Druckbehälter", T:"für Rohre"}};
+const Z2 = {C:"mit besonderer Kaltumformbarkeit", D:"für Schmelztauchüberzüge", E:"für Emaillierung", F:"zum Schmieden", H:"Hohlprofil", L:"für tiefe Temperaturen", M:"thermomechanisch gewalzt", N:"normalgeglüht bzw. normalisierend gewalzt", O:"für Offshore", P:"Spundwandstahl", Q:"vergütet", S:"für den Schiffbau", T:"für Rohre", W:"wetterfest", G:"andere Merkmale folgen"};
+const ZC = {E:"vorgeschriebener maximaler Schwefelgehalt", R:"vorgeschriebener Bereich des Schwefelgehalts", D:"zum Drahtziehen", C:"besondere Kaltumformbarkeit", S:"für Federn", U:"für Werkzeuge", W:"für Schweißdraht", G:"andere Merkmale"};
+const EZ = {A:"weichgeglüht", C:"kaltverfestigt", N:"normalgeglüht", AR:"wie gewalzt (Lieferzustand)", QT:"vergütet", T:"angelassen", U:"unbehandelt", M:"thermomechanisch behandelt", CR:"kaltgewalzt", ZE:"elektrolytisch verzinkt", Z:"feuerverzinkt", H:"besondere Härtbarkeit", S:"behandelt auf Kaltscherbarkeit"};
+const F = {Cr:4, Co:4, Mn:4, Ni:4, Si:4, W:4, Al:10, Be:10, Cu:10, Mo:10, Nb:10, Pb:10, Ta:10, Ti:10, V:10, Zr:10, Ce:100, N:100, P:100, S:100, C:100, B:1000};
+const NAME = {Cr:"Chrom", Co:"Cobalt", Mn:"Mangan", Ni:"Nickel", Si:"Silicium", W:"Wolfram", Al:"Aluminium", Be:"Beryllium", Cu:"Kupfer", Mo:"Molybdän", Nb:"Niob", Pb:"Blei", Ta:"Tantal", Ti:"Titan", V:"Vanadium", Zr:"Zirconium", Ce:"Cer", N:"Stickstoff", P:"Phosphor", S:"Schwefel", C:"Kohlenstoff", B:"Bor"};
+const pc = x => (Math.round(x*1000)/1000).toString().replace(".", ",") + " %";
+
+function produkt(rest, teile){
+  const m = rest.match(/^((?:\+[A-Z]{1,2})*)$/); if(!m) return false;
+  (rest.match(/\+[A-Z]{1,2}/g)||[]).forEach(p => { const k=p.slice(1); teile.push({s:p, k:"e", t: EZ[k] ? "Behandlungszustand: "+EZ[k] : "Zusatzsymbol für Stahlerzeugnisse"}); });
+  return true;
+}
+function parse(raw){
+  let n = String(raw||"").replace(/\s/g,"").replace(/[–—]/g,"-");
+  if(!n) return {err:"Gib einen Kurznamen ein."};
+  const teile = []; let art = "";
+  const plus = n.indexOf("+"), main = plus>=0 ? n.slice(0,plus) : n, prod = plus>=0 ? n.slice(plus) : "";
+  let s = main;
+  if(/^G[SEPLBCX0-9H]/.test(s) && !/^G\d+$/.test(s)){ teile.push({s:"G", k:"g", t:"Stahlguss: Der Stahl wird in Formen gegossen. Nicht mit Gusseisen verwechseln!"}); s = s.slice(1); }
+  let m;
+  if((m = s.match(/^HS(\d+)-(\d+)-(\d+)-(\d+)$/))){
+    art = "Schnellarbeitsstahl (chemische Zusammensetzung)";
+    teile.push({s:"HS", k:"h", t:"Schnellarbeitsstahl (high speed)"});
+    ["W","Mo","V","Co"].forEach((e,i)=>teile.push({s:(i?"-":"")+m[i+1], k:"h", t:`${NAME[e]} (${e}): ${m[i+1]} %`}));
+  } else if((m = s.match(/^X(\d+)((?:[A-Z][a-z]?)+)([\d-]*)$/))){
+    art = "Hochlegierter Stahl (chemische Zusammensetzung)";
+    teile.push({s:"X", k:"h", t:"hochlegiert: mindestens ein Legierungselement über 5 %"});
+    teile.push({s:m[1], k:"h", t:`Kohlenstoff: ${m[1]} : 100 = ${pc(m[1]/100)}`});
+    const el = m[2].match(/[A-Z][a-z]?/g), zs = m[3] ? m[3].split("-").filter(Boolean) : [];
+    if(zs.length > el.length) return {err:"Mehr Zahlen als Legierungselemente: Kurzname prüfen."};
+    el.forEach((e,i)=>teile.push({s:e, k:"h", t: NAME[e] ? `${NAME[e]}${zs[i]!=null?`: ${zs[i]} % (hochlegiert: Zahl = Prozent, kein Faktor)`:": geringer Anteil, nicht beziffert"}` : "unbekanntes Element"}));
+    if(m[3]) teile.push({s:m[3], k:"h", t:"Gehalte in ganzen Prozent, in der Reihenfolge der Elemente"});
+  } else if((m = s.match(/^C(\d+)([A-Z]*)$/))){
+    art = "Unlegierter Stahl (chemische Zusammensetzung)";
+    teile.push({s:"C", k:"h", t:"unlegierter Stahl (Kohlenstoffstahl)"});
+    teile.push({s:m[1], k:"h", t:`Kohlenstoff: ${m[1]} : 100 = ${pc(m[1]/100)}`});
+    for(const c of m[2]) teile.push({s:c, k:"z", t: ZC[c] || "Zusatzsymbol"});
+  } else if((m = s.match(/^(\d+)((?:[A-Z][a-z]?)+)([\d-]*)$/))){
+    art = "Niedriglegierter Stahl (chemische Zusammensetzung)";
+    teile.push({s:m[1], k:"h", t:`kein Kennbuchstabe → niedriglegiert (kein Element über 5 %). Kohlenstoff: ${m[1]} : 100 = ${pc(m[1]/100)}`});
+    const el = m[2].match(/[A-Z][a-z]?/g), zs = m[3] ? m[3].split("-").filter(Boolean) : [];
+    if(zs.length > el.length) return {err:"Mehr Zahlen als Legierungselemente: Kurzname prüfen."};
+    el.forEach((e,i)=>teile.push({s:e, k:"h", t: !NAME[e] ? "unbekanntes Element" : zs[i]!=null ? `${NAME[e]}: ${zs[i]} : ${F[e]} = ${pc(zs[i]/F[e])} (Faktor ${F[e]})` : `${NAME[e]}: geringer Anteil, nicht beziffert`}));
+    if(m[3]) teile.push({s:m[3], k:"h", t:"Gehalte mit Faktor multipliziert, in der Reihenfolge der Elemente"});
+  } else if((m = s.match(/^([SEPLBYRH])(\d+)(.*)$/))){
+    const v = VZ[m[1]]; art = "Bezeichnung nach dem Verwendungszweck";
+    teile.push({s:m[1], k:"h", t:v[0]});
+    teile.push({s:m[2], k:"h", t:`${v[1]}: ${m[2]} ${v[2]}`});
+    let r = m[3];
+    const k = r.match(/^([JKL])([R0-6])/);
+    if(k && (m[1]==="S")){ teile.push({s:k[0], k:"z", t:`Kerbschlagarbeit mindestens ${KS[k[1]]} J bei ${KT[k[2]]} °C`}); r = r.slice(2); }
+    const z1 = Z1[m[1]] || {};
+    for(const c of r){ teile.push({s:c, k:"z", t: (m[1]==="P"||m[1]==="L") ? (z1[c]||Z2[c]||"Zusatzsymbol") : (Z2[c] || z1[c] || "Zusatzsymbol")}); }
+  } else return {err:"Diesen Kurznamen kann der Analysator nicht lesen. Prüfe die Schreibweise (z. B. S235JR, C45E, 42CrMo4, X5CrNi18-10, HS6-5-2-5)."};
+  if(prod && !produkt(prod, teile)) return {err:"Die Zusatzsymbole nach dem „+“ sind nicht lesbar."};
+  return {art, teile};
+}
+function widget(host, presets, start){
+  host.innerHTML = `<div class="ana"><div class="row" style="gap:8px"><input type="text" class="mono ana-in" aria-label="Kurzname eingeben" spellcheck="false" autocomplete="off" value="${start||presets[0]}"><span class="small muted">oder Beispiel antippen:</span></div>
+    <div class="row ana-pre" style="gap:6px">${presets.map(p=>`<button type="button" class="chip mono" data-pre="${p}">${p}</button>`).join("")}</div><div class="ana-out" aria-live="polite"></div></div>`;
+  const inp = host.querySelector(".ana-in"), out = host.querySelector(".ana-out");
+  const draw = () => { const r = parse(inp.value);
+    if(r.err){ out.innerHTML = `<div class="fb err small">${r.err}</div>`; return; }
+    out.innerHTML = `<p class="small muted">${r.art}</p><div class="ana-name mono">${r.teile.map((p,i)=>`<span class="ap ap-${p.k}" title="${p.t}">${p.s}<sup>${i+1}</sup></span>`).join("")}</div>
+      <ol class="ana-list">${r.teile.map(p=>`<li><span class="ap ap-${p.k} mono">${p.s}</span> ${p.t}</li>`).join("")}</ol>
+      <p class="small muted ana-leg"><span class="ap ap-g">G</span> Stahlguss <span class="ap ap-h">Haupt</span> Hauptsymbol <span class="ap ap-z">Zusatz</span> Zusatzsymbol <span class="ap ap-e">+</span> Stahlerzeugnis</p>`; };
+  inp.addEventListener("input", draw);
+  host.addEventListener("click", e => { const b = e.target.closest("[data-pre]"); if(b){ inp.value = b.dataset.pre; draw(); } });
+  draw();
+}
+return {parse, widget, F, NAME};
+})();
+
+/* ============================================================
+   Übersichtstabelle „Einteilung der Stähle“ (auch Klausur-Hilfsmittel)
+   Button im Kopf + [data-tabelle] öffnen ein Fenster; Drucken möglich.
+   ============================================================ */
+(function(){
+"use strict";
+const VZ = [["S","Stahlbau","Streckgrenze"],["E","Maschinenbau","Streckgrenze"],["P","Druckbehälterbau","Streckgrenze"],["L","Leitungsrohre","Streckgrenze"],["B","Betonstahl","Streckgrenze"],["T","Verpackungsblech und -band","Streckgrenze"],["Y","Spannstähle","Zugfestigkeit"],
+  ["D","Flacherzeugnisse zum Kaltumformen","C: kaltgewalzt / D: warmgewalzt / X: nicht festgelegt; gefolgt von zwei Symbolen für die Stahlsorte"],
+  ["H","Flacherzeugnisse aus höherfesten Stählen zum Kaltumformen","Walzzustand C, D, X und Streckgrenze bzw. Walzzustand CT, DT, XT und Zugfestigkeit"],
+  ["R","Schienenstähle","Mindesthärte nach Brinell (HBW)"],["M","Elektroblech und -band","Ummagnetisierungsverlust in W/kg × 100 und Nenndicke × 100"]];
+const CH = [["C","unlegierte Stähle","100 × C-Gehalt"],["–","niedriglegierte Stähle, Automatenstähle (ohne Kennbuchstabe)","100 × C-Gehalt sowie Legierungsbestandteile und -zusammensetzung (<b>Faktoren</b> beachten)"],
+  ["X","hochlegierte Stähle mit mehr als 5 % Legierungsbestandteil","100 × C-Gehalt sowie Legierungsbestandteile und -zusammensetzung (in ganzen %)"],["HS","Schnellarbeitsstähle","Legierungszusammensetzung in der Reihenfolge W-Mo-V-Co (in ganzen %)"]];
+const G1 = [["M","thermomechanisch gewalzt"],["N","normalgeglüht bzw. normalisierend gewalzt"],["Q","vergütet"],["E","vorgeschriebener max. Schwefelgehalt (< 0,035 %)"],["B","Gasflaschen"],["S","einfache Druckbehälter"],["T","Rohre"],["S","Litze"],["Mn","hoher Mangangehalt"],["Cr","chromlegiert"],["P","phosphorlegiert"],["H","Hohlprofil"],["G","andere Merkmale folgen"]];
+const G2 = [["C","besondere Kaltumformbarkeit"],["D","für Schmelztauchüberzüge"],["E","für Emaillierung"],["F","zum Schmieden"],["H","Hohlprofil (Stahlbau)"],["H","Hochtemperatur (Druckbehälterbau)"],["L","Tieftemperatur"],["M","thermomechanisch gewalzt"],["N","normalgeglüht bzw. normalisierend gewalzt"],["O","für Offshore"],["P","Spundwandstahl"],["Q","vergütet"],["R","Raumtemperatur"],["S","Schiffbau"],["T","für Rohre"],["W","wetterfest"],["X","Hoch- und Tieftemperatur"]];
+const EZ = [["+A","weichgeglüht"],["+C","kaltverfestigt"],["+N","normalgeglüht bzw. normalisierend gewalzt"],["+AR","Lieferzustand wie gewalzt"],["+QT","vergütet"],["+T","angelassen"],["+U","unbehandelt"],["+M","thermomechanisch behandelt"],["+CR","kaltgewalzt"],["+ZE","elektrolytisch verzinkt"],["+C","Grobkornstahl"],["+F","Feinkornstahl"],["+H","besondere Härtbarkeit"]];
+const FK = [["Cr, Co, Mn, Ni, Si, W","4"],["Al, Be, Cu, Mo, Nb, Pb, Ta, Ti, V, Zr","10"],["C, Ce, N, P, S","100"],["B","1000"]];
+const dl = l => `<dl class="st-dl">${l.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`;
+const rows = VZ.length + CH.length + 2;
+const html = `<table class="st-tab"><colgroup><col style="width:18%"><col style="width:21%"><col style="width:22%"><col style="width:19%"><col style="width:20%"></colgroup>
+  <tr><th colspan="2" class="st-hb">Hauptsymbole <span class="st-note">bei Stahlguss wird dem Hauptsymbol ein G vorangestellt</span></th><th colspan="3" class="st-hb">Zusatzsymbole</th></tr>
+  <tr><th class="c-art">Stahlart</th><th class="c-eig">Eigenschaftswerte</th><th class="c-g1">Gruppe 1</th><th class="c-g2">Gruppe 2</th><th class="c-ez">für Stahlerzeugnisse</th></tr>
+  <tr><th colspan="2" class="st-sec">Bezeichnung nach dem Verwendungszweck</th>
+    <td rowspan="${rows}" class="c-g1"><p><b>Für Stahlbau (S):</b> Kerbschlagarbeit</p>
+      <table class="st-ks"><colgroup><col><col><col><col style="width:4.8em"></colgroup><tr><th>27 J</th><th>40 J</th><th>60 J</th><th>bei</th></tr><tr><td>JR</td><td>KR</td><td>LR</td><td>+20 °C</td></tr><tr><td>J0</td><td>K0</td><td>L0</td><td>0 °C</td></tr><tr><td>J2</td><td>K2</td><td>L2</td><td>−20 °C</td></tr></table>${dl(G1)}</td>
+    <td rowspan="${rows}" class="c-g2">${dl(G2)}</td>
+    <td rowspan="${rows}" class="c-ez">${dl(EZ)}<table class="st-fk"><colgroup><col><col style="width:4.8em"></colgroup><tr><th colspan="2"><b>Faktoren</b> für Legierungsanteile</th></tr><tr><th>Legierungselemente</th><th>Faktor</th></tr>${FK.map(([e,f])=>`<tr><td>${e}</td><td>${f}</td></tr>`).join("")}</table></td></tr>
+  ${VZ.map(([k,a,e])=>`<tr><td class="c-art"><div class="st-k"><b>${k}</b><span>${a}</span></div></td><td class="c-eig">${e}</td></tr>`).join("")}
+  <tr><th colspan="2" class="st-sec">Bezeichnung nach der chemischen Zusammensetzung</th></tr>
+  ${CH.map(([k,a,e])=>`<tr><td class="c-art"><div class="st-k"><b>${k}</b><span>${a}</span></div></td><td class="c-eig">${e}</td></tr>`).join("")}
+</table>`;
+const css = `
+.st-open{margin-left:auto; font:inherit; font-size:14px; font-weight:600; padding:6px 12px; border-radius:6px; border:1px solid var(--blue); background:var(--blue-soft); color:var(--ink); cursor:pointer; white-space:nowrap}
+dialog.st-dlg{width:min(1240px,96vw); max-height:92vh; padding:0; border:0; border-radius:10px; background:var(--surface); color:var(--ink); box-shadow:0 20px 60px rgba(0,0,0,.4)}
+dialog.st-dlg::backdrop{background:rgba(0,0,0,.55)}
+.st-bar{position:sticky; top:0; z-index:1; display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--border)}
+.st-bar h2{margin:0 auto 0 0; font-size:20px}
+.st-body{padding:12px 16px 18px; overflow:auto}
+.st-hint{font-size:13px; color:var(--muted); margin:0 0 8px}
+.st-tab{border-collapse:collapse; width:100%; min-width:960px; table-layout:fixed; font-size:13px; line-height:1.35}
+.st-tab th,.st-tab td{border:1px solid #6b7680; padding:5px 7px; vertical-align:top; text-align:left; color:#1D1D1B}
+.st-tab .st-hb{background:#1f74b4; color:#fff; text-align:center; font-size:15px}
+.st-note{display:block; font-weight:400; font-style:italic; font-size:11px}
+.st-tab .st-sec{background:#cfd4d8; text-align:center; font-size:14px}
+.st-tab th.c-art,.st-tab td.c-art{background:#fbd6d6} .st-tab th.c-art{background:#ec9aa0}
+.st-tab th.c-eig,.st-tab td.c-eig{background:#e1e8f0} .st-tab th.c-eig{background:#a9c3df}
+.st-tab th.c-g1,.st-tab td.c-g1{background:#e3eccf} .st-tab th.c-g1{background:#a9cf8f}
+.st-tab th.c-g2,.st-tab td.c-g2{background:#fdf6cf} .st-tab th.c-g2{background:#f7e18a}
+.st-tab th.c-ez,.st-tab td.c-ez{background:#ecd5df} .st-tab th.c-ez{background:#c58aa8}
+.st-k{display:grid; grid-template-columns:2.2em 1fr; gap:0 4px}
+.st-dl{display:grid; grid-template-columns:auto 1fr; gap:3px 8px; margin:6px 0}
+.st-dl dt{font-weight:700} .st-dl dd{margin:0}
+.st-tab .st-ks,.st-tab .st-fk{border-collapse:collapse; margin:4px 0 8px; width:100%; min-width:0; table-layout:fixed}
+.st-tab .st-ks th,.st-tab .st-ks td,.st-tab .st-fk th,.st-tab .st-fk td{white-space:normal; overflow-wrap:anywhere; font-size:12px}
+.st-tab .st-fk td:last-child,.st-tab .st-fk tr:nth-child(3) th:last-child{text-align:right; overflow-wrap:normal}
+.st-tab .st-ks th:last-child,.st-tab .st-ks td:last-child{width:4.8em}
+.st-ks th,.st-ks td{border:0!important; border-bottom:1px solid #9aa3aa!important; padding:2px 4px!important; background:transparent!important; font-weight:400}
+.st-fk{margin-top:14px} .st-fk th,.st-fk td{background:#fff!important}
+.st-fk tr:first-child th{background:#cfd4d8!important}
+@media print{ body>*:not(dialog.st-dlg){display:none!important} dialog.st-dlg{position:static; width:auto; max-height:none; box-shadow:none} .st-bar button{display:none} .st-body{overflow:visible} .st-tab{min-width:0; font-size:10px} @page{size:A4 landscape; margin:8mm} }`;
+const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
+const dlg = document.createElement("dialog"); dlg.className = "st-dlg"; dlg.setAttribute("aria-label","Übersichtstabelle Einteilung der Stähle");
+dlg.innerHTML = `<div class="st-bar"><h2>Einteilung der Stähle (DIN EN 10027-1)</h2><button type="button" class="btn secondary small" data-st="print">Drucken</button><button type="button" class="btn small" data-st="close">Schließen</button></div>
+  <div class="st-body"><p class="st-hint">Diese Tabelle darfst du auch in der Klausur verwenden. Auf dem Handy seitlich wischen.</p>
+  <div class="ana-name mono" style="font-size:22px"><span class="ap ap-h">S</span><span class="ap ap-h">235</span><span class="ap ap-z">JR</span><span class="ap ap-z">C</span><span class="ap ap-e">+C</span></div>${html}</div>`;
+document.body.appendChild(dlg);
+const top = document.querySelector(".top-inner");
+if(top){ const b = document.createElement("button"); b.type = "button"; b.className = "st-open"; b.dataset.tabelle = ""; b.textContent = "📋 Tabelle"; b.title = "Übersichtstabelle Einteilung der Stähle"; top.insertBefore(b, document.getElementById("saved")); }
+document.addEventListener("click", e => {
+  if(e.target.closest("[data-tabelle]")){ dlg.showModal(); return; }
+  const a = e.target.closest("[data-st]"); if(a){ if(a.dataset.st==="close") dlg.close(); else window.print(); return; }
+  if(e.target === dlg) dlg.close();
+});
+})();
+
+/* ============ Grafiken LE 1.1.2a ============ */
+(function(){
+"use strict";
+const {el, lin, rad, shadow, MAT, svgRoot, anim} = LM.G;
+const $ = E.$;
+const f1 = (x,d=1) => x.toFixed(d).replace(".", ",");
+const T = (svg, x, y, txt, cls="lbl-s", extra={}) => svg.appendChild(el("text", Object.assign({x, y, class:cls}, extra), [txt]));
+
+/* ---------- Problemstellung: Kondensatsammler und Blech vom Lager (plastisch) ---------- */
+(function figProblem(){
+  const host = $("#fig-problem"); if(!host) return;
+  const {svg, defs} = svgRoot(host, 640, 360, "Kondensatsammler mit Typenschild P265GH und ein Blechstapel S355J2+N im Lager.");
+  const st = lin(defs, MAT.steel, 0,0,1,0), stD = lin(defs, MAT.steelDark, 0,0,1,0), sh = shadow(defs, 5, 5, .25);
+  svg.appendChild(el("ellipse",{cx:170, cy:338, rx:130, ry:10, fill:"#000", opacity:.12}));
+  svg.appendChild(el("ellipse",{cx:480, cy:338, rx:140, ry:9, fill:"#000", opacity:.12}));
+  // Standfüße
+  [95,245].forEach(x => svg.appendChild(el("path",{d:`M${x-8},250 L${x+8},250 L${x+14},334 L${x-14},334 Z`, fill:stD})));
+  // Behälter
+  const x1=80, x2=260, yT=70, yB=260;
+  svg.appendChild(el("path",{d:`M${x1},${yT} A90,40 0 0 1 ${x2},${yT} L${x2},${yB} A90,40 0 0 1 ${x1},${yB} Z`, fill:st, filter:sh}));
+  [120, 210].forEach(y => svg.appendChild(el("path",{d:`M${x1},${y} A90,10 0 0 0 ${x2},${y}`, style:"stroke:#56616b;stroke-width:1.2;fill:none;opacity:.6"})));
+  // Stutzen und Manometer
+  svg.appendChild(el("rect",{x:160, y:16, width:20, height:20, fill:st}));
+  svg.appendChild(el("rect",{x:152, y:12, width:36, height:6, fill:stD}));
+  svg.appendChild(el("rect",{x:x2, y:150, width:34, height:16, fill:st}));
+  svg.appendChild(el("rect",{x:x2+30, y:142, width:7, height:32, fill:stD}));
+  svg.appendChild(el("circle",{cx:120, cy:30, r:16, fill:rad(defs,[[0,"#ffffff"],[.7,"#dfe5ea"],[1,"#8c98a2"]]), stroke:"#3a434b", "stroke-width":2}));
+  svg.appendChild(el("line",{x1:120, y1:30, x2:129, y2:20, style:"stroke:#C23A30;stroke-width:2.5"}));
+  svg.appendChild(el("rect",{x:117, y:46, width:6, height:14, fill:stD}));
+  // Typenschild
+  svg.appendChild(el("rect",{x:110, y:150, width:120, height:74, rx:3, fill:lin(defs,[[0,"#f4f7f9"],[.5,"#d5dce2"],[1,"#aeb8c0"]],0,0,1,1), stroke:"#56616b"}));
+  [[116,156],[224,156],[116,218],[224,218]].forEach(([x,y]) => svg.appendChild(el("circle",{cx:x, cy:y, r:2, fill:"#56616b"})));
+  [["Kondensatsammler",168],["PS 12 bar · TS 190 °C",184],["Mantel: P265GH",202]].forEach(([t,y],i) => T(svg, 170, y, t, i===2?"lbl":"lbl-s", {"text-anchor":"middle", style:"fill:#1D1D1B"+(i===2?";font-size:14px":"")}));
+  T(svg, 170, 354, "Behälter laut Zeichnung", "lbl-s", {"text-anchor":"middle"});
+  // Blechstapel
+  for(let i=0;i<5;i++){ const y = 300 - i*14;
+    svg.appendChild(el("path",{d:`M360,${y} L560,${y} L600,${y-40} L400,${y-40} Z`, fill:lin(defs, MAT.steel, 0,0,1,1), stroke:"#3c454d", "stroke-width":.8}));
+    svg.appendChild(el("path",{d:`M360,${y} L560,${y} L560,${y+10} L360,${y+10} Z`, fill:stD}));
+    svg.appendChild(el("path",{d:`M560,${y} L600,${y-40} L600,${y-30} L560,${y+10} Z`, fill:"#56616b"}));
+  }
+  T(svg, 480, 252, "S355J2+N", "lbl", {"text-anchor":"middle", style:"fill:#B3261E;font-size:20px;font-family:var(--mono)"});
+  T(svg, 480, 354, "Blech aus dem Lager, gleiche Dicke", "lbl-s", {"text-anchor":"middle"});
+  // Sprechblase
+  svg.appendChild(el("path",{d:"M330,40 h290 a8,8 0 0 1 8,8 v44 a8,8 0 0 1 -8,8 h-200 l-20,22 l2,-22 h-72 a8,8 0 0 1 -8,-8 v-44 a8,8 0 0 1 8,-8 z", style:"fill:var(--surface);stroke:var(--blue);stroke-width:1.5"}));
+  T(svg, 475, 64, "„Nimm das S355, das ist doch", "lbl-s", {"text-anchor":"middle", style:"fill:var(--ink);font-size:14px"});
+  T(svg, 475, 84, "sogar fester als 265!“", "lbl-s", {"text-anchor":"middle", style:"fill:var(--ink);font-size:14px"});
+})();
+
+/* ---------- Kohlenstoffgehalt (flaches Diagramm, Schieberegler) ---------- */
+(function figC(){
+  const host = $("#fig-c"), ctrl = $("#ctrl-c"); if(!host) return;
+  const W=640, H=330, L=70, R=580, Tp=30, B=270, cmax=4;
+  const Rm = c => c<=0.8 ? 300+800*c : c<=2 ? 940-100*(c-0.8) : 250;
+  const A = c => c<=0.8 ? 36-35*c : c<=2 ? 8-4.5*(c-0.8) : 0.5;
+  const X = c => L+(R-L)*c/cmax, Y1 = v => B-(B-Tp)*v/1000, Y2 = v => B-(B-Tp)*v/40;
+  let c = 0.17;
+  ctrl.innerHTML = `<label><span>Kohlenstoffgehalt <span class="val" id="c-v"></span></span><input type="range" id="c-r" min="0" max="4" step="0.01" value="${c}"></label><div class="readout" id="c-out"></div>`;
+  function draw(){
+    const {svg} = svgRoot(host, W, H, `Diagramm Zugfestigkeit und Bruchdehnung über dem Kohlenstoffgehalt, Cursor bei ${f1(c,2)} %.`);
+    svg.appendChild(el("rect",{x:X(0), y:Tp, width:X(2)-X(0), height:B-Tp, style:"fill:var(--blue-soft);opacity:.6"}));
+    svg.appendChild(el("rect",{x:X(0), y:Tp, width:X(0.2)-X(0), height:B-Tp, style:"fill:var(--ok-soft)"}));
+    T(svg, X(1.4), 150, "Stahl (bis 2 % C)", "lbl", {"text-anchor":"middle"});
+    T(svg, X(3), 150, "Gusseisen (über 2 % C)", "lbl", {"text-anchor":"middle"});
+    T(svg, L, Tp-10, "grün: bis 0,2 % C gut schweißbar", "lbl-s", {style:"fill:var(--ok)"});
+    for(let v=0; v<=1000; v+=200){ svg.appendChild(el("line",{x1:L, x2:R, y1:Y1(v), y2:Y1(v), class:"grid"})); T(svg, L-8, Y1(v)+4, String(v), "lbl-s", {"text-anchor":"end"}); T(svg, R+8, Y1(v)+4, String(v/25), "lbl-s"); }
+    for(let x=0; x<=4; x+=0.5) T(svg, X(x), B+18, f1(x, x%1?1:0), "lbl-s", {"text-anchor":"middle"});
+    svg.appendChild(el("path",{d:`M${L},${Tp} V${B} H${R} V${Tp}`, class:"axis"}));
+    svg.appendChild(el("line",{x1:X(2), x2:X(2), y1:Tp, y2:B, style:"stroke:var(--ink);stroke-dasharray:5 4"}));
+    T(svg, (L+R)/2, B+40, "Kohlenstoffgehalt in %", "lbl-s", {"text-anchor":"middle"});
+    T(svg, 16, (Tp+B)/2, "Zugfestigkeit Rm in N/mm²", "lbl-s", {"text-anchor":"middle", transform:`rotate(-90 16 ${(Tp+B)/2})`, style:"fill:var(--blue)"});
+    T(svg, W-12, (Tp+B)/2, "Bruchdehnung A in %", "lbl-s", {"text-anchor":"middle", transform:`rotate(90 ${W-12} ${(Tp+B)/2})`, style:"fill:#C2410C"});
+    let p1="", p2="";
+    for(let x=0; x<=cmax+1e-9; x+=0.02){ const jump = Math.abs(x-2)<0.011; p1 += `${p1&&!jump?"L":"M"}${X(x)},${Y1(Rm(x))} `; p2 += `${p2&&!jump?"L":"M"}${X(x)},${Y2(A(x))} `; }
+    svg.appendChild(el("path",{d:p1, style:"stroke:var(--blue);stroke-width:3;fill:none"}));
+    svg.appendChild(el("path",{d:p2, style:"stroke:#C2410C;stroke-width:3;fill:none;stroke-dasharray:8 4"}));
+    svg.appendChild(el("line",{x1:X(c), x2:X(c), y1:Tp, y2:B, style:"stroke:var(--ink);stroke-width:2"}));
+    svg.appendChild(el("circle",{cx:X(c), cy:Y1(Rm(c)), r:6, style:"fill:var(--blue)"}));
+    svg.appendChild(el("circle",{cx:X(c), cy:Y2(A(c)), r:6, style:"fill:#C2410C"}));
+    const bsp = c>2 ? "Gusseisen, z. B. Pumpengehäuse" : c>0.8 ? "Werkzeugstahl, z. B. Feile" : c>0.5 ? "Federstahl" : c>0.3 ? "Wellenstahl, z. B. Rührwerkswelle" : c>0.2 ? "Baustahl, höherfest" : "Baustahl, z. B. Rohrbrücke";
+    $("#c-v").textContent = f1(c,2)+" %";
+    $("#c-out").innerHTML = `<span>Werkstoff</span><b>${c>2?"Gusseisen":"Stahl"}</b><span>Rm (Richtwert)</span><b>${Math.round(Rm(c)/10)*10} N/mm²</b><span>A (Richtwert)</span><b>${f1(A(c))} %</b><span>Schweißbar</span><b>${c<=0.2?"gut":c<=0.5?"eingeschränkt (Vorwärmen)":"schlecht"}</b><span>Beispiel</span><b>${bsp}</b>`;
+  }
+  $("#c-r").addEventListener("input", e => { c = +e.target.value; draw(); });
+  draw();
+})();
+
+/* ---------- Zugversuch (Simulation) ---------- */
+(function figZug(){
+  const host = $("#fig-zug"), ctrl = $("#ctrl-zug"); if(!host) return;
+  const MATS = {S235JR:{Re:235, Rm:420, A:26}, S355J2:{Re:355, Rm:540, A:22}, E360:{Re:360, Rm:700, A:11}};
+  let m = "S235JR", eps = 0, play = false;
+  const ee = 1.0, lu = 1.5;               // elastische Dehnung (überhöht), Lüdersbereich
+  function sig(M, e){
+    if(e<=ee) return M.Re*e/ee;
+    if(e<=ee+lu) return M.Re;
+    const eu = 0.62*M.A; if(e<=eu){ const t=(e-ee-lu)/(eu-ee-lu); return M.Re+(M.Rm-M.Re)*(1-(1-t)*(1-t)); }
+    if(e<=M.A){ const t=(e-eu)/(M.A-eu); return M.Rm-(0.2*M.Rm)*t*t; }
+    return 0;
+  }
+  ctrl.innerHTML = `<div class="segbtns" id="zug-m">${Object.keys(MATS).map(k=>`<button type="button" data-m="${k}" class="mono">${k}</button>`).join("")}</div>
+    <label><span>Verlängerung der Probe (Dehnung ε) <span class="val" id="zug-v"></span></span><input type="range" id="zug-r" min="0" max="30" step="0.1" value="0"></label>
+    <div class="row"><button type="button" class="btn small" id="zug-play">Versuch abspielen</button></div><div class="readout" id="zug-out"></div>
+    <p class="small muted">Der elastische Bereich ist zur besseren Sichtbarkeit stark überhöht gezeichnet.</p>`;
+  const W=660, H=420, L=70, R=630, Tp=170, B=370, X = e => L+(R-L)*e/30, Y = s => B-(B-Tp)*s/750;
+  function draw(){
+    const M = MATS[m], broke = eps > M.A, s = broke ? 0 : sig(M, eps), eu = 0.62*M.A;
+    const {svg, defs} = svgRoot(host, W, H, `Zugversuch ${m}: Dehnung ${f1(eps)} %, Spannung ${Math.round(s)} N/mm².`);
+    const st = lin(defs, MAT.steel), clamp = lin(defs, MAT.steelDark);
+    // Probe
+    const cy = 80, L0 = 300, len = L0*(1+Math.min(eps,M.A)/100*1.6), x0 = 330-len/2, x1 = 330+len/2, r = 16;
+    const neck = eps>eu ? Math.min(1,(Math.min(eps,M.A)-eu)/(M.A-eu)) : 0, rr = r*(1-0.012*Math.min(eps,eu)) ;
+    const rn = rr*(1-0.45*neck);
+    svg.appendChild(el("rect",{x:x0-70, y:cy-38, width:60, height:76, rx:4, fill:clamp}));
+    svg.appendChild(el("rect",{x:x1+10, y:cy-38, width:60, height:76, rx:4, fill:clamp}));
+    const half = (a, b, gap) => { const mid = (a+b)/2; return `M${a},${cy-28} L${a+18},${cy-28} Q${a+30},${cy-rr} ${a+44},${cy-rr} L${mid-50},${cy-rr} Q${mid},${cy-rn} ${mid-gap},${cy-rn} L${mid-gap},${cy+rn} Q${mid},${cy+rn} ${mid-50},${cy+rr} L${a+44},${cy+rr} Q${a+30},${cy+rr} ${a+18},${cy+28} L${a},${cy+28} Z`; };
+    if(!broke){
+      const p = `M${x0-10},${cy-28} L${x0+18},${cy-28} Q${x0+30},${cy-rr} ${x0+44},${cy-rr} L${330-50},${cy-rr} Q330,${cy-rn} ${330+50},${cy-rr} L${x1-44},${cy-rr} Q${x1-30},${cy-rr} ${x1-18},${cy-28} L${x1+10},${cy-28} L${x1+10},${cy+28} L${x1-18},${cy+28} Q${x1-30},${cy+rr} ${x1-44},${cy+rr} L${330+50},${cy+rr} Q330,${cy+rn} ${330-50},${cy+rr} L${x0+44},${cy+rr} Q${x0+30},${cy+rr} ${x0+18},${cy+28} L${x0-10},${cy+28} Z`;
+      svg.appendChild(el("path",{d:p, fill:st, stroke:"#3c454d"}));
+    } else {
+      const g = el("g"); svg.appendChild(g);
+      g.appendChild(el("path",{d:half(x0-10, 2*330-(x0-10), 6), fill:st, stroke:"#3c454d"}));
+      const g2 = el("g",{transform:`translate(660,0) scale(-1,1)`}); svg.appendChild(g2);
+      g2.appendChild(el("path",{d:half(x0-10, 2*330-(x0-10), 6), fill:st, stroke:"#3c454d"}));
+    }
+    // Messmarken L0
+    const mk = 0.75*L0/2*(1+Math.min(eps,M.A)/100*1.6);
+    [330-mk, 330+mk].forEach(x => svg.appendChild(el("line",{x1:x, x2:x, y1:cy-rr-6, y2:cy-rr+4, style:"stroke:#C23A30;stroke-width:2"})));
+    T(svg, 330, cy-rr-12, broke ? `Lu = ${Math.round(150*(1+M.A/100))} mm` : `L = ${f1(150*(1+eps/100))} mm`, "lbl-s", {"text-anchor":"middle"});
+    T(svg, x0-40, cy+56, "F ←", "lbl", {"text-anchor":"middle"}); T(svg, x1+40, cy+56, "→ F", "lbl", {"text-anchor":"middle"});
+    // Diagramm
+    for(let v=0; v<=750; v+=150){ svg.appendChild(el("line",{x1:L, x2:R, y1:Y(v), y2:Y(v), class:"grid"})); T(svg, L-8, Y(v)+4, String(v), "lbl-s", {"text-anchor":"end"}); }
+    for(let e=0; e<=30; e+=5) T(svg, X(e), B+18, String(e), "lbl-s", {"text-anchor":"middle"});
+    svg.appendChild(el("path",{d:`M${L},${Tp-6} V${B} H${R+6}`, class:"axis"}));
+    T(svg, (L+R)/2, B+40, "Dehnung ε in %", "lbl-s", {"text-anchor":"middle"});
+    T(svg, 18, (Tp+B)/2, "Spannung σ in N/mm²", "lbl-s", {"text-anchor":"middle", transform:`rotate(-90 18 ${(Tp+B)/2})`});
+    let d = ""; const end = Math.min(eps, M.A);
+    for(let e=0; e<=end+1e-9; e+=0.05) d += `${d?"L":"M"}${X(e)},${Y(sig(M,e))} `;
+    if(broke) d += `L${X(M.A)},${Y(0)}`;
+    svg.appendChild(el("path",{d, style:"stroke:var(--blue);stroke-width:3;fill:none"}));
+    if(eps>=ee){ svg.appendChild(el("line",{x1:L, x2:X(ee+lu), y1:Y(M.Re), y2:Y(M.Re), style:"stroke:var(--ok);stroke-dasharray:4 3"})); T(svg, X(ee+lu)+6, Y(M.Re)+16, `Re = ${M.Re}`, "lbl", {style:"fill:var(--ok)"}); }
+    if(eps>=eu){ svg.appendChild(el("line",{x1:L, x2:X(eu), y1:Y(M.Rm), y2:Y(M.Rm), style:"stroke:#C2410C;stroke-dasharray:4 3"})); T(svg, X(eu), Y(M.Rm)-8, `Rm = ${M.Rm}`, "lbl", {"text-anchor":"middle", style:"fill:#C2410C"}); }
+    if(broke){ T(svg, X(M.A)+6, Y(0)-10, `A = ${M.A} %`, "lbl", {style:"fill:#B3261E"}); }
+    if(!broke) svg.appendChild(el("circle",{cx:X(eps), cy:Y(s), r:6, style:"fill:var(--blue)"}));
+    const phase = broke ? "gebrochen" : eps<ee ? "elastisch: geht bei Entlastung ganz zurück" : eps<=ee+lu ? "Fließen beginnt: Streckgrenze erreicht" : eps<=eu ? "plastisch: Verformung bleibt, Probe verfestigt" : "Einschnürung: Querschnitt wird lokal dünner";
+    const bleibt = broke ? M.A : Math.max(0, eps - s/(M.Re/ee));
+    $("#zug-v").textContent = f1(eps)+" %";
+    $("#zug-out").innerHTML = `<span>Spannung σ</span><b>${Math.round(s)} N/mm²</b><span>Zustand</span><b>${phase}</b><span>Nach Entlasten bleibt</span><b>${f1(bleibt)} % Dehnung</b>`;
+    ctrl.querySelectorAll("[data-m]").forEach(b => b.setAttribute("aria-pressed", b.dataset.m===m));
+  }
+  const A = anim(host, dt => { if(!play) return; eps += 6*dt; if(eps>MATS[m].A+1.5){ eps = MATS[m].A+1.5; play=false; $("#zug-play").textContent="Versuch abspielen"; if(A.running) A.toggle(); } $("#zug-r").value = eps; draw(); });
+  if(A.running) A.toggle();
+  $("#zug-play").addEventListener("click", () => { play = !play; if(play && eps>MATS[m].A) eps = 0; if(play && !A.running) A.toggle(); if(!play && A.running) A.toggle(); $("#zug-play").textContent = play ? "Anhalten" : "Versuch abspielen"; });
+  $("#zug-r").addEventListener("input", e => { eps = +e.target.value; draw(); });
+  ctrl.addEventListener("click", e => { const b = e.target.closest("[data-m]"); if(b){ m = b.dataset.m; eps = 0; $("#zug-r").value = 0; draw(); } });
+  draw();
+})();
+
+/* ---------- Kerbschlagbiegeversuch (Simulation) ---------- */
+(function figKerb(){
+  const host = $("#fig-kerb"), ctrl = $("#ctrl-kerb"); if(!host) return;
+  const MATS = {S235JR:{T0:10}, S355J0:{T0:-8}, S355J2:{T0:-28}};
+  const KV = (M,t) => 5 + 57.5*(1+Math.tanh((t-M.T0)/12));
+  let m = "S235JR", t = 20, phi = -140, phiEnd = null, run = false, hit = false, kv = null;
+  ctrl.innerHTML = `<div class="segbtns">${Object.keys(MATS).map(k=>`<button type="button" data-m="${k}" class="mono">${k}</button>`).join("")}</div>
+    <label><span>Prüftemperatur der Probe <span class="val" id="kb-v"></span></span><input type="range" id="kb-r" min="-60" max="40" step="1" value="20"></label>
+    <div class="row"><button type="button" class="btn small" id="kb-go">Pendel auslösen</button></div><div class="readout" id="kb-out"></div>`;
+  const W=660, H=385, px=150, py=150, Lr=130, cl=370, cr=645, ct=40, cb=290;
+  const X = v => cl+(cr-cl)*(v+60)/100, Y = v => cb-(cb-ct)*v/130;
+  function draw(){
+    const M = MATS[m];
+    const {svg, defs} = svgRoot(host, W, H, `Pendelschlagwerk und Kerbschlag-Temperatur-Kurve für ${m} bei ${t} °C.`);
+    const st = lin(defs, MAT.steel, 0,0,1,0), stD = lin(defs, MAT.steelDark), sh = shadow(defs, 3, 3, .3);
+    // Gestell
+    svg.appendChild(el("path",{d:`M${px-70},${py+Lr+60} L${px-20},${py-10} L${px+20},${py-10} L${px+70},${py+Lr+60} Z`, fill:"none", style:"stroke:#8c98a2;stroke-width:10;stroke-linejoin:round", opacity:.55}));
+    svg.appendChild(el("rect",{x:px-90, y:py+Lr+56, width:180, height:16, rx:3, fill:stD}));
+    // Widerlager und Probe
+    svg.appendChild(el("rect",{x:px-44, y:py+Lr+16, width:22, height:40, fill:stD})); svg.appendChild(el("rect",{x:px+22, y:py+Lr+16, width:22, height:40, fill:stD}));
+    const yS = py+Lr+8, zaeh = kv!=null && kv>=50;
+    if(!hit) svg.appendChild(el("path",{d:`M${px-46},${yS} h88 v14 h-88 z M${px-4},${yS+14} l4,-6 l4,6`, fill:st, stroke:"#3c454d", "fill-rule":"evenodd"}));
+    else if(zaeh) svg.appendChild(el("path",{d:`M${px-40},${yS-2} L${px-2},${yS+26} L${px+2},${yS+26} L${px+40},${yS-2} L${px+40},${yS+10} L${px+2},${yS+38} L${px-2},${yS+38} L${px-40},${yS+10} Z`, fill:st, stroke:"#3c454d"}));
+    else { svg.appendChild(el("rect",{x:px-80, y:yS+30, width:44, height:14, fill:st, stroke:"#3c454d", transform:`rotate(-25 ${px-58} ${yS+37})`})); svg.appendChild(el("rect",{x:px+40, y:yS+26, width:44, height:14, fill:st, stroke:"#3c454d", transform:`rotate(30 ${px+62} ${yS+33})`})); }
+    // Probenfarbe (Temperatur)
+    T(svg, px, py+Lr+92, `Probe: ${t} °C`, "lbl-s", {"text-anchor":"middle", style:t<0?"fill:var(--blue)":""});
+    // Pendel
+    const a = phi*Math.PI/180, hx = px+Lr*Math.sin(a), hy = py+Lr*Math.cos(a);
+    if(phiEnd!=null && !run){ const b = phiEnd*Math.PI/180; svg.appendChild(el("line",{x1:px, y1:py, x2:px+70*Math.sin(b), y2:py+70*Math.cos(b), style:"stroke:#C23A30;stroke-width:3"})); }
+    svg.appendChild(el("line",{x1:px, y1:py, x2:hx, y2:hy, style:"stroke:#56616b;stroke-width:7;stroke-linecap:round"}));
+    svg.appendChild(el("g",{transform:`translate(${hx},${hy}) rotate(${-phi})`, filter:sh},[el("path",{d:"M-30,-12 L30,-12 L30,14 L4,22 L0,30 L-4,22 L-30,14 Z", fill:st, stroke:"#3c454d"})]));
+    svg.appendChild(el("circle",{cx:px, cy:py, r:9, fill:rad(defs,[[0,"#f4f7f9"],[.6,"#8c98a2"],[1,"#3a434b"]])}));
+    // Diagramm
+    for(let v=0; v<=120; v+=30){ svg.appendChild(el("line",{x1:cl, x2:cr, y1:Y(v), y2:Y(v), class:"grid"})); T(svg, cl-6, Y(v)+4, String(v), "lbl-s", {"text-anchor":"end"}); }
+    for(let v=-60; v<=40; v+=20) T(svg, X(v), cb+18, String(v).replace("-","−"), "lbl-s", {"text-anchor":"middle"});
+    svg.appendChild(el("path",{d:`M${cl},${ct-6} V${cb} H${cr}`, class:"axis"}));
+    T(svg, (cl+cr)/2, cb+40, "Prüftemperatur in °C", "lbl-s", {"text-anchor":"middle"});
+    T(svg, cl-36, (ct+cb)/2, "Kerbschlagarbeit KV in J", "lbl-s", {"text-anchor":"middle", transform:`rotate(-90 ${cl-36} ${(ct+cb)/2})`});
+    svg.appendChild(el("line",{x1:cl, x2:cr, y1:Y(27), y2:Y(27), style:"stroke:#C2410C;stroke-width:1.5;stroke-dasharray:6 4"})); T(svg, cr-4, Y(27)-6, "27 J", "lbl-s", {"text-anchor":"end", style:"fill:#C2410C"});
+    [[20,"R"],[0,"0"],[-20,"2"]].forEach(([v,s]) => { svg.appendChild(el("line",{x1:X(v), x2:X(v), y1:ct, y2:cb, style:"stroke:var(--muted);stroke-dasharray:2 4"})); T(svg, X(v), ct-4, "J"+s, "lbl-s", {"text-anchor":"middle", style:"font-weight:700"}); });
+    Object.keys(MATS).forEach(k => { let d=""; for(let v=-60; v<=40; v+=1) d += `${d?"L":"M"}${X(v)},${Y(KV(MATS[k],v))} `;
+      svg.appendChild(el("path",{d, style:`stroke:${k===m?"var(--blue)":"var(--muted)"};stroke-width:${k===m?3:1.2};fill:none;opacity:${k===m?1:.5}`})); });
+    T(svg, X(-58), Y(112), "zäh (Hochlage)", "lbl-s"); T(svg, X(-58), Y(10), "spröde (Tieflage)", "lbl-s");
+    if(kv!=null) svg.appendChild(el("circle",{cx:X(t), cy:Y(kv), r:7, style:"fill:#C23A30"}));
+    $("#kb-v").textContent = String(t).replace("-","−")+" °C";
+    const ok = [20,0,-20].filter(v => KV(M,v) >= 27), sym = ok.includes(-20) ? "J2" : ok.includes(0) ? "J0" : ok.includes(20) ? "JR" : "–";
+    $("#kb-out").innerHTML = kv==null ? `<span>Messung</span><b>Pendel auslösen</b><span>Kurzname</span><b>${m}</b>` :
+      `<span>Kerbschlagarbeit</span><b>${Math.round(kv)} J</b><span>Bruch</span><b>${kv>=50?"zäh, Probe stark verformt":kv>=27?"Übergang":"spröde, glatte Bruchfläche"}</b><span>27 J erreicht?</span><b>${kv>=27?"ja":"nein"}</b><span>Bestes Symbol</span><b>${sym}</b>`;
+    ctrl.querySelectorAll("[data-m]").forEach(b => b.setAttribute("aria-pressed", b.dataset.m===m));
+  }
+  const Emax = 300, c0 = 1-Math.cos(140*Math.PI/180);
+  let v = 0;
+  const A = anim(host, dt => { if(!run) return;
+    if(!hit){ v += 260*dt; phi = Math.min(0, phi + v*dt*3); if(phi>=0){ hit = true; kv = KV(MATS[m], t); const c = 1 - c0*(1-kv/Emax); phiEnd = Math.acos(Math.max(-1,Math.min(1,c)))*180/Math.PI; } }
+    else { phi = Math.min(phiEnd, phi + 220*dt); if(phi>=phiEnd){ run = false; if(A.running) A.toggle(); } }
+    draw(); });
+  if(A.running) A.toggle();
+  const reset = () => { phi = -140; hit = false; kv = null; phiEnd = null; run = false; v = 0; };
+  $("#kb-go").addEventListener("click", () => { reset(); run = true; if(LM.G.reduced()){ hit = true; kv = KV(MATS[m], t); const c = 1 - c0*(1-kv/Emax); phiEnd = phi = Math.acos(c)*180/Math.PI; run = false; draw(); return; } if(!A.running) A.toggle(); });
+  $("#kb-r").addEventListener("input", e => { t = +e.target.value; reset(); draw(); });
+  ctrl.addEventListener("click", e => { const b = e.target.closest("[data-m]"); if(b){ m = b.dataset.m; reset(); draw(); } });
+  draw();
+})();
+
+/* ---------- Kurznamen-Analysator ---------- */
+const ana = $("#ana-a"); if(ana) STAHL.widget(ana, ["S235JRC+C","GP240GH","S355J0W","E295","P265GH","S355J2+N"]);
+})();
+
+/* ============ Musterbeispiele LE 1.1.2a ============ */
+(function(){
+const {Steps} = LM, $ = E.$;
+Steps($("#ex-a2"), {
+  title:"So berechnest du die Streckgrenze aus dem Zugversuch",
+  text:"Eine Rundprobe aus einem Baustahl hat den Durchmesser d₀ = 10 mm. Sie beginnt bei einer Kraft von 21,6 kN zu fließen. Wie groß ist die Streckgrenze, und zu welchem Kurznamen passt sie?",
+  given:"d₀ = 10 mm; F<sub>e</sub> = 21,6 kN = 21 600 N", sought:"Streckgrenze Re in N/mm²",
+  steps:[
+    {h:"Formel", b:"Re = F<sub>e</sub> / S₀ mit S₀ = π · d₀² / 4"},
+    {h:"Querschnitt berechnen", b:"S₀ = π · (10 mm)² / 4 = 78,54 mm²"},
+    {h:"Einsetzen", b:"Re = 21 600 N / 78,54 mm² = 275,0 N/mm²"},
+    {h:"Ergebnis und Antwortsatz", b:"Die Streckgrenze beträgt <b>275 N/mm²</b>. Das passt zu einem Baustahl <b>S275</b>."}
+  ],
+  result:"Immer gleich: Formel → Querschnitt → Kraft in N einsetzen → Einheit N/mm² → Antwortsatz."
+});
+Steps($("#ex-a3"), {
+  title:"So entschlüsselst du einen Kurznamen: S235JRC+C",
+  text:"Gehe von links nach rechts und frage bei jedem Baustein: Hauptsymbol, Zusatzsymbol oder Erzeugnis?",
+  steps:[
+    {h:"S", b:"Kennbuchstabe: Stahl für den <b>Stahlbau</b>."},
+    {h:"235", b:"Kennzahl: <b>Mindeststreckgrenze 235 N/mm²</b>. Pro mm² Querschnitt hält der Stahl 235 N, ohne sich bleibend zu verformen."},
+    {h:"JR", b:"Zusatzsymbol Gruppe 1: Kerbschlagarbeit mindestens <b>27 J bei +20 °C</b>."},
+    {h:"C", b:"Zusatzsymbol Gruppe 2: <b>besondere Kaltumformbarkeit</b>. Der Stahl lässt sich ohne Erwärmen gut biegen."},
+    {h:"+C", b:"Symbol für Stahlerzeugnisse: <b>kaltverfestigt</b>, dadurch höhere Festigkeit."}
+  ],
+  result:"S235JRC+C: kaltumformbarer, kaltverfestigter Baustahl mit Re ≥ 235 N/mm² und 27 J bei +20 °C."
+});
+Steps($("#ex-a4"), {
+  title:"So bildest du einen Kurznamen aus Anforderungen",
+  text:"Gesucht ist ein Baustahl mit einer Mindeststreckgrenze von 355 N/mm², der bei −20 °C noch 27 J Kerbschlagarbeit hat und normalgeglüht geliefert wird.",
+  steps:[
+    {h:"Stahlguss?", b:"Nein, es wird kein Gussteil verlangt. → kein G"},
+    {h:"Kennbuchstabe", b:"Stahlbau → <span class='mono'>S</span>"},
+    {h:"Kennzahl", b:"Mindeststreckgrenze 355 N/mm² → <span class='mono'>S355</span>"},
+    {h:"Zusatzsymbol Gruppe 1", b:"27 J → J, −20 °C → 2 → <span class='mono'>S355J2</span>"},
+    {h:"Behandlungszustand", b:"normalgeglüht → <span class='mono'>+N</span> → <b class='mono'>S355J2+N</b>"}
+  ],
+  result:"Reihenfolge: (G) → Kennbuchstabe → Zahl → Zusatzsymbole → +Zustand. Prüfe dein Ergebnis mit dem Analysator."
+});
+})();
+
+</script>

@@ -1,0 +1,1794 @@
+<!doctype html>
+<html lang="de">
+<title>Lehrplaneinheit 2.4 Strömungsmechanik Wiederholung</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{
+  --bg:#F4F5F6; --surface:#FFFFFF; --surface2:#F1F7FB; --ink:#1D1D1B; --muted:#56616B;
+  --line:#A9B4BD; --border:#E1E4E7; --blue:#0C77B7; --blue-soft:#E1EFF8;
+  --rust:#0A5A8C; --rust-soft:#E1EFF8; --ok:#2C7A4B; --ok-soft:#DDF0E3; --err:#B3261E; --err-soft:#F8DEDC;
+  --maybe:#8A6A12; --maybe-soft:#F5ECCF;
+  --display:'Segoe UI', Arial, sans-serif; --sans:'Segoe UI', Arial, sans-serif; --mono:Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+    --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+    --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+    --maybe:#E3C46A; --maybe-soft:#352C12;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+  --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+  --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+  --maybe:#E3C46A; --maybe-soft:#352C12;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.55}
+header.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--surface); border-bottom:1px solid var(--border)}
+.top-inner{max-width:1000px; margin:0 auto; padding:10px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px}
+.brand{font-family:var(--display); font-weight:700; font-size:18px; margin-right:auto}
+.saved{font-family:var(--sans); font-weight:500; font-size:13px; color:var(--ok); margin-left:10px}
+nav.tabs{display:flex; flex-wrap:wrap; gap:6px}
+nav.tabs button{font:inherit; font-size:15px; font-weight:600; border:1px solid var(--border); background:var(--surface); color:var(--ink); border-radius:999px; padding:5px 13px; cursor:pointer; display:inline-flex; gap:6px; align-items:center}
+nav.tabs button[aria-current="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+nav.tabs .dot{width:8px; height:8px; border-radius:50%; background:var(--line)}
+nav.tabs .done .dot{background:var(--ok)}
+main{max-width:1000px; margin:0 auto; padding-inline:16px; padding-block:28px 80px; display:flex; flex-direction:column; gap:64px}
+section.station{display:flex; flex-direction:column; gap:22px; scroll-margin-top:110px}
+section.station + section.station{border-top:3px solid var(--border); padding-top:48px}
+.eyebrow{font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--rust); margin:0}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.2}
+h1{font-size:clamp(28px,4vw,38px)}
+h2{font-size:24px}
+h3{font-size:19px}
+p{margin:0}
+.lead{font-size:19px; color:var(--muted)}
+.input{background:var(--surface2); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:14px}
+.input .tag, .task .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase}
+.input .tag{color:var(--blue)}
+.input p, .input li{max-width:none}
+.input ul{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px}
+.task{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:16px}
+.task .tag{color:var(--rust)}
+.mono{font-family:var(--mono); font-size:.92em}
+label{font-weight:600}
+textarea, input[type=text], select{font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:8px 10px}
+textarea{width:100%; min-height:90px; resize:vertical}
+button.btn{font:inherit; font-weight:600; border:0; border-radius:8px; padding:9px 16px; cursor:pointer; background:var(--blue); color:var(--bg)}
+button.btn.secondary, .filebtn{background:transparent; color:var(--blue); border:1px solid var(--blue)}
+button.btn.small{font-size:14px; padding:6px 11px}
+button:disabled{opacity:.45; cursor:default}
+button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible{outline:3px solid var(--rust); outline-offset:2px}
+.row{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center}
+.score{font-weight:700; font-variant-numeric:tabular-nums}
+.fb{font-size:15px; border-radius:8px; padding:9px 12px}
+.fb.ok{background:var(--ok-soft); border-left:4px solid var(--ok)}
+.fb.err{background:var(--err-soft); border-left:4px solid var(--err)}
+.fb.maybe{background:var(--maybe-soft); border-left:4px solid var(--maybe)}
+.fb.info{background:var(--blue-soft); border-left:4px solid var(--blue)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.io{display:flex; flex-direction:column; gap:10px; padding:18px 22px; border:1px dashed var(--line); border-radius:12px}
+.io h3{font-size:17px}
+.filebtn{display:inline-block; font-weight:600; border-radius:8px; padding:9px 16px; cursor:pointer}
+.visually-hidden{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.filebtn:focus-within{outline:3px solid var(--rust)}
+.linkbtn{font:inherit; font-size:14px; background:none; border:0; color:var(--blue); text-decoration:underline; cursor:pointer; padding:4px}
+
+/* Formeln */
+.formulas{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); grid-auto-flow:dense; gap:12px}
+.fcard{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:6px}
+.fcard .fname{font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.fx{font-family:'Cambria Math','STIX Two Math','Times New Roman',serif; font-size:19px; display:flex; flex-wrap:wrap; align-items:center; gap:4px 18px}
+.eq{display:inline-block; white-space:nowrap; line-height:2.4}
+.eq sub, .eq sup{font-size:.7em; line-height:0}
+.fcard.wide{grid-column:1 / -1}
+.fx{overflow-x:auto; padding-bottom:2px}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; line-height:1.2; margin:0 3px}
+.frac > span:first-child{border-bottom:1px solid currentColor; padding:0 3px}
+.frac > span:last-child{padding:0 3px}
+.fx i{font-style:italic}
+.fnote{font-size:13px; color:var(--muted)}
+.units{width:100%; min-width:0}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%}
+th,td{padding:7px 9px; border-bottom:1px solid var(--border); text-align:left; font-variant-numeric:tabular-nums}
+th{font-size:14px; color:var(--muted); font-weight:600}
+.dn td, .dn th{font-size:14px; text-align:center; white-space:nowrap}
+
+/* Aufgaben */
+.calc{display:flex; flex-direction:column; gap:14px; padding:18px; border:1px solid var(--border); border-radius:10px; background:var(--surface)}
+.calc-head{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:baseline}
+.calc-head h3{margin-right:auto}
+.given{background:var(--surface2); border-radius:8px; padding:12px 14px}
+.part{display:flex; flex-direction:column; gap:8px; padding-top:12px; border-top:1px solid var(--border)}
+.part .q{font-weight:600}
+.part input[type=text]{width:150px; font-family:var(--mono); text-align:right}
+.part select{min-width:150px}
+.unit{font-family:var(--mono); color:var(--muted); min-width:48px}
+.part.is-ok input, .part.is-ok select{border-color:var(--ok); background:var(--ok-soft)}
+.part.is-err input, .part.is-err select{border-color:var(--err); background:var(--err-soft)}
+.solbox{font-size:15px; background:var(--surface2); border-radius:8px; padding:10px 12px; font-family:var(--mono); line-height:1.7; overflow-x:auto}
+.muster{display:flex; flex-direction:column; gap:10px; padding:16px; border:2px solid var(--blue); border-radius:10px; background:var(--blue-soft)}
+.muster .solbox{background:var(--surface)}
+.mstep{display:flex; flex-direction:column; gap:4px}
+.badge{font-size:13px; font-weight:700; padding:3px 10px; border-radius:999px; background:var(--ok-soft); color:var(--ink); border:1px solid var(--ok)}
+
+/* MC */
+.mc{display:flex; flex-direction:column; gap:10px; padding:16px; border:1px solid var(--border); border-radius:10px}
+.mc .qq{font-weight:600}
+.mc .opts{display:flex; flex-direction:column; gap:6px}
+.opt{font:inherit; text-align:left; padding:8px 12px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt.ok{background:var(--ok-soft); border-color:var(--ok)}
+.opt.err{background:var(--err-soft); border-color:var(--err)}
+.opt:disabled{cursor:default; opacity:1}
+
+/* Checkliste */
+.ck{display:grid; grid-template-columns:1fr auto; gap:8px 14px; align-items:center; padding:10px 0; border-bottom:1px solid var(--border)}
+.seg{display:flex}
+.seg button{font:inherit; font-size:14px; font-weight:600; border:1px solid var(--line); background:var(--surface); color:var(--ink); padding:5px 11px; cursor:pointer}
+.seg button + button{border-left:0}
+.seg button:first-child{border-radius:6px 0 0 6px}
+.seg button:last-child{border-radius:0 6px 6px 0}
+.seg button[aria-pressed="true"][data-v="2"]{background:var(--ok); color:var(--bg); border-color:var(--ok)}
+.seg button[aria-pressed="true"][data-v="1"]{background:var(--maybe); color:var(--bg); border-color:var(--maybe)}
+.seg button[aria-pressed="true"][data-v="0"]{background:var(--err); color:var(--bg); border-color:var(--err)}
+.summary{font-family:var(--mono); font-size:13px; min-height:220px}
+@media (max-width:560px){ .ck{grid-template-columns:1fr} }
+@media (prefers-reduced-motion: no-preference){ .opt{transition:background-color .15s, border-color .15s} }
+
+/* Schul-Design Carl Engler Schule */
+.site-head{background:#FFFFFF; border-bottom:1px solid #E6E6E6}
+.site-inner{max-width:1000px; margin:0 auto; padding:18px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px}
+.logo{height:72px; width:auto; display:block}
+.unit{display:flex; flex-direction:column; gap:2px; border-left:3px solid #0C77B7; padding-left:16px}
+.unit-k{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#56616B}
+.site-head .brand{font-family:'Segoe UI',Arial,sans-serif; font-weight:700; font-size:20px; color:#0C77B7; margin:0}
+header.top{box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.top-inner{padding:0 16px; gap:0 16px; justify-content:space-between}
+nav.tabs{gap:0 4px}
+nav.tabs button{border:0; border-radius:0; background:transparent; color:var(--blue); text-transform:uppercase; font-size:14px; font-weight:700; letter-spacing:.02em; padding:14px 12px 11px; border-bottom:3px solid transparent}
+nav.tabs button:hover{border-bottom-color:var(--blue-soft)}
+nav.tabs button[aria-current="true"]{background:transparent; color:var(--blue); border-bottom-color:var(--blue)}
+.saved{margin-left:0; padding:6px 0}
+section.station{scroll-margin-top:70px}
+h1,h2,h3{font-weight:700; letter-spacing:-.01em}
+h1{font-weight:800}
+.eyebrow{color:var(--blue)}
+button.btn, .filebtn, textarea, input[type=text], select{border-radius:4px}
+.input, .task, .calc, .io, .case, .card, .mc{border-radius:6px}
+@media (max-width:560px){ nav.tabs button{padding:9px 7px 7px; font-size:13px} .logo{height:56px} .saved{font-size:12px} }
+.site-foot{max-width:1000px; margin:0 auto; padding:24px 16px 40px; border-top:1px solid var(--border); font-size:13px; color:var(--muted)}
+
+/* ===== Gemeinsame Ergänzungen (Speichern, Musterbeispiel, Grafiken) ===== */
+.saved.warn{color:var(--err)}
+.resumebar{max-width:1000px; margin:12px auto 0; padding:14px 18px; display:flex; flex-direction:column; gap:10px; background:var(--maybe-soft); border:2px solid var(--maybe); border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.resumebar-wrap{padding-inline:16px}
+.lm-more summary{cursor:pointer; font-weight:600; font-size:15px; color:var(--blue)}
+body.lm-drop::after{content:"Speicherstand-Datei hier loslassen"; position:fixed; inset:12px; border:4px dashed var(--blue); border-radius:16px; background:color-mix(in srgb, var(--surface) 85%, transparent); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; color:var(--blue); z-index:50; pointer-events:none}
+.muster{display:flex; flex-direction:column; gap:10px; padding:18px; border:2px solid var(--blue); border-radius:6px; background:var(--blue-soft)}
+.muster .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin:0}
+.muster .solbox{background:var(--surface)}
+.msteps{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:8px}
+.msteps li.off{color:var(--muted)}
+.msteps li.off b{font-weight:600}
+.msteps .solbox{margin-top:4px; font-family:var(--sans); line-height:1.6}
+.solbox{font-size:15px; background:var(--surface2); border-radius:6px; padding:10px 12px; line-height:1.7; overflow-x:auto}
+.helpbar{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center}
+.hintbox, .solution{font-size:15px}
+.fb.info{background:var(--blue-soft); border-left:4px solid var(--blue)}
+
+/* Grafiken */
+.figure{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:14px; display:flex; flex-direction:column; gap:12px}
+.figure .cap{font-size:14px; color:var(--muted)}
+svg.gfx{width:100%; height:auto; display:block; overflow:visible}
+svg.gfx text{font-family:var(--sans); fill:var(--ink)}
+svg.gfx .lbl{font-size:14px; font-weight:600}
+svg.gfx .lbl-s{font-size:12px; fill:var(--muted)}
+svg.gfx .axis{stroke:var(--ink); stroke-width:1.2; fill:none}
+svg.gfx .grid{stroke:var(--border); stroke-width:1; fill:none}
+svg.gfx .lead{stroke:var(--muted); stroke-width:1; fill:none}
+svg.gfx .hot{cursor:pointer}
+svg.gfx .hot:focus{outline:none}
+svg.gfx .hot:focus-visible .ring, svg.gfx .hot.on .ring{stroke:var(--rust); stroke-width:3}
+svg.gfx .ring{fill:var(--surface); stroke:var(--blue); stroke-width:2}
+svg.gfx .ringtxt{font-size:13px; font-weight:700; fill:var(--blue); text-anchor:middle; dominant-baseline:central; pointer-events:none}
+.sim{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr); gap:16px; align-items:start}
+@media (max-width:760px){ .sim{grid-template-columns:1fr} }
+.ctrl{display:flex; flex-direction:column; gap:12px}
+.ctrl label{font-size:14px; display:flex; flex-direction:column; gap:4px}
+.ctrl input[type=range]{width:100%; accent-color:var(--blue)}
+.ctrl .val{font-family:var(--mono); font-size:14px; color:var(--blue)}
+.readout{display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:15px; background:var(--surface2); padding:10px 12px; border-radius:6px}
+.readout b{font-family:var(--mono); font-weight:500}
+.question{font-size:15px; border-left:4px solid var(--maybe); background:var(--maybe-soft); padding:9px 12px; border-radius:6px}
+.segbtns{display:flex; flex-wrap:wrap; gap:6px}
+.segbtns button{font:inherit; font-size:14px; font-weight:600; padding:6px 12px; border-radius:4px; border:1px solid var(--blue); background:var(--surface); color:var(--blue); cursor:pointer}
+.segbtns button[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.infobox{min-height:64px}
+#savepanel .mono, .resumebar .mono{word-break:break-all; overflow-wrap:anywhere}
+/* Struktur: Einführung, Schritte, Problemstellung, Antwort */
+.intro{display:flex; flex-direction:column; gap:10px}
+.stepbox{background:var(--surface); border:1px solid var(--border); border-left:6px solid var(--blue); border-radius:6px; padding:20px 22px; display:flex; flex-direction:column; gap:14px}
+.stepbox h2, .stepbox .sumh{display:flex; align-items:center; gap:12px; font-size:22px; font-weight:700; margin:0}
+.stepbox .no{flex:none; display:inline-flex; width:36px; height:36px; border-radius:50%; background:var(--blue); color:var(--bg); align-items:center; justify-content:center; font-size:18px; font-weight:800}
+.stepbox.save{border-left-color:var(--maybe); background:var(--maybe-soft)}
+.stepbox.save .no{background:var(--maybe)}
+.stepbox.save.done{border-left-color:var(--ok); background:var(--ok-soft)}
+.stepbox.save.done .no{background:var(--ok)}
+details.stepbox > summary{cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px}
+details.stepbox > summary::-webkit-details-marker{display:none}
+details.stepbox[open] > summary{margin-bottom:6px}
+.problem{font-size:20px; font-weight:700; color:var(--rust); border-left:4px solid var(--rust); padding:4px 0 4px 14px; margin:0}
+.answer{background:var(--ok-soft); border:2px solid var(--ok); border-radius:6px; padding:16px 18px; display:flex; flex-direction:column; gap:8px}
+.goals{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:4px}
+table.plan td, table.plan th{vertical-align:top}
+.okmark{color:var(--ok); font-weight:700; white-space:nowrap}
+.nowrap{white-space:nowrap}
+.saved .linkbtn{font-size:13px; padding:0 2px; color:var(--err); font-weight:700}
+/* Startfenster: Speicherort als Pflichtschritt */
+body.lm-gated{overflow:hidden}
+#lm-gate{position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; align-items:center; justify-content:center; padding:16px; overflow:auto}
+.lm-gate-card{background:var(--surface); color:var(--ink); max-width:640px; width:100%; margin:auto; border-radius:10px; border-top:10px solid var(--maybe); padding:26px 28px; display:flex; flex-direction:column; gap:14px; box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lm-gate-card h2{display:flex; align-items:center; gap:12px; font-size:24px; margin:0}
+.lm-gate-card .no{flex:none; display:inline-flex; width:40px; height:40px; border-radius:50%; background:var(--maybe); color:#fff; align-items:center; justify-content:center; font-weight:800; font-size:20px}
+.lm-gate-steps{margin:0; padding-left:24px; display:flex; flex-direction:column; gap:6px}
+.lm-gate-card .mono{word-break:break-all}
+.btn.big{font-size:19px; padding:14px 30px}
+.saved.warn{background:var(--err); color:#fff; padding:5px 12px; border-radius:999px; font-weight:700; margin:4px 0}
+.saved.warn .linkbtn{color:#fff; text-decoration:underline; font-weight:800}
+@media (max-width:560px){ .lm-gate-card{padding:20px 18px} .lm-gate-card h2{font-size:20px} }
+
+.lm-gate-card.ok{border-top-color:var(--ok)} .lm-gate-card .no.ok{background:var(--ok)}
+body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-gated .site-foot{visibility:hidden}
+
+/* Das Wichtigste auf einen Blick */
+.merke{border-top:6px solid var(--ok)}
+.mk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px}
+.mk-item{display:flex; gap:10px; align-items:flex-start; background:var(--surface2); border-radius:8px; padding:12px 14px}
+.mk-no{flex:none; width:28px; height:28px; border-radius:50%; background:var(--ok); color:var(--bg); display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+.mk-f{grid-column:1/-1; background:var(--blue-soft); border-radius:8px; padding:12px 14px}
+.mk-f > div{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:6px}
+
+/* Sortieren */
+.sortlist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; counter-reset:s}
+.sortlist li{counter-increment:s; display:grid; grid-template-columns:auto auto 1fr auto; gap:10px; align-items:center; padding:8px 10px; border:1px solid var(--border); border-radius:6px; background:var(--surface); cursor:grab}
+.sortlist li::before{content:counter(s) "."; font-weight:700; color:var(--muted); min-width:20px}
+.sortlist li.ok{background:var(--ok-soft); border-color:var(--ok)}
+.sortlist li.err{background:var(--err-soft); border-color:var(--err)}
+.sortlist .grip{color:var(--line); letter-spacing:-2px}
+.sortlist .mv{display:flex; gap:4px}
+.sortlist .mv .btn{padding:3px 8px}
+/* Fehler finden */
+.errlines{display:flex; flex-direction:column; gap:6px}
+.errline{font:inherit; font-family:var(--mono); font-size:14px; text-align:left; display:flex; gap:12px; align-items:baseline; padding:8px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--ink); cursor:pointer; overflow-x:auto}
+.errline .n{font-family:var(--sans); font-weight:700; color:var(--muted)}
+.errline:hover{border-color:var(--blue)}
+.errline.sel{border:2px solid var(--blue); background:var(--blue-soft)}
+.errline.ok{border-color:var(--ok); background:var(--ok-soft)}
+.errline.err{border-color:var(--err); background:var(--err-soft)}
+
+/* Link zurück zur Übersicht (nur sichtbar, wenn die Übersicht bekannt ist) */
+.site-inner .lm-back{margin-left:auto; flex:none; font-size:14px; font-weight:600; color:var(--blue); text-decoration:none; border:1px solid var(--blue); border-radius:999px; padding:5px 12px; white-space:nowrap}
+.site-inner .lm-back:hover{background:var(--blue-soft)}
+@media print{ .lm-back{display:none} }
+</style>
+
+<div class="site-head">
+  <div class="site-inner">
+    <img class="logo" alt="Carl Engler Schule Karlsruhe" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAABiCAIAAAA5sDquAAAVGUlEQVR42u2da1QT19rHd0IEY7lM6qXisoCKWoFO9FXwsmKjx1Yourz1ErRvqwi2tl6aLG8Hjfa1WIqwLAilxTZYPLZQVstRW43gOkpUFIpyFdBCQANIqtBmgMg0Yci8H7bOmSYBggawsH+LD2GyZ2bvPfufeZ59eTaHpmmAQCAA4KIqQCCQGBAIJAYEwho89j80Tbe0tKBKgYwYMcLR0RHVwxAVQ0tLi0AgQJUCUSgUYWFhqB6QmYRAIDEgEEgMCAQSAwKBQGJAIJAYEAgkBgQCiQGBQGJAIGyE16vURUVFEyZMGCJVM2LECNQ+kBi6ZMKECRiGoVpDIDMJgUBiQCCQGBAIJAYEAokBgUBiQCCQGBAIBBIDAsGCh6qgTyE7Oo2UCX7mOzo4OqBfnyEsBspE593RxV+8fe7Xpn4oT9Jrfu/4j7cxMYfD6ebbJwkIQJnoEzd++0xVW65tYx/3c3eJfHXqPyaPvPMHKYy91KvcPkaheiyCyz+zbL+yLiqQx+X09RMkCIIdlSInJ2fBggWDQQwFdcSqo9db/qSG1A9M7e/tLyVeZUq9SeQFP1Q3PTj3a9PKo9efF/C3zvfqo7tLpVIAwIULF8rKynpMDPN2seb3cm2b23De/86yrsxvrzf020N0cnKCRUhNTSUIYpC8GeoJctEX+UPtVVtPkMLYSwAAt+G8M+8G4O6u7NePsdN08HxNzIWaHT/d7KMMxMXFAQBSUlLCw8N7TBy99AUAwL+uNWzKLPcd6wL/taS4oeXqHV3/VCCfz4dFuH79em5u7iBxoN88VjTUlGCi6bnxV6ASbkUsEI5zNTPEHB24exdPzt06DxnoTyF9JYYWssPMXB4KKCuboDnx7/WznJ26fOsKx7keXS3s6luapgmCMJlMvbq1Xq8nCMJoNPZFuWKWTVO+G+DQrYsFs01RlI1ZtZeDQZJkb0/pKp99JYZWAzUEf1p2nr4JveQAD6z7lG8I3duig9jes8lkSk9P9/Ly4nK5AoHAwcGBw+FER0fr9Xoz/5hBpVLRNJ2ens7hcFxcXAQCwfHjx+3b+XG59g+aBsJxrvMnPgu1oFKp2HmgKEqr1W7YsAFme9iwYSEhIVabmtFoTExMFAgEMKscDkcmkzU3N5tdsEed0DStUqmWLFnC4XAEAsGIESMEAkFKSgr7phRFsa+pVqtNJlN0dDQ8RSAQWDXA+spn0LYahpoSyI7Oeh0JAFjb+w4ikiSnTZum0WhwHFcoFJMmTcrPz09OTo6IiDh48OC9e/eYqK/QuayqqlIqlQaDYd++fQcOHIBfiUQiu7/eg78q0EUF8ljvhPHjx0ulUr1er1AoAADvv/8+/AAzFh8fn5GR0dbWdubMmb+0B63Wx8cHNnSRSDRr1qyqqqr4+Pj4+HgcxwEAGIatW7cOOtC2VBSGYQkJCS+++CJBEIcOHQoPD4+MjCwpKYHrbbhcLswPdDyMRqNYLIYCwDDMzc3Nzc2t/8RgoExDTQxMf4vvWJfenuvg4HDkyJGGhgamJ3TBggXbt2+fOXNmWVnZ8ePHmePQuVSr1UqlcufOnWVlZVlZWYsXL+6+m9gWKn5r++fpW+wj1U0PLJN5e3vHxcVRFAU1oFAoFApFaGgol8sFAMhkMk9PT6VSSRAEsw7MaDRCJUgkkm+++YbP5zMtOzQ0NCMjAwDg5+cHi9bdm4qioBLkcvn+/fvhHQEAK1asgB0GYrG4uLiYy+VyuVx4NZVKtXDhwvfee6+8vLyiosLHx2dgepO64jWh+1gXpz66+AvPOQ+UGNqNnfCD6/Be16qjo2NgYKD5s+Hx9u/fv3LlyvLycqtnlZWVpaWlWZ742GJOyr3T27OysrLYGfDw8IAfmpubGTF89tlnBEHgOJ6Wlsa0YNhxlJ6efvfuXRt7jb788kv48mQrARIWFpafn69QKC5dumQ5LpGbm5uXl9e9EgZGDIdX+Ljxhw2+N8MIRwf4oUlvNy+2x0W2r776qh2L0BYdxP63niB9oi92f8rs2bN7NPEjIiIAAIcPHzZrwdAFioyMXLhwoS3Z27dvHwDAUgmQXbt2KRSK5ORkq4N0PeYToLlJdmTUMw/N+v9UNduS3vTX3fT0en1iYqJQKGTcPqFQuHfv3idUyxOWaJPI6wkHnR88eGhrTZ8+3WqC8eNtcrEoioIux8qVKznWmDx5MgAAGl1m4DhuixmJ5ibZDR6Xs3jq6HO/NiXl3olaMpXbbe1TJtrr4/PJb+BLfcdA/3LcuHEAALlcfvjwYSZZbGzsAJaIP8yhq2G4XnRJPerksaXXtRs6OjrgB7lcvmjRol6d6+rqatMTRI3YjuwLnAynYH2VV7dxnmc3KU/c+K3lT+qT/1RDMUADIC0tbfXq1WYplUrlgJcrMPmXq3d0jzc3iem3UavVo0aNskzQ0NBgkzL5fE9PT41G4+Xl1UezlZCZZE+E41wXTx0NANjx081ujKVb9/Tr00sBAMlvvAiPwJ4Z+zoATwkcDufTTz8FAFgdf6Ao6sMPP7TxUvHx8QCA7du3Wx1bpGn6CccckRjsTPo7M54X8AEAK49e35xZXk+QjGtA06CeIDdnlvvH5QIA/i9oinDcw9c3HCK4desvPZskSSYnJw+COtm+fTuGYRqNZubMmXV1dVASFEUVFxd7e3vbMqEQsmzZMhzHCYLw9/dvbv7Lb01zc/PSpUudnJwSExMfX7fsTdHNZs9aotPpbPTYLtf+EfxVgdWvGj5a9JT0JvXRFG4TTW/9d8Wxa12+/d2G81LXTH95yn9thrq6Ok9PT8Yg1mq13377rVKpxHGc3VZomp4/f75lR6RUKmU66S0Lxf7WjMeYwq1Wq6GrygZOtJbJZPDH27IOCYIQi8WW7R7DsHnz5imVSpFIdPny5a4aITORmyTJ119/HZqOcPAOsKboBgcHnzp1isfjdfVwu3+myGfoA9OTw/n8Nb/9QVPOVN7/rvAue77nWv/x7/iPn/W8m5l77eHh0dTUtHnz5gMHDsARZalUqlAoMAzbvXs3O+Wbb74JWwAbsVjMbvrdfGsGM73ctnI9bL6Wt4A9QpY38vX1ZRp9aWlpZWVleno6nGAyceJEkUgkFApLS0vZfhEzhdtqjxOfzz9z5kxxcfHBgwczMjKY3wW5XL527Vpvb+9u6oGdH/Rm6Kc3A6JXZGdnBwUFyeXyyMjIAf4VQw8DMbAkJCQAAFatWjXwr3T0MBD9Q35+vlqtZh8xGo0ymQw6DDNmzBjwHCKfAdEfVFZWzp07F7BmpzIL2UQi0blz556GTCIxIPoDHx+f6urqY8eOff7550yPU3h4eFhY2Jw5c56STCIx2B+yo/N05f3C+paH7eA55yU+Y9z4w/Lu6FyH85ixBRtRq9XMGK2bm5t9zQmCIEpKSph/xWLxk08F7wpvb+/IyMgB95KRGPqP0xX3Vx83X/y9KRP4ubuUa9vmeQmyN87u1QWTkpKYn1KmM95elJSUsGeMdnR0wE76oQlyoO1JaWMrVEL62//T8NGituig1k+Dqvcs3CTyeuwV4VFRUTqdLisrqy8yLBKJdDpdUVERenZIDHYm7uJtAIDy3YClvmPgWAqHA8a6OEUvfeHE+lmPd00+n49h2KRJk/rEMODxMAwbOvv0ITH0H5mlWgAA7m5l2edLk55F9fOUg3wGe/K8gF+vI8u0bfMnmjd9Rwduw0eLHKxNgSZJ8pdffjl//rxer1++fPns2bMNBkNJScnUqVPd3d0t01MUdf369WvXrtXW1gYFBS1atIht6BcXF7e0PPTdZ8+eDRcc0zR98eJ/16xNnz7d9lVBFEXduHHj1q1bBQUFAQEB/v7+7FkPgwqahU7XQ9Q0nU5H28almt+dd521+ke0G+mng+4Lq1AoenvBL6/cgWX8ufyegersMb3JZJLL5Za3Dg4ONstAdXU1AADHcTgdmg2GYeznwo6RUV1dDQ8yK2MgOTk5Vp97R0eHWfYsbwcAgOsK6EEHMpPsyfrZz8P526uPF43cc27u4SuR56ov1/7RQnZYTb906dIDBw54enpmZWXpdDqdTqfRaMLDw7ta0FNWVpacnJyVldXe3k7TdHt7e3BwMEEQO3bsYNKcPXvW8keNx+PB68O4LLZgMpleeumliIgIHMerq6s7OzuhqE6cOKHRaDw9PbVaLfIZEF3i6MAt2T5/5z8eOrvl2raYCzXBXxWM339+7uErpY2t7MQnT55UKpUYht28eTMwMBDDMAzDPDw8vv76a4lEYvX6OI7X1tYGBgZC44fP58M1onBtEMTZ2dmqCQSvb+MCSABATExMbm4ujuOFhYXe3t5wDT6Px1uxYkVFRQUAICgoCIkB0YMe9i6erIsKvCYTJb3m95rQnRGGKOHqD6X//TWFc4zZcYTYDVEqlVrON3Z1dTULDGF1IeWTYzQaYUiL1NRUy5EHHx+f4ODgsrIys7lGyIFGWKtWLueF55xfeM75Hf/xR0Pw6/Ut69JL63Xk+vTS+ROfHeviRJKkRqMBXYTB8/Dw6DGiVp/CtHKNRsO442xcXFwAANeuXRtMzjQSgz0pbWxt/ZMSTXiWPaeBy+EEeGAl2+eP3HMOAPBd4d1tCyYaDAbGmn8KC3L//n34YeXKld0ka29vR2YSwjo7f7oZ/FVBp7V+KkcHLozBekPbBlgRRVtbW5/CgowZM4Zp7t10vwyyxU9IDH1gY1gLUQoehS51dnSAvi80kNLS0rrqzOmLvNmovSlTpsAP2dnZQ+fBITHYn5e/zK/93dx+KKgj4GLoDXMfRiOFK7wiIiLMAj0AAE6ePOng4JCSkvLYeYDhBcyunJiYaGMoCh6PB0cYQkNDLbNH03RKSkp2dvYTxgVDYhj8tPxJCWMvbc4sL6gjWsiOW/f0keeq4Y5ea/3HM1O4Z8yYAUfcRo8enZiYWFdXRxBEfn5+SEgItNRfeeUV6MuqVKoff/wRAFBfX69SqeC2DACA4uLizMxMeDV4nGmdGzduBACEhISo1WqCICorK+fPn79161bY63rq1CmVSqVWq7VarUqlYi5y+vRp5iK7du2SSCQEQYwePTolJaW5uRlu85GdnT19+vTw8PCQkBCzvSP+7gxAQIDcrfO8BPw+Kk+vtpe1e0AAGHnumkwUfaEms9R8TOroauHruLvZPdPT09esWWOWEsfxn3/+GUa0toy/Ah7NtbYMG8M8IIqivL29YYcVRCQSfffdd2+99RZzilQq9fPzs9z6jbkITdPff/+9ZfYAAHK5fO/evcyuEUgMjymGPmVgt77VG6hOEw3nq7aQHWWPpm27Duf5jnXpKjYjRVFVVVVMB46fnx979IAkSabriQE+Bb1eb2aouLm5MYWiabqkpAR2jE6cOBFKi32Kk5OTg4ODZY8Q+yIwe3fu3GEvMPL19R1kMnhoHCKrxo6w93Fz4w+znK7XlYHu4+PT1e4BfD7fclTu4e2cnbuXuuWyOMtTemzWPB7P29t70E7O6wefYfQzjkgbCCQGAAAY7YzEgEBiAAAAIBgxzG04ssEQSAwAcDmc5DdwVL8IJAYAAFjqO4aZs4lADGkxAABSVwtPrJ/l5+6CKhrx9NPnZv3LU0a9PGWU3kBV3tP3w+bQk0c/gx4q4ikVA8TZiRfggaHqRiAxDAkSExNra2sBAGKxODAwkNlkZM+ePXBE+eTJk0yIColEAmOMkiTJ3o7E2dl5yZIlAQEBXC63ubn5k08+gcc3bdrEHvaiKOqHH34oKChwdnZetWpVbm7uli1b8vPz2Ru/+vn5zZ07F47lyWQy9n3VanVSUhI8cujQoaSkJJhz+C07S1FRUaWlpVb3kz106JDV/Zj/xvRRdIy/Bd0XtrfRMdra2iQSiUKhaG9vN5lMCoXC09OzsbERLqWnabqzsxPDsI6ODgzD2BEoYLUXFRXBNftyuVwkEsH0cHJRUVGRWdwKkUiUk5Njlt5gMMDYePB4Y2OjSCRKS0uDTxbmzWAwwHX9TEqYcxzHmW9NJhO8r0ajMZlMBoMhKysLx3EdC2ARSmMwtAckBnuJgaZpqVQKo7Dk5eWJRCKz5pKXlyeXy2EyJogLkxOmbuFMJHguDPFiVu3wIPNvZ2dnQkIC+wkyX+Xk5ECdsPNmNSVUl9ktmPxXV1cz12GuxogchYpBdEl6evqOHTtycnLMlnRGRkauXbsWALBhwwbGSmG4ffs2nCOdmZmJ43g3y0F5PB6O4zKZTK1WkyTJ5XK3bNnCTkA8IjY29oMPPrAx2zU1NcyJjY2NXSUjSVKlUsXFxQ02Gwn5DHYnOTk5IyOjqanJrDUbjUalUqlQKAiCcHR0jI+PN7O5Dx486OLiolAoEhISCgsLu79LYWHhsWPHQkNDYTQXZr43ZP/+/VVVVVevXr1y5UpX8/+s9IOnppaXl8PPlgsVcnNzmamsOTk5yIFG9MzGjRs3btw4a9asmzdvsmebXr16FcfxmJgY+C+O46WlpexZpcnJyRiGjR07dtSoUV29FtRqdXNz85w5c3g8XlhYWFhYGEVR58+f9/T0bG9vZ24XFxdnMplGjhzZ/YR8MyIjI+H2stBBZ8diAqxo+Eajsa6ublA+O2Qm2Z8FCxakpqZOmzaNJEnmYGxsbGZmZtwjjhw58sUXX1ieu3v37jVr1rBPZNPQ0FBRUUFRFNPKeTxeYGAgAODu3bt/ea5c7tmzZ9kLd5ydnQmCYP5tbW21PdwqG0dHR29vb5lM1kertJEYBgN6vV6r1dbU1BiNRrFY/Pbbb0+bNk2r1T548ECtVrMjRtI07erqqlAotFotRVGwjd6+fZuiKD6fn5aWtnXrVoIgKIqCtjvjTtTU1DBeQXR0NEVRNE2rVCoMw7y8vIxG4+3bt+G3NE3PmTOnoaEhOzsbSmvVqlVSqRTaPyaTaefOnR9//DGT89bWVphzmD1438bGRpqmjUZjTU1Na2srwSI+Pn7wiaGvVrr9PQpv15VuzDiDRCIRCoVMV/3ChQsZIxv6CeyOfJlMxsQLg4MJJpNp27ZtAACpVGq54FMikQQEBGzbtk0ikWRkZFy4cGHZsmXbtm3DMIw9zhAVFcXn87VabUxMjFgsXrFiBQAAJkhNTV23bt3y5csZo4id86E8ztA7MQwp0KboQw1kJiEQSAwIBBIDAoHEgEAgMSAQSAwIBBIDAoHEgEAgMSAQTwinxzUuCAR6MyAQSAwIBBIDAjGU+X8qZ8EqbvtzhAAAAABJRU5ErkJggg==">
+    <div class="unit"><span class="unit-k">Fachschule für Technik – Chemie · Produktionstechnologie</span><span class="brand">LPE 2.4 · Strömungsmechanik – Wiederholung</span></div>
+  </div>
+</div>
+<header class="top">
+  <div class="top-inner">
+    <nav class="tabs" id="tabs" aria-label="Stationen"></nav>
+    <span id="saved" class="saved" role="status"></span>
+  </div>
+</header>
+<div class="resumebar-wrap"><div id="resumebar" class="resumebar" hidden></div></div>
+
+<main>
+
+<!-- START / FORMELN -->
+<section class="station" id="s0" data-title="Start">
+  <p class="eyebrow">Lehrplaneinheit 2.4 · Wiederholung · Vorbereitung auf die Klassenarbeit</p>
+  <h1>Strömungsmechanik: Strömungen in Rohrleitungen</h1>
+  <div class="intro">
+    <p class="lead">Rohrleitungen sind die Adern einer Chemieanlage. Durch sie fließen Kühlwasser, Rohstoffe, Zwischen- und Endprodukte, oft über Hunderte Meter, durch Armaturen, Bögen und Wärmetauscher.</p>
+    <p>Wer eine Leitung auslegt, muss vier Fragen beantworten: <b>Wie schnell strömt das Fluid?</b> (Kontinuität) · <b>Wie groß muss das Rohr sein, und wie dick die Wand?</b> (Nennweite, Wanddicke) · <b>Wie viel Druck geht unterwegs verloren?</b> (laminar und turbulent) · <b>Reicht die Pumpe dafür?</b> In dieser Wiederholung bringst du alles zusammen.</p>
+  </div>
+
+  <div class="stepbox save" id="savestep">
+    <h2><span class="no">0</span>Speicherort festlegen</h2>
+    <p>Bevor du anfängst: Lege fest, wo deine Ergebnisse gespeichert werden. Danach wird jede Eingabe automatisch gesichert, und beim nächsten Öffnen ist alles wieder da.</p>
+    <div id="savepanel" style="display:flex;flex-direction:column;gap:10px"></div>
+  </div>
+
+  <div class="stepbox">
+    <h2><span class="no">1</span>Die Problemstellung: Reicht die Kühlwasserpumpe?</h2>
+    <p>Ein Wärmetauscher wird mit Kühlwasser versorgt. Die Kreiselpumpe fördert <b>36 m³/h</b> durch eine <b>150 m</b> lange Stahlleitung <b>DN 80</b> (d<sub>i</sub> = 82,5 mm, k = 0,05 mm). In der Leitung sitzen Armaturen und Bögen mit zusammen <b>ζ = 8</b>. Für die Leitung bleibt der Pumpe bei diesem Volumenstrom eine <b>Druckreserve von 1,0 bar</b>.</p>
+    <div class="figure"><div id="fig-problem"></div></div>
+    <p class="problem">Reicht die Druckreserve der Pumpe aus, um die Druckverluste in der Leitung zu überwinden?</p>
+    <div>
+      <label for="guess">Deine erste Einschätzung (ohne Rechnung)</label>
+      <div class="segbtns" id="guess"><button type="button" data-guess="ja">Reicht sicher</button><button type="button" data-guess="knapp">Wird knapp</button><button type="button" data-guess="nein">Reicht nicht</button></div>
+    </div>
+    <p class="muted small">In Station 5 rechnest du das Problem vollständig durch und prüfst deine Einschätzung.</p>
+  </div>
+
+  <div class="stepbox">
+    <h2><span class="no">2</span>Deine Lernziele und der Ablauf</h2>
+    <p><b>Am Ende kannst du …</b></p>
+    <ul class="goals">
+      <li>Volumen- und Massenstrom berechnen und mit der Kontinuitätsgleichung Geschwindigkeiten bestimmen,</li>
+      <li>die passende Nennweite wählen und die Mindest-Wanddicke berechnen,</li>
+      <li>mit Re die Strömungsform bestimmen und den Druckverlust laminar und turbulent berechnen,</li>
+      <li>beurteilen, ob eine Pumpe die Verluste einer Leitung ausgleichen kann.</li>
+    </ul>
+    <div id="plan"></div>
+    <div class="fb info small"><b>So kontrollierst du dich selbst:</b> Bei jeder Teilaufgabe gibt es <b>Prüfen</b> (sofortige Rückmeldung), <b>Tipp</b> (Denkanstoß) und <b>Lösungsweg</b> (freigeschaltet, sobald du einmal geprüft hast). Der Button „Musterlösung“ zeigt die komplette Rechnung mit den gerade angezeigten Zahlen. Mit „Neue Zahlen“ rechnest du danach noch einmal ohne Hilfe. Ziel: jeden Aufgabentyp mindestens zweimal komplett richtig.</div>
+  </div>
+
+  <details class="stepbox formel">
+    <summary><span class="sumh"><span class="no">3</span>Formelsammlung und Einheiten</span> <span class="small muted">(aufklappen – wie in der Klassenarbeit)</span></summary>
+  <div class="input">
+    <p class="tag">Formelsammlung · wie in der Klassenarbeit</p>
+    <div class="formulas">
+      <div class="fcard"><span class="fname">Volumen- und Massenstrom</span>
+        <div class="fx"><span class="eq"><i>V̇</i> = <span class="frac"><span><i>V</i></span><span><i>t</i></span></span></span><span class="eq"><i>V̇</i> = <i>A</i>·<i>v</i></span><span class="eq"><i>ṁ</i> = <i>V̇</i>·<i>ρ</i></span></div></div>
+      <div class="fcard"><span class="fname">Kontinuitätsgleichung · Kreisfläche</span>
+        <div class="fx"><span class="eq"><i>A</i><sub>1</sub>·<i>v</i><sub>1</sub> = <i>A</i><sub>2</sub>·<i>v</i><sub>2</sub></span><span class="eq"><i>A</i> = <span class="frac"><span>π</span><span>4</span></span>·<i>d</i>²</span></div></div>
+      <div class="fcard wide"><span class="fname">Bernoulli-Gleichung</span>
+        <div class="fx"><span class="eq"><i>p</i><sub>1</sub> + <i>ρgh</i><sub>1</sub> + <span class="frac"><span>1</span><span>2</span></span><i>ρv</i><sub>1</sub>² = <i>p</i><sub>2</sub> + <i>ρgh</i><sub>2</sub> + <span class="frac"><span>1</span><span>2</span></span><i>ρv</i><sub>2</sub>²</span></div></div>
+      <div class="fcard"><span class="fname">Mindest-Wanddicke</span>
+        <div class="fx"><span class="eq"><i>e</i> = <span class="frac"><span><i>p</i><sub>c</sub>·<i>d</i><sub>i</sub></span><span>2·<i>f</i>·<i>z</i> − <i>p</i><sub>c</sub></span></span></span><span class="eq"><i>e</i> = <span class="frac"><span><i>p</i><sub>c</sub>·<i>d</i><sub>a</sub></span><span>2·<i>f</i>·<i>z</i> + <i>p</i><sub>c</sub></span></span></span></div>
+        <span class="fnote">z: Schweißnahtfaktor · f: Auslegungsspannung</span></div>
+      <div class="fcard"><span class="fname">Auslegungsspannung</span>
+        <div class="fx"><span class="eq">ferritisch: <i>f</i> = <span class="frac"><span><i>R</i><sub>p0,2</sub> bzw. <i>R</i><sub>e</sub></span><span>1,5</span></span></span><span class="eq">austenitisch: <i>f</i> = <span class="frac"><span><i>R</i><sub>p0,2</sub> bzw. <i>R</i><sub>e</sub></span><span>1,2</span></span></span></div></div>
+      <div class="fcard"><span class="fname">Einzel- und Rohrleitungsdruckverlust</span>
+        <div class="fx"><span class="eq">Δ<i>p</i><sub>ζ</sub> = ζ·<span class="frac"><span><i>ρ</i></span><span>2</span></span>·<i>v</i>²</span><span class="eq">Δ<i>p</i><sub>λ</sub> = λ·<span class="frac"><span><i>L</i></span><span><i>d</i><sub>i</sub></span></span>·<span class="frac"><span><i>ρ</i></span><span>2</span></span>·<i>v</i>²</span></div></div>
+      <div class="fcard"><span class="fname">Reynolds-Zahl · laminar · Rauheit</span>
+        <div class="fx"><span class="eq"><i>Re</i> = <span class="frac"><span><i>ρ</i>·<i>v</i>·<i>d</i><sub>i</sub></span><span>η</span></span></span><span class="eq">λ<sub>lam</sub> = <span class="frac"><span>64</span><span><i>Re</i></span></span></span><span class="eq">ε = <span class="frac"><span><i>k</i></span><span><i>d</i><sub>i</sub></span></span></span></div>
+        <span class="fnote">laminar für Re &lt; 2320</span></div>
+      <div class="fcard wide"><span class="fname">Colebrook-White (turbulent)</span>
+        <div class="fx"><span class="eq"><span class="frac"><span>1</span><span>√λ</span></span> = −2·log<sub>10</sub>(<span class="frac"><span>2,51</span><span><i>Re</i></span></span>·<span class="frac"><span>1</span><span>√λ</span></span> + <span class="frac"><span>ε</span><span>3,71</span></span>)</span></div></div>
+      <div class="fcard wide"><span class="fname">Haaland (Startwert)</span>
+        <div class="fx"><span class="eq"><span class="frac"><span>1</span><span>√λ<sub>0</sub></span></span> = −1,8·log<sub>10</sub>(<span class="frac"><span>6,9</span><span><i>Re</i></span></span> + (<span class="frac"><span>ε</span><span>3,7</span></span>)<sup>1,11</sup>)</span></div></div>
+      <div class="fcard"><span class="fname">Verlustleistung</span>
+        <div class="fx"><span class="eq"><i>P</i><sub>V</sub> = Δ<i>p</i><sub>V</sub>·<i>V̇</i></span></div></div>
+    </div>
+    <h3>Einheiten, an denen Punkte verloren gehen</h3>
+    <div class="tbl-wrap"><table class="units">
+      <tr><th>Größe</th><th>Umrechnung</th></tr>
+      <tr><td>Druck</td><td class="mono">1 bar = 10⁵ Pa = 0,1 N/mm²</td></tr>
+      <tr><td>Spannung</td><td class="mono">1 N/mm² = 10⁶ N/m² = 10⁶ Pa</td></tr>
+      <tr><td>Volumenstrom</td><td class="mono">1 m³/h = 1/3600 m³/s · 1 L = 10⁻³ m³</td></tr>
+      <tr><td>Viskosität</td><td class="mono">1 mPa·s = 10⁻³ Pa·s</td></tr>
+      <tr><td>Rautiefe</td><td class="mono">1 µm = 10⁻³ mm = 10⁻⁶ m</td></tr>
+      <tr><td>Leistung</td><td class="mono">1 Pa · 1 m³/s = 1 W</td></tr>
+    </table></div>
+    <p class="small muted">Rechne immer in SI-Einheiten (m, s, kg, Pa) und rechne erst am Ende in die verlangte Einheit um. Eingaben mit Komma oder Punkt sind beide möglich.</p>
+  </div>
+  </details>
+  <div class="start-cta"><button type="button" class="btn big" data-go="s1">Los geht’s mit Station 1 →</button></div>
+</section>
+
+<!-- STATION 1 -->
+<section class="station" id="s1" data-title="1 Ströme">
+  <p class="eyebrow">Station 1</p>
+  <h1>Volumenstrom, Massenstrom, Kontinuität</h1>
+  <div class="input">
+    <p class="tag">Kurz wiederholt</p>
+    <p>Masse ist eine Erhaltungsgröße: Was pro Sekunde in einen Rohrabschnitt hineinströmt, strömt in derselben Zeit wieder hinaus. Für Flüssigkeiten (inkompressibel) bleibt damit auch der Volumenstrom konstant: <span class="mono">A₁·v₁ = A₂·v₂</span>.</p>
+    <p>Weil <span class="mono">A ~ d²</span> ist, gilt bei einer Verengung <span class="mono">v₂ = v₁·(d₁/d₂)²</span>. Halber Durchmesser heißt vierfache Geschwindigkeit.</p>
+  </div>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Simulation · Reduzierstück</p>
+    <div class="sim"><div id="fig-konti"></div><div class="ctrl" id="ctrl-konti"></div></div>
+    <p class="question" id="q-konti">Stell d₂ auf 50 mm. Um welchen Faktor ist das Wasser im engen Rohr schneller? Erkläre mit A ~ d².</p>
+  </div>
+  <div class="task"><p class="tag">Verständnis</p><div id="mc1" style="display:flex;flex-direction:column;gap:12px"></div></div>
+  <div id="ex-k1"></div>
+  <div id="task-k1"></div>
+  <div id="ex-k2"></div>
+  <div id="task-k2"></div>
+</section>
+
+<!-- STATION 2 -->
+<section class="station" id="s2" data-title="2 Rohre">
+  <p class="eyebrow">Station 2</p>
+  <h1>Nennweite und Mindest-Wanddicke</h1>
+  <div class="input">
+    <p class="tag">Kurz wiederholt</p>
+    <ul>
+      <li>Die <b>Nennweite DN</b> ist nur ein ungefähres Maß für den Innendurchmesser. Je nach Rohrart und Nenndruck unterscheidet sich der echte Innendurchmesser.</li>
+      <li>Erforderlicher Innendurchmesser: <span class="mono">d<sub>i,erf</sub> = 2·√(V̇ / (π·v))</span>. Gewählt wird die <b>kleinste</b> Nennweite, deren Innendurchmesser mindestens so groß ist. Sonst wäre die Geschwindigkeit zu hoch.</li>
+      <li>Der <b>Schweißnahtfaktor z</b> (0,7 bis 1) berücksichtigt, dass die Naht schwächer sein kann als das Grundmaterial. Kleineres z bedeutet dickere Wand.</li>
+      <li>Die Formel für e funktioniert nur, solange <span class="mono">2·f·z − p<sub>c</sub> &gt; 0</span> ist. Daraus folgt der Mindestwert für z.</li>
+    </ul>
+    <details>
+      <summary style="cursor:pointer; font-weight:600">Tabelle: Innendurchmesser unlegierter Stahlrohre, PN 6 bis PN 16 (mm)</summary>
+      <div class="tbl-wrap" style="margin-top:8px"><table class="dn" id="dn-table"></table></div>
+    </details>
+  </div>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Simulation · Druck und Wanddicke</p>
+    <div class="sim"><div id="fig-wand"></div><div class="ctrl" id="ctrl-wand"></div></div>
+    <p class="question">Verdopple den Druck. Wird die Wand genau doppelt so dick? Schau in die Formel: Was steht im Nenner?</p>
+  </div>
+  <div class="task"><p class="tag">Verständnis</p><div id="mc2" style="display:flex;flex-direction:column;gap:12px"></div></div>
+  <div id="ex-r1"></div>
+  <div id="task-r1"></div>
+  <div id="ex-r2"></div>
+  <div id="task-r2"></div>
+</section>
+
+<!-- STATION 3 -->
+<section class="station" id="s3" data-title="3 Laminar">
+  <p class="eyebrow">Station 3</p>
+  <h1>Druckverlust bei laminarer Strömung</h1>
+  <div class="input">
+    <p class="tag">Kurz wiederholt</p>
+    <ul>
+      <li>Druckverluste sind Energieverluste: Reibung an der Rohrwand, innere Reibung zwischen den Fluidschichten (Viskosität), Verwirbelungen und Einbauten wie Armaturen.</li>
+      <li>Reihenfolge der Rechnung: <b>v → Re → λ → Δp<sub>λ</sub></b>, dazu <b>Δp<sub>ζ</sub></b> für jede Armatur. Beide zusammen ergeben den Gesamtdruckverlust.</li>
+      <li>Bei <span class="mono">Re &lt; 2320</span> ist die Strömung laminar und <span class="mono">λ = 64/Re</span>. Die Rauheit spielt dann keine Rolle.</li>
+    </ul>
+  </div>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Animation · Geschwindigkeitsprofil</p>
+    <div class="sim"><div id="fig-profil"></div><div class="ctrl" id="ctrl-profil"></div></div>
+    <p class="question">Vergleiche Re = 1000 und Re = 50 000. Wie unterscheiden sich das Profil und die Bahnen der Teilchen? Warum ist die maximale Geschwindigkeit bei laminarer Strömung doppelt so groß wie die mittlere?</p>
+  </div>
+  <div class="task"><p class="tag">Verständnis</p><div id="mc3" style="display:flex;flex-direction:column;gap:12px"></div></div>
+  <div class="task">
+    <p class="tag">Sortieren</p>
+    <h3>In welcher Reihenfolge rechnest du?</h3>
+    <p class="muted small">Bring die Rechenschritte für den Gesamtdruckverlust in die richtige Reihenfolge. Ziehen oder mit den Pfeilen verschieben.</p>
+    <div id="sort3"></div>
+  </div>
+  <div id="ex-d1"></div>
+  <div id="task-d1"></div>
+</section>
+
+<!-- STATION 4 -->
+<section class="station" id="s4" data-title="4 Turbulent">
+  <p class="eyebrow">Station 4</p>
+  <h1>Turbulente Strömung: Haaland und Colebrook-White</h1>
+  <div class="input">
+    <p class="tag">Kurz wiederholt</p>
+    <ul>
+      <li>Bei turbulenter Strömung hängt λ von Re <b>und</b> von der relativen Rauheit <span class="mono">ε = k/d<sub>i</sub></span> ab. Achtung: k und d<sub>i</sub> in derselben Einheit.</li>
+      <li>Die Colebrook-White-Gleichung ist <b>implizit</b>: λ steht auf beiden Seiten. Man löst sie deshalb iterativ.</li>
+      <li>Vorgehen: Mit Haaland einen Startwert für <span class="mono">1/√λ</span> berechnen. Diesen rechts in Colebrook-White einsetzen, das Ergebnis wieder einsetzen, und so weiter, bis sich der Wert nicht mehr ändert. Zum Schluss <span class="mono">λ = 1/(1/√λ)²</span>.</li>
+      <li>Taschenrechner-Tipp: „log“ ist log<sub>10</sub>. Speichere Zwischenwerte (Ans-Taste), statt gerundete Werte neu einzutippen.</li>
+    </ul>
+  </div>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Interaktives Diagramm · Moody-Diagramm</p>
+    <div id="fig-moody"></div>
+    <div class="sim" style="grid-template-columns:1fr 1fr"><div class="ctrl" id="ctrl-moody"></div><div id="iter-moody"></div></div>
+    <p class="question">Stell ε = 0,001 ein und erhöhe Re von 10⁴ auf 10⁷. Ab wann ändert sich λ kaum noch? Wie heißt dieser Bereich?</p>
+  </div>
+  <div class="task"><p class="tag">Verständnis</p><div id="mc4" style="display:flex;flex-direction:column;gap:12px"></div></div>
+  <div id="ex-d2"></div>
+  <div class="task">
+    <p class="tag">Fehler finden</p>
+    <h3>Wo hat sich der Mitschüler verrechnet?</h3>
+    <p class="muted small">In dieser Lösung steckt genau ein Fehler. Klicke die fehlerhafte Zeile an und wähle aus, was falsch gemacht wurde.</p>
+    <div id="err4"></div>
+  </div>
+  <div id="task-d2"></div>
+</section>
+
+<!-- STATION 5 -->
+<section class="station" id="s5" data-title="5 Lösung &amp; Check">
+  <p class="eyebrow">Station 5</p>
+  <h1>Problem lösen und Selbstcheck</h1>
+  <p class="lead">Jetzt beantwortest du die Frage vom Anfang mit allem, was du in den Stationen 1 bis 4 geübt hast. Danach prüfst du, ob du für die Klassenarbeit bereit bist.</p>
+  <div class="stepbox">
+    <h2><span class="no">!</span>Zurück zur Problemstellung: Reicht die Kühlwasserpumpe?</h2>
+    <div class="figure"><div id="fig-problem2"></div></div>
+    <div id="guess-show"></div>
+    <div id="task-fin"></div>
+    <div id="fin-answer"></div>
+  </div>
+  <div class="task">
+    <p class="tag">Selbsteinschätzung</p>
+    <p class="muted small">Sei ehrlich. Wo du „unsicher“ wählst, zeigt dir der Link, wo du weiterüben kannst.</p>
+    <div id="checklist"></div>
+  </div>
+  <div class="task">
+    <p class="tag">Offene Fragen</p>
+    <label for="frage">Was möchtest du vor der Klassenarbeit noch klären?</label>
+    <textarea id="frage"></textarea>
+  </div>
+  <div id="merke"></div>
+  <div class="task">
+    <p class="tag">Übersicht und Abgabe</p>
+    <div id="overview" class="small"></div>
+    <p class="small">Ist der Speicherordner verbunden, liegt deine Speicherdatei schon fertig im Ordner. Sie ist gleichzeitig deine Abgabe. Sonst hier speichern:</p>
+    <div class="row">
+      <button type="button" class="btn" data-lm="download">Als Textdatei speichern</button>
+      <button type="button" class="btn secondary" id="copy">Text kopieren</button>
+      <span class="score" id="save-msg" role="status"></span>
+    </div>
+    <label for="summary">Vorschau</label>
+    <textarea id="summary" class="summary" readonly></textarea>
+  </div>
+</section>
+
+</main>
+<footer class="site-foot">Carl Engler Schule Karlsruhe · Fachschule für Technik – Chemie · Produktionstechnologie</footer>
+
+<script>
+/* ============================================================
+   Gemeinsame Bausteine der Lernmodule (Carl-Engler-Schule)
+   - SaveKit: Speichern in drei Ebenen (Browser, Speicherordner, Datei)
+   - Steps:   Musterbeispiel Schritt für Schritt
+   - G:       SVG-Hilfen für plastische Bilder und flache Diagramme
+   ============================================================ */
+const LM = (function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MARK = "=== WIEDERHERSTELLUNG – diese Zeilen nicht verändern ===";
+const toB64 = s => btoa(unescape(encodeURIComponent(s)));
+const fromB64 = s => decodeURIComponent(escape(atob(s)));
+const hhmm = d => d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+
+/* ---------- IndexedDB: gemerkter Speicherordner ---------- */
+const IDB = {
+  open(){ return new Promise((res,rej)=>{ const r=indexedDB.open("lernmodul-speicher",1); r.onupgradeneeded=()=>r.result.createObjectStore("handles"); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); },
+  async get(k){ try{ const db=await this.open(); return await new Promise((res)=>{ const q=db.transaction("handles").objectStore("handles").get(k); q.onsuccess=()=>res(q.result); q.onerror=()=>res(undefined); }); }catch(e){ return undefined; } },
+  async set(k,v){ try{ const db=await this.open(); await new Promise((res)=>{ const t=db.transaction("handles","readwrite"); t.objectStore("handles").put(v,k); t.oncomplete=res; t.onerror=res; }); }catch(e){} },
+  async del(k){ try{ const db=await this.open(); await new Promise((res)=>{ const t=db.transaction("handles","readwrite"); t.objectStore("handles").delete(k); t.oncomplete=res; t.onerror=res; }); }catch(e){} }
+};
+
+/* ============================================================
+   SaveKit
+   cfg: key, moduleId, moduleTitle, fileStem,
+        getState(), setState(obj), summary() -> lesbarer Text (ohne Speicherblock)
+   ============================================================ */
+function SaveKit(cfg){
+  const PROBE = /lm-probe/.test(location.hash);   // Prüfmodus für die Übersicht
+  const FS_OK = typeof window.showDirectoryPicker === "function" && typeof indexedDB !== "undefined";
+  let dir = null;          // FileSystemDirectoryHandle
+  let perm = "none";       // none | prompt | granted
+  let lastFileSave = null, lastErr = "", writing = false, pending = false, timer = null, choice = null;
+  const statusEl = () => $("#saved"), panel = () => $("#savepanel"), bar = () => $("#resumebar");
+
+  /* --- Text der Datei --- */
+  function fullText(){
+    const st = cfg.getState();
+    const pr = progress();
+    return cfg.summary() + (pr ? `\n\nFORTSCHRITT: ${pr.done}/${pr.total} Stationen erledigt` : "") + "\n\nMODUL-ID: " + cfg.moduleId + "\n" + MARK + "\n" + toB64(JSON.stringify(st)) + "\n";
+  }
+  function parse(txt){
+    const mm = txt.match(/MODUL-ID: (\S+)/);
+    if(mm && mm[1] !== cfg.moduleId){ const t=(txt.match(/LEHRPLANEINHEIT: (.+)/)||[])[1]||mm[1]; return {err:`Diese Datei gehört zu einer anderen Lehrplaneinheit (${t}). Bitte die Datei zu „${cfg.moduleTitle}“ wählen.`}; }
+    const i = txt.indexOf(MARK);
+    if(i<0) return {err:"Diese Datei enthält keinen Speicherstand. Bitte die Datei wählen, die dieses Lernmodul gespeichert hat."};
+    try { return {data: JSON.parse(fromB64(txt.slice(i+MARK.length).trim().split(/\s+/)[0]))}; }
+    catch(e){ return {err:"Der Speicherstand in dieser Datei ist beschädigt."}; }
+  }
+  /* Dateiname nur mit sicheren Zeichen: Umlaute umschreiben, Leerzeichen als _ */
+  const safe = t => String(t||"").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/Ä/g,"Ae").replace(/Ö/g,"Oe").replace(/Ü/g,"Ue").replace(/ß/g,"ss")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[–—]/g,"-").replace(/[^A-Za-z0-9.\- ]+/g,"").trim().replace(/\s+/g,"_");
+  function fileName(){ return `${safe(cfg.fileStem)}_Speicherstand.txt`; }
+
+  /* --- Ebene 1: Browser --- */
+  let lsOk = true;
+  function writeLocal(){ if(PROBE) return; try { localStorage.setItem(cfg.key, JSON.stringify(cfg.getState())); lsOk = true; } catch(e){ lsOk = false; } writeProgress(); }
+  /* Fortschritt für die Übersicht (Stationen wie in der Ablauftabelle) */
+  function progress(){ try { const p = cfg.progress && cfg.progress(); return p && p.total ? {done:p.done|0, total:p.total|0} : null; } catch(e){ return null; } }
+  function writeProgress(){
+    const p = progress(), st = cfg.getState(); if(!p || !st._ts) return;
+    try { const all = JSON.parse(localStorage.getItem("lm-fortschritt")||"{}") || {}; all[cfg.moduleId] = {done:p.done, total:p.total, ts:st._ts}; localStorage.setItem("lm-fortschritt", JSON.stringify(all)); } catch(e){}
+  }
+  function readLocal(){ if(PROBE) return {}; try { return JSON.parse(localStorage.getItem(cfg.key)||"{}") || {}; } catch(e){ return {}; } }
+
+  /* --- Ebene 2: Speicherordner --- */
+  async function writeFile(){
+    if(!dir || perm!=="granted") return;
+    if(writing){ pending = true; return; }
+    writing = true;
+    try {
+      const st = cfg.getState(), name = fileName();
+      const fh = await dir.getFileHandle(name, {create:true});
+      const w = await fh.createWritable(); await w.write(fullText()); await w.close();
+      if(st._file && st._file !== name){ try { await dir.removeEntry(st._file); } catch(e){} }
+      if(st._file !== name){ st._file = name; writeLocal(); }
+      lastFileSave = new Date(); lastErr = "";
+    } catch(e){
+      lastErr = "Datei konnte nicht geschrieben werden."; try{ console.warn("Speicherfehler:", e && e.name, e && e.message); }catch(_){}
+      try { if(await dir.queryPermission({mode:"readwrite"}) !== "granted") perm = "prompt"; } catch(_){}
+    }
+    writing = false; render();
+    if(pending){ pending = false; writeFile(); }
+  }
+  function scheduleFile(){ if(PROBE) return; if(dir && perm==="granted"){ clearTimeout(timer); timer = setTimeout(writeFile, 700); } }
+
+  async function listFiles(){
+    const out = [];
+    for await (const [n,h] of dir.entries()){
+      if(h.kind!=="file" || !/\.txt$/i.test(n)) continue;
+      try {
+        const f = await h.getFile(); if(f.size > 3e6) continue;
+        const txt = await f.text(); if(!txt.includes("MODUL-ID: "+cfg.moduleId)) continue;
+        const p = parse(txt); if(!p.data) continue;
+        out.push({file:n, data:p.data, ts:p.data._ts||f.lastModified, who:(p.data.name||"").trim()});
+      } catch(e){}
+    }
+    return out.sort((a,b)=>b.ts-a.ts);
+  }
+  /* Nach dem Verbinden: passenden Speicherstand suchen und einlesen */
+  async function syncFromDir(){
+    let files = [];
+    try { files = await listFiles(); } catch(e){ files = []; }
+    const st = cfg.getState();
+    const hit = files.find(f => f.file===fileName()) || files[0] || null;   // neuester Speicherstand dieser Einheit
+    if(hit && (!st._ts || hit.ts > st._ts)){ apply(hit.data, `Speicherstand aus „${hit.file}“ eingelesen.`); }
+    else { scheduleFile(); flash(hit ? "Dein Stand im Browser ist neuer als die Datei. Die Datei wird aktualisiert." : "Verbunden. Ab jetzt wird automatisch gespeichert."); }
+  }
+  function apply(data, msg){
+    cfg.setState(data); writeLocal(); flash(msg); render(); scheduleFile();
+  }
+  let skipped = false, failed = false, begun = false;
+  try { skipped = sessionStorage.getItem("lm-skip-"+cfg.moduleId)==="1"; } catch(e){}
+  function skip(){ skipped = true; try { sessionStorage.setItem("lm-skip-"+cfg.moduleId, "1"); } catch(e){} render(); }
+  async function connect(){
+    try {
+      const h = await window.showDirectoryPicker({id:"lernmodul", mode:"readwrite"});
+      dir = h; perm = "granted"; failed = false; await IDB.set("ordner", h); choice = null; render(); await syncFromDir();
+    } catch(e){ failed = true; render(); if(e && e.name!=="AbortError") flash("Ordner konnte nicht verbunden werden."); }
+  }
+  async function resume(){
+    if(!dir) return;
+    try { perm = await dir.requestPermission({mode:"readwrite"}); } catch(e){ perm = "prompt"; }
+    if(perm!=="granted") failed = true;
+    render(); if(perm==="granted") await syncFromDir();
+  }
+
+  /* --- Startfenster: Speicherort ist Schritt 1, erst danach beginnt die Einheit --- */
+  function renderGate(){
+    let g = document.getElementById("lm-gate");
+    const ready = FS_OK && dir && perm==="granted";
+    const need = !skipped && !begun;
+    if(!need){ if(g){ g.remove(); document.body.classList.remove("lm-gated"); window.scrollTo(0,0); } return; }
+    const first = !g;
+    if(!g){ g = document.createElement("div"); g.id = "lm-gate"; g.setAttribute("role","dialog"); g.setAttribute("aria-modal","true"); g.setAttribute("aria-labelledby","lm-gate-h"); document.body.appendChild(g); document.body.classList.add("lm-gated"); }
+    const head = `<p class="eyebrow">${esc(cfg.moduleTitle)}</p>`;
+    let body;
+    if(ready){
+      body = `<h2 id="lm-gate-h"><span class="no ok">✓</span>Speicherort ist verbunden</h2>
+        <p>Ordner <b>„${esc(dir.name)}“</b> · Datei <span class="mono">${esc(fileName())}</span></p>
+        <p>Ab jetzt wird jede Eingabe automatisch gespeichert. Oben rechts siehst du jederzeit, wann zuletzt gespeichert wurde.</p>
+        <div class="row"><button type="button" class="btn big" data-lm="begin">Lerneinheit beginnen →</button></div>`;
+    } else if(!FS_OK){
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Bevor es losgeht: So sicherst du deine Arbeit</h2>
+        <p>Dein Browser kann nicht automatisch in eine Datei speichern (z. B. Firefox, Safari, iPad, Smartphone). Deine Eingaben bleiben in diesem Browser erhalten, aber nur auf diesem Gerät.</p>
+        <ol class="lm-gate-steps"><li>Hast du schon eine Speicherdatei? Dann lade sie jetzt.</li><li>Sichere am Ende der Stunde mit <b>„Zwischenstand als Datei sichern“</b> (Startseite oder letzte Station).</li><li>Tipp: Am PC mit <b>Chrome oder Edge</b> wird automatisch gespeichert.</li></ol>
+        <div class="row"><label class="filebtn" for="lm-gate-load">Speicherdatei laden</label><input type="file" id="lm-gate-load" accept=".txt,text/plain" class="visually-hidden">
+        <button type="button" class="btn big" data-lm="skip">Verstanden – Lerneinheit starten</button></div>`;
+    } else if(dir){
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Willkommen zurück!</h2>
+        <p>Dein Speicherordner <b>„${esc(dir.name)}“</b> ist bekannt. Klicke auf <b>„Weiterarbeiten“</b> und bestätige die Frage des Browsers. Dann wird dein Speicherstand geladen und jede Eingabe wieder automatisch gespeichert.</p>
+        <div class="row"><button type="button" class="btn big" data-lm="resume">Weiterarbeiten</button><button type="button" class="btn secondary" data-lm="connect">Anderen Ordner wählen</button></div>`;
+    } else {
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Bevor es losgeht: Speicherort wählen</h2>
+        <p>Diese Lerneinheit speichert jede deiner Eingaben automatisch in eine Datei. So geht nichts verloren, und beim nächsten Öffnen ist alles wieder da.</p>
+        <ol class="lm-gate-steps"><li>Klicke auf <b>„Speicherordner wählen“</b>.</li><li>${location.protocol==="file:" ? "Wähle den Ordner, in dem diese HTML-Datei liegt (oder deinen eigenen Schulordner)" : "Wähle einen Ordner auf deinem Rechner für deine Speicherdateien, z. B. deinen Schulordner für Produktionstechnologie"}, und klicke auf <b>„Ordner auswählen“</b>.</li><li>Bestätige die Frage des Browsers mit <b>„Dateien bearbeiten“</b> bzw. <b>„Zulassen“</b>.</li></ol>
+        <div class="row"><button type="button" class="btn big" data-lm="connect">Speicherordner wählen</button></div>
+        <p class="small muted">Deine Datei heißt dann: <span class="mono">${esc(fileName())}</span></p>`;
+    }
+    const esc2 = FS_OK && failed ? `<div class="fb maybe small">Kein Ordner gewählt. Versuche es noch einmal. <b>Geht es gar nicht</b> (z. B. gesperrter Schulrechner)? <button type="button" class="linkbtn" data-lm="skip">Ohne automatisches Speichern starten</button> – dann am Ende unbedingt per Datei sichern.</div>` : "";
+    g.innerHTML = `<div class="lm-gate-card${ready?" ok":""}">${head}${body}${esc2}${msg&&!ready?`<p class="score small" role="status">${esc(msg)}</p>`:""}</div>`;
+    const bt = g.querySelector(".btn.big"); if(bt && (first || ready)) bt.focus();
+  }
+  async function disconnect(){ dir = null; perm = "none"; choice = null; await IDB.del("ordner"); render(); flash("Speicherordner getrennt. Gespeichert wird nur noch im Browser."); }
+
+  /* --- Ebene 3: Datei herunterladen / laden --- */
+  function download(){
+    const t = fullText();
+    try {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([t], {type:"text/plain;charset=utf-8"}));
+      a.download = fileName(); document.body.appendChild(a); a.click(); a.remove();
+      flash(`Datei „${fileName()}“ gespeichert (meist im Ordner „Downloads“).`);
+    } catch(e){ flash("Speichern nicht möglich. Bitte den Text unten kopieren."); }
+    return t;
+  }
+  function loadText(txt){ const p = parse(String(txt)); if(p.err){ flash(p.err); return false; } apply(p.data, "Zwischenstand geladen."); return true; }
+  function loadBlob(f){ if(!f) return; const r = new FileReader(); r.onload = () => loadText(r.result); r.readAsText(f, "utf-8"); }
+
+  /* --- Anzeige --- */
+  let msg = "", msgT = null;
+  function flash(m){ msg = m; render(); clearTimeout(msgT); msgT = setTimeout(()=>{ msg=""; render(); }, 9000); }
+  function render(){
+    const s = statusEl();
+    if(s){
+      const base = lsOk ? "Automatisch gespeichert" : "Speichern im Browser nicht möglich";
+      if(dir && perm==="granted") s.textContent = lastErr ? "⚠ " + lastErr : `✓ Gespeichert in Datei${lastFileSave?" · "+hhmm(lastFileSave):""}`;
+      else if(dir) s.innerHTML = `⚠ Speicherordner: <button type="button" class="linkbtn" data-lm="resume">Weiterarbeiten</button>`;
+      else if(FS_OK) s.innerHTML = `⚠ Nicht in Datei gespeichert · <button type="button" class="linkbtn" data-lm="connect">Speicherort wählen</button>`;
+      else s.textContent = base;
+      s.classList.toggle("warn", !!(lastErr || (FS_OK && !(dir && perm==="granted")) || !lsOk));
+    }
+    const b = bar();
+    if(b){
+      if(choice){
+        b.hidden = false;
+        b.innerHTML = `<div><b>Im Speicherordner liegen mehrere Speicherstände.</b> Wer bist du?</div><div class="row">${choice.map((f,i)=>`<button type="button" class="btn small" data-lm-pick="${i}">${esc(f.file)} · ${new Date(f.ts).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</button>`).join("")}<button type="button" class="btn small secondary" data-lm-pick="new">Neu beginnen</button></div>`;
+      } else { b.hidden = true; b.innerHTML = ""; }
+    }
+    renderGate();
+    const step = document.getElementById("savestep"); if(step) step.classList.toggle("done", !!(dir && perm==="granted"));
+    const p = panel(); if(!p) return;
+    let lvl2;
+    if(!FS_OK){
+      lvl2 = `<div class="fb maybe small"><b>Dieser Browser kann nicht automatisch in eine Datei speichern</b> (z. B. Firefox, Safari, iPad, Smartphone). Deine Eingaben bleiben in diesem Browser gespeichert. Sichere den Zwischenstand zusätzlich am Ende jeder Stunde als Datei. Am PC geht es mit Chrome oder Edge auch automatisch.</div>`;
+    } else if(dir && perm==="granted"){
+      lvl2 = `<div class="fb ok small"><b>✓ Automatisches Speichern ist aktiv.</b> Jede Eingabe wird in den Ordner „${esc(dir.name)}“ geschrieben: <span class="mono">${esc(fileName())}</span>${lastFileSave?` · zuletzt ${hhmm(lastFileSave)}`:""}. Beim nächsten Öffnen genügt ein Klick auf „Weiterarbeiten“.</div>
+        <div class="row"><button type="button" class="btn small secondary" data-lm="connect">Anderen Ordner wählen</button><button type="button" class="linkbtn" data-lm="disconnect">Speicherordner trennen</button></div>`;
+    } else if(dir){
+      lvl2 = `<div class="row"><button type="button" class="btn" data-lm="resume">Weiterarbeiten mit Ordner „${esc(dir.name)}“</button><button type="button" class="btn secondary" data-lm="connect">Anderen Ordner wählen</button></div>`;
+    } else {
+      lvl2 = `<p class="small"><b>Empfohlen am PC (Chrome oder Edge):</b> Wähle einmal den Ordner, in dem diese HTML-Datei liegt. Danach wird jede Eingabe automatisch in die Datei <span class="mono">${esc(fileName())}</span> geschrieben. Beim nächsten Öffnen liest das Lernmodul sie nach einem Klick automatisch wieder ein.</p>
+        <div class="row"><button type="button" class="btn" data-lm="connect">Speicherordner verbinden</button></div>`;
+    }
+    p.innerHTML = `${lvl2}
+      <details class="lm-more" ${FS_OK?"":"open"}><summary>Zwischenstand von Hand sichern oder laden</summary>
+        <div class="row" style="margin-top:10px">
+          <button type="button" class="btn secondary" data-lm="download">Zwischenstand als Datei sichern</button>
+          <label class="filebtn" for="lm-load">Zwischenstand laden</label>
+          <input type="file" id="lm-load" accept=".txt,text/plain" class="visually-hidden">
+          <button type="button" class="linkbtn" data-lm="askreset">Alles löschen</button>
+        </div>
+        <p class="small muted" style="margin-top:6px">Tipp: Du kannst deine txt-Datei auch einfach auf diese Seite ziehen.</p>
+        <div class="fb err small" id="lm-reset" hidden>Wirklich alle Eingaben löschen? <button type="button" class="linkbtn" data-lm="reset">Ja, löschen</button> <button type="button" class="linkbtn" data-lm="askreset">Abbrechen</button></div>
+      </details>
+      <p class="score small" role="status">${esc(msg)}</p>`;
+  }
+
+  /* --- Ereignisse --- */
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-lm],[data-lm-pick]"); if(!b) return;
+    if(b.dataset.lmPick!=null){
+      const k = b.dataset.lmPick, files = choice || []; choice = null;
+      if(k==="new"){ render(); scheduleFile(); flash("Neuer Speicherstand angelegt."); }
+      else apply(files[+k].data, `Speicherstand „${files[+k].file}“ eingelesen.`);
+      return;
+    }
+    const a = b.dataset.lm;
+    if(a==="begin"){ begun = true; render(); }
+    else if(a==="connect") connect();
+    else if(a==="resume") resume();
+    else if(a==="disconnect") disconnect();
+    else if(a==="skip") skip();
+    else if(a==="download") download();
+    else if(a==="askreset"){ const r = $("#lm-reset"); if(r) r.hidden = !r.hidden; }
+    else if(a==="reset"){ cfg.setState({}); writeLocal(); scheduleFile(); flash("Alle Eingaben gelöscht."); }
+  });
+  document.addEventListener("change", e => { if(e.target && (e.target.id==="lm-load" || e.target.id==="lm-gate-load")){ if(e.target.id==="lm-gate-load") skip(); loadBlob(e.target.files && e.target.files[0]); e.target.value=""; } });
+  const hasFiles = e => e.dataTransfer && Array.from(e.dataTransfer.types||[]).includes("Files");
+  document.addEventListener("dragover", e => { if(hasFiles(e)){ e.preventDefault(); document.body.classList.add("lm-drop"); } });
+  document.addEventListener("dragleave", e => { if(e.target===document.documentElement || e.clientX<=0 || e.clientY<=0) document.body.classList.remove("lm-drop"); });
+  document.addEventListener("drop", e => { if(!hasFiles(e)) return; e.preventDefault(); document.body.classList.remove("lm-drop"); loadBlob(e.dataTransfer.files[0]); });
+
+  /* --- Start --- */
+  async function init(){
+    if(PROBE){ probe(); return; }
+    backLink();
+    render();
+    if(!FS_OK) return;
+    const h = window.__lmTestDir || await IDB.get("ordner");
+    if(!h) return;
+    dir = h;
+    try { perm = await h.queryPermission({mode:"readwrite"}); } catch(e){ perm = "prompt"; }
+    render();
+    if(perm==="granted") await syncFromDir();
+  }
+
+  /* Prüfmodus (#lm-probe, unsichtbar im iframe der Übersicht): Speicherstand einlesen, Fortschritt melden, nichts speichern */
+  function probe(){
+    window.addEventListener("message", e => {
+      const m = e.data; if(!m || !m.lmProbe) return;
+      const res = {lmProbeResult:true, req:m.req, id:cfg.moduleId};
+      try { const p = parse(String(m.txt||"")); if(p.data){ cfg.setState(p.data); const pr = progress(); if(pr) Object.assign(res, pr); } else res.err = p.err; } catch(err){ res.err = String(err); }
+      parent.postMessage(res, "*");
+    });
+    const ready = () => setTimeout(() => parent.postMessage({lmProbeReady:true, id:cfg.moduleId}, "*"), 30);
+    if(document.readyState === "complete") ready(); else window.addEventListener("load", ready);
+  }
+
+  return {
+    initial: readLocal,
+    changed(meta){ const st = cfg.getState(); if(meta){ writeLocal(); return; } st._ts = Date.now(); writeLocal(); scheduleFile(); render(); },   // meta: nur Ansicht (z. B. Station), kein neuer Arbeitsstand
+    init, download, fullText, loadText, render,
+    _test:{ setDir(h){ dir=h; perm="granted"; return syncFromDir(); }, writeNow: writeFile, listFiles }
+  };
+}
+
+/* Link „Alle Lerneinheiten“: nur wenn die Übersicht in diesem Browser schon einmal geöffnet wurde */
+function backLink(){
+  let href = ""; try { href = localStorage.getItem("lm-uebersicht") || ""; } catch(e){}
+  const host = $(".site-inner"); if(!href || !host || $(".lm-back", host)) return;
+  const a = document.createElement("a"); a.className = "lm-back"; a.href = href; a.textContent = "← Alle Lerneinheiten";
+  host.appendChild(a);
+}
+
+/* ============================================================
+   Musterbeispiel Schritt für Schritt
+   ex = {title, given, sought, steps:[{h, b}], result}
+   ============================================================ */
+function Steps(host, ex){
+  let n = 0;
+  function render(){
+    host.innerHTML = `<div class="muster">
+      <p class="tag">Musterbeispiel</p>
+      <h3>${ex.title}</h3>
+      ${ex.text?`<p>${ex.text}</p>`:""}
+      ${ex.given?`<p class="small"><b>Gegeben:</b> ${ex.given}</p>`:""}
+      ${ex.sought?`<p class="small"><b>Gesucht:</b> ${ex.sought}</p>`:""}
+      <ol class="msteps">${ex.steps.map((s,i)=>`<li class="${i<n?"on":"off"}" ${i<n?"":"aria-hidden=\"true\""}><b>${s.h}</b>${i<n?`<div class="solbox">${s.b}</div>`:""}</li>`).join("")}</ol>
+      ${n>=ex.steps.length && ex.result?`<div class="fb ok small">${ex.result}</div>`:""}
+      <div class="row">
+        <button type="button" class="btn small" data-step="next" ${n>=ex.steps.length?"disabled":""}>${n===0?"Ersten Schritt zeigen":"Nächster Schritt"}</button>
+        <button type="button" class="btn small secondary" data-step="all" ${n>=ex.steps.length?"disabled":""}>Alle Schritte</button>
+        ${n>0?`<button type="button" class="linkbtn" data-step="reset">Von vorn</button>`:""}
+        <span class="small muted">${n} von ${ex.steps.length} Schritten</span>
+      </div>
+      ${n<ex.steps.length?`<p class="small muted">Überlege vor jedem Klick, wie der nächste Schritt aussehen könnte.</p>`:""}
+    </div>`;
+  }
+  host.addEventListener("click", e => {
+    const b = e.target.closest("[data-step]"); if(!b) return;
+    const a = b.dataset.step;
+    n = a==="next" ? Math.min(n+1, ex.steps.length) : a==="all" ? ex.steps.length : 0;
+    render();
+  });
+  render();
+}
+
+/* ============================================================
+   Merke: „Das Wichtigste auf einen Blick“ (Zusammenfassung, druckbar)
+   m = {title, items:[[Begriff, Text], …], formeln:[…]}
+   ============================================================ */
+function Merke(host, m, unitTitle){
+  if(!host || !m) return;
+  const inner = `${m.items.map((it,i)=>`<div class="mk-item"><span class="mk-no">${i+1}</span><div><b>${it[0]}</b><div>${it[1]}</div></div></div>`).join("")}${m.formeln?`<div class="mk-f"><b>Formeln</b><div>${m.formeln.map(x=>`<span class="mono">${x}</span>`).join("")}</div></div>`:""}`;
+  host.classList.add("task","merke");
+  host.innerHTML = `<p class="tag">Das Wichtigste auf einen Blick</p><h2>${m.title||unitTitle}</h2><p class="muted small">Lies die Kernaussagen und prüfe dich: Kannst du jede mit eigenen Worten erklären? Diese Seite kannst du ausdrucken oder als PDF speichern.</p><div class="mk-grid">${inner}</div><div class="row"><button type="button" class="btn secondary mk-print">🖨 Drucken / als PDF</button></div>`;
+  host.querySelector(".mk-print").addEventListener("click", () => {
+    const css = [...document.querySelectorAll("style")].map(x=>x.textContent).join("\n");
+    const w = window.open("", "_blank"); if(!w) return;
+    w.document.write(`<!doctype html><html lang="de" data-theme="light"><head><meta charset="utf-8"><title>${esc(unitTitle)} – Das Wichtigste</title><style>${css} body{background:#fff;padding:24px} .mk-item{break-inside:avoid}</style></head><body><p class="eyebrow">${esc(unitTitle)}</p><h1>Das Wichtigste auf einen Blick</h1><div class="mk-grid">${inner}</div></body></html>`);
+    w.document.close(); w.focus(); setTimeout(()=>w.print(), 300);
+  });
+}
+
+/* ============================================================
+   SVG-Hilfen
+   ============================================================ */
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, kids){
+  const e = document.createElementNS(NS, tag);
+  if(attrs) for(const k in attrs){ if(attrs[k]!=null) e.setAttribute(k, attrs[k]); }
+  (kids||[]).forEach(k => { if(k==null) return; e.appendChild(typeof k==="string" ? document.createTextNode(k) : k); });
+  return e;
+}
+let gid = 0;
+const uid = p => `${p}${++gid}`;
+/* Farbverlauf: stops = [[offset, color, opacity?], …] */
+function lin(defs, stops, x1=0,y1=0,x2=0,y2=1){
+  const id = uid("lg");
+  defs.appendChild(el("linearGradient",{id,x1,y1,x2,y2}, stops.map(s=>el("stop",{offset:s[0],"stop-color":s[1],"stop-opacity":s[2]??1}))));
+  return `url(#${id})`;
+}
+function rad(defs, stops, cx=.35, cy=.3, r=.75){
+  const id = uid("rg");
+  defs.appendChild(el("radialGradient",{id,cx,cy,r}, stops.map(s=>el("stop",{offset:s[0],"stop-color":s[1],"stop-opacity":s[2]??1}))));
+  return `url(#${id})`;
+}
+function shadow(defs, blur=3, dy=2, op=.3){
+  const id = uid("sh");
+  defs.appendChild(el("filter",{id, x:"-20%", y:"-20%", width:"140%", height:"150%"},[ el("feDropShadow",{dx:0, dy, stdDeviation:blur, "flood-color":"#000", "flood-opacity":op}) ]));
+  return `url(#${id})`;
+}
+/* typische Materialien (plastisch) */
+const MAT = {
+  steel: [[0,"#5b6670"],[.18,"#c9d1d8"],[.32,"#f4f7f9"],[.5,"#a9b4bd"],[.78,"#6f7b85"],[1,"#47515a"]],
+  steelDark: [[0,"#3a434b"],[.3,"#8c98a2"],[.5,"#b8c2ca"],[.8,"#56616b"],[1,"#2f363d"]],
+  enamel: [[0,"#0b3f66"],[.25,"#2f86c4"],[.45,"#8fc6ec"],[.6,"#3b8fcb"],[1,"#0a3558"]],
+  copper: [[0,"#6b3416"],[.25,"#d98a52"],[.4,"#ffd2a8"],[.6,"#c87640"],[1,"#5a2a10"]],
+  brass:  [[0,"#6e5410"],[.3,"#d9b44a"],[.45,"#fff0b3"],[.65,"#c39a2c"],[1,"#5c460c"]],
+  water:  [[0,"#5fb7e8",.85],[1,"#1f6fa8",.9]],
+  oil:    [[0,"#e0a83a",.9],[1,"#9a6512",.95]]
+};
+function svgRoot(host, w, h, label){
+  host.innerHTML = "";
+  const s = el("svg",{viewBox:`0 0 ${w} ${h}`, role:"img", "aria-label":label||"", class:"gfx"});
+  const defs = el("defs"); s.appendChild(defs); host.appendChild(s);
+  return {svg:s, defs};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* Animationsschleife: läuft nur, wenn die Grafik sichtbar ist */
+function anim(host, step){
+  let run = !reduced(), vis = false, last = 0, raf = 0;
+  const tick = t => { const dt = Math.min(0.05, (t-(last||t))/1000); last = t; step(dt); raf = (run&&vis) ? requestAnimationFrame(tick) : 0; };
+  const go = () => { if(run && vis && !raf){ last = 0; raf = requestAnimationFrame(tick); } };
+  if("IntersectionObserver" in window){ new IntersectionObserver(es => { vis = es[0].isIntersecting; go(); }).observe(host); } else { vis = true; go(); }
+  return { toggle(){ run = !run; go(); return run; }, start(){ run = true; go(); }, get running(){ return run; } };
+}
+function arrowDefs(defs, color){
+  const id = uid("ar");
+  defs.appendChild(el("marker",{id, viewBox:"0 0 10 10", refX:9, refY:5, markerWidth:7, markerHeight:7, orient:"auto-start-reverse"},[el("path",{d:"M0,0 L10,5 L0,10 z", style:`fill:${color}`})]));
+  return `url(#${id})`;
+}
+
+return { SaveKit, Steps, Merke, G:{el, lin, rad, shadow, MAT, svgRoot, uid, reduced, anim, arrowDefs}, esc, MARK };
+})();
+
+</script>
+<script>
+(function(){
+"use strict";
+const {SaveKit, Steps, G} = LM;
+const {el, lin, rad, shadow, MAT, svgRoot} = G;
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = LM.esc;
+
+/* ---------- Zustand und Speichern ---------- */
+let S = {};
+const MODULE_ID = "lpe-2.4-wdh", MODULE_TITLE = "LPE 2.4 Strömungsmechanik – Wiederholung";
+const SK = SaveKit({
+  key:"lernmodul-stroemung-v1", moduleId:MODULE_ID, moduleTitle:MODULE_TITLE,
+  fileStem:"LPE 2.4 Strömungsmechanik Wiederholung",
+  getState:()=>S, setState:o=>{ S = o||{}; ensure(); renderAll(); }, summary:()=>summaryText(),
+  progress:()=>({done:PLAN.filter(p=>doneFor(p[0])).length, total:PLAN.length})
+});
+S = SK.initial();
+function ensure(){
+  ["p","a","res","tried","rounds","roundDone","mc","ck","show","sort3","err4"].forEach(k => { if(!S[k] || typeof S[k] !== "object") S[k] = {}; });
+}
+ensure();
+function save(){ SK.changed(); renderTabs(); }
+const H = {};   // sichtbare Tipps (nicht gespeichert)
+
+/* ---------- Zahlen ---------- */
+const PI = Math.PI, log10 = Math.log10;
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const range = (a,b,st) => { const r=[]; for(let x=a; x<=b+1e-9; x+=st) r.push(Math.round(x*1e6)/1e6); return r; };
+function fmt(x, sig){
+  if(!isFinite(x)) return "–";
+  sig = sig || 4;
+  const n = Number(x.toPrecision(sig));
+  return n.toLocaleString("de-DE", {maximumFractionDigits: 12});
+}
+const f = fmt;
+function parseNum(s){
+  s = String(s||"").trim().replace(/\s/g,"").replace(/−/g,"-");
+  if(!s) return NaN;
+  if(s.includes(",")) s = s.replace(/\./g,"").replace(",",".");
+  else if(/^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,"");
+  return Number(s);
+}
+
+/* ---------- DN-Tabelle ---------- */
+const DN  = [10,15,20,25,32,40,50,65,80,100,125,150,200,250,300,350,400];
+const DNI = [13.6,17.3,22.3,28.5,37.2,43.1,54.5,70.3,82.5,107.1,131.7,159.3,207.3,260.4,309.7,341.4,392.2];
+$("#dn-table").innerHTML = `<tr><th>DN</th>${DN.map(d=>`<th>${d}</th>`).join("")}</tr><tr><td><b>d<sub>i</sub></b></td>${DNI.map(d=>`<td>${fmt(d,4)}</td>`).join("")}</tr>`;
+
+/* ---------- Aufgabentypen ---------- */
+const TASKS = [
+{ id:"k1", given:(p)=>`d₁ = ${f(p.d1)} mm = ${f(p.d1/1000)} m · v₁ = ${f(p.v1)} m/s · d₂ = ${f(p.d2)} mm = ${f(p.d2/1000)} m · ρ = 1000 kg/m³`, sought:"V̇ in m³/h, ṁ in kg/s, v₂ in m/s", pit:"Durchmesser vor dem Einsetzen in m umrechnen. V̇ zuerst in m³/s berechnen, erst am Ende in m³/h umrechnen. Bei der Kontinuität das Durchmesserverhältnis quadrieren.", st:"s1", title:"Aufgabe 1.1 · Verengung einer Rohrleitung", ex:{d1:125, v1:1.6, d2:80},
+  gen(){ const d1=pick([80,100,120,150,200]); return {d1, v1:pick(range(1,3,0.1)), d2:Math.round(d1*pick([0.5,0.6,0.75,0.8]))}; },
+  derive(p){ const A1=PI/4*(p.d1/1000)**2, Vs=A1*p.v1; return {A1, Vs, Vh:Vs*3600, m:Vs*1000, v2:p.v1*(p.d1/p.d2)**2}; },
+  text:p=>`Durch eine Rohrleitung fließt Wasser (ρ = 1000 kg/m³). Im Abschnitt mit dem Innendurchmesser d₁ = ${f(p.d1)} mm beträgt die mittlere Strömungsgeschwindigkeit v₁ = ${f(p.v1)} m/s. Danach verengt sich die Leitung auf d₂ = ${f(p.d2)} mm.`,
+  parts:[
+    {k:"Vh", q:"Berechne den Volumenstrom.", u:"m³/h", hint:"V̇ = A·v mit A = π/4·d². Durchmesser in m einsetzen, Ergebnis in m³/s mit 3600 multiplizieren.",
+     sol:(p,v)=>`A₁ = π/4 · (${f(p.d1/1000)} m)² = ${f(v.A1)} m²<br>V̇ = A₁·v₁ = ${f(v.A1)} m² · ${f(p.v1)} m/s = ${f(v.Vs)} m³/s<br>V̇ = ${f(v.Vs)} · 3600 = <b>${f(v.Vh)} m³/h</b>`},
+    {k:"m", q:"Ermittle den Massenstrom.", u:"kg/s", hint:"ṁ = V̇·ρ. V̇ in m³/s einsetzen.",
+     sol:(p,v)=>`ṁ = V̇·ρ = ${f(v.Vs)} m³/s · 1000 kg/m³ = <b>${f(v.m)} kg/s</b>`},
+    {k:"v2", q:"Wie hoch ist die Strömungsgeschwindigkeit im engen Abschnitt?", u:"m/s", hint:"Kontinuität: A₁·v₁ = A₂·v₂. π/4 kürzt sich heraus: v₂ = v₁·(d₁/d₂)².",
+     sol:(p,v)=>`v₂ = v₁ · (d₁/d₂)² = ${f(p.v1)} m/s · (${f(p.d1)}/${f(p.d2)})² = <b>${f(v.v2)} m/s</b>`}
+  ]},
+{ id:"k2", given:(p)=>`d<sub>Zulauf</sub> = ${f(p.dZ)} mm · V̇ = ${p.VL.toLocaleString("de-DE")} L/h = ${f(p.VL/1000/3600)} m³/s · n = ${p.n} Rohre · d<sub>i</sub> = ${f(p.di)} mm`, sought:"v im Zulauf und in den Innenrohren in m/s", pit:"Der Volumenstrom verteilt sich auf alle Rohre: Gesamtquerschnitt = n · A eines Rohres. L/h in m³/s: durch 1000 und durch 3600.", st:"s1", title:"Aufgabe 1.2 · Verteilung auf mehrere Rohre", ex:{dZ:82.5, VL:9000, n:40, di:17.3},
+  gen(){ return {dZ:pick([70.3,82.5,107.1]), VL:pick(range(6000,15000,200)), n:pick(range(24,64,4)), di:pick([13.6,17.3,22.3])}; },
+  derive(p){ const Vs=p.VL/1000/3600, AZ=PI/4*(p.dZ/1000)**2, AI=PI/4*(p.di/1000)**2; return {Vs, AZ, AI, vZ:Vs/AZ, vI:Vs/(p.n*AI)}; },
+  text:p=>`Einem Rohrbündel-Wärmetauscher werden über eine Zulaufleitung mit d<sub>i</sub> = ${f(p.dZ)} mm stündlich ${p.VL.toLocaleString("de-DE")} L Kühlwasser zugeführt. Das Wasser verteilt sich gleichmäßig auf ${p.n} Innenrohre mit d<sub>i</sub> = ${f(p.di)} mm.`,
+  parts:[
+    {k:"vZ", q:"Welche mittlere Geschwindigkeit herrscht in der Zulaufleitung?", u:"m/s", hint:"L/h in m³/s umrechnen: durch 1000 und durch 3600. Dann v = V̇/A.",
+     sol:(p,v)=>`V̇ = ${p.VL.toLocaleString("de-DE")} L/h = ${f(v.Vs)} m³/s<br>A = π/4 · (${f(p.dZ/1000)} m)² = ${f(v.AZ)} m²<br>v = V̇/A = <b>${f(v.vZ)} m/s</b>`},
+    {k:"vI", q:"Welche mittlere Geschwindigkeit herrscht in den Innenrohren?", u:"m/s", hint:"Der Volumenstrom teilt sich auf alle Rohre auf: V̇ = n · A<sub>Rohr</sub> · v.",
+     sol:(p,v)=>`A<sub>ges</sub> = ${p.n} · π/4 · (${f(p.di/1000)} m)² = ${f(p.n*v.AI)} m²<br>v = V̇/A<sub>ges</sub> = <b>${f(v.vI)} m/s</b>`}
+  ]},
+{ id:"r1", given:(p)=>`V̇ = ${p.VL.toLocaleString("de-DE")} L/min = ${f(p.VL/1000/60)} m³/s · v<sub>max</sub> = ${f(p.vmax)} m/s · Innendurchmesser laut Tabelle (PN 16)`, sought:"d<sub>i,erf</sub>, Nennweite DN, tatsächliche Geschwindigkeit", pit:"Immer die nächstgrößere Nennweite wählen, auch wenn die kleinere näher liegt. Sonst wird v<sub>max</sub> überschritten.", st:"s2", title:"Aufgabe 2.1 · Nennweite auswählen", ex:{VL:900, vmax:1.5},
+  gen(){
+    for(let i=0;i<200;i++){
+      const VL=pick(range(100,2400,20)), vmax=pick([0.8,1.0,1.2,1.5,2.0]);
+      const d=2*Math.sqrt(VL/1000/60/(PI*vmax))*1000;
+      if(d<15 || d>385) continue;
+      if(DNI.some(x=>Math.abs(x-d)/x<0.015)) continue;
+      return {VL, vmax};
+    }
+    return {VL:610, vmax:0.8};
+  },
+  derive(p){ const Vs=p.VL/1000/60, d=2*Math.sqrt(Vs/(PI*p.vmax))*1000; const i=DNI.findIndex(x=>x>=d); return {Vs, d, dn:DN[i], di:DNI[i], vr:Vs/(PI/4*(DNI[i]/1000)**2)}; },
+  text:p=>`Eine Pumpe fördert ${p.VL.toLocaleString("de-DE")} L/min Prozesswasser in einen Mischbehälter. In der Zulaufleitung (unlegierter Stahl, PN 16) soll die mittlere Strömungsgeschwindigkeit ${f(p.vmax)} m/s nicht überschreiten. Die Innendurchmesser findest du in der Tabelle oben.`,
+  parts:[
+    {k:"d", q:"Berechne den erforderlichen Innendurchmesser.", u:"mm", hint:"d<sub>i,erf</sub> = 2·√(V̇/(π·v)). V̇ in m³/s: L/min durch 1000 und durch 60.",
+     sol:(p,v)=>`V̇ = ${p.VL.toLocaleString("de-DE")} L/min = ${f(v.Vs)} m³/s<br>d<sub>i,erf</sub> = 2·√(${f(v.Vs)} / (π · ${f(p.vmax)})) = ${f(v.d/1000)} m = <b>${f(v.d)} mm</b>`},
+    {k:"dn", q:"Welche Nennweite wählst du?", u:"", type:"select", opts:DN.map(d=>"DN "+d), val:v=>"DN "+v.dn, hint:"Kleinste Nennweite, deren Innendurchmesser mindestens d<sub>i,erf</sub> ist. Nicht einfach den nächstliegenden Wert nehmen.",
+     sol:(p,v)=>`d<sub>i,erf</sub> = ${f(v.d)} mm → nächstgrößerer Innendurchmesser in der Tabelle: ${f(v.di)} mm → <b>DN ${v.dn}</b>`},
+    {k:"vr", q:"Welche Geschwindigkeit stellt sich in der gewählten Leitung tatsächlich ein?", u:"m/s", hint:"v = V̇/A mit dem echten Innendurchmesser aus der Tabelle. Das Ergebnis muss unter dem Grenzwert liegen.",
+     sol:(p,v)=>`A = π/4 · (${f(v.di/1000)} m)² = ${f(PI/4*(v.di/1000)**2)} m²<br>v = V̇/A = <b>${f(v.vr)} m/s</b> (&lt; ${f(p.vmax)} m/s)`}
+  ]},
+{ id:"r2", given:(p)=>`${p.fe?"ferritischer":"austenitischer"} Stahl, R<sub>p0,2</sub> = ${p.Rp} N/mm² · p<sub>c</sub> = ${p.p} bar = ${f(p.p/10)} N/mm² · d<sub>i</sub> = ${p.di} mm · z = ${f(p.z)}`, sought:"f in N/mm², e in mm, d<sub>a</sub> in mm", pit:"Richtigen Sicherheitsbeiwert wählen (ferritisch 1,5, austenitisch 1,2). Druck in N/mm² einsetzen (bar : 10), dann kommt e direkt in mm heraus. Beim Außendurchmesser die Wand zweimal addieren.", st:"s2", title:"Aufgabe 2.2 · Mindest-Wanddicke", ex:{fe:true, Rp:265, p:16, di:200, z:0.85},
+  gen(){ const fe=Math.random()<0.5; return {fe, Rp: fe?pick([235,245,265,290,355]):pick([190,210,220,240]), p:pick([10,16,20,25,40,63]), di:pick([100,150,200,250,300]), z:pick([0.7,0.72,0.8,0.85,0.9,1.0])}; },
+  derive(p){ const fz=p.Rp/(p.fe?1.5:1.2), pN=p.p/10, e=pN*p.di/(2*fz*p.z-pN); return {f:fz, pN, e, da:p.di+2*e}; },
+  text:p=>`Eine geschweißte Rohrleitung aus ${p.fe?"ferritischem":"austenitischem"} Stahl (R<sub>p0,2</sub> = ${p.Rp} N/mm²) wird mit einem Betriebsdruck p<sub>c</sub> = ${p.p} bar betrieben. Der Innendurchmesser beträgt ${p.di} mm, der Schweißnahtfaktor z = ${f(p.z)}.`,
+  parts:[
+    {k:"f", q:"Berechne die Auslegungsspannung f.", u:"N/mm²", hint:"Ferritisch: f = R<sub>p0,2</sub>/1,5. Austenitisch: f = R<sub>p0,2</sub>/1,2.",
+     sol:(p,v)=>`f = ${p.Rp} N/mm² / ${p.fe?"1,5":"1,2"} = <b>${f(v.f)} N/mm²</b>`},
+    {k:"e", q:"Berechne die Mindest-Wanddicke e.", u:"mm", hint:"e = p<sub>c</sub>·d<sub>i</sub> / (2·f·z − p<sub>c</sub>). Den Druck in N/mm² einsetzen: 1 bar = 0,1 N/mm². Dann kommt e direkt in mm heraus.",
+     sol:(p,v)=>`p<sub>c</sub> = ${p.p} bar = ${f(v.pN)} N/mm²<br>e = ${f(v.pN)} · ${p.di} / (2 · ${f(v.f)} · ${f(p.z)} − ${f(v.pN)}) = <b>${f(v.e)} mm</b>`},
+    {k:"da", q:"Wie groß ist der erforderliche Außendurchmesser?", u:"mm", hint:"d<sub>a</sub> = d<sub>i</sub> + 2·e. Die Wand kommt auf beiden Seiten dazu.",
+     sol:(p,v)=>`d<sub>a</sub> = ${p.di} mm + 2 · ${f(v.e)} mm = <b>${f(v.da)} mm</b>`}
+  ]},
+{ id:"d1", given:(p)=>`d<sub>i</sub> = ${p.d} mm = ${f(p.d/1000)} m · L = ${p.L} m · ρ = ${p.rho} kg/m³ · η = ${p.eta} mPa·s = ${f(p.eta/1000)} Pa·s · V̇ = ${f(p.Vh)} m³/h = ${f(p.Vh/3600)} m³/s · ζ = ${f(p.z)}`, sought:"v, Re, Strömungsform, λ, Δp<sub>λ</sub>, Δp<sub>ζ</sub>, Δp<sub>ges</sub>", pit:"η in Pa·s umrechnen. Erst mit Re die Strömungsform prüfen, dann die passende λ-Formel wählen. Den Einzelwiderstand der Armatur zum Rohrreibungsverlust addieren.", st:"s3", title:"Aufgabe 3.1 · Öl in einer Rohrleitung mit Armatur", ex:{rho:880, eta:45, d:80, Vh:9, L:60, z:2.5},
+  gen(){
+    for(let i=0;i<300;i++){
+      const rho=pick(range(850,950,10)), eta=pick(range(20,60,5)), d=pick([50,80,100,125]), vt=pick(range(0.2,0.8,0.02));
+      const Vh=Math.round(PI/4*(d/1000)**2*vt*3600*10)/10; const v=Vh/3600/(PI/4*(d/1000)**2); const Re=rho*v*(d/1000)/(eta/1000);
+      if(Re>600 && Re<2200) return {rho, eta, d, Vh, L:pick(range(20,100,5)), z:pick([0.5,1.2,2.5,3.0,4.0])};
+    }
+    return {rho:900, eta:40, d:100, Vh:12, L:40, z:2.5};
+  },
+  derive(p){ const A=PI/4*(p.d/1000)**2, v=p.Vh/3600/A, Re=p.rho*v*(p.d/1000)/(p.eta/1000), lam=64/Re, dpl=lam*p.L/(p.d/1000)*p.rho/2*v*v, dpz=p.z*p.rho/2*v*v; return {A, v, Re, lam, dpl, dpz, dpg:dpl+dpz}; },
+  text:p=>`Durch eine Rohrleitung mit dem Innendurchmesser ${p.d} mm und der Länge ${p.L} m strömt Öl (ρ = ${p.rho} kg/m³, η = ${p.eta} mPa·s) mit einem Volumenstrom von ${f(p.Vh)} m³/h. In der Leitung sitzt eine Armatur mit dem Widerstandsbeiwert ζ = ${f(p.z)}.`,
+  parts:[
+    {k:"v", q:"Mittlere Strömungsgeschwindigkeit", u:"m/s", hint:"v = 4·V̇/(π·d²), V̇ in m³/s.",
+     sol:(p,v)=>`V̇ = ${f(p.Vh)} m³/h / 3600 = ${f(p.Vh/3600)} m³/s<br>A = π/4 · (${f(p.d/1000)} m)² = ${f(v.A)} m²<br>v = V̇/A = ${f(p.Vh/3600)} / ${f(v.A)} = <b>${f(v.v)} m/s</b>`},
+    {k:"Re", q:"Reynolds-Zahl", u:"–", hint:"Re = ρ·v·d/η. Achtung: η in Pa·s (mPa·s durch 1000), d in m.",
+     sol:(p,v)=>`Re = ${p.rho} · ${f(v.v)} · ${f(p.d/1000)} / ${f(p.eta/1000)} = <b>${f(v.Re)}</b>`},
+    {k:"form", q:"Welche Strömungsform liegt vor?", u:"", type:"select", opts:["laminar","turbulent"], val:v=>v.Re<2320?"laminar":"turbulent", hint:"Grenze: Re = 2320.",
+     sol:(p,v)=>`Re = ${f(v.Re)} ${v.Re<2320?"&lt;":"&gt;"} 2320 → <b>${v.Re<2320?"laminar":"turbulent"}</b>`},
+    {k:"lam", q:"Rohrreibungszahl λ", u:"–", hint:"Laminar: λ = 64/Re.",
+     sol:(p,v)=>`λ = 64 / ${f(v.Re)} = <b>${f(v.lam)}</b>`},
+    {k:"dpl", q:"Druckverlust durch Rohrreibung", u:"Pa", hint:"Δp<sub>λ</sub> = λ·(L/d)·(ρ/2)·v². L und d in m.",
+     sol:(p,v)=>`Δp<sub>λ</sub> = ${f(v.lam)} · (${p.L} / ${f(p.d/1000)}) · (${p.rho}/2) · ${f(v.v)}² = <b>${f(v.dpl)} Pa</b>`},
+    {k:"dpz", q:"Druckverlust an der Armatur", u:"Pa", hint:"Δp<sub>ζ</sub> = ζ·(ρ/2)·v².",
+     sol:(p,v)=>`Δp<sub>ζ</sub> = ${f(p.z)} · (${p.rho}/2) · ${f(v.v)}² = <b>${f(v.dpz)} Pa</b>`},
+    {k:"dpg", q:"Gesamtdruckverlust der Strecke", u:"Pa", hint:"Beide Verluste addieren.",
+     sol:(p,v)=>`Δp<sub>ges</sub> = ${f(v.dpl)} Pa + ${f(v.dpz)} Pa = <b>${f(v.dpg)} Pa</b>`}
+  ]},
+{ id:"d2", given:(p)=>`d<sub>i</sub> = ${p.d} mm = ${f(p.d/1000)} m · k = ${p.k} µm = ${f(p.k/1000)} mm · Re = ${p.Re.toLocaleString("de-DE")} · v = ${f(p.v)} m/s · L = ${p.L} m · ρ = 1000 kg/m³`, sought:"ε, 1/√λ₀, λ₀, Iterationen, λ, Δp<sub>λ</sub>, P<sub>V</sub>", pit:"k und d in derselben Einheit, ε ist dimensionslos. Zwischenwerte nicht zu früh runden. Nicht verwechseln: Die Gleichungen liefern 1/√λ, nicht λ.", st:"s4", title:"Aufgabe 4.1 · Raue Rohrleitung, turbulent", ex:{d:150, k:50, Re:120000, v:1.8, L:120},
+  gen(){ return {d:pick([100,125,150,200]), k:pick([30,45,50,80,100]), Re:pick(range(40000,250000,5000)), v:pick(range(1,2.5,0.1)), L:pick(range(50,200,10))}; },
+  derive(p){
+    const eps=p.k/1000/p.d, x0=-1.8*log10(6.9/p.Re+(eps/3.7)**1.11), cw=x=>-2*log10(2.51/p.Re*x+eps/3.71);
+    const x1=cw(x0), x2=cw(x1), x3=cw(x2), lam=1/(x3*x3), dp=lam*p.L/(p.d/1000)*1000/2*p.v**2, Vs=PI/4*(p.d/1000)**2*p.v;
+    return {eps, x0, lam0:1/(x0*x0), x1, x2, x3, lam, dp, Vs, P:dp*Vs};
+  },
+  text:p=>`Durch eine raue Rohrleitung mit dem Innendurchmesser ${p.d} mm und der gemittelten Rautiefe k = ${p.k} µm strömt Wasser (ρ = 1000 kg/m³) mit Re = ${p.Re.toLocaleString("de-DE")} und v = ${f(p.v)} m/s. Die Leitung ist ${p.L} m lang.`,
+  parts:[
+    {k:"eps", q:"Relative Rauheit ε", u:"–", hint:"ε = k/d<sub>i</sub>, beide in derselben Einheit (µm → mm: durch 1000).",
+     sol:(p,v)=>`ε = ${f(p.k/1000)} mm / ${p.d} mm = <b>${f(v.eps)}</b>`},
+    {k:"x0", q:"Haaland: Startwert 1/√λ₀ (auf 4 signifikante Stellen)", u:"–", abs:0.006, hint:"1/√λ₀ = −1,8·log(6,9/Re + (ε/3,7)^1,11). Klammer zuerst, dann log, dann · (−1,8).",
+     sol:(p,v)=>`1/√λ₀ = −1,8 · log(6,9/${p.Re} + (${f(v.eps)}/3,7)^1,11) = <b>${f(v.x0)}</b>`},
+    {k:"lam0", q:"Näherungswert λ₀", u:"–", rel:0.012, hint:"λ₀ = 1/(1/√λ₀)².",
+     sol:(p,v)=>`λ₀ = 1 / ${f(v.x0)}² = <b>${f(v.lam0)}</b>`},
+    {k:"x1", q:"Colebrook-White, 1. Iteration: 1/√λ₁", u:"–", abs:0.006, hint:"Startwert rechts einsetzen: 1/√λ₁ = −2·log(2,51/Re · 1/√λ₀ + ε/3,71).",
+     sol:(p,v)=>`1/√λ₁ = −2 · log(2,51/${p.Re} · ${f(v.x0)} + ${f(v.eps)}/3,71) = <b>${f(v.x1)}</b>`},
+    {k:"x2", q:"2. Iteration: 1/√λ₂", u:"–", abs:0.006, hint:"Jetzt 1/√λ₁ rechts einsetzen.",
+     sol:(p,v)=>`1/√λ₂ = −2 · log(2,51/${p.Re} · ${f(v.x1)} + ${f(v.eps)}/3,71) = <b>${f(v.x2)}</b>`},
+    {k:"x3", q:"3. Iteration: 1/√λ₃", u:"–", abs:0.006, hint:"1/√λ₂ rechts einsetzen. Ändert sich der Wert kaum noch, bist du fertig.",
+     sol:(p,v)=>`1/√λ₃ = −2 · log(2,51/${p.Re} · ${f(v.x2)} + ${f(v.eps)}/3,71) = <b>${f(v.x3)}</b>`},
+    {k:"lam", q:"Rohrreibungszahl λ", u:"–", rel:0.012, hint:"λ = 1/(1/√λ₃)².",
+     sol:(p,v)=>`λ = 1 / ${f(v.x3)}² = <b>${f(v.lam)}</b>`},
+    {k:"dp", q:"Druckverlust durch Rohrreibung", u:"Pa", hint:"Δp<sub>λ</sub> = λ·(L/d)·(ρ/2)·v², d in m.",
+     sol:(p,v)=>`Δp<sub>λ</sub> = ${f(v.lam)} · (${p.L} / ${f(p.d/1000)}) · (1000/2) · ${f(p.v)}² = <b>${f(v.dp)} Pa</b>`},
+    {k:"P", q:"Pumpenleistung, die den Druckverlust ausgleicht", u:"W", hint:"P<sub>V</sub> = Δp·V̇ mit V̇ = π/4·d²·v in m³/s.",
+     sol:(p,v)=>`V̇ = π/4 · (${f(p.d/1000)} m)² · ${f(p.v)} m/s = ${f(v.Vs)} m³/s<br>P<sub>V</sub> = ${f(v.dp)} Pa · ${f(v.Vs)} m³/s = <b>${f(v.P)} W</b>`}
+  ]},
+{ id:"fin", fixed:true, st:"s5", title:"Gesamtrechnung · Kühlwasserleitung zum Wärmetauscher",
+  given:(p)=>`V̇ = 36 m³/h = 0,01 m³/s · d<sub>i</sub> = 82,5 mm = 0,0825 m · L = 150 m · k = 0,05 mm · Σζ = 8 · ρ = 1000 kg/m³ · η = 1 mPa·s = 0,001 Pa·s · Reserve 1,0 bar = 100 000 Pa`,
+  pit:"Erst alle Einheiten in SI umrechnen. Mit Re die Strömungsform prüfen, bevor du eine λ-Formel wählst. Am Ende Pa in bar umrechnen, bevor du mit der Reserve vergleichst.",
+  gen(){ return {V:36, d:82.5, L:150, k:0.05, z:8}; },
+  derive(p){ const Vs=p.V/3600, A=PI/4*(p.d/1000)**2, v=Vs/A, Re=1000*v*(p.d/1000)/0.001, eps=p.k/p.d;
+    const x0=-1.8*log10(6.9/Re+(eps/3.7)**1.11), cw=x=>-2*log10(2.51/Re*x+eps/3.71), x1=cw(x0), x2=cw(x1), x3=cw(x2), lam=1/(x3*x3);
+    const dpl=lam*p.L/(p.d/1000)*500*v*v, dpz=p.z*500*v*v, dpg=(dpl+dpz)/1e5;
+    return {Vs, A, v, Re, eps, x0, x1, x2, x3, lam, dpl, dpz, dpg, ok: dpg<=1}; },
+  text:p=>`Kühlwasser (ρ = 1000 kg/m³, η = 1 mPa·s) wird mit V̇ = 36 m³/h durch eine 150 m lange Stahlleitung DN 80 (d<sub>i</sub> = 82,5 mm, k = 0,05 mm) zum Wärmetauscher gepumpt. Armaturen und Bögen haben zusammen ζ = 8. Die Pumpe hat für die Leitung eine Druckreserve von 1,0 bar.`,
+  parts:[
+    {k:"v", q:"Strömungsgeschwindigkeit in der Leitung (Station 1)", u:"m/s", hint:"v = V̇/A mit A = π/4·d². V̇ in m³/s, d in m.",
+     sol:(p,v)=>`V̇ = 36 m³/h / 3600 = 0,01 m³/s<br>A = π/4 · (0,0825 m)² = ${f(v.A)} m²<br>v = V̇/A = <b>${f(v.v)} m/s</b>`},
+    {k:"Re", q:"Reynolds-Zahl (Station 3)", u:"–", hint:"Re = ρ·v·d/η mit η = 0,001 Pa·s.",
+     sol:(p,v)=>`Re = 1000 · ${f(v.v)} · 0,0825 / 0,001 = <b>${f(v.Re)}</b>`},
+    {k:"form", q:"Strömungsform", u:"", type:"select", opts:["laminar","turbulent"], val:v=>v.Re<2320?"laminar":"turbulent", hint:"Vergleiche Re mit 2320.",
+     sol:(p,v)=>`Re = ${f(v.Re)} &gt; 2320 → <b>turbulent</b>. Also: λ mit Haaland und Colebrook-White.`},
+    {k:"lam", q:"Rohrreibungszahl λ (Station 4)", u:"–", rel:0.03, hint:"ε = k/d = 0,05/82,5. Startwert mit Haaland, dann zwei- bis dreimal Colebrook-White. Oder im Moody-Diagramm in Station 4 nachsehen.",
+     sol:(p,v)=>`ε = 0,05 mm / 82,5 mm = ${f(v.eps)}<br>Haaland: 1/√λ₀ = ${f(v.x0)}<br>Colebrook-White: ${f(v.x1)} → ${f(v.x2)} → ${f(v.x3)}<br>λ = 1/${f(v.x3)}² = <b>${f(v.lam)}</b>`},
+    {k:"dpl", q:"Druckverlust durch Rohrreibung", u:"Pa", rel:0.03, hint:"Δp<sub>λ</sub> = λ·(L/d)·(ρ/2)·v², L und d in m.",
+     sol:(p,v)=>`Δp<sub>λ</sub> = ${f(v.lam)} · (150 / 0,0825) · 500 · ${f(v.v)}² = <b>${f(v.dpl)} Pa</b>`},
+    {k:"dpz", q:"Druckverlust in Armaturen und Bögen", u:"Pa", hint:"Δp<sub>ζ</sub> = Σζ·(ρ/2)·v².",
+     sol:(p,v)=>`Δp<sub>ζ</sub> = 8 · 500 · ${f(v.v)}² = <b>${f(v.dpz)} Pa</b>`},
+    {k:"dpg", q:"Gesamtdruckverlust in bar", u:"bar", rel:0.03, hint:"Beide Verluste addieren, dann durch 100 000 teilen (1 bar = 10⁵ Pa).",
+     sol:(p,v)=>`Δp<sub>ges</sub> = ${f(v.dpl)} Pa + ${f(v.dpz)} Pa = ${f(v.dpl+v.dpz)} Pa = <b>${f(v.dpg,3)} bar</b>`},
+    {k:"dec", q:"Reicht die Pumpe?", u:"", type:"select", opts:["Die Pumpe reicht aus.","Die Pumpe reicht nicht aus."], val:v=>v.ok?"Die Pumpe reicht aus.":"Die Pumpe reicht nicht aus.", hint:"Vergleiche Δp<sub>ges</sub> mit der Reserve von 1,0 bar.",
+     sol:(p,v)=>`${f(v.dpg,3)} bar ${v.ok?"&lt;":"&gt;"} 1,0 bar → <b>${v.ok?"Die Pumpe reicht aus":"Die Pumpe reicht nicht aus"}</b>${v.ok?`, Reserve ${f(1-v.dpg,2)} bar`:""}.`}
+  ]}
+];
+const TMAP = Object.fromEntries(TASKS.map(t=>[t.id,t]));
+
+/* ---------- Musterbeispiele (feste Zahlen, Schritt für Schritt) ---------- */
+TASKS.forEach(t => {
+  const host = document.getElementById("ex-"+t.id); if(!host) return;
+  const p = t.ex, v = t.derive(p);
+  Steps(host, {
+    title: t.title.replace(/^Aufgabe [\d.]+ · /, "So geht’s: "),
+    text: t.text(p),
+    sought: t.sought,
+    steps: [{h:"Gegebene Größen in SI-Einheiten notieren", b:t.given(p)}].concat(t.parts.map((pt,i)=>({h:`${String.fromCharCode(97+i)}) ${pt.q}`, b:pt.sol(p,v)}))),
+    result: `<b>Merke – typische Fehler:</b> ${t.pit} Jetzt bist du dran: Die Aufgabe darunter hat dieselbe Struktur, aber andere Zahlen.`
+  });
+});
+
+function target(t, part, v){ return part.type==="select" ? part.val(v) : v[part.k]; }
+function judge(t, part, raw, v){
+  const tv = target(t, part, v);
+  if(part.type==="select") return raw===tv ? {ok:true} : {ok:false, msg:"Noch nicht richtig. Schau dir den Tipp an."};
+  const x = parseNum(raw);
+  if(!isFinite(x)) return {ok:false, msg:"Bitte eine Zahl eingeben."};
+  const ok = part.abs ? Math.abs(x-tv) <= part.abs : Math.abs(x-tv) <= Math.abs(tv)*(part.rel||0.02);
+  if(ok) return {ok:true};
+  const r = x/tv;
+  const facs = [[1000,"Faktor 1000: Prüfe mm → m, L → m³ oder mPa·s → Pa·s."],[3600,"Faktor 3600: Stunden und Sekunden verwechselt?"],[60,"Faktor 60: Minuten und Sekunden verwechselt?"],[1e5,"Faktor 10⁵: bar und Pa verwechselt?"],[1e6,"Faktor 10⁶: Prüfe N/mm² ↔ Pa oder µm ↔ m."],[100,"Faktor 100: Prüfe cm ↔ m oder hPa ↔ Pa."],[10,"Faktor 10: bar ↔ N/mm² (1 bar = 0,1 N/mm²)?"],[4,"Faktor 4: Durchmesser nicht quadriert, oder π/4 vergessen?"],[2,"Faktor 2: Radius statt Durchmesser, ρ/2 vergessen oder 2·e vergessen?"]];
+  for(const [fc,m] of facs){ if(Math.abs(r/fc-1)<0.03 || Math.abs(r*fc-1)<0.03) return {ok:false, msg:m}; }
+  if(Math.abs(r+1)<0.03) return {ok:false, msg:"Vorzeichen prüfen."};
+  return {ok:false, msg:`Noch nicht richtig (Abweichung ${fmt(Math.abs(r-1)*100,2)} %). Schau dir den Tipp an.`};
+}
+function renderTask(t){
+  const host = document.getElementById("task-"+t.id); if(!host) return;
+  if(!S.p[t.id]) S.p[t.id] = t.gen();
+  const p = S.p[t.id], v = t.derive(p), A = S.a[t.id] || {}, R = S.res[t.id] || {}, T = S.tried[t.id] || {}, SH = S.show[t.id] || {};
+  const allOk = t.parts.every(pt => R[pt.k]==="ok");
+  host.innerHTML = `<div class="calc">
+    <div class="calc-head"><h3>${t.title}</h3><span class="muted small">Komplett gelöst: <b>${S.rounds[t.id]||0}×</b></span>${allOk?'<span class="badge">Alles richtig</span>':''}<button type="button" class="btn small secondary" data-full="${t.id}" aria-expanded="${!!SH.full}">${SH.full?"Musterlösung ausblenden":"Musterlösung"}</button>${t.fixed?"":`<button type="button" class="btn small secondary" data-new="${t.id}">Neue Zahlen</button>`}</div>
+    <div class="given">${t.text(p)}</div>
+    ${t.parts.map((pt,i) => {
+      const letter = String.fromCharCode(97+i), id = `in-${t.id}-${pt.k}`;
+      const val = A[pt.k] || "";
+      const input = pt.type==="select"
+        ? `<select id="${id}" data-t="${t.id}" data-k="${pt.k}"><option value="">– wählen –</option>${pt.opts.map(o=>`<option ${o===val?"selected":""}>${o}</option>`).join("")}</select>`
+        : `<input type="text" inputmode="decimal" id="${id}" data-t="${t.id}" data-k="${pt.k}" value="${esc(val)}" autocomplete="off">`;
+      let fb = "";
+      if(R[pt.k]) { const j = judge(t, pt, val, v); fb = `<div class="fb ${j.ok?"ok":"err"} small">${j.ok?"Richtig.":esc(j.msg)}</div>`; }
+      return `<div class="part ${R[pt.k]==="ok"?"is-ok":R[pt.k]==="err"?"is-err":""}">
+        <label class="q" for="${id}">${letter}) ${pt.q}</label>
+        <div class="row">${input}<span class="unit">${pt.u}</span>
+          <button type="button" class="btn small" data-check="${t.id}" data-k="${pt.k}">Prüfen</button>
+          <button type="button" class="btn small secondary" data-hint="${t.id}" data-k="${pt.k}">Tipp</button>
+          <button type="button" class="btn small secondary" data-sol="${t.id}" data-k="${pt.k}" ${T[pt.k]?"":"disabled title=\"Erst selbst versuchen und prüfen\""}>Lösungsweg</button></div>
+        ${fb}
+        <div class="fb info small" ${SH["h"+pt.k]?"":"hidden"}>${pt.hint}</div>
+        <div class="solbox" ${SH["s"+pt.k]&&T[pt.k]?"":"hidden"}>${pt.sol(p,v)}</div>
+      </div>`;
+    }).join("")}
+    <div class="row"><button type="button" class="btn" data-checkall="${t.id}">Alle prüfen</button></div>
+    <div class="muster" ${SH.full?"":"hidden"}>
+      <h3>Musterlösung</h3>
+      <p class="small"><b>Gegeben:</b> ${t.given(p)}</p>
+      ${t.parts.map((pt,i)=>`<div class="mstep"><p class="small"><b>${String.fromCharCode(97+i)}) ${pt.q}</b></p><div class="solbox">${pt.sol(p,v)}</div></div>`).join("")}
+      <div class="fb maybe small"><b>Typische Fehler:</b> ${t.pit}</div>
+    </div>
+  </div>`;
+}
+function checkPart(t, k){
+  const pt = t.parts.find(x=>x.k===k), v = t.derive(S.p[t.id]);
+  const raw = (S.a[t.id]||{})[k] || "";
+  if(!raw) return;
+  S.res[t.id] = S.res[t.id] || {}; S.tried[t.id] = S.tried[t.id] || {};
+  S.res[t.id][k] = judge(t, pt, raw, v).ok ? "ok" : "err";
+  S.tried[t.id][k] = true;
+}
+function afterCheck(t){
+  const R = S.res[t.id]||{};
+  if(t.parts.every(pt=>R[pt.k]==="ok") && !S.roundDone[t.id]){ S.roundDone[t.id]=true; S.rounds[t.id]=(S.rounds[t.id]||0)+1; }
+  save(); renderTask(t); if(t.id==="fin") renderFin();
+}
+document.addEventListener("input", e => {
+  const el = e.target; if(!el.dataset || !el.dataset.t) return;
+  S.a[el.dataset.t] = S.a[el.dataset.t] || {}; S.a[el.dataset.t][el.dataset.k] = el.value;
+  if(S.res[el.dataset.t]) delete S.res[el.dataset.t][el.dataset.k];
+  el.closest(".part").classList.remove("is-ok","is-err");
+  save();
+});
+document.addEventListener("keydown", e => {
+  const el = e.target; if(e.key!=="Enter" || !el.dataset || !el.dataset.t || el.tagName!=="INPUT") return;
+  const t = TMAP[el.dataset.t]; checkPart(t, el.dataset.k); afterCheck(t);
+  const nx = document.getElementById(`in-${t.id}-${el.dataset.k}`)?.closest(".part")?.nextElementSibling?.querySelector("input,select"); if(nx) nx.focus();
+});
+document.addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.check){ const t=TMAP[b.dataset.check]; checkPart(t, b.dataset.k); afterCheck(t); }
+  else if(b.dataset.checkall){ const t=TMAP[b.dataset.checkall]; t.parts.forEach(pt=>checkPart(t, pt.k)); afterCheck(t); }
+  else if(b.dataset.hint || b.dataset.sol){
+    const id=b.dataset.hint||b.dataset.sol, key=(b.dataset.hint?"h":"s")+b.dataset.k;
+    S.show[id]=S.show[id]||{}; S.show[id][key]=!S.show[id][key]; save(); renderTask(TMAP[id]);
+  }
+  else if(b.dataset.full){ const id=b.dataset.full; S.show[id]=S.show[id]||{}; S.show[id].full=!S.show[id].full; save(); renderTask(TMAP[id]); if(S.show[id].full) document.querySelector(`#task-${id} .muster`)?.scrollIntoView({behavior:smooth?"smooth":"auto", block:"nearest"}); }
+  else if(b.dataset.new){ const id=b.dataset.new; S.p[id]=TMAP[id].gen(); S.a[id]={}; S.res[id]={}; S.tried[id]={}; S.show[id]={}; S.roundDone[id]=false; save(); renderTask(TMAP[id]); }
+});
+
+/* ---------- Verständnisfragen (mit Tipp) ---------- */
+const MC = {
+  mc1:[
+    {q:"Welche Aussage steckt hinter der Kontinuitätsgleichung?", o:["Die Masse, die pro Zeit in einen Rohrabschnitt einströmt, strömt in derselben Zeit wieder aus.","Die Geschwindigkeit ist in jedem Rohrabschnitt gleich.","Der Druck bleibt überall in der Leitung konstant.","Energie geht in Rohrleitungen nicht verloren."], a:0, h:"Denk an eine Größe, die weder entstehen noch verschwinden kann.", e:"Masse ist eine Erhaltungsgröße. Bei Flüssigkeiten (inkompressibel) bleibt damit auch V̇ = A·v konstant."},
+    {q:"Der Innendurchmesser einer Leitung halbiert sich. Was passiert mit der Geschwindigkeit?", o:["Sie halbiert sich.","Sie verdoppelt sich.","Sie vervierfacht sich.","Sie bleibt gleich."], a:2, h:"Wie hängt die Fläche A vom Durchmesser d ab? Probiere es in der Simulation oben aus.", e:"A ~ d². Halber Durchmesser heißt ein Viertel der Fläche, also vierfache Geschwindigkeit."},
+    {q:"Wie hängen Massenstrom und Volumenstrom zusammen?", o:["ṁ = V̇ / ρ","ṁ = V̇ · ρ","ṁ = V̇ · A","ṁ = V̇ · v"], a:1, h:"Masse = Volumen · … – das gilt auch pro Sekunde.", e:"Masse = Volumen · Dichte, das gilt auch pro Zeit."}
+  ],
+  mc2:[
+    {q:"Was gibt die Nennweite DN eines Rohres an?", o:["Den exakten Innendurchmesser in mm","Den Außendurchmesser in mm","Ein ungefähres Maß für den Innendurchmesser; der echte Wert hängt von Rohrart und Nenndruck ab","Die Wanddicke"], a:2, h:"Vergleiche in der Tabelle die DN-Werte mit den Innendurchmessern.", e:"Deshalb immer den echten Innendurchmesser aus der Tabelle nehmen. Kombinieren lassen sich nur Rohre gleicher Nennweite."},
+    {q:"Der erforderliche Innendurchmesser beträgt 60,4 mm. DN 50 hat 54,5 mm, DN 65 hat 70,3 mm. Welche Nennweite wählst du?", o:["DN 50, weil der Wert näher liegt","DN 65, weil der Innendurchmesser mindestens 60,4 mm sein muss","Egal, beide gehen","Man muss ein Sonderrohr mit 60,4 mm bestellen"], a:1, h:"Was passiert mit der Geschwindigkeit, wenn der Querschnitt zu klein ist?", e:"Mit DN 50 wäre der Querschnitt zu klein und die Geschwindigkeit über dem Grenzwert."},
+    {q:"Welcher Sicherheitsbeiwert gilt für die Auslegungsspannung ferritischer Stähle?", o:["1,2","1,5","2,0","0,7"], a:1, h:"Ferritische Stähle bekommen den größeren der beiden Sicherheitsbeiwerte aus der Formelsammlung.", e:"Ferritisch: f = R<sub>p0,2</sub>/1,5. Austenitisch: f = R<sub>p0,2</sub>/1,2."},
+    {q:"Der Schweißnahtfaktor sinkt von 1,0 auf 0,7. Was passiert mit der Mindest-Wanddicke?", o:["Sie wird kleiner.","Sie bleibt gleich.","Sie wird größer.","Sie wird null."], a:2, h:"Wo steht z in der Formel für e – im Zähler oder im Nenner? Teste es in der Simulation.", e:"z steht im Nenner: Eine schwächere Naht muss durch mehr Wanddicke ausgeglichen werden."}
+  ],
+  mc3:[
+    {q:"Ab welcher Reynolds-Zahl gilt eine Rohrströmung als nicht mehr laminar?", o:["Re = 64","Re = 2320","Re = 10 000","Re = 100 000"], a:1, h:"Die Grenze ist eine vierstellige Zahl. In der Animation wechselt dort die Anzeige.", e:"Unter 2320 laminar. Darüber beginnt der Übergang zur turbulenten Strömung."},
+    {q:"Wovon hängt λ bei laminarer Strömung ab?", o:["Nur von Re","Nur von der Rauheit","Von Re und Rauheit","Von der Rohrlänge"], a:0, h:"Schau dir die Formel für λ<sub>lam</sub> an. Welche Größe steht darin?", e:"λ = 64/Re. Die Rauheit spielt bei laminarer Strömung keine Rolle."},
+    {q:"Welche Ursachen hat der Druckverlust in einer Leitung?", o:["Nur die Rohrlänge","Reibung an der Wand, innere Reibung der Fluidschichten, Verwirbelungen und Einbauten","Nur die Armaturen","Die Schwerkraft"], a:1, h:"Druckverlust ist Energie, die in Wärme umgewandelt wird. Wo überall reibt etwas?", e:"Alle vier Effekte wandeln Strömungsenergie in Wärme um."},
+    {q:"Gleicher Volumenstrom, λ bleibt gleich, der Durchmesser halbiert sich. Wie ändert sich Δp<sub>λ</sub>?", o:["×2","×4","×16","×32"], a:3, h:"Setze v = 4V̇/(πd²) in Δp = λ·(L/d)·(ρ/2)·v² ein und zähle, mit welcher Potenz d im Nenner steht.", e:"Mit v = 4V̇/(πd²) folgt Δp<sub>λ</sub> ~ 1/d⁵. Halber Durchmesser heißt 2⁵ = 32-facher Druckverlust."}
+  ],
+  mc4:[
+    {q:"Warum muss die Colebrook-White-Gleichung iterativ gelöst werden?", o:["Weil λ auf beiden Seiten der Gleichung steht","Weil der Logarithmus negativ ist","Weil Re unbekannt ist","Weil sie nur für laminare Strömung gilt"], a:0, h:"Suche in der Gleichung, wo überall λ vorkommt.", e:"Die Gleichung ist implizit. Man setzt einen Schätzwert ein und verbessert ihn schrittweise."},
+    {q:"Wofür verwendet man die Haaland-Gleichung?", o:["Für laminare Strömung","Als expliziten Startwert oder für Überschlagsrechnungen","Zur Berechnung von Re","Für Einzelwiderstände"], a:1, h:"Bei Haaland steht λ nur links. Was folgt daraus?", e:"Haaland liefert λ direkt, aber nur näherungsweise. Ein guter Startwert spart Iterationen."},
+    {q:"Was bedeutet „hydraulisch glatt“ im Moody-Diagramm?", o:["Das Rohr hat k = 0.","Die Rauheit hat keinen Einfluss auf λ, nur Re zählt.","λ hängt nur von ε ab.","Die Strömung ist laminar."], a:1, h:"Stell im Diagramm oben kleine Re-Zahlen ein: Liegen die Kurven für verschiedene ε dort übereinander?", e:"Die Rauheitsspitzen liegen dann in der wandnahen Grenzschicht. Im hydraulisch rauen Bereich hängt λ dagegen nur noch von ε ab."},
+    {q:"Die Geschwindigkeit verdoppelt sich, λ bleibt gleich. Wie ändert sich die Verlustleistung P<sub>V</sub> = Δp·V̇?", o:["×2","×4","×8","bleibt gleich"], a:2, h:"Wie hängt Δp von v ab, und wie hängt V̇ von v ab? Multipliziere beides.", e:"Δp ~ v² und V̇ ~ v, also P ~ v³ = 2³ = 8."}
+  ]
+};
+function renderMC(key){
+  const list = MC[key], store = S.mc[key] || {};
+  $("#"+key).innerHTML = list.map((it,i) => {
+    const ans = store[i], hk = key+"-"+i;
+    const opts = it.o.map((o,j) => { let c=""; if(ans!=null){ if(j===it.a) c="ok"; else if(j===ans) c="err"; } return `<button type="button" class="opt ${c}" data-mc="${key}" data-q="${i}" data-o="${j}" ${ans!=null?"disabled":""}>${o}</button>`; }).join("");
+    const fb = ans!=null ? `<div class="fb ${ans===it.a?"ok":"err"} small"><b>${ans===it.a?"Richtig.":"Nicht ganz."}</b> Lösung: ${it.o[it.a]}. ${it.e}</div>` : "";
+    const tip = ans==null ? `<div class="row"><button type="button" class="linkbtn" data-mctip="${hk}">${H[hk]?"Tipp ausblenden":"Tipp"}</button></div>${H[hk]?`<div class="fb info small">${it.h}</div>`:""}` : "";
+    return `<div class="mc"><div class="qq">${i+1}. ${it.q}</div><div class="opts">${opts}</div>${tip}${fb}</div>`;
+  }).join("") + (Object.keys(store).length ? `<div class="row"><button type="button" class="linkbtn" data-mcreset="${key}">Fragen zurücksetzen</button></div>` : "");
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-mc],[data-mcreset],[data-mctip]"); if(!b) return;
+  if(b.dataset.mctip){ const k=b.dataset.mctip; H[k]=!H[k]; renderMC(k.split("-")[0]); return; }
+  if(b.dataset.mcreset){ S.mc[b.dataset.mcreset] = {}; save(); renderMC(b.dataset.mcreset); return; }
+  if(b.disabled) return;
+  const k=b.dataset.mc; S.mc[k]=S.mc[k]||{}; S.mc[k][b.dataset.q]=+b.dataset.o; save(); renderMC(k);
+});
+
+/* ---------- Sortieren (Station 3) ---------- */
+const SORT = [
+  "Volumenstrom in m³/s umrechnen",
+  "Mittlere Geschwindigkeit v = V̇/A berechnen",
+  "Reynolds-Zahl Re = ρ·v·d/η berechnen",
+  "Strömungsform bestimmen (Re < 2320?)",
+  "Rohrreibungszahl λ mit der passenden Formel bestimmen",
+  "Rohrreibungsverlust Δp<sub>λ</sub> berechnen",
+  "Einzelverluste Δp<sub>ζ</sub> der Armaturen berechnen",
+  "Gesamtdruckverlust Δp<sub>ges</sub> = Δp<sub>λ</sub> + Δp<sub>ζ</sub>"
+];
+function sortOk(order, pos){
+  const it = order[pos];
+  if(pos<=4 || pos===7) return it===pos;
+  return it===5 || it===6;   // Δpλ und Δpζ dürfen getauscht sein
+}
+function renderSort(){
+  const st = S.sort3;
+  if(!Array.isArray(st.order) || st.order.length!==SORT.length){
+    let o; do { o = SORT.map((_,i)=>i).sort(()=>Math.random()-.5); } while(o.every((x,i)=>x===i));
+    st.order = o;
+  }
+  const n = st.checked ? st.order.filter((_,p)=>sortOk(st.order,p)).length : null;
+  $("#sort3").innerHTML = `<ol class="sortlist" id="sortlist">${st.order.map((it,p)=>`<li draggable="true" data-pos="${p}" class="${st.checked?(sortOk(st.order,p)?"ok":"err"):""}"><span class="grip" aria-hidden="true">⋮⋮</span><span class="txt">${SORT[it]}</span><span class="mv"><button type="button" class="btn small secondary" data-sortmv="${p}" data-d="-1" aria-label="nach oben" ${p===0?"disabled":""}>▲</button><button type="button" class="btn small secondary" data-sortmv="${p}" data-d="1" aria-label="nach unten" ${p===SORT.length-1?"disabled":""}>▼</button></span></li>`).join("")}</ol>
+  <div class="row helpbar"><button type="button" class="btn" data-sortact="check">Prüfen</button><button type="button" class="btn secondary" data-sortact="hint">Tipp</button><button type="button" class="btn secondary" data-sortact="sol" ${st.checked?"":"disabled title=\"Erst prüfen\""}>Lösung</button><span class="score">${n==null?"":`${n} von ${SORT.length} an der richtigen Stelle`}</span></div>
+  ${H.sortHint?`<div class="fb info small">Frage dich bei jedem Schritt: Welche Größe brauche ich dafür, und habe ich sie schon? Für Re brauchst du v. Für λ musst du die Strömungsform kennen.</div>`:""}
+  ${H.sortSol&&st.checked?`<div class="solbox">${SORT.map((s,i)=>`${i+1}. ${s}`).join("<br>")}<br><span class="muted">Die Schritte 6 und 7 dürfen auch getauscht werden: Δp<sub>ζ</sub> braucht nur v, nicht λ.</span></div>`:""}`;
+}
+let dragPos = null;
+$("#sort3").addEventListener("dragstart", e => { const li=e.target.closest("li[data-pos]"); if(li){ dragPos=+li.dataset.pos; e.dataTransfer.effectAllowed="move"; e.dataTransfer.setData("text/plain","sort"); } });
+$("#sort3").addEventListener("dragover", e => { if(dragPos!=null && e.target.closest("li[data-pos]")) e.preventDefault(); });
+$("#sort3").addEventListener("drop", e => {
+  const li=e.target.closest("li[data-pos]"); if(!li || dragPos==null) return; e.preventDefault();
+  const to=+li.dataset.pos, o=S.sort3.order, [x]=o.splice(dragPos,1); o.splice(to,0,x); dragPos=null; S.sort3.checked=false; save(); renderSort();
+});
+$("#sort3").addEventListener("click", e => {
+  const m=e.target.closest("[data-sortmv]");
+  if(m){ const p=+m.dataset.sortmv, q=p+(+m.dataset.d), o=S.sort3.order; [o[p],o[q]]=[o[q],o[p]]; S.sort3.checked=false; save(); renderSort(); document.querySelector(`#sort3 [data-sortmv="${q}"][data-d="${m.dataset.d}"]`)?.focus(); return; }
+  const a=e.target.closest("[data-sortact]"); if(!a) return;
+  if(a.dataset.sortact==="check"){ S.sort3.checked=true; S.sort3.done = S.sort3.order.every((_,p)=>sortOk(S.sort3.order,p)); save(); }
+  if(a.dataset.sortact==="hint") H.sortHint=!H.sortHint;
+  if(a.dataset.sortact==="sol") H.sortSol=!H.sortSol;
+  renderSort();
+});
+
+/* ---------- Fehler finden (Station 4) ---------- */
+const ERR = (function(){
+  const d=0.1, v=2, L=80, rho=1000, eta=0.001, k=0.05, Re=rho*v*d/eta, eps=k/100;
+  const x0=-1.8*log10(6.9/Re+(eps/3.7)**1.11), cw=x=>-2*log10(2.51/Re*x+eps/3.71), x1=cw(x0), x2=cw(x1), lam=1/(x2*x2);
+  const dpWrong=lam*(L/100)*rho/2*v*v;
+  return {
+    text:`Wasser (ρ = 1000 kg/m³, η = 1 mPa·s) strömt mit v = 2 m/s durch eine 80 m lange Stahlleitung mit d<sub>i</sub> = 100 mm und k = 0,05 mm. Gesucht ist der Druckverlust.`,
+    lines:[
+      `Re = ρ·v·d/η = 1000 · 2 · 0,1 / 0,001 = ${f(Re)}`,
+      `ε = k/d = 0,05 mm / 100 mm = ${f(eps)}`,
+      `1/√λ₀ = −1,8 · log(6,9/${f(Re)} + (${f(eps)}/3,7)^1,11) = ${f(x0)}`,
+      `1/√λ₁ = −2 · log(2,51/${f(Re)} · ${f(x0)} + ${f(eps)}/3,71) = ${f(x1)}`,
+      `1/√λ₂ = ${f(x2)} → λ = 1/${f(x2)}² = ${f(lam)}`,
+      `Δp<sub>λ</sub> = λ · (L/d) · (ρ/2) · v² = ${f(lam)} · (80/100) · 500 · 2² = ${f(dpWrong)} Pa`
+    ],
+    wrong:5,
+    reasons:["d in mm statt in m eingesetzt","v nicht quadriert","ρ/2 vergessen","Falsche λ-Formel (laminar statt turbulent)"],
+    reason:0,
+    fix:`Richtig: Δp<sub>λ</sub> = ${f(lam)} · (80 m / 0,1 m) · 500 kg/m³ · 4 m²/s² = <b>${f(lam*800*500*4)} Pa ≈ ${f(lam*800*500*4/1e5,3)} bar</b>. Der Fehler macht das Ergebnis 1000-mal zu klein.`
+  };
+})();
+function renderErr(){
+  const st = S.err4;
+  const okLine = st.line===ERR.wrong, okReason = st.reason===ERR.reason;
+  $("#err4").innerHTML = `<div class="given">${ERR.text}</div>
+    <div class="errlines">${ERR.lines.map((l,i)=>`<button type="button" class="errline ${st.line===i?"sel":""} ${st.checked&&st.line===i?(okLine?"ok":"err"):""}" data-errline="${i}" aria-pressed="${st.line===i}"><span class="n">${i+1}</span><span>${l}</span></button>`).join("")}</div>
+    <div class="row"><label for="err-reason" style="font-weight:600">Was wurde falsch gemacht?</label>
+      <select id="err-reason" style="width:100%;max-width:420px"><option value="">– wählen –</option>${ERR.reasons.map((r,i)=>`<option value="${i}" ${st.reason===i?"selected":""}>${r}</option>`).join("")}</select></div>
+    <div class="row helpbar"><button type="button" class="btn" data-erract="check">Prüfen</button><button type="button" class="btn secondary" data-erract="hint">Tipp</button><button type="button" class="btn secondary" data-erract="sol" ${st.checked?"":"disabled title=\"Erst prüfen\""}>Lösung</button></div>
+    ${st.checked?`<div class="fb ${okLine&&okReason?"ok":"err"} small">${okLine&&okReason?"Richtig erkannt!":!okLine?"Diese Zeile stimmt. Rechne die anderen Zeilen nach.":"Die Zeile stimmt, aber die Fehlerursache noch nicht."}</div>`:""}
+    ${H.errHint?`<div class="fb info small">Rechne nicht alles neu – prüfe in jeder Zeile zuerst die Einheiten. Sind alle Längen in derselben Einheit?</div>`:""}
+    ${H.errSol&&st.checked?`<div class="solbox">Fehler in Zeile 6: d = 100 mm wurde als „100“ eingesetzt, L aber in m. L/d muss dimensionslos sein: 80 m / 0,1 m = 800.<br>${ERR.fix}</div>`:""}`;
+}
+$("#err4").addEventListener("click", e => {
+  const l=e.target.closest("[data-errline]"); if(l){ S.err4.line=+l.dataset.errline; S.err4.checked=false; save(); renderErr(); return; }
+  const a=e.target.closest("[data-erract]"); if(!a) return;
+  if(a.dataset.erract==="check"){ if(S.err4.line==null || S.err4.reason==null){ H.errHint=true; } else { S.err4.checked=true; S.err4.done=(S.err4.line===ERR.wrong && S.err4.reason===ERR.reason); save(); } }
+  if(a.dataset.erract==="hint") H.errHint=!H.errHint;
+  if(a.dataset.erract==="sol") H.errSol=!H.errSol;
+  renderErr();
+});
+$("#err4").addEventListener("change", e => { if(e.target.id==="err-reason"){ S.err4.reason = e.target.value===""?null:+e.target.value; S.err4.checked=false; save(); renderErr(); } });
+
+/* ---------- Checkliste ---------- */
+const CK = [
+  ["Volumen- und Massenstrom berechnen, Einheiten umrechnen (L/h, m³/h, m³/s)","s1"],
+  ["Mit der Kontinuitätsgleichung die Geschwindigkeit nach einer Verengung bestimmen","s1"],
+  ["Den erforderlichen Innendurchmesser berechnen und die passende Nennweite wählen","s2"],
+  ["Die Auslegungsspannung für ferritische und austenitische Stähle bestimmen","s2"],
+  ["Die Mindest-Wanddicke und den Außendurchmesser berechnen","s2"],
+  ["Re berechnen und die Strömungsform bestimmen","s3"],
+  ["Druckverlust durch Rohrreibung und Einzelwiderstände berechnen","s3"],
+  ["Relative Rauheit und Haaland-Startwert berechnen","s4"],
+  ["Die Colebrook-White-Gleichung iterativ lösen","s4"],
+  ["Die Verlustleistung einer Pumpe berechnen","s4"]
+];
+function renderCK(){
+  $("#checklist").innerHTML = CK.map(([t,st],i) => {
+    const v = S.ck[i];
+    return `<div class="ck"><span>${t}${v===0?` · <a href="#${st}" data-go="${st}">weiterüben</a>`:""}</span><div class="seg" role="group" aria-label="${esc(t)}">${[["2","sicher"],["1","geht so"],["0","unsicher"]].map(([n,l])=>`<button type="button" data-ck="${i}" data-v="${n}" aria-pressed="${v===+n}">${l}</button>`).join("")}</div></div>`;
+  }).join("");
+}
+$("#checklist").addEventListener("click", e => { const b=e.target.closest("[data-ck]"); if(!b) return; S.ck[b.dataset.ck]=+b.dataset.v; save(); renderCK(); updateSummary(); });
+
+/* ---------- Navigation ---------- */
+const stations = $$("section.station");
+let current = "s0";
+const smooth = !G.reduced();
+function show(id){ const el=document.getElementById(id); if(!el) return; if(id==="s5") updateSummary(); el.scrollIntoView({behavior:smooth?"smooth":"auto", block:"start"}); current=id; renderTabs(); }
+function spy(){
+  const top = $("header.top").getBoundingClientRect().bottom + 40;
+  let id = stations[0].id;
+  stations.forEach(s => { if(s.getBoundingClientRect().top <= top) id = s.id; });
+  if((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 4) id = stations[stations.length-1].id;
+  if(id !== current){ current = id; renderTabs(); }
+}
+window.addEventListener("scroll", spy, {passive:true});
+function doneFor(id){
+  if(id==="s0") return !!S._ts;
+  if(id==="s5") return (S.rounds.fin||0)>=1 && Object.keys(S.ck).length===CK.length;
+  const ts = TASKS.filter(t=>t.st===id && !t.fixed);
+  return ts.length>0 && ts.every(t=>(S.rounds[t.id]||0)>=1);
+}
+const PLAN = [
+  ["s1","Volumenstrom, Massenstrom, Kontinuität","Simulation Reduzierstück, 3 Verständnisfragen, 2 Rechenaufgaben"],
+  ["s2","Nennweite und Mindest-Wanddicke","Simulation Wanddicke, 4 Verständnisfragen, 2 Rechenaufgaben"],
+  ["s3","Druckverlust bei laminarer Strömung","Animation Geschwindigkeitsprofil, Sortieraufgabe, 1 Rechenaufgabe"],
+  ["s4","Turbulente Strömung","Moody-Diagramm, Fehler finden, 1 Rechenaufgabe"],
+  ["s5","Problem lösen und Selbstcheck","Kühlwasserpumpe durchrechnen, Selbsteinschätzung, Abgabe"]
+];
+function renderPlan(){
+  const h = $("#plan"); if(!h) return;
+  h.innerHTML = `<div class="tbl-wrap"><table class="plan"><tr><th>Station</th><th>Was du tust</th><th>Stand</th></tr>${PLAN.map(([id,t,w],i)=>`<tr><td><a href="#${id}" data-go="${id}"><b>${i+1} · ${t}</b></a></td><td class="small">${w}</td><td>${doneFor(id)?'<span class="okmark">✓ erledigt</span>':'<span class="muted small">offen</span>'}</td></tr>`).join("")}</table></div>`;
+}
+/* Erste Einschätzung und Antwort auf die Problemstellung */
+const GUESS = {ja:"Reicht sicher", knapp:"Wird knapp", nein:"Reicht nicht"};
+function renderGuess(){
+  $$("#guess button").forEach(b => b.setAttribute("aria-pressed", S.guess===b.dataset.guess));
+  $("#guess-show").innerHTML = `<div class="fb maybe small"><b>Deine erste Einschätzung am Anfang:</b> ${S.guess ? GUESS[S.guess] : "<i>noch keine (siehe Start)</i>"}</div>`;
+}
+$("#guess").addEventListener("click", e => { const b = e.target.closest("[data-guess]"); if(!b) return; S.guess = b.dataset.guess; save(); renderGuess(); });
+function renderFin(){
+  const t = TMAP.fin, v = t.derive(S.p.fin || t.gen()), R = S.res.fin || {}, done = t.parts.every(pt=>R[pt.k]==="ok");
+  $("#fin-answer").innerHTML = done ? `<div class="answer"><h3>Antwort auf die Problemstellung</h3><p>Der Gesamtdruckverlust der Leitung beträgt <b>${fmt(v.dpg,3)} bar</b> (davon ${fmt(v.dpl/1e5,2)} bar Rohrreibung und ${fmt(v.dpz/1e5,2)} bar Armaturen und Bögen). Die Pumpe hat eine Reserve von 1,0 bar. <b>${v.ok?"Die Pumpe reicht aus":"Die Pumpe reicht nicht aus"}</b>${v.ok?` – mit nur ${fmt(1-v.dpg,2)} bar Luft. Es wird also knapp: Kommen später weitere Armaturen dazu oder lagert sich Kalk ab (größeres k), reicht sie nicht mehr.`:"."}</p><p class="small">Deine Einschätzung am Anfang war: <b>${S.guess?GUESS[S.guess]:"–"}</b>. ${S.guess==="knapp"?"Gut eingeschätzt!":"Vergleiche: Ohne Rechnung lässt sich das kaum sicher sagen."}</p></div>` : `<p class="small muted">Löse alle Teilaufgaben richtig, dann erscheint hier die Antwort auf die Problemstellung.</p>`;
+}
+function renderTabs(){
+  renderPlan();
+  $("#tabs").innerHTML = stations.map(s => `<button type="button" data-tab="${s.id}" class="${doneFor(s.id)?"done":""}" aria-current="${s.id===current}"><span class="dot" aria-hidden="true"></span>${s.dataset.title}</button>`).join("");
+}
+document.addEventListener("click", e => { const t = e.target.closest("[data-tab],[data-go]"); if(t){ e.preventDefault(); show(t.dataset.tab || t.dataset.go); } });
+
+/* ---------- Freitext ---------- */
+["frage"].forEach(id => { const el=document.getElementById(id); el.addEventListener("input", () => { S[id]=el.value; save(); if(id==="frage") updateSummary(); }); });
+
+/* ---------- Zusammenfassung ---------- */
+function summaryText(){
+  const L = [], d = new Date();
+  L.push("Carl Engler Schule Karlsruhe · Fachschule für Technik – Chemie · Produktionstechnologie");
+  L.push("LEHRPLANEINHEIT: " + MODULE_TITLE);
+  L.push("Stand: " + d.toLocaleDateString("de-DE") + " " + d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}));
+  L.push("");
+  L.push("RECHENAUFGABEN (komplett gelöste Runden)");
+  TASKS.forEach(t => L.push(`  ${t.title}: ${S.rounds[t.id]||0}×`));
+  L.push("");
+  L.push("VERSTÄNDNISFRAGEN");
+  Object.keys(MC).forEach((k,i) => { const st=S.mc[k]||{}; const r=MC[k].filter((q,j)=>st[j]===q.a).length; L.push(`  Station ${i+1}: ${r}/${MC[k].length} richtig (${Object.keys(st).length} beantwortet)`); });
+  L.push(`  Sortieren Rechenschritte (Station 3): ${S.sort3.checked ? (S.sort3.done?"richtig":"noch nicht richtig") : "nicht geprüft"}`);
+  L.push(`  Fehler finden (Station 4): ${S.err4.checked ? (S.err4.done?"richtig":"noch nicht richtig") : "nicht geprüft"}`);
+  L.push("");
+  L.push("SELBSTEINSCHÄTZUNG");
+  CK.forEach(([t],i) => L.push(`  [${S.ck[i]===2?"sicher":S.ck[i]===1?"geht so":S.ck[i]===0?"UNSICHER":"–"}] ${t}`));
+  L.push("");
+  L.push("Offene Fragen: " + ((S.frage||"–").trim()));
+  return L.join("\n");
+}
+function updateSummary(){
+  $("#summary").value = SK.fullText();
+  $("#overview").innerHTML = `<div class="tbl-wrap"><table><tr><th>Aufgabentyp</th><th>komplett gelöst</th></tr>${TASKS.map(t=>`<tr><td><a href="#${t.st}" data-go="${t.st}">${t.title}</a></td><td>${S.rounds[t.id]||0}× ${(S.rounds[t.id]||0)>=2?"✓":""}</td></tr>`).join("")}</table></div>`;
+}
+$("#copy").addEventListener("click", () => {
+  const t = SK.fullText(); $("#summary").value = t;
+  const fb = () => { const ta=$("#summary"); ta.focus(); ta.select(); $("#save-msg").textContent="Text markiert: jetzt Strg+C drücken."; };
+  try { navigator.clipboard.writeText(t).then(() => { $("#save-msg").textContent="Kopiert."; }, fb); } catch(e) { fb(); }
+});
+
+/* ============================================================
+   GRAFIKEN UND SIMULATIONEN
+   ============================================================ */
+/* Animationsschleife, läuft nur, wenn sichtbar */
+function anim(host, step){
+  let run = !G.reduced(), vis = false, last = 0, raf = 0;
+  const tick = t => { const dt = Math.min(0.05, (t-(last||t))/1000); last = t; step(dt); raf = (run&&vis) ? requestAnimationFrame(tick) : 0; };
+  const go = () => { if(run && vis && !raf){ last = 0; raf = requestAnimationFrame(tick); } };
+  if("IntersectionObserver" in window){ new IntersectionObserver(es => { vis = es[0].isIntersecting; go(); }).observe(host); } else { vis = true; }
+  return { toggle(){ run = !run; go(); return run; }, get running(){ return run; }, kick(){ step(0); } };
+}
+function arrowDefs(defs, color){
+  const id = G.uid("ar");
+  defs.appendChild(el("marker",{id, viewBox:"0 0 10 10", refX:9, refY:5, markerWidth:7, markerHeight:7, orient:"auto-start-reverse"},[el("path",{d:"M0,0 L10,5 L0,10 z", style:`fill:${color}`})]));
+  return `url(#${id})`;
+}
+/* plastische Rohrwand als Schichtung von Strichen */
+function tubeWall(g, d){
+  [[16,"#3c454d"],[12,"#7d8993"],[7,"#b9c3cb"],[2.5,"#f4f7f9"]].forEach(([w,c],i) => g.appendChild(el("path",{d, fill:"none", stroke:c, "stroke-width":w, "stroke-linejoin":"round", opacity:i===3?.85:1})));
+}
+function flange(g, defs, x, half, cy){
+  const fill = lin(defs, MAT.steel, 0,0,1,0);
+  g.appendChild(el("rect",{x:x-9, y:cy-half, width:18, height:half*2, rx:3, fill, stroke:"#3c454d", "stroke-width":1}));
+  [-1,1].forEach(s => { const by = cy + s*(half-12); g.appendChild(el("circle",{cx:x, cy:by, r:5, fill:rad(defs, [[0,"#f4f7f9"],[.6,"#8c98a2"],[1,"#3a434b"]]), stroke:"#2f363d", "stroke-width":.8})); });
+}
+
+/* ---------- 1) Kontinuität: Reduzierstück ---------- */
+(function figKonti(){
+  const host = $("#fig-konti"), ctrl = $("#ctrl-konti");
+  const W=820, Hh=300, cy=150, R1=72, xa=360, xb=470, x0=-10, x1=W+10;
+  ctrl.innerHTML = `<p class="small"><b>d₁ = 100 mm</b> (fest)</p>
+    <label>Innendurchmesser d₂ <span class="val" id="kv-d2"></span><input type="range" id="k-d2" min="40" max="100" step="5" value="70"></label>
+    <label>Geschwindigkeit v₁ <span class="val" id="kv-v1"></span><input type="range" id="k-v1" min="0.5" max="3" step="0.1" value="1.5"></label>
+    <div class="readout" id="k-out"></div>
+    <div class="row"><button type="button" class="btn small secondary" id="k-play"></button></div>`;
+  let d2=70, v1=1.5, parts=[], dots=null, R2=R1*0.7;
+  const r = x => x<xa ? R1 : x>xb ? R2 : R1 + (R2-R1)*(1-Math.cos(Math.PI*(x-xa)/(xb-xa)))/2;
+  const vAt = x => v1*(R1/r(x))**2;
+  function draw(){
+    R2 = R1*d2/100;
+    const {svg, defs} = svgRoot(host, W, Hh, `Längsschnitt durch ein Rohr mit Reduzierstück von 100 mm auf ${d2} mm. Wasserteilchen werden im engen Teil schneller.`);
+    const sh = shadow(defs, 4, 4, .25);
+    const xs = []; for(let x=x0; x<=x1; x+=5) xs.push(x);
+    const top = xs.map((x,i)=>`${i?"L":"M"}${x},${cy-r(x)}`).join(" "), bot = xs.slice().reverse().map(x=>`L${x},${cy+r(x)}`).join(" ");
+    // Rohr-Außenkörper (hinterer Teil, dunkel) für Tiefe
+    svg.appendChild(el("path",{d: xs.map((x,i)=>`${i?"L":"M"}${x},${cy-r(x)-16}`).join(" ") + " " + xs.slice().reverse().map(x=>`L${x},${cy+r(x)+16}`).join(" ") + "Z", fill:lin(defs, MAT.steelDark), filter:sh}));
+    // Wasser
+    svg.appendChild(el("path",{d: top+" "+bot+" Z", fill:lin(defs, [[0,"#155a8a"],[.35,"#4aa3dc"],[.5,"#8fd0f5"],[.65,"#4aa3dc"],[1,"#155a8a"]])}));
+    // Glanzband
+    svg.appendChild(el("path",{d: xs.map((x,i)=>`${i?"L":"M"}${x},${cy-r(x)*0.62}`).join(" ") + " " + xs.slice().reverse().map(x=>`L${x},${cy-r(x)*0.42}`).join(" ") + "Z", fill:"#ffffff", opacity:.22}));
+    dots = el("g"); svg.appendChild(dots);
+    // Wände
+    const wg = el("g"); svg.appendChild(wg);
+    tubeWall(wg, xs.map((x,i)=>`${i?"L":"M"}${x},${cy-r(x)-8}`).join(" "));
+    tubeWall(wg, xs.map((x,i)=>`${i?"L":"M"}${x},${cy+r(x)+8}`).join(" "));
+    flange(wg, defs, xa-14, R1+34, cy); flange(wg, defs, xb+14, R2+34, cy);
+    // Bemaßung
+    const ar = arrowDefs(defs, "#1D1D1B");
+    const dim = (x, R, t) => { svg.appendChild(el("line",{x1:x, y1:cy-R+3, x2:x, y2:cy+R-3, stroke:"#fff", "stroke-width":1.6, "marker-start":ar, "marker-end":ar})); svg.appendChild(el("text",{x:x+8, y:cy-R*0.35, class:"lbl", style:"fill:#fff;font-size:15px;paint-order:stroke;stroke:#0d3d5e;stroke-width:3px"},[t])); };
+    dim(150, R1, "d₁ = 100 mm"); dim(650, R2, `d₂ = ${d2} mm`);
+    const v2 = v1*(100/d2)**2;
+    svg.appendChild(el("text",{x:150, y:cy-R1-30, class:"lbl", "text-anchor":"middle"},[`v₁ = ${fmt(v1,3)} m/s`]));
+    svg.appendChild(el("text",{x:650, y:cy-R2-30, class:"lbl", "text-anchor":"middle"},[`v₂ = ${fmt(v2,3)} m/s`]));
+    svg.appendChild(el("text",{x:(xa+xb)/2, y:Hh-6, class:"lbl-s", "text-anchor":"middle"},["Reduzierstück"]));
+    if(!parts.length) for(let i=0;i<70;i++) parts.push({x: x0 + Math.random()*(x1-x0), f: (Math.random()*2-1)*0.82});
+    dots.innerHTML = ""; parts.forEach(p => { p.n = el("circle",{r:3.6, fill:"#ffffff", opacity:.9}); dots.appendChild(p.n); });
+    const A1 = PI/4*0.1**2, A2 = PI/4*(d2/1000)**2, Vs = A1*v1;
+    $("#kv-d2").textContent = d2+" mm"; $("#kv-v1").textContent = fmt(v1,3)+" m/s";
+    $("#k-out").innerHTML = `<span>A₁</span><b>${fmt(A1*1e4,4)} cm²</b><span>A₂</span><b>${fmt(A2*1e4,4)} cm²</b><span>V̇</span><b>${fmt(Vs*3600,4)} m³/h</b><span>v₂</span><b>${fmt(v2,3)} m/s</b><span>v₂ / v₁</span><b>${fmt(v2/v1,3)} = (d₁/d₂)²</b>`;
+    place();
+  }
+  function place(){ parts.forEach(p => { p.n.setAttribute("cx", p.x); p.n.setAttribute("cy", cy + p.f*r(p.x)); }); }
+  const A = anim(host, dt => { parts.forEach(p => { p.x += vAt(p.x)*28*dt; if(p.x > x1){ p.x = x0; p.f=(Math.random()*2-1)*0.82; } }); place(); });
+  const pb = $("#k-play"); const lab = () => pb.textContent = A.running ? "Animation anhalten" : "Animation starten";
+  pb.addEventListener("click", () => { A.toggle(); lab(); }); lab();
+  $("#k-d2").addEventListener("input", e => { d2 = +e.target.value; draw(); });
+  $("#k-v1").addEventListener("input", e => { v1 = +e.target.value; draw(); });
+  draw();
+})();
+
+/* ---------- 2) Wanddicke: Rohrschuss ---------- */
+(function figWand(){
+  const host = $("#fig-wand"), ctrl = $("#ctrl-wand");
+  const MATS = [{n:"P265GH (ferritisch)", Rp:265, s:1.5},{n:"1.4571 (austenitisch)", Rp:240, s:1.2}];
+  ctrl.innerHTML = `<label><span>Werkstoff</span><select id="w-mat">${MATS.map((m,i)=>`<option value="${i}">${m.n}, Rp0,2 = ${m.Rp} N/mm²</option>`).join("")}</select></label>
+    <label><span>Innendurchmesser dᵢ (mm)</span><select id="w-di"><option>100</option><option selected>200</option><option>300</option></select></label>
+    <label><span>Druck p<sub>c</sub> <span class="val" id="wv-p"></span></span><input type="range" id="w-p" min="1" max="100" step="1" value="16"></label>
+    <label><span>Schweißnahtfaktor z <span class="val" id="wv-z"></span></span><input type="range" id="w-z" min="0.7" max="1" step="0.05" value="0.85"></label>
+    <div class="readout" id="w-out"></div>`;
+  function draw(){
+    const m = MATS[+$("#w-mat").value], di = +$("#w-di").value, p = +$("#w-p").value, z = +$("#w-z").value;
+    const fz = m.Rp/m.s, pN = p/10, den = 2*fz*z - pN, e = pN*di/den, da = di + 2*e;
+    $("#wv-p").textContent = p+" bar"; $("#wv-z").textContent = fmt(z,2);
+    $("#w-out").innerHTML = `<span>f</span><b>${fmt(fz,4)} N/mm²</b><span>2·f·z − p<sub>c</sub></span><b>${fmt(den,4)} N/mm²</b><span>e</span><b>${fmt(e,3)} mm</b><span>d<sub>a</sub></span><b>${fmt(da,4)} mm</b>`;
+    const W=760, Hh=330, cy=165, xL=230, xR=700, Ri=92, ev=Math.max(4, Math.min(52, Ri*(e/di)*8)), Ro=Ri+ev, k=0.33;
+    const {svg, defs} = svgRoot(host, W, Hh, `Rohrschuss mit Innendurchmesser ${di} mm und Wanddicke ${fmt(e,3)} mm (überhöht dargestellt).`);
+    const body = lin(defs, MAT.steel), face = rad(defs, [[0,"#eef2f5"],[.7,"#a9b4bd"],[1,"#5b6670"]], .4,.35,.8), hole = rad(defs, [[0,"#0d1418"],[.7,"#2a333a"],[1,"#56616b"]], .55,.5,.6);
+    svg.appendChild(el("ellipse",{cx:(xL+xR)/2, cy:cy+Ro+18, rx:(xR-xL)/2+40, ry:10, fill:"#000", opacity:.12}));
+    svg.appendChild(el("rect",{x:xL, y:cy-Ro, width:xR-xL, height:2*Ro, fill:body}));
+    svg.appendChild(el("ellipse",{cx:xR, cy, rx:Ro*k, ry:Ro, fill:body}));
+    // Längsnaht
+    let seam = `M${xL},${cy-Ro*0.55}`; for(let x=xL; x<=xR; x+=8) seam += ` Q${x+4},${cy-Ro*0.55-3} ${x+8},${cy-Ro*0.55}`;
+    svg.appendChild(el("path",{d:seam, fill:"none", stroke:"#6b5a3a", "stroke-width":5, opacity:.8}));
+    svg.appendChild(el("path",{d:seam, fill:"none", stroke:"#e8d3a0", "stroke-width":1.6}));
+    svg.appendChild(el("text",{x:(xL+xR)/2+40, y:cy-Ro*0.55-12, class:"lbl-s", "text-anchor":"middle", style:"fill:#2f363d"},["Längsschweißnaht → Faktor z"]));
+    // Stirnfläche
+    svg.appendChild(el("ellipse",{cx:xL, cy, rx:Ro*k, ry:Ro, fill:face, stroke:"#3c454d", "stroke-width":1}));
+    svg.appendChild(el("ellipse",{cx:xL, cy, rx:Ri*k, ry:Ri, fill:hole, stroke:"#2f363d", "stroke-width":1}));
+    // Druckpfeile innen
+    const ar = arrowDefs(defs, "#E0473C");
+    const n = Math.round(4 + p/10);
+    for(let i=0;i<n;i++){ const a = (i/n)*2*Math.PI, L0 = 0.25, L1 = 0.25 + 0.6*Math.min(1, p/60) + 0.1;
+      svg.appendChild(el("line",{x1:xL+Math.cos(a)*Ri*k*L0, y1:cy+Math.sin(a)*Ri*L0, x2:xL+Math.cos(a)*Ri*k*Math.min(.92,L1), y2:cy+Math.sin(a)*Ri*Math.min(.92,L1), stroke:"#E0473C", "stroke-width":2.2, "marker-end":ar})); }
+    svg.appendChild(el("text",{x:xL, y:cy+Ro+38, "text-anchor":"middle", class:"lbl", style:"fill:#C23A30"},[`Innendruck p = ${p} bar`]));
+    // Bemaßung
+    const ak = arrowDefs(defs, "currentColor");
+    const xd = xL - Ro*k - 40;
+    svg.appendChild(el("line",{x1:xd, y1:cy-Ro, x2:xd, y2:cy+Ro, class:"axis", "marker-start":ak, "marker-end":ak, style:"color:var(--ink)"}));
+    svg.appendChild(el("line",{x1:xd-6, y1:cy-Ro, x2:xL, y2:cy-Ro, class:"lead"})); svg.appendChild(el("line",{x1:xd-6, y1:cy+Ro, x2:xL, y2:cy+Ro, class:"lead"}));
+    svg.appendChild(el("text",{x:xd-10, y:cy+5, class:"lbl", "text-anchor":"end"},[`dₐ = ${fmt(da,4)}`]));
+    svg.appendChild(el("line",{x1:xL+Ri*k+60, y1:cy-Ri, x2:xL+Ri*k+60, y2:cy+Ri, class:"axis", "marker-start":ak, "marker-end":ak, style:"color:var(--ink);stroke:#fff"}));
+    svg.appendChild(el("text",{x:xL+Ri*k+68, y:cy+40, class:"lbl", style:"fill:#1D1D1B"},[`dᵢ = ${di}`]));
+    svg.appendChild(el("path",{d:`M${xL},${cy-Ri} L${xL+30},${cy-Ro-28} L${xL+120},${cy-Ro-28}`, class:"lead"}));
+    svg.appendChild(el("text",{x:xL+34, y:cy-Ro-34, class:"lbl"},[`e = ${fmt(e,3)} mm`]));
+    svg.appendChild(el("text",{x:W-10, y:Hh-6, class:"lbl-s", "text-anchor":"end"},["Maße in mm · Wanddicke 8-fach überhöht"]));
+  }
+  ["w-mat","w-di","w-p","w-z"].forEach(id => $("#"+id).addEventListener("input", draw));
+  draw();
+})();
+
+/* ---------- 3) Geschwindigkeitsprofil laminar / turbulent ---------- */
+(function figProfil(){
+  const host = $("#fig-profil"), ctrl = $("#ctrl-profil");
+  const W=820, Hh=260, cy=130, R=86, xs=-10, xe=W+10;
+  ctrl.innerHTML = `<label>Reynolds-Zahl Re <span class="val" id="pv-re"></span><input type="range" id="p-re" min="2" max="5" step="0.02" value="3"></label>
+    <div class="segbtns"><button type="button" data-re="1000">Re = 1000</button><button type="button" data-re="3000">Re = 3000</button><button type="button" data-re="50000">Re = 50 000</button></div>
+    <div class="readout" id="p-out"></div>
+    <div class="row"><button type="button" class="btn small secondary" id="p-play"></button></div>`;
+  let Re = 1000, parts = [], g = null, prof = null;
+  const mode = () => Re < 2320 ? "lam" : Re < 4000 ? "trans" : "turb";
+  const uRel = y => { const t = Math.min(1, Math.abs(y)/R); return mode()==="lam" ? 2*(1-t*t) : 1.224*Math.pow(Math.max(0,1-t), 1/7); };  // u/ū
+  function lamFor(){ return Re<2320 ? 64/Re : 1/Math.pow(-1.8*log10(6.9/Re),2); }
+  function frame(){
+    const {svg, defs} = svgRoot(host, W, Hh, "Längsschnitt durch ein Rohr mit Geschwindigkeitsprofil und Fluidteilchen.");
+    svg.appendChild(el("rect",{x:xs, y:cy-R-18, width:xe-xs, height:2*R+36, fill:lin(defs, MAT.steelDark)}));
+    svg.appendChild(el("rect",{x:xs, y:cy-R, width:xe-xs, height:2*R, fill:lin(defs, MAT.oil)}));
+    svg.appendChild(el("rect",{x:xs, y:cy-R*0.6, width:xe-xs, height:R*0.2, fill:"#fff", opacity:.18}));
+    g = el("g"); svg.appendChild(g); prof = el("g"); svg.appendChild(prof);
+    const wg = el("g"); svg.appendChild(wg);
+    tubeWall(wg, `M${xs},${cy-R-8} L${xe},${cy-R-8}`); tubeWall(wg, `M${xs},${cy+R+8} L${xe},${cy+R+8}`);
+    if(!parts.length) for(let i=0;i<90;i++) parts.push({x: xs+Math.random()*(xe-xs), y:(Math.random()*2-1)*R*0.95, lane:0});
+    parts.forEach(p => { p.lane = p.y; p.n = el("circle",{r:3.2, fill:"#fff8e6", stroke:"#7a4d08", "stroke-width":.6}); g.appendChild(p.n); });
+    profile();
+  }
+  function profile(){
+    prof.innerHTML = "";
+    const x0 = 560, sc = 62, ar = arrowDefs(host.querySelector("defs"), "#1D1D1B");
+    let d = ""; for(let i=0;i<=40;i++){ const y = -R + 2*R*i/40; d += `${i?"L":"M"}${x0+uRel(y)*sc},${cy+y}`; }
+    prof.appendChild(el("line",{x1:x0, y1:cy-R, x2:x0, y2:cy+R, stroke:"#1D1D1B", "stroke-width":1.5}));
+    prof.appendChild(el("path",{d, fill:"none", stroke:"#1D1D1B", "stroke-width":2.2}));
+    for(let i=1;i<10;i++){ const y = -R + 2*R*i/10, L = uRel(y)*sc; if(L>6) prof.appendChild(el("line",{x1:x0, y1:cy+y, x2:x0+L-1, y2:cy+y, stroke:"#1D1D1B", "stroke-width":1.3, "marker-end":ar})); }
+    const m = mode();
+    $("#pv-re").textContent = Math.round(Re).toLocaleString("de-DE");
+    $("#p-out").innerHTML = `<span>Strömung</span><b>${m==="lam"?"laminar":m==="trans"?"Übergangsbereich":"turbulent"}</b><span>λ</span><b>${m==="trans"?"unsicher":fmt(lamFor(),3)+(m==="lam"?" (64/Re)":" (glattes Rohr)")}</b><span>v<sub>max</sub> / v̄</span><b>${m==="lam"?"2,0":m==="trans"?"–":"≈ 1,2"}</b>`;
+  }
+  function place(){ parts.forEach(p => { p.n.setAttribute("cx", p.x); p.n.setAttribute("cy", cy+p.y); }); }
+  const A = anim(host, dt => {
+    const m = mode(), turb = m==="lam" ? 0 : m==="trans" ? 0.35 : Math.min(1, 0.5 + log10(Re/4000)/3);
+    parts.forEach(p => {
+      p.x += uRel(p.y)*60*dt;
+      if(turb){ p.y += (Math.random()*2-1)*turb*260*dt; if(Math.abs(p.y) > R*0.96) p.y = Math.sign(p.y)*R*0.96; }
+      else p.y += (p.lane - p.y)*Math.min(1, 3*dt);
+      if(p.x > xe){ p.x = xs; }
+    });
+    place();
+  });
+  const pb = $("#p-play"); const lab = () => pb.textContent = A.running ? "Animation anhalten" : "Animation starten";
+  pb.addEventListener("click", () => { A.toggle(); lab(); }); lab();
+  const set = r => { Re = r; $("#p-re").value = log10(r); profile(); };
+  $("#p-re").addEventListener("input", e => { Re = Math.pow(10, +e.target.value); profile(); });
+  ctrl.addEventListener("click", e => { const b = e.target.closest("[data-re]"); if(b) set(+b.dataset.re); });
+  frame(); place();
+})();
+
+/* ---------- 4) Moody-Diagramm (flach) ---------- */
+(function figMoody(){
+  const host = $("#fig-moody"), ctrl = $("#ctrl-moody"), iter = $("#iter-moody");
+  const EPS = [0, 1e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2, 2e-2, 5e-2];
+  const W=820, Hh=470, L=70, Rr=700, T=20, B=410, xMin=3, xMax=8, yMin=log10(0.008), yMax=log10(0.1);
+  const X = re => L + (log10(re)-xMin)/(xMax-xMin)*(Rr-L), Y = lam => B - (log10(lam)-yMin)/(yMax-yMin)*(B-T);
+  const cw = (Re, eps) => { let x = -1.8*log10(6.9/Re + (eps/3.7)**1.11); for(let i=0;i<30;i++) x = -2*log10(2.51/Re*x + eps/3.71); return 1/(x*x); };
+  let Re = 1e5, ei = 5;
+  ctrl.innerHTML = `<label>Reynolds-Zahl Re <span class="val" id="mv-re"></span><input type="range" id="m-re" min="3" max="8" step="0.01" value="5"></label>
+    <div><p class="small" style="font-weight:600;margin-bottom:4px">Relative Rauheit ε = k/dᵢ</p><div class="segbtns" id="m-eps">${EPS.map((e,i)=>`<button type="button" data-ei="${i}">${e===0?"glatt":fmt(e,2)}</button>`).join("")}</div></div>
+    <p class="small muted">Tipp: Du kannst auch direkt ins Diagramm klicken.</p>`;
+  function draw(){
+    const {svg, defs} = svgRoot(host, W, Hh, "Moody-Diagramm: Rohrreibungszahl λ über der Reynolds-Zahl für verschiedene relative Rauheiten.");
+    const clip = G.uid("cl"); defs.appendChild(el("clipPath",{id:clip},[el("rect",{x:L, y:T, width:Rr-L, height:B-T})]));
+    svg.appendChild(el("rect",{x:X(2320), y:T, width:X(4000)-X(2320), height:B-T, style:"fill:var(--maybe-soft)"}));
+    svg.appendChild(el("text",{x:(X(2320)+X(4000))/2, y:T+14, class:"lbl-s", "text-anchor":"middle"},["Übergang"]));
+    for(let d=xMin; d<=xMax; d++){ for(let m=1;m<10;m++){ const re = m*Math.pow(10,d); if(log10(re)>xMax) break; svg.appendChild(el("line",{x1:X(re), y1:T, x2:X(re), y2:B, class:"grid", style:m===1?"stroke:var(--line)":""})); }
+      svg.appendChild(el("text",{x:X(Math.pow(10,d)), y:B+18, class:"lbl-s", "text-anchor":"middle"},["10"+["⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸"][d]])); }
+    [0.008,0.01,0.015,0.02,0.025,0.03,0.04,0.05,0.06,0.08,0.1].forEach(l => { svg.appendChild(el("line",{x1:L, y1:Y(l), x2:Rr, y2:Y(l), class:"grid"})); svg.appendChild(el("text",{x:L-6, y:Y(l)+4, class:"lbl-s", "text-anchor":"end"},[fmt(l,2)])); });
+    svg.appendChild(el("rect",{x:L, y:T, width:Rr-L, height:B-T, class:"axis"}));
+    svg.appendChild(el("text",{x:(L+Rr)/2, y:Hh-18, class:"lbl", "text-anchor":"middle"},["Reynolds-Zahl Re"]));
+    svg.appendChild(el("text",{x:16, y:(T+B)/2, class:"lbl", "text-anchor":"middle", transform:`rotate(-90 16 ${(T+B)/2})`},["Rohrreibungszahl λ"]));
+    // laminar
+    svg.appendChild(el("path",{d:`M${X(640)},${Y(0.1)} L${X(2320)},${Y(64/2320)}`, style:"stroke:var(--ink);stroke-width:2.2;fill:none"}));
+    svg.appendChild(el("text",{x:X(1500)+8, y:Y(64/1500), class:"lbl-s"},["λ = 64/Re"]));
+    // turbulent
+    EPS.forEach((eps,i) => {
+      let d=""; for(let k=0;k<=120;k++){ const re = Math.pow(10, log10(4000) + k/120*(xMax-log10(4000))); const lam = cw(re, eps); d += `${k?"L":"M"}${X(re).toFixed(1)},${Y(lam).toFixed(1)}`; }
+      svg.appendChild(el("path",{d, "clip-path":`url(#${clip})`, style:`fill:none;stroke:${i===ei?"var(--rust)":"var(--blue)"};stroke-width:${i===ei?3:1.3};opacity:${i===ei?1:.75}`}));
+      if(eps===0) svg.appendChild(el("text",{x:X(1.5e6), y:Y(cw(1.5e6,0))+16, class:"lbl-s", style:i===ei?"fill:var(--rust);font-weight:700":""},["glatt"]));
+      else svg.appendChild(el("text",{x:Rr+6, y:Y(cw(1e8,eps))+4, class:"lbl-s", style:i===ei?"fill:var(--rust);font-weight:700":""},["ε = "+fmt(eps,2)]));
+    });
+    // Punkt
+    const lam = Re<2320 ? 64/Re : cw(Re, EPS[ei]);
+    if(lam<=0.1 && lam>=0.008){
+      const px = X(Re), py = Y(lam);
+      svg.appendChild(el("line",{x1:px, y1:B, x2:px, y2:py, style:"stroke:var(--rust);stroke-dasharray:4 3"}));
+      svg.appendChild(el("line",{x1:L, y1:py, x2:px, y2:py, style:"stroke:var(--rust);stroke-dasharray:4 3"}));
+      svg.appendChild(el("circle",{cx:px, cy:py, r:6, style:"fill:var(--rust);stroke:var(--surface);stroke-width:2"}));
+      svg.appendChild(el("text",{x:px+10, y:py-10, class:"lbl", style:"fill:var(--rust)"},[`λ = ${fmt(lam,3)}`]));
+    }
+    svg.addEventListener("click", e => {
+      const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+      if(p.x<L || p.x>Rr) return; Re = Math.pow(10, xMin + (p.x-L)/(Rr-L)*(xMax-xMin)); $("#m-re").value = log10(Re); update();
+    });
+  }
+  function update(){
+    $("#mv-re").textContent = Math.round(Re).toLocaleString("de-DE");
+    $$("#m-eps button").forEach((b,i) => b.setAttribute("aria-pressed", i===ei));
+    draw();
+    const eps = EPS[ei];
+    if(Re < 2320){ iter.innerHTML = `<div class="fb info small"><b>Laminar:</b> λ = 64/Re = 64/${Math.round(Re)} = <b>${fmt(64/Re,4)}</b>. Die Rauheit spielt keine Rolle.</div>`; return; }
+    const x0 = -1.8*log10(6.9/Re + (eps/3.7)**1.11), rows = [["Haaland: 1/√λ₀", x0]]; let x = x0;
+    for(let i=1;i<=4;i++){ x = -2*log10(2.51/Re*x + eps/3.71); rows.push([`Colebrook-White ${i}. Iteration`, x]); }
+    iter.innerHTML = `${Re<4000?`<div class="fb maybe small">Übergangsbereich: Der Wert ist nur ein Anhaltspunkt.</div>`:""}
+      <div class="tbl-wrap"><table><tr><th>Schritt</th><th>1/√λ</th><th>λ</th></tr>${rows.map((r,i)=>`<tr><td class="small">${r[0]}</td><td class="mono">${fmt(r[1],5)}</td><td class="mono">${fmt(1/(r[1]*r[1]),4)}</td></tr>`).join("")}</table></div>
+      <p class="small muted">Schon nach 2–3 Iterationen ändert sich die 4. Stelle nicht mehr.</p>`;
+  }
+  $("#m-re").addEventListener("input", e => { Re = Math.pow(10, +e.target.value); update(); });
+  $("#m-eps").addEventListener("click", e => { const b = e.target.closest("[data-ei]"); if(b){ ei = +b.dataset.ei; update(); } });
+  update();
+})();
+
+/* ---------- Problemstellung: Pumpe, Leitung, Wärmetauscher (plastisch) ---------- */
+function drawProblem(host){
+  const W=820, Hh=270;
+  const {svg, defs} = svgRoot(host, W, Hh, "Kreiselpumpe fördert Kühlwasser durch eine 150 m lange Leitung DN 80 mit Armaturen zu einem Wärmetauscher.");
+  const pipeH = lin(defs, MAT.steel), pipeV = lin(defs, MAT.steel, 0,0,1,0), sh = shadow(defs, 4, 4, .25);
+  const blue = rad(defs, [[0,"#bfe0f7"],[.35,"#4f93c8"],[.8,"#1d5687"],[1,"#0e2f4c"]], .38,.32,.8);
+  const motor = lin(defs, [[0,"#163049"],[.25,"#3f78a8"],[.42,"#9cc6e8"],[.6,"#2d5f8a"],[1,"#112538"]]);
+  svg.appendChild(el("rect",{x:30, y:226, width:250, height:12, rx:3, fill:lin(defs, MAT.steelDark), filter:sh}));
+  // Saugleitung
+  svg.appendChild(el("rect",{x:0, y:166, width:72, height:20, fill:pipeH}));
+  // Druckleitung: hoch, rechts, runter
+  svg.appendChild(el("rect",{x:96, y:72, width:20, height:80, fill:pipeV}));
+  svg.appendChild(el("path",{d:"M96,82 Q96,62 116,62 L116,82 Z", fill:pipeV}));
+  svg.appendChild(el("rect",{x:106, y:62, width:556, height:20, fill:pipeH}));
+  svg.appendChild(el("path",{d:"M662,62 Q682,62 682,82 L662,82 Z", fill:pipeH}));
+  svg.appendChild(el("rect",{x:662, y:72, width:20, height:66, fill:pipeV}));
+  // Pumpe (Spiralgehäuse) + Motor
+  svg.appendChild(el("circle",{cx:106, cy:176, r:48, fill:blue, filter:sh}));
+  svg.appendChild(el("circle",{cx:106, cy:176, r:16, fill:rad(defs,[[0,"#e6eef3"],[.6,"#8c98a2"],[1,"#3a434b"]])}));
+  svg.appendChild(el("rect",{x:154, y:166, width:22, height:20, fill:pipeH}));
+  svg.appendChild(el("rect",{x:176, y:146, width:96, height:60, rx:8, fill:motor, filter:sh}));
+  for(let x=186;x<266;x+=9) svg.appendChild(el("line",{x1:x, y1:150, x2:x, y2:202, stroke:"#0d1f30", "stroke-width":1.2, opacity:.45}));
+  svg.appendChild(el("text",{x:150, y:258, class:"lbl", "text-anchor":"middle"},["Kreiselpumpe"]));
+  // Armaturen
+  const valve = (x) => {
+    svg.appendChild(el("path",{d:`M${x-18},60 L${x+18},84 L${x+18},60 L${x-18},84 Z`, fill:lin(defs, MAT.steelDark), stroke:"#2f363d"}));
+    svg.appendChild(el("rect",{x:x-3, y:30, width:6, height:36, fill:pipeV}));
+    svg.appendChild(el("ellipse",{cx:x, cy:30, rx:18, ry:5, fill:"none", stroke:"#B3261E", "stroke-width":4}));
+  };
+  valve(300); valve(480);
+  [[200,"Flansch"],[390,""],[570,""]].forEach(([x]) => svg.appendChild(el("rect",{x:x-4, y:56, width:8, height:32, rx:2, fill:pipeV, stroke:"#3c454d"})));
+  // Wärmetauscher
+  const shell = lin(defs, MAT.steel);
+  svg.appendChild(el("rect",{x:600, y:138, width:200, height:76, fill:shell, filter:sh}));
+  svg.appendChild(el("ellipse",{cx:600, cy:176, rx:16, ry:38, fill:lin(defs, MAT.steelDark, 0,0,1,0)}));
+  svg.appendChild(el("ellipse",{cx:800, cy:176, rx:16, ry:38, fill:lin(defs, MAT.steelDark, 0,0,1,0)}));
+  [640,760].forEach(x => svg.appendChild(el("rect",{x:x-5, y:136, width:10, height:80, fill:"#56616b", opacity:.6})));
+  svg.appendChild(el("rect",{x:740, y:214, width:20, height:30, fill:pipeV}));
+  svg.appendChild(el("text",{x:700, y:262, class:"lbl", "text-anchor":"middle"},["Wärmetauscher"]));
+  // Beschriftung
+  svg.appendChild(el("text",{x:390, y:110, class:"lbl", "text-anchor":"middle"},["L = 150 m · DN 80 (dᵢ = 82,5 mm) · k = 0,05 mm"]));
+  svg.appendChild(el("text",{x:390, y:132, class:"lbl-s", "text-anchor":"middle"},["Armaturen und Bögen: Σζ = 8"]));
+  svg.appendChild(el("text",{x:200, y:22, class:"lbl", "text-anchor":"middle", style:"fill:var(--blue)"},["V̇ = 36 m³/h →"]));
+  svg.appendChild(el("text",{x:20, y:158, class:"lbl-s"},["Zulauf"]));
+  // fließende Teilchen
+  const path = [[0,176],[106,176],[106,72],[672,72],[672,140]], seg = [];
+  let tot = 0; for(let i=1;i<path.length;i++){ const l = Math.hypot(path[i][0]-path[i-1][0], path[i][1]-path[i-1][1]); seg.push(l); tot += l; }
+  const at = s => { let d = s*tot; for(let i=0;i<seg.length;i++){ if(d<=seg[i]){ const t=d/seg[i]; return [path[i][0]+(path[i+1][0]-path[i][0])*t, path[i][1]+(path[i+1][1]-path[i][1])*t]; } d -= seg[i]; } return path[path.length-1]; };
+  const g = el("g"); svg.appendChild(g);
+  const dots = Array.from({length:26}, (_,i) => ({s:i/26, n: g.appendChild(el("circle",{r:3.5, fill:"#8fd0f5", stroke:"#1f6fa8", "stroke-width":1}))}));
+  const place = () => dots.forEach(d => { const [x,y] = at(d.s); d.n.setAttribute("cx", x); d.n.setAttribute("cy", y); });
+  place();
+  anim(host, dt => { dots.forEach(d => { d.s = (d.s + dt*0.06) % 1; }); place(); });
+}
+drawProblem($("#fig-problem")); drawProblem($("#fig-problem2"));
+
+/* ---------- Start ---------- */
+function renderAll(){
+  $("#frage").value = S.frage || "";
+  TASKS.forEach(renderTask); renderGuess(); renderFin(); Object.keys(MC).forEach(renderMC); renderSort(); renderErr(); renderCK(); updateSummary(); renderTabs();
+}
+renderAll();
+SK.init();
+if(location.hash && /^#s[0-5]$/.test(location.hash)) show(location.hash.slice(1)); else spy();
+window.__lm = {SK, get S(){ return S; }};
+})();
+
+/* ============ Das Wichtigste auf einen Blick ============ */
+LM.Merke(document.getElementById("merke"), {title:"Strömungen in Rohrleitungen", items:[
+  ["Volumen- und Massenstrom","Der Volumenstrom ist das Volumen pro Zeit, der Massenstrom die Masse pro Zeit. Immer in SI-Einheiten rechnen (m³/s, kg/s)."],
+  ["Kontinuität","Was in ein Rohr hineinströmt, strömt auch hinaus: A₁ · v₁ = A₂ · v₂. Halber Durchmesser heißt vierfache Geschwindigkeit."],
+  ["Nennweite wählen","Erforderlichen Innendurchmesser aus Volumenstrom und zulässiger Geschwindigkeit berechnen und die kleinste Nennweite wählen, deren Innendurchmesser mindestens so groß ist."],
+  ["Mindest-Wanddicke","Hängt vom Berechnungsdruck, vom Durchmesser, von der Auslegungsspannung f und vom Schweißnahtfaktor z ab. Kleineres z bedeutet dickere Wand."],
+  ["Strömungsform","Die Reynolds-Zahl entscheidet: Re &lt; 2320 laminar, darüber turbulent."],
+  ["Rohrreibungszahl λ","Laminar: λ = 64 / Re, die Rauheit spielt keine Rolle. Turbulent: λ hängt von Re und der relativen Rauheit ε = k / d<sub>i</sub> ab. Colebrook-White iterativ lösen, Startwert mit Haaland."],
+  ["Druckverlust","Rohrreibung und Einbauten (Armaturen, Bögen) addieren sich zum Gesamtdruckverlust. Reihenfolge: v → Re → λ → Δp<sub>λ</sub>, dazu Δp<sub>ζ</sub> für jede Armatur."],
+  ["Reicht die Pumpe?","Die Pumpe muss mindestens den Gesamtdruckverlust der Leitung aufbringen. Die Verlustleistung ist P<sub>V</sub> = Δp<sub>V</sub> · V̇."]
+], formeln:["V̇ = A · v","ṁ = V̇ · ρ","A = π/4 · d²","d<sub>i,erf</sub> = 2 · √(V̇ / (π · v))","e = p<sub>c</sub> · d<sub>i</sub> / (2 · f · z − p<sub>c</sub>)","Re = ρ · v · d<sub>i</sub> / η","λ<sub>lam</sub> = 64 / Re","Δp<sub>λ</sub> = λ · L/d<sub>i</sub> · ρ/2 · v²","Δp<sub>ζ</sub> = ζ · ρ/2 · v²","P<sub>V</sub> = Δp<sub>V</sub> · V̇"]}, "Lehrplaneinheit 2.4 Strömungsmechanik Wiederholung");
+
+</script>

@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="de">
+<title>Produktionstechnologie – Übersicht der Lerneinheiten</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{
+  --bg:#F4F5F6; --surface:#FFFFFF; --surface2:#F1F7FB; --ink:#1D1D1B; --muted:#56616B;
+  --line:#A9B4BD; --border:#E1E4E7; --blue:#0C77B7; --blue-soft:#E1EFF8;
+  --rust:#0A5A8C; --rust-soft:#E1EFF8; --ok:#2C7A4B; --ok-soft:#DDF0E3; --err:#B3261E; --err-soft:#F8DEDC;
+  --maybe:#8A6A12; --maybe-soft:#F5ECCF;
+  --display:'Segoe UI', Arial, sans-serif; --sans:'Segoe UI', Arial, sans-serif; --mono:Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+    --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+    --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+    --maybe:#E3C46A; --maybe-soft:#352C12;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+  --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+  --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+  --maybe:#E3C46A; --maybe-soft:#352C12;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.55}
+header.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--surface); border-bottom:1px solid var(--border)}
+.top-inner{max-width:1000px; margin:0 auto; padding:10px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px}
+.brand{font-family:var(--display); font-weight:700; font-size:18px; margin-right:auto}
+nav.tabs{display:flex; flex-wrap:wrap; gap:6px}
+nav.tabs button{font:inherit; font-size:15px; font-weight:600; border:1px solid var(--border); background:var(--surface); color:var(--ink); border-radius:999px; padding:5px 13px; cursor:pointer; display:inline-flex; gap:6px; align-items:center}
+nav.tabs button[aria-current="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+nav.tabs .dot{width:8px; height:8px; border-radius:50%; background:var(--line)}
+nav.tabs .done .dot{background:var(--ok)}
+[hidden]{display:none!important}
+main{max-width:1000px; margin:0 auto; padding-inline:16px; padding-block:28px 80px; display:flex; flex-direction:column; gap:64px}
+section.station{display:flex; flex-direction:column; gap:22px; scroll-margin-top:110px}
+
+.saved{font-family:var(--sans); font-weight:500; font-size:13px; color:var(--ok); margin-left:10px}
+.io{display:flex; flex-direction:column; gap:10px; padding:18px 22px; border:1px dashed var(--line); border-radius:12px}
+.io h3{font-size:17px}
+.filebtn{display:inline-block; font-weight:600; border-radius:8px; padding:10px 18px; cursor:pointer; background:transparent; color:var(--blue); border:1px solid var(--blue)}
+.visually-hidden{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+input.visually-hidden:focus-visible + *, .filebtn:focus-within{outline:3px solid var(--rust)}
+.linkbtn{font:inherit; font-size:14px; background:none; border:0; color:var(--blue); text-decoration:underline; cursor:pointer; padding:4px}
+.eyebrow{font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--rust); margin:0}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.2}
+h1{font-size:clamp(28px,4vw,38px)}
+h2{font-size:24px}
+h3{font-size:19px}
+p{margin:0}
+.lead{font-size:19px; color:var(--muted)}
+.input{background:var(--surface2); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:14px}
+.input .tag, .task .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase}
+.input .tag{color:var(--blue)}
+.input p, .input li{max-width:none}
+.input ul{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px}
+.task{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:16px}
+.task .tag{color:var(--rust)}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.grid3{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:8px}
+.card h3{font-size:17px}
+.card .then{font-size:15px; color:var(--muted)}
+.mono{font-family:var(--mono); font-size:.92em}
+label{font-weight:600}
+textarea, input[type=text], select{font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:9px 11px; width:100%}
+textarea{min-height:90px; resize:vertical}
+button.btn{font:inherit; font-weight:600; border:0; border-radius:8px; padding:10px 18px; cursor:pointer; background:var(--blue); color:var(--bg)}
+button.btn.secondary{background:transparent; color:var(--blue); border:1px solid var(--blue)}
+button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible{outline:3px solid var(--rust); outline-offset:2px}
+.row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.score{font-weight:700; font-variant-numeric:tabular-nums}
+.fb{font-size:15px; border-radius:8px; padding:10px 12px}
+.fb.ok{background:var(--ok-soft); color:var(--ink); border-left:4px solid var(--ok)}
+.fb.err{background:var(--err-soft); color:var(--ink); border-left:4px solid var(--err)}
+.fb.maybe{background:var(--maybe-soft); color:var(--ink); border-left:4px solid var(--maybe)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* Rohstoff/Werkstoff toggles */
+.rw{display:flex; flex-direction:column; gap:8px}
+.rw-item{display:grid; grid-template-columns:1fr auto; gap:6px 12px; align-items:center; padding:10px 12px; border:1px solid var(--border); border-radius:8px}
+.rw-item .seg{display:flex; gap:0}
+.seg button{font:inherit; font-size:14px; font-weight:600; border:1px solid var(--line); background:var(--surface); color:var(--ink); padding:5px 12px; cursor:pointer}
+.seg button:first-child{border-radius:6px 0 0 6px}
+.seg button:last-child{border-radius:0 6px 6px 0; border-left:0}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.rw-item .fb{grid-column:1 / -1}
+
+/* Baum */
+.bank{display:flex; flex-wrap:wrap; gap:8px; min-height:44px; padding:10px; border:1px dashed var(--line); border-radius:10px}
+.chip{font:inherit; font-size:15px; font-weight:600; padding:6px 12px; border-radius:6px; border:1px solid var(--blue); background:var(--blue-soft); color:var(--ink); cursor:grab}
+.chip[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.tree-wrap{overflow-x:auto; padding-bottom:6px}
+.tree{min-width:920px}
+.tree ul{position:relative; display:flex; justify-content:center; margin:0; padding:22px 0 0}
+.tree li{list-style:none; position:relative; padding:22px 5px 0; display:flex; flex-direction:column; align-items:center; flex:1}
+.tree li::before,.tree li::after{content:''; position:absolute; top:0; right:50%; width:50%; height:22px; border-top:2px solid var(--line)}
+.tree li::after{right:auto; left:50%; border-left:2px solid var(--line)}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:only-child{padding-top:0}
+.tree li:first-child::before,.tree li:last-child::after{border:0}
+.tree li:last-child::before{border-right:2px solid var(--line); border-radius:0 6px 0 0}
+.tree li:first-child::after{border-radius:6px 0 0 0}
+.tree ul ul::before{content:''; position:absolute; top:0; left:50%; height:22px; border-left:2px solid var(--line)}
+.node{font-weight:700; padding:8px 14px; border-radius:8px; background:var(--ink); color:var(--bg); white-space:nowrap}
+.slot{font:inherit; font-size:14px; font-weight:600; min-width:128px; min-height:40px; padding:7px 10px; border-radius:8px; border:2px dashed var(--line); background:var(--surface); color:var(--muted); cursor:pointer; white-space:nowrap}
+.slot.filled{border-style:solid; border-color:var(--blue); color:var(--ink); background:var(--blue-soft)}
+.slot.ok{border-color:var(--ok); background:var(--ok-soft)}
+.slot.err{border-color:var(--err); background:var(--err-soft)}
+.slot.over{border-color:var(--rust)}
+.ex{font-size:13px; color:var(--muted); margin-top:5px; text-align:center; line-height:1.35}
+
+/* Tabellen */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; min-width:560px}
+th,td{padding:9px 10px; border-bottom:1px solid var(--border); text-align:left; vertical-align:middle}
+th{font-size:14px; color:var(--muted); font-weight:600}
+td.c{text-align:center}
+td.c input{width:22px; height:22px; accent-color:var(--blue); cursor:pointer}
+td.ok{background:var(--ok-soft)} td.err{background:var(--err-soft)} td.maybe{background:var(--maybe-soft)}
+.legend{display:flex; flex-wrap:wrap; gap:14px; font-size:14px}
+.legend span::before{content:''; display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px}
+.legend .l-ok::before{background:var(--ok-soft); border:1px solid var(--ok)}
+.legend .l-err::before{background:var(--err-soft); border:1px solid var(--err)}
+.legend .l-maybe::before{background:var(--maybe-soft); border:1px solid var(--maybe)}
+
+/* Multiple Choice */
+.mc{display:flex; flex-direction:column; gap:10px; padding:16px; border:1px solid var(--border); border-radius:10px}
+.mc .q{font-weight:600}
+.mc .opts{display:flex; flex-direction:column; gap:6px}
+.opt{font:inherit; text-align:left; padding:8px 12px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt.ok{background:var(--ok-soft); border-color:var(--ok)}
+.opt.err{background:var(--err-soft); border-color:var(--err)}
+.opt:disabled{cursor:default}
+
+/* Fälle */
+.case{display:flex; flex-direction:column; gap:12px; padding:18px; border:1px solid var(--border); border-radius:10px; background:var(--surface)}
+.case .head{display:flex; gap:10px; align-items:baseline}
+.case .num{font-family:var(--mono); color:var(--rust); font-weight:500}
+.crit{display:flex; flex-wrap:wrap; gap:8px}
+.crit span{font-size:14px; padding:4px 10px; border-radius:999px; background:var(--surface); border:1px solid var(--border)}
+.summary{font-family:var(--mono); font-size:13px; min-height:220px}
+.save-note{font-size:14px; color:var(--muted)}
+@media (prefers-reduced-motion: no-preference){ .opt, .slot, .chip{transition:background-color .15s, border-color .15s} }
+
+/* Schul-Design Carl Engler Schule */
+.start-cta{display:flex; justify-content:center; padding:16px 0 8px}
+.btn.big{font-size:19px; padding:16px 36px; border-radius:6px; box-shadow:0 2px 6px rgba(12,119,183,.25)}
+
+td.c .mark{display:block; font-size:12px; font-weight:700; margin-top:3px; white-space:nowrap}
+td.ok .mark{color:var(--ok)} td.err .mark{color:var(--err)} td.maybe .mark{color:var(--maybe)}
+button[aria-disabled="true"]{opacity:.55; cursor:not-allowed}
+.lock-msg{color:var(--err); font-weight:600}
+.site-head{background:#FFFFFF; border-bottom:1px solid #E6E6E6}
+.site-inner{max-width:1000px; margin:0 auto; padding:18px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px}
+.logo{height:72px; width:auto; display:block}
+.unit{display:flex; flex-direction:column; gap:2px; border-left:3px solid #0C77B7; padding-left:16px}
+.unit-k{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#56616B}
+.site-head .brand{font-family:'Segoe UI',Arial,sans-serif; font-weight:700; font-size:20px; color:#0C77B7; margin:0}
+header.top{box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.top-inner{padding:0 16px; gap:0 16px; justify-content:space-between}
+nav.tabs{gap:0 4px}
+nav.tabs button{border:0; border-radius:0; background:transparent; color:var(--blue); text-transform:uppercase; font-size:14px; font-weight:700; letter-spacing:.02em; padding:14px 12px 11px; border-bottom:3px solid transparent}
+nav.tabs button:hover{border-bottom-color:var(--blue-soft)}
+nav.tabs button[aria-current="true"]{background:transparent; color:var(--blue); border-bottom-color:var(--blue)}
+.saved{margin-left:0; padding:6px 0}
+section.station{scroll-margin-top:70px}
+h1,h2,h3{font-weight:700; letter-spacing:-.01em}
+h1{font-weight:800}
+.eyebrow{color:var(--blue)}
+button.btn, .filebtn, textarea, input[type=text], select{border-radius:4px}
+.input, .task, .calc, .io, .case, .card, .mc{border-radius:6px}
+@media (max-width:560px){ nav.tabs button{padding:9px 7px 7px; font-size:13px} .logo{height:56px} .saved{font-size:12px} }
+.site-foot{max-width:1000px; margin:0 auto; padding:24px 16px 40px; border-top:1px solid var(--border); font-size:13px; color:var(--muted)}
+
+/* ===== Gemeinsame Ergänzungen (Speichern, Musterbeispiel, Grafiken) ===== */
+.saved.warn{color:var(--err)}
+.resumebar{max-width:1000px; margin:12px auto 0; padding:14px 18px; display:flex; flex-direction:column; gap:10px; background:var(--maybe-soft); border:2px solid var(--maybe); border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.resumebar-wrap{padding-inline:16px}
+.lm-more summary{cursor:pointer; font-weight:600; font-size:15px; color:var(--blue)}
+body.lm-drop::after{content:"Speicherstand-Datei hier loslassen"; position:fixed; inset:12px; border:4px dashed var(--blue); border-radius:16px; background:color-mix(in srgb, var(--surface) 85%, transparent); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; color:var(--blue); z-index:50; pointer-events:none}
+.muster{display:flex; flex-direction:column; gap:10px; padding:18px; border:2px solid var(--blue); border-radius:6px; background:var(--blue-soft)}
+.muster .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin:0}
+.muster .solbox{background:var(--surface)}
+.msteps{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:8px}
+.msteps li.off{color:var(--muted)}
+.msteps li.off b{font-weight:600}
+.msteps .solbox{margin-top:4px; font-family:var(--sans); line-height:1.6}
+.solbox{font-size:15px; background:var(--surface2); border-radius:6px; padding:10px 12px; line-height:1.7; overflow-x:auto}
+.helpbar{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center}
+.hintbox, .solution{font-size:15px}
+.fb.info{background:var(--blue-soft); border-left:4px solid var(--blue)}
+
+/* Grafiken */
+.figure{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:14px; display:flex; flex-direction:column; gap:12px}
+.figure .cap{font-size:14px; color:var(--muted)}
+svg.gfx{width:100%; height:auto; display:block; overflow:visible}
+svg.gfx text{font-family:var(--sans); fill:var(--ink)}
+svg.gfx .lbl{font-size:14px; font-weight:600}
+svg.gfx .lbl-s{font-size:12px; fill:var(--muted)}
+svg.gfx .axis{stroke:var(--ink); stroke-width:1.2; fill:none}
+svg.gfx .grid{stroke:var(--border); stroke-width:1; fill:none}
+svg.gfx .lead{stroke:var(--muted); stroke-width:1; fill:none}
+svg.gfx .hot{cursor:pointer}
+svg.gfx .hot:focus{outline:none}
+svg.gfx .hot:focus-visible .ring, svg.gfx .hot.on .ring{stroke:var(--rust); stroke-width:3}
+svg.gfx .ring{fill:var(--surface); stroke:var(--blue); stroke-width:2}
+svg.gfx .ringtxt{font-size:13px; font-weight:700; fill:var(--blue); text-anchor:middle; dominant-baseline:central; pointer-events:none}
+.sim{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr); gap:16px; align-items:start}
+@media (max-width:760px){ .sim{grid-template-columns:1fr} }
+.ctrl{display:flex; flex-direction:column; gap:12px}
+.ctrl label{font-size:14px; display:flex; flex-direction:column; gap:4px}
+.ctrl input[type=range]{width:100%; accent-color:var(--blue)}
+.ctrl .val{font-family:var(--mono); font-size:14px; color:var(--blue)}
+.readout{display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:15px; background:var(--surface2); padding:10px 12px; border-radius:6px}
+.readout b{font-family:var(--mono); font-weight:500}
+.question{font-size:15px; border-left:4px solid var(--maybe); background:var(--maybe-soft); padding:9px 12px; border-radius:6px}
+.segbtns{display:flex; flex-wrap:wrap; gap:6px}
+.segbtns button{font:inherit; font-size:14px; font-weight:600; padding:6px 12px; border-radius:4px; border:1px solid var(--blue); background:var(--surface); color:var(--blue); cursor:pointer}
+.segbtns button[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.infobox{min-height:64px}
+#savepanel .mono, .resumebar .mono{word-break:break-all; overflow-wrap:anywhere}
+/* Struktur: Einführung, Schritte, Problemstellung, Antwort */
+.intro{display:flex; flex-direction:column; gap:10px}
+.stepbox{background:var(--surface); border:1px solid var(--border); border-left:6px solid var(--blue); border-radius:6px; padding:20px 22px; display:flex; flex-direction:column; gap:14px}
+.stepbox h2, .stepbox .sumh{display:flex; align-items:center; gap:12px; font-size:22px; font-weight:700; margin:0}
+.stepbox .no{flex:none; display:inline-flex; width:36px; height:36px; border-radius:50%; background:var(--blue); color:var(--bg); align-items:center; justify-content:center; font-size:18px; font-weight:800}
+.stepbox.save{border-left-color:var(--maybe); background:var(--maybe-soft)}
+.stepbox.save .no{background:var(--maybe)}
+.stepbox.save.done{border-left-color:var(--ok); background:var(--ok-soft)}
+.stepbox.save.done .no{background:var(--ok)}
+details.stepbox > summary{cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px}
+details.stepbox > summary::-webkit-details-marker{display:none}
+details.stepbox[open] > summary{margin-bottom:6px}
+.problem{font-size:20px; font-weight:700; color:var(--rust); border-left:4px solid var(--rust); padding:4px 0 4px 14px; margin:0}
+.answer{background:var(--ok-soft); border:2px solid var(--ok); border-radius:6px; padding:16px 18px; display:flex; flex-direction:column; gap:8px}
+.goals{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:4px}
+table.plan td, table.plan th{vertical-align:top}
+.okmark{color:var(--ok); font-weight:700; white-space:nowrap}
+.nowrap{white-space:nowrap}
+.saved .linkbtn{font-size:13px; padding:0 2px; color:var(--err); font-weight:700}
+/* Startfenster: Speicherort als Pflichtschritt */
+body.lm-gated{overflow:hidden}
+#lm-gate{position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; align-items:center; justify-content:center; padding:16px; overflow:auto}
+.lm-gate-card{background:var(--surface); color:var(--ink); max-width:640px; width:100%; margin:auto; border-radius:10px; border-top:10px solid var(--maybe); padding:26px 28px; display:flex; flex-direction:column; gap:14px; box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lm-gate-card h2{display:flex; align-items:center; gap:12px; font-size:24px; margin:0}
+.lm-gate-card .no{flex:none; display:inline-flex; width:40px; height:40px; border-radius:50%; background:var(--maybe); color:#fff; align-items:center; justify-content:center; font-weight:800; font-size:20px}
+.lm-gate-steps{margin:0; padding-left:24px; display:flex; flex-direction:column; gap:6px}
+.lm-gate-card .mono{word-break:break-all}
+.btn.big{font-size:19px; padding:14px 30px}
+.saved.warn{background:var(--err); color:#fff; padding:5px 12px; border-radius:999px; font-weight:700; margin:4px 0}
+.saved.warn .linkbtn{color:#fff; text-decoration:underline; font-weight:800}
+@media (max-width:560px){ .lm-gate-card{padding:20px 18px} .lm-gate-card h2{font-size:20px} }
+
+.lm-gate-card.ok{border-top-color:var(--ok)} .lm-gate-card .no.ok{background:var(--ok)}
+body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-gated .site-foot{visibility:hidden}
+
+/* Das Wichtigste auf einen Blick */
+.merke{border-top:6px solid var(--ok)}
+.mk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px}
+.mk-item{display:flex; gap:10px; align-items:flex-start; background:var(--surface2); border-radius:8px; padding:12px 14px}
+.mk-no{flex:none; width:28px; height:28px; border-radius:50%; background:var(--ok); color:var(--bg); display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+.mk-f{grid-column:1/-1; background:var(--blue-soft); border-radius:8px; padding:12px 14px}
+.mk-f > div{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:6px}
+
+/* Link zurück zur Übersicht (nur sichtbar, wenn die Übersicht bekannt ist) */
+.site-inner .lm-back{margin-left:auto; flex:none; font-size:14px; font-weight:600; color:var(--blue); text-decoration:none; border:1px solid var(--blue); border-radius:999px; padding:5px 12px; white-space:nowrap}
+.site-inner .lm-back:hover{background:var(--blue-soft)}
+@media print{ .lm-back{display:none} }
+
+/* ---------- Übersicht ---------- */
+main#ov{gap:40px}
+.small{font-size:14px} .muted{color:var(--muted)}
+button.btn.small, .filebtn.small{font-size:14px; padding:7px 14px}
+.ov-intro{display:flex; flex-direction:column; gap:12px}
+.ov-total{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:20px 22px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); gap:14px 28px; align-items:center}
+.ov-total h2{font-size:20px}
+.ov-total-bar{display:flex; align-items:center; gap:12px}
+.ov-src{grid-column:1/-1; display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; justify-content:space-between; border-top:1px solid var(--border); padding-top:14px}
+#src.ok{color:var(--ok)} #src.warn{color:var(--maybe)}
+.pct{font-weight:800; font-size:22px; font-variant-numeric:tabular-nums; min-width:3.2em; text-align:right}
+
+.bar{position:relative; flex:1; height:10px; border-radius:999px; background:var(--border); overflow:hidden}
+.bar.big{height:16px}
+.bar > span{position:absolute; inset:0 auto 0 0; width:0; border-radius:inherit; background:var(--blue)}
+.bar.full > span{background:var(--ok)}
+.bar.unknown > span{width:100%!important; background:repeating-linear-gradient(-45deg, var(--blue-soft) 0 8px, transparent 8px 16px)}
+@media (prefers-reduced-motion: no-preference){ .bar > span{transition:width .5s ease} }
+
+.chapter{display:flex; flex-direction:column; gap:14px}
+.chapter + .chapter{margin-top:8px}
+.chapter-h{display:flex; align-items:baseline; gap:12px; border-bottom:2px solid var(--blue); padding-bottom:6px}
+.chapter-h .no{font-size:28px; font-weight:800; color:var(--blue); line-height:1}
+.chapter-h h2{font-size:21px}
+.chapter-h .cnt{margin-left:auto; font-size:13px; color:var(--muted); white-space:nowrap}
+.units{display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:14px}
+
+.le{background:var(--surface); border:1px solid var(--border); border-left:5px solid var(--line); border-radius:6px; padding:16px 18px; display:flex; flex-direction:column; gap:10px; color:inherit; text-decoration:none}
+a.le:hover{border-color:var(--blue); box-shadow:0 2px 10px rgba(12,119,183,.15)}
+a.le:focus-visible{outline:3px solid var(--rust); outline-offset:2px}
+.le.started{border-left-color:var(--blue)}
+.le.done{border-left-color:var(--ok)}
+.le .le-k{display:flex; justify-content:space-between; gap:8px; align-items:center}
+.le .le-no{font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--blue)}
+.le h3{font-size:17px; line-height:1.3}
+.le .le-bar{display:flex; align-items:center; gap:10px}
+.le .le-frac{font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; min-width:5.5em; text-align:right}
+.le .le-foot{display:flex; justify-content:space-between; gap:8px; font-size:13px; color:var(--muted); margin-top:auto}
+.le .go{font-weight:700; color:var(--blue); white-space:nowrap}
+.chip{font-size:12px; font-weight:700; border-radius:999px; padding:2px 10px; white-space:nowrap; background:var(--border); color:var(--muted)}
+.chip.started{background:var(--blue-soft); color:var(--blue)}
+.chip.done{background:var(--ok-soft); color:var(--ok)}
+.le.soon{background:transparent; border-style:dashed; border-left-width:1px; opacity:.75}
+.le.soon h3{color:var(--muted); font-weight:600}
+
+.ov-hint{border-top:1px solid var(--border); padding-top:14px}
+.dropmsg{display:none}
+body.drop .dropmsg{display:flex; position:fixed; inset:12px; z-index:200; border:4px dashed var(--blue); border-radius:12px; background:color-mix(in srgb, var(--bg) 88%, transparent); align-items:center; justify-content:center; font-size:24px; font-weight:700; color:var(--blue); pointer-events:none}
+
+/* Startfenster (wie in den Einheiten) */
+body.gated{overflow:hidden}
+body.gated main, body.gated .site-foot{visibility:hidden}
+#gate:empty{display:none}
+#gate{position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; align-items:center; justify-content:center; padding:16px; overflow:auto}
+#gate .lm-gate-card .row{margin-top:4px}
+
+@media (max-width:700px){ .ov-total{grid-template-columns:1fr} }
+@media (max-width:560px){ .units{grid-template-columns:1fr} .chapter-h h2{font-size:19px} .ov-total{padding:16px} }
+@media print{ #gate, .ov-src, .ov-hint, .site-foot{display:none!important} .le{break-inside:avoid} }
+</style>
+<div class="site-head">
+  <div class="site-inner">
+    <img class="logo" alt="Carl Engler Schule Karlsruhe" src="data:image/png;base64,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">
+    <div class="unit"><span class="unit-k">Fachschule für Technik – Chemie</span><span class="brand">Produktionstechnologie · Alle Lerneinheiten</span></div>
+  </div>
+</div>
+
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-h"></div>
+
+<main id="ov">
+  <section class="ov-intro">
+    <p class="eyebrow">Übersicht</p>
+    <h1>Deine Lerneinheiten in Produktionstechnologie</h1>
+    <p class="lead">Hier siehst du alle Lerneinheiten in der Reihenfolge des Lehrplans. Der Balken zeigt, wie viele Stationen du schon erledigt hast. Er wird aus deinen Speicherdateien (<span class="mono">…_Speicherstand.txt</span>) gelesen.</p>
+  </section>
+
+  <section class="ov-total" aria-labelledby="total-h">
+    <div class="ov-total-text">
+      <h2 id="total-h">Dein Gesamtfortschritt</h2>
+      <p id="total-sub" class="small muted"></p>
+    </div>
+    <div class="ov-total-bar">
+      <div class="bar big" role="progressbar" aria-labelledby="total-h" aria-valuemin="0" aria-valuemax="100" id="total-bar"><span></span></div>
+      <span id="total-pct" class="pct"></span>
+    </div>
+    <div class="ov-src">
+      <span id="src" class="small"></span>
+      <div class="row">
+        <button type="button" class="btn small" id="refresh" hidden>↻ Aktualisieren</button>
+        <button type="button" class="btn small secondary" id="pick">Speicherordner wählen</button>
+        <label class="filebtn small" for="load">Speicherdateien laden</label><input type="file" id="load" accept=".txt,text/plain" multiple class="visually-hidden">
+      </div>
+    </div>
+  </section>
+
+  <div id="chapters"></div>
+
+  <p class="small muted ov-hint">Tipp: Du kannst Speicherdateien (<span class="mono">.txt</span>) auch einfach auf diese Seite ziehen. Jede Lerneinheit funktioniert weiterhin auch allein, ohne diese Übersicht.</p>
+</main>
+
+<footer class="site-foot">Carl-Engler-Schule Karlsruhe · Fachschule für Technik, Chemietechnik · Produktionstechnologie</footer>
+<div class="dropmsg" aria-hidden="true">Speicherdateien hier ablegen</div>
+
+<script>
+const DATA = {"chapters": [{"no": "1", "title": "Werkstoffe und Korrosion"}, {"no": "2", "title": "Anlagen- und Verfahrenstechnik"}, {"no": "3", "title": "Wärmeübertragung und thermische Trennung"}, {"no": "4", "title": "Mess-, Steuerungs- und Regelungstechnik"}, {"no": "5", "title": "Großtechnische Verfahren"}], "units": [{"nr": "1.1.1", "title": "Einteilung der Werkstoffe", "file": "Lehrplaneinheit_1.1.1_Einteilung_der_Werkstoffe.html", "id": "lpe-1.1.1"}, {"nr": "1.1.2a", "title": "Bezeichnungssystem der Stähle – Verwendungszweck", "file": "Lehrplaneinheit_1.1.2a_Bezeichnungssystem_der_Staehle.html", "id": "lpe-1.1.2a"}, {"nr": "1.1.2b", "title": "Bezeichnungssystem der Stähle – chemische Zusammensetzung", "file": "Lehrplaneinheit_1.1.2b_Bezeichnungssystem_der_Staehle.html", "id": "lpe-1.1.2b"}, {"nr": "2.4", "title": "Strömungsmechanik Wiederholung", "file": "Lehrplaneinheit_2.4_Stroemungsmechanik_Wiederholung.html", "id": "lpe-2.4-wdh"}, {"nr": "3.2a", "title": "Thermische Trennung – Dampfdruck und Raoult’sches Gesetz", "file": "Lehrplaneinheit_3.2a_Thermische_Trennung.html", "id": "lpe-3.2a"}, {"nr": "3.2b", "title": "Thermische Trennung – Siede- und Gleichgewichtsdiagramm", "file": "Lehrplaneinheit_3.2b_Thermische_Trennung.html", "id": "lpe-3.2b"}], "soon": [{"nr": "1.1.3", "title": "Gusseisen, NE-Metalle und Kunststoffe"}, {"nr": "1.2", "title": "Korrosion und Korrosionsschutz"}, {"nr": "2.1", "title": "Scale-up"}, {"nr": "2.2", "title": "Fließbilder: Grund-, Verfahrens- und R&I-Fließbild"}, {"nr": "2.3", "title": "Reaktionstechnik und Reaktoren"}, {"nr": "2.5", "title": "Rohrleitungstechnik: Nennweite, Nenndruck, Verbindungen, Armaturen"}, {"nr": "2.6", "title": "Mischen, Rühren und Zerkleinern"}, {"nr": "3.1", "title": "Wärmeübertragung und Wärmetauscher"}, {"nr": "4.1", "title": "EMSR-Stellen"}, {"nr": "4.2", "title": "Regelungstechnik"}, {"nr": "4.3", "title": "Steuerungen und Pneumatik"}, {"nr": "5.1", "title": "Großtechnische Verfahren: Haber-Bosch, Schwefelsäure, Elektrolyse"}]};
+/* Übersicht aller Lerneinheiten: liest *_Speicherstand.txt aus dem Speicherordner und zeigt den Fortschritt.
+   Erwartet global DATA = {chapters:[{no,title}], units:[{nr,title,file,id}], soon:[{nr,title}]} (von mk_uebersicht.py). */
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const FS_OK = typeof window.showDirectoryPicker === "function" && typeof indexedDB !== "undefined";
+
+/* gleicher Speicher wie in den Einheiten (common.js): gemerkter Speicherordner */
+const IDB = {
+  open(){ return new Promise((res,rej)=>{ const r=indexedDB.open("lernmodul-speicher",1); r.onupgradeneeded=()=>r.result.createObjectStore("handles"); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); },
+  async get(k){ try{ const db=await this.open(); return await new Promise(res=>{ const q=db.transaction("handles").objectStore("handles").get(k); q.onsuccess=()=>res(q.result); q.onerror=()=>res(undefined); }); }catch(e){ return undefined; } },
+  async set(k,v){ try{ const db=await this.open(); await new Promise(res=>{ const t=db.transaction("handles","readwrite"); t.objectStore("handles").put(v,k); t.oncomplete=res; t.onerror=res; }); }catch(e){} }
+};
+/* Einheiten merken sich so, wo die Übersicht liegt (Link „Alle Lerneinheiten“) */
+try { localStorage.setItem("lm-uebersicht", location.href.split("#")[0]); } catch(e){}
+
+/* ---------- Daten ---------- */
+const units = DATA.units.map(u => Object.assign({}, u));
+const P = {};          // moduleId -> {done,total,ts,file,known}
+let dir = null, perm = "none", source = "", lastRead = null;
+
+const key = nr => String(nr).split(".").map(x => { const m = x.match(/^(\d+)([a-z]*)$/i); return m ? [+m[1], m[2]] : [0, x]; });
+function cmp(a, b){ const A = key(a), B = key(b); for(let i=0;i<Math.max(A.length,B.length);i++){ const x=A[i]||[-1,""], y=B[i]||[-1,""]; if(x[0]!==y[0]) return x[0]-y[0]; if(x[1]!==y[1]) return x[1]<y[1]?-1:1; } return 0; }
+
+function take(id, rec){
+  if(!id) return;
+  const old = P[id], a = rec.ts||0, b = old ? old.ts||0 : -1;
+  /* neuerer Stand gewinnt; liegen beide in derselben Minute, gewinnt der mit Fortschrittsangabe */
+  if(!old || (Math.abs(a-b) < 60000 ? (rec.total!=null || old.total==null) : a > b)) P[id] = Object.assign({}, rec, {ts: Math.max(a, b)});
+}
+function parseTxt(txt, fallbackTs, name){
+  const id = (txt.match(/MODUL-ID: (\S+)/)||[])[1]; if(!id) return false;
+  const f = txt.match(/FORTSCHRITT: (\d+)\/(\d+)/);
+  const s = txt.match(/Stand: (\d{1,2})\.(\d{1,2})\.(\d{4}),? (\d{1,2}):(\d{2})/);
+  const ts = s ? new Date(+s[3], +s[2]-1, +s[1], +s[4], +s[5]).getTime() : fallbackTs;
+  take(id, {done: f ? +f[1] : null, total: f ? +f[2] : null, ts, file: name, txt: f ? null : txt});
+  return true;
+}
+function fromBrowser(){
+  try {
+    const all = JSON.parse(localStorage.getItem("lm-fortschritt")||"{}") || {};
+    Object.entries(all).forEach(([id, r]) => { if(r && r.total) take(id, {done:r.done, total:r.total, ts:r.ts, file:"Browser"}); });
+  } catch(e){}
+}
+
+/* ---------- Ordner lesen ---------- */
+async function readDir(){
+  if(!dir) return;
+  let n = 0;
+  const found = [];
+  for await (const [name, h] of dir.entries()){
+    if(h.kind !== "file") continue;
+    try {
+      if(/\.txt$/i.test(name)){
+        const f = await h.getFile(); if(f.size > 3e6) continue;
+        if(parseTxt(await f.text(), f.lastModified, name)) n++;
+      } else if(/^Lehrplaneinheit.*\.html$/i.test(name) && !units.some(u => u.file === name)){
+        found.push([name, h]);
+      }
+    } catch(e){}
+  }
+  /* neue Einheiten, die nach dem Bauen der Übersicht in den Ordner gelegt wurden */
+  for(const [name, h] of found){
+    try {
+      const t = await (await h.getFile()).text();
+      const id = (t.match(/\bid:"(lpe-[^"]+)"/) || t.match(/MODULE_ID = "([^"]+)"/) || [])[1];
+      const title = ((t.match(/<title>([^<]*)<\/title>/)||[])[1]||name).replace(/^Lehrplaneinheit\s+/, "");
+      const nr = (title.match(/^(\d+(?:\.\d+)*[a-z]?)/i)||name.match(/(\d+(?:\.\d+)*[a-z]?)/i)||[])[1] || "";
+      units.push({nr, title: title.replace(nr, "").trim(), file: name, id});
+    } catch(e){}
+  }
+  lastRead = new Date();
+  source = `Speicherordner „${dir.name}“ · ${n} Speicherdatei${n===1?"":"en"} gelesen · ${lastRead.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})} Uhr`;
+}
+async function connect(){
+  try { const h = await window.showDirectoryPicker({id:"lernmodul", mode:"read"}); dir = h; perm = "granted"; await IDB.set("ordner", h); }
+  catch(e){ return false; }
+  await readDir(); render(); probeAll(); return true;
+}
+async function resume(){
+  try { perm = await dir.requestPermission({mode:"read"}); } catch(e){ perm = "prompt"; }
+  if(perm === "granted"){ await readDir(); render(); probeAll(); return true; }
+  return false;
+}
+async function loadFiles(list){
+  let n = 0;
+  for(const f of Array.from(list||[])){ if(!/\.txt$/i.test(f.name) && f.type !== "text/plain") continue; try { if(parseTxt(await f.text(), f.lastModified, f.name)) n++; } catch(e){} }
+  if(!dir) source = `${n} Speicherdatei${n===1?"":"en"} geladen`;
+  render(); probeAll();
+  return n;
+}
+
+/* ---------- Startfenster ---------- */
+let gateOpen = true;
+function gate(mode){
+  const g = $("#gate");
+  if(!mode){ g.innerHTML = ""; document.body.classList.remove("gated"); gateOpen = false; return; }
+  document.body.classList.add("gated"); gateOpen = true;
+  let body = "";
+  if(mode === "resume"){
+    body = `<h2 id="gate-h"><span class="no">0</span>Speicherordner wieder verbinden</h2>
+      <p>Dein Speicherordner <b>„${esc(dir.name)}“</b> ist bekannt. Klicke auf <b>„Weiterarbeiten“</b> und bestätige die Frage des Browsers. Dann werden deine Speicherdateien gelesen und die Fortschrittsbalken ergänzt.</p>
+      <div class="row"><button type="button" class="btn big" data-g="resume">Weiterarbeiten</button><button type="button" class="btn secondary" data-g="connect">Anderen Ordner wählen</button></div>`;
+  } else if(mode === "nofs"){
+    body = `<h2 id="gate-h"><span class="no">0</span>Speicherdateien laden</h2>
+      <p>Dein Browser kann keinen Ordner auslesen (z. B. Firefox, Safari, iPad). Lade deine Speicherdateien (<span class="mono">…_Speicherstand.txt</span>) von Hand, du kannst mehrere auf einmal wählen. Oder ziehe sie auf diese Seite.</p>
+      <p class="small muted">Am PC mit <b>Chrome oder Edge</b> geht es automatisch.</p>
+      <div class="row"><label class="filebtn" for="gate-load">Speicherdateien laden</label><input type="file" id="gate-load" accept=".txt,text/plain" multiple class="visually-hidden"><button type="button" class="linkbtn" data-g="skip">Ohne Speicherdateien weiter</button></div>`;
+  } else {
+    body = `<h2 id="gate-h"><span class="no">0</span>Speicherordner wählen</h2>
+      <p>Damit die Übersicht zeigt, was du schon bearbeitet hast, liest sie deine Speicherdateien (<span class="mono">…_Speicherstand.txt</span>).</p>
+      <ol class="lm-gate-steps"><li>Klicke auf <b>„Speicherordner wählen“</b>.</li><li>${location.protocol==="file:" ? "Wähle den Ordner, in dem diese Übersicht, die Lerneinheiten und deine Speicherdateien liegen." : "Wähle den Ordner auf deinem Rechner, in dem deine Speicherdateien liegen (den du auch in den Lerneinheiten gewählt hast)."}</li><li>Bestätige die Frage des Browsers.</li></ol>
+      ${mode === "failed" ? `<div class="fb maybe small">Kein Ordner gewählt. Versuche es noch einmal oder <button type="button" class="linkbtn" data-g="skip">sieh dir die Übersicht ohne Speicherdateien an</button>.</div>` : ""}
+      <div class="row"><button type="button" class="btn big" data-g="connect">Speicherordner wählen</button>${mode === "failed" ? "" : `<button type="button" class="linkbtn" data-g="skip">Ohne Ordner ansehen</button>`}</div>`;
+  }
+  g.innerHTML = `<div class="lm-gate-card">${body}</div>`;
+  const f = g.querySelector(".btn, .filebtn"); if(f) f.focus();
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest("[data-g]"); if(b){
+    const a = b.dataset.g;
+    if(a === "connect"){ if(await connect()) gate(null); else gate("failed"); }
+    else if(a === "resume"){ if(await resume()) gate(null); }
+    else if(a === "skip"){ gate(null); render(); }
+    return;
+  }
+  if(e.target.id === "pick"){ if(FS_OK) await connect(); else $("#load").click(); }
+  if(e.target.id === "refresh"){ if(dir){ if(perm !== "granted") await resume(); else { await readDir(); render(); probeAll(); } } }
+});
+document.addEventListener("change", async e => {
+  if(e.target.id === "load" || e.target.id === "gate-load"){ await loadFiles(e.target.files); e.target.value = ""; if(gateOpen) gate(null); }
+});
+const hasFiles = e => e.dataTransfer && Array.from(e.dataTransfer.types||[]).includes("Files");
+document.addEventListener("dragover", e => { if(hasFiles(e)){ e.preventDefault(); document.body.classList.add("drop"); } });
+document.addEventListener("dragleave", e => { if(e.target === document.documentElement || e.clientX <= 0 || e.clientY <= 0) document.body.classList.remove("drop"); });
+document.addEventListener("drop", async e => { if(!hasFiles(e)) return; e.preventDefault(); document.body.classList.remove("drop"); await loadFiles(e.dataTransfer.files); if(gateOpen) gate(null); });
+/* zurück aus einer Einheit: Balken automatisch auffrischen */
+document.addEventListener("visibilitychange", async () => { if(document.visibilityState === "visible" && !gateOpen){ fromBrowser(); if(dir && perm === "granted") await readDir(); render(); probeAll(); } });
+
+/* ---------- Ältere Speicherdateien ohne FORTSCHRITT-Zeile ----------
+   Die Einheit wird unsichtbar mit #lm-probe geladen, liest den Speicherstand ein und meldet
+   ihren Fortschritt (gleiche Zählung wie ihre Ablauftabelle). Sie speichert dabei nichts. */
+let probing = false;
+const PC = new Map();   // Ergebnis je Dateiinhalt merken
+function probeOne(u, txt){
+  return new Promise(resolve => {
+    const f = document.createElement("iframe"), req = Math.random().toString(36).slice(2);
+    f.setAttribute("aria-hidden", "true"); f.tabIndex = -1;
+    f.style.cssText = "position:fixed; left:-12000px; top:0; width:1100px; height:800px; border:0; visibility:hidden";
+    let done = false;
+    const finish = r => { if(done) return; done = true; window.removeEventListener("message", on); clearTimeout(t); f.remove(); resolve(r); };
+    const on = e => {
+      if(e.source !== f.contentWindow || !e.data) return;
+      if(e.data.lmProbeReady) f.contentWindow.postMessage({lmProbe:true, req, txt}, "*");
+      else if(e.data.lmProbeResult && e.data.req === req) finish(e.data);
+    };
+    const t = setTimeout(() => finish(null), 10000);
+    window.addEventListener("message", on);
+    f.src = encodeURI(u.file) + "#lm-probe";
+    document.body.appendChild(f);
+  });
+}
+async function probeAll(){
+  if(probing) return; probing = true;
+  try {
+    for(;;){
+      const u = units.find(x => { const p = P[x.id]; return p && p.total == null && p.txt && !p.tried; });
+      if(!u) break;
+      const p = P[u.id]; p.tried = true; p.probing = true; render();
+      const r = PC.has(p.txt) ? PC.get(p.txt) : await probeOne(u, p.txt);
+      if(r) PC.set(p.txt, r);
+      p.probing = false;
+      if(r && r.total){ p.done = r.done; p.total = r.total; }
+      render();
+    }
+  } finally { probing = false; }
+}
+
+/* ---------- Anzeige ---------- */
+const dt = ts => new Date(ts).toLocaleString("de-DE", {day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit"}).replace(",", "");
+function stateOf(u){
+  const p = P[u.id];
+  if(!p) return {cls:"", chip:"offen", frac:"", pct:0, ts:null};
+  if(p.total == null) return {cls:"started", chip:"begonnen", frac:"", pct:null, ts:p.ts};
+  const pct = Math.round(100 * p.done / p.total);
+  return {cls: p.done >= p.total ? "done" : "started", chip: p.done >= p.total ? "✓ erledigt" : "begonnen", frac:`${p.done}/${p.total} Stationen`, pct, ts:p.ts};
+}
+function card(u){
+  const s = stateOf(u);
+  const bar = `<div class="bar${s.pct===100?" full":""}${s.pct==null?" unknown":""}" role="progressbar" aria-label="Fortschritt ${esc(u.nr)}" aria-valuemin="0" aria-valuemax="100"${s.pct!=null?` aria-valuenow="${s.pct}"`:""}><span style="width:${s.pct||0}%"></span></div>`;
+  const foot = s.ts ? `zuletzt ${dt(s.ts)}` : "noch nicht begonnen";
+  const hint = s.pct == null && P[u.id] && P[u.id].probing ? `<span class="small muted">Stand wird ermittelt …</span>` : "";
+  return `<a class="le ${s.cls}" href="${encodeURI(u.file)}" data-id="${esc(u.id||"")}">
+    <div class="le-k"><span class="le-no">LPE ${esc(u.nr)}</span><span class="chip ${s.cls}">${s.chip}</span></div>
+    <h3>${esc(u.title)}</h3>
+    <div class="le-bar">${bar}<span class="le-frac">${s.frac}</span></div>${hint}
+    <div class="le-foot"><span>${foot}</span><span class="go">Öffnen →</span></div>
+  </a>`;
+}
+function render(){
+  const list = units.slice().sort((a,b) => cmp(a.nr, b.nr));
+  const soon = DATA.soon.filter(s => !list.some(u => cmp(u.nr.replace(/[a-z]+$/i,""), s.nr) === 0 || u.nr.startsWith(s.nr + ".")));
+  const ch = DATA.chapters.map(c => {
+    const us = list.filter(u => u.nr.split(".")[0] === c.no), ss = soon.filter(s => s.nr.split(".")[0] === c.no);
+    if(!us.length && !ss.length) return "";
+    const items = [...us.map(u => ({nr:u.nr, html:card(u)})), ...ss.map(s => ({nr:s.nr, html:`<div class="le soon" aria-disabled="true"><div class="le-k"><span class="le-no">LPE ${esc(s.nr)}</span><span class="chip">folgt</span></div><h3>${esc(s.title)}</h3></div>`}))].sort((a,b) => cmp(a.nr, b.nr));
+    const done = us.filter(u => stateOf(u).pct === 100).length;
+    return `<section class="chapter"><div class="chapter-h"><span class="no">${esc(c.no)}</span><h2>${esc(c.title)}</h2><span class="cnt">${us.length ? `${done} von ${us.length} erledigt` : "folgt"}</span></div><div class="units">${items.map(i => i.html).join("")}</div></section>`;
+  }).join("");
+  $("#chapters").innerHTML = ch;
+
+  const pcts = list.map(u => stateOf(u).pct || 0), sum = pcts.reduce((a,b) => a+b, 0);
+  const total = list.length ? Math.round(sum / list.length) : 0;
+  const done = list.filter(u => stateOf(u).pct === 100).length, started = list.filter(u => P[u.id]).length;
+  const tb = $("#total-bar"); tb.firstElementChild.style.width = total + "%"; tb.setAttribute("aria-valuenow", total); tb.classList.toggle("full", total === 100);
+  $("#total-pct").textContent = total + " %";
+  $("#total-sub").textContent = `${done} von ${list.length} Lerneinheiten erledigt · ${started} begonnen`;
+  const src = $("#src");
+  src.textContent = source || (Object.keys(P).length ? "Stand aus diesem Browser" : "Noch keine Speicherdateien gelesen");
+  src.className = "small " + (dir && perm === "granted" ? "ok" : "warn");
+  $("#refresh").hidden = !dir;
+  $("#pick").textContent = dir ? "Anderen Ordner wählen" : (FS_OK ? "Speicherordner wählen" : "Speicherdateien laden");
+  $("label[for=load]").hidden = !!dir || !FS_OK;
+}
+
+/* ---------- Start ---------- */
+(async function init(){
+  fromBrowser(); render();
+  if(!FS_OK){ gate("nofs"); return; }
+  const h = window.__lmTestDir || await IDB.get("ordner");
+  if(!h){ gate("new"); return; }
+  dir = h;
+  try { perm = await h.queryPermission({mode:"read"}); } catch(e){ perm = "prompt"; }
+  if(perm === "granted"){ await readDir(); render(); gate(null); probeAll(); }
+  else gate("resume");
+})();
+})();
+
+</script>

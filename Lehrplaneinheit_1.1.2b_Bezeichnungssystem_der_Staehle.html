@@ -1,0 +1,1682 @@
+<!doctype html>
+<html lang="de">
+<title>Lehrplaneinheit 1.1.2b Bezeichnungssystem der Stähle – chemische Zusammensetzung</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{
+  --bg:#F4F5F6; --surface:#FFFFFF; --surface2:#F1F7FB; --ink:#1D1D1B; --muted:#56616B;
+  --line:#A9B4BD; --border:#E1E4E7; --blue:#0C77B7; --blue-soft:#E1EFF8;
+  --rust:#0A5A8C; --rust-soft:#E1EFF8; --ok:#2C7A4B; --ok-soft:#DDF0E3; --err:#B3261E; --err-soft:#F8DEDC;
+  --maybe:#8A6A12; --maybe-soft:#F5ECCF;
+  --display:'Segoe UI', Arial, sans-serif; --sans:'Segoe UI', Arial, sans-serif; --mono:Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+    --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+    --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+    --maybe:#E3C46A; --maybe-soft:#352C12;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F1820; --surface:#16222D; --surface2:#1C2B38; --ink:#E4ECF2; --muted:#A5B6C4;
+  --line:#4E6272; --border:#2A3B4A; --blue:#5DB0E5; --blue-soft:#15324A;
+  --rust:#8CC8EE; --rust-soft:#15324A; --ok:#7FCB9B; --ok-soft:#173424; --err:#F28B82; --err-soft:#3D1D1B;
+  --maybe:#E3C46A; --maybe-soft:#352C12;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.55}
+header.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--surface); border-bottom:1px solid var(--border)}
+.top-inner{max-width:1000px; margin:0 auto; padding:10px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px}
+.brand{font-family:var(--display); font-weight:700; font-size:18px; margin-right:auto}
+nav.tabs{display:flex; flex-wrap:wrap; gap:6px}
+nav.tabs button{font:inherit; font-size:15px; font-weight:600; border:1px solid var(--border); background:var(--surface); color:var(--ink); border-radius:999px; padding:5px 13px; cursor:pointer; display:inline-flex; gap:6px; align-items:center}
+nav.tabs button[aria-current="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+nav.tabs .dot{width:8px; height:8px; border-radius:50%; background:var(--line)}
+nav.tabs .done .dot{background:var(--ok)}
+[hidden]{display:none!important}
+main{max-width:1000px; margin:0 auto; padding-inline:16px; padding-block:28px 80px; display:flex; flex-direction:column; gap:64px}
+section.station{display:flex; flex-direction:column; gap:22px; scroll-margin-top:110px}
+
+.saved{font-family:var(--sans); font-weight:500; font-size:13px; color:var(--ok); margin-left:10px}
+.io{display:flex; flex-direction:column; gap:10px; padding:18px 22px; border:1px dashed var(--line); border-radius:12px}
+.io h3{font-size:17px}
+.filebtn{display:inline-block; font-weight:600; border-radius:8px; padding:10px 18px; cursor:pointer; background:transparent; color:var(--blue); border:1px solid var(--blue)}
+.visually-hidden{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+input.visually-hidden:focus-visible + *, .filebtn:focus-within{outline:3px solid var(--rust)}
+.linkbtn{font:inherit; font-size:14px; background:none; border:0; color:var(--blue); text-decoration:underline; cursor:pointer; padding:4px}
+.eyebrow{font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--rust); margin:0}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; line-height:1.2}
+h1{font-size:clamp(28px,4vw,38px)}
+h2{font-size:24px}
+h3{font-size:19px}
+p{margin:0}
+.lead{font-size:19px; color:var(--muted)}
+.input{background:var(--surface2); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:14px}
+.input .tag, .task .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase}
+.input .tag{color:var(--blue)}
+.input p, .input li{max-width:none}
+.input ul{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px}
+.task{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px; display:flex; flex-direction:column; gap:16px}
+.task .tag{color:var(--rust)}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.grid3{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:8px}
+.card h3{font-size:17px}
+.card .then{font-size:15px; color:var(--muted)}
+.mono{font-family:var(--mono); font-size:.92em}
+label{font-weight:600}
+textarea, input[type=text], select{font:inherit; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:9px 11px; width:100%}
+textarea{min-height:90px; resize:vertical}
+button.btn{font:inherit; font-weight:600; border:0; border-radius:8px; padding:10px 18px; cursor:pointer; background:var(--blue); color:var(--bg)}
+button.btn.secondary{background:transparent; color:var(--blue); border:1px solid var(--blue)}
+button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible{outline:3px solid var(--rust); outline-offset:2px}
+.row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.score{font-weight:700; font-variant-numeric:tabular-nums}
+.fb{font-size:15px; border-radius:8px; padding:10px 12px}
+.fb.ok{background:var(--ok-soft); color:var(--ink); border-left:4px solid var(--ok)}
+.fb.err{background:var(--err-soft); color:var(--ink); border-left:4px solid var(--err)}
+.fb.maybe{background:var(--maybe-soft); color:var(--ink); border-left:4px solid var(--maybe)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* Rohstoff/Werkstoff toggles */
+.rw{display:flex; flex-direction:column; gap:8px}
+.rw-item{display:grid; grid-template-columns:1fr auto; gap:6px 12px; align-items:center; padding:10px 12px; border:1px solid var(--border); border-radius:8px}
+.rw-item .seg{display:flex; gap:0}
+.seg button{font:inherit; font-size:14px; font-weight:600; border:1px solid var(--line); background:var(--surface); color:var(--ink); padding:5px 12px; cursor:pointer}
+.seg button:first-child{border-radius:6px 0 0 6px}
+.seg button:last-child{border-radius:0 6px 6px 0; border-left:0}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.rw-item .fb{grid-column:1 / -1}
+
+/* Baum */
+.bank{display:flex; flex-wrap:wrap; gap:8px; min-height:44px; padding:10px; border:1px dashed var(--line); border-radius:10px}
+.chip{font:inherit; font-size:15px; font-weight:600; padding:6px 12px; border-radius:6px; border:1px solid var(--blue); background:var(--blue-soft); color:var(--ink); cursor:grab}
+.chip[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.tree-wrap{overflow-x:auto; padding-bottom:6px}
+.tree{min-width:920px}
+.tree ul{position:relative; display:flex; justify-content:center; margin:0; padding:22px 0 0}
+.tree li{list-style:none; position:relative; padding:22px 5px 0; display:flex; flex-direction:column; align-items:center; flex:1}
+.tree li::before,.tree li::after{content:''; position:absolute; top:0; right:50%; width:50%; height:22px; border-top:2px solid var(--line)}
+.tree li::after{right:auto; left:50%; border-left:2px solid var(--line)}
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+.tree li:only-child{padding-top:0}
+.tree li:first-child::before,.tree li:last-child::after{border:0}
+.tree li:last-child::before{border-right:2px solid var(--line); border-radius:0 6px 0 0}
+.tree li:first-child::after{border-radius:6px 0 0 0}
+.tree ul ul::before{content:''; position:absolute; top:0; left:50%; height:22px; border-left:2px solid var(--line)}
+.node{font-weight:700; padding:8px 14px; border-radius:8px; background:var(--ink); color:var(--bg); white-space:nowrap}
+.slot{font:inherit; font-size:14px; font-weight:600; min-width:128px; min-height:40px; padding:7px 10px; border-radius:8px; border:2px dashed var(--line); background:var(--surface); color:var(--muted); cursor:pointer; white-space:nowrap}
+.slot.filled{border-style:solid; border-color:var(--blue); color:var(--ink); background:var(--blue-soft)}
+.slot.ok{border-color:var(--ok); background:var(--ok-soft)}
+.slot.err{border-color:var(--err); background:var(--err-soft)}
+.slot.over{border-color:var(--rust)}
+.ex{font-size:13px; color:var(--muted); margin-top:5px; text-align:center; line-height:1.35}
+
+/* Tabellen */
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse; width:100%; min-width:560px}
+th,td{padding:9px 10px; border-bottom:1px solid var(--border); text-align:left; vertical-align:middle}
+th{font-size:14px; color:var(--muted); font-weight:600}
+td.c{text-align:center}
+td.c input{width:22px; height:22px; accent-color:var(--blue); cursor:pointer}
+td.ok{background:var(--ok-soft)} td.err{background:var(--err-soft)} td.maybe{background:var(--maybe-soft)}
+.legend{display:flex; flex-wrap:wrap; gap:14px; font-size:14px}
+.legend span::before{content:''; display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px}
+.legend .l-ok::before{background:var(--ok-soft); border:1px solid var(--ok)}
+.legend .l-err::before{background:var(--err-soft); border:1px solid var(--err)}
+.legend .l-maybe::before{background:var(--maybe-soft); border:1px solid var(--maybe)}
+
+/* Multiple Choice */
+.mc{display:flex; flex-direction:column; gap:10px; padding:16px; border:1px solid var(--border); border-radius:10px}
+.mc .q{font-weight:600}
+.mc .opts{display:flex; flex-direction:column; gap:6px}
+.opt{font:inherit; text-align:left; padding:8px 12px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--ink); cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt.ok{background:var(--ok-soft); border-color:var(--ok)}
+.opt.err{background:var(--err-soft); border-color:var(--err)}
+.opt:disabled{cursor:default}
+
+/* Fälle */
+.case{display:flex; flex-direction:column; gap:12px; padding:18px; border:1px solid var(--border); border-radius:10px; background:var(--surface)}
+.case .head{display:flex; gap:10px; align-items:baseline}
+.case .num{font-family:var(--mono); color:var(--rust); font-weight:500}
+.crit{display:flex; flex-wrap:wrap; gap:8px}
+.crit span{font-size:14px; padding:4px 10px; border-radius:999px; background:var(--surface); border:1px solid var(--border)}
+.summary{font-family:var(--mono); font-size:13px; min-height:220px}
+.save-note{font-size:14px; color:var(--muted)}
+@media (prefers-reduced-motion: no-preference){ .opt, .slot, .chip{transition:background-color .15s, border-color .15s} }
+
+/* Schul-Design Carl Engler Schule */
+.start-cta{display:flex; justify-content:center; padding:16px 0 8px}
+.btn.big{font-size:19px; padding:16px 36px; border-radius:6px; box-shadow:0 2px 6px rgba(12,119,183,.25)}
+
+td.c .mark{display:block; font-size:12px; font-weight:700; margin-top:3px; white-space:nowrap}
+td.ok .mark{color:var(--ok)} td.err .mark{color:var(--err)} td.maybe .mark{color:var(--maybe)}
+button[aria-disabled="true"]{opacity:.55; cursor:not-allowed}
+.lock-msg{color:var(--err); font-weight:600}
+.site-head{background:#FFFFFF; border-bottom:1px solid #E6E6E6}
+.site-inner{max-width:1000px; margin:0 auto; padding:18px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px}
+.logo{height:72px; width:auto; display:block}
+.unit{display:flex; flex-direction:column; gap:2px; border-left:3px solid #0C77B7; padding-left:16px}
+.unit-k{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#56616B}
+.site-head .brand{font-family:'Segoe UI',Arial,sans-serif; font-weight:700; font-size:20px; color:#0C77B7; margin:0}
+header.top{box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.top-inner{padding:0 16px; gap:0 16px; justify-content:space-between}
+nav.tabs{gap:0 4px}
+nav.tabs button{border:0; border-radius:0; background:transparent; color:var(--blue); text-transform:uppercase; font-size:14px; font-weight:700; letter-spacing:.02em; padding:14px 12px 11px; border-bottom:3px solid transparent}
+nav.tabs button:hover{border-bottom-color:var(--blue-soft)}
+nav.tabs button[aria-current="true"]{background:transparent; color:var(--blue); border-bottom-color:var(--blue)}
+.saved{margin-left:0; padding:6px 0}
+section.station{scroll-margin-top:70px}
+h1,h2,h3{font-weight:700; letter-spacing:-.01em}
+h1{font-weight:800}
+.eyebrow{color:var(--blue)}
+button.btn, .filebtn, textarea, input[type=text], select{border-radius:4px}
+.input, .task, .calc, .io, .case, .card, .mc{border-radius:6px}
+@media (max-width:560px){ nav.tabs button{padding:9px 7px 7px; font-size:13px} .logo{height:56px} .saved{font-size:12px} }
+.site-foot{max-width:1000px; margin:0 auto; padding:24px 16px 40px; border-top:1px solid var(--border); font-size:13px; color:var(--muted)}
+
+/* ===== Gemeinsame Ergänzungen (Speichern, Musterbeispiel, Grafiken) ===== */
+.saved.warn{color:var(--err)}
+.resumebar{max-width:1000px; margin:12px auto 0; padding:14px 18px; display:flex; flex-direction:column; gap:10px; background:var(--maybe-soft); border:2px solid var(--maybe); border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.resumebar-wrap{padding-inline:16px}
+.lm-more summary{cursor:pointer; font-weight:600; font-size:15px; color:var(--blue)}
+body.lm-drop::after{content:"Speicherstand-Datei hier loslassen"; position:fixed; inset:12px; border:4px dashed var(--blue); border-radius:16px; background:color-mix(in srgb, var(--surface) 85%, transparent); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; color:var(--blue); z-index:50; pointer-events:none}
+.muster{display:flex; flex-direction:column; gap:10px; padding:18px; border:2px solid var(--blue); border-radius:6px; background:var(--blue-soft)}
+.muster .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin:0}
+.muster .solbox{background:var(--surface)}
+.msteps{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:8px}
+.msteps li.off{color:var(--muted)}
+.msteps li.off b{font-weight:600}
+.msteps .solbox{margin-top:4px; font-family:var(--sans); line-height:1.6}
+.solbox{font-size:15px; background:var(--surface2); border-radius:6px; padding:10px 12px; line-height:1.7; overflow-x:auto}
+.helpbar{display:flex; flex-wrap:wrap; gap:8px 10px; align-items:center}
+.hintbox, .solution{font-size:15px}
+.fb.info{background:var(--blue-soft); border-left:4px solid var(--blue)}
+
+/* Grafiken */
+.figure{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:14px; display:flex; flex-direction:column; gap:12px}
+.figure .cap{font-size:14px; color:var(--muted)}
+svg.gfx{width:100%; height:auto; display:block; overflow:visible}
+svg.gfx text{font-family:var(--sans); fill:var(--ink)}
+svg.gfx .lbl{font-size:14px; font-weight:600}
+svg.gfx .lbl-s{font-size:12px; fill:var(--muted)}
+svg.gfx .axis{stroke:var(--ink); stroke-width:1.2; fill:none}
+svg.gfx .grid{stroke:var(--border); stroke-width:1; fill:none}
+svg.gfx .lead{stroke:var(--muted); stroke-width:1; fill:none}
+svg.gfx .hot{cursor:pointer}
+svg.gfx .hot:focus{outline:none}
+svg.gfx .hot:focus-visible .ring, svg.gfx .hot.on .ring{stroke:var(--rust); stroke-width:3}
+svg.gfx .ring{fill:var(--surface); stroke:var(--blue); stroke-width:2}
+svg.gfx .ringtxt{font-size:13px; font-weight:700; fill:var(--blue); text-anchor:middle; dominant-baseline:central; pointer-events:none}
+.sim{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(220px,1fr); gap:16px; align-items:start}
+@media (max-width:760px){ .sim{grid-template-columns:1fr} }
+.ctrl{display:flex; flex-direction:column; gap:12px}
+.ctrl label{font-size:14px; display:flex; flex-direction:column; gap:4px}
+.ctrl input[type=range]{width:100%; accent-color:var(--blue)}
+.ctrl .val{font-family:var(--mono); font-size:14px; color:var(--blue)}
+.readout{display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:15px; background:var(--surface2); padding:10px 12px; border-radius:6px}
+.readout b{font-family:var(--mono); font-weight:500}
+.question{font-size:15px; border-left:4px solid var(--maybe); background:var(--maybe-soft); padding:9px 12px; border-radius:6px}
+.segbtns{display:flex; flex-wrap:wrap; gap:6px}
+.segbtns button{font:inherit; font-size:14px; font-weight:600; padding:6px 12px; border-radius:4px; border:1px solid var(--blue); background:var(--surface); color:var(--blue); cursor:pointer}
+.segbtns button[aria-pressed="true"]{background:var(--blue); color:var(--bg)}
+.infobox{min-height:64px}
+#savepanel .mono, .resumebar .mono{word-break:break-all; overflow-wrap:anywhere}
+/* Struktur: Einführung, Schritte, Problemstellung, Antwort */
+.intro{display:flex; flex-direction:column; gap:10px}
+.stepbox{background:var(--surface); border:1px solid var(--border); border-left:6px solid var(--blue); border-radius:6px; padding:20px 22px; display:flex; flex-direction:column; gap:14px}
+.stepbox h2, .stepbox .sumh{display:flex; align-items:center; gap:12px; font-size:22px; font-weight:700; margin:0}
+.stepbox .no{flex:none; display:inline-flex; width:36px; height:36px; border-radius:50%; background:var(--blue); color:var(--bg); align-items:center; justify-content:center; font-size:18px; font-weight:800}
+.stepbox.save{border-left-color:var(--maybe); background:var(--maybe-soft)}
+.stepbox.save .no{background:var(--maybe)}
+.stepbox.save.done{border-left-color:var(--ok); background:var(--ok-soft)}
+.stepbox.save.done .no{background:var(--ok)}
+details.stepbox > summary{cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px}
+details.stepbox > summary::-webkit-details-marker{display:none}
+details.stepbox[open] > summary{margin-bottom:6px}
+.problem{font-size:20px; font-weight:700; color:var(--rust); border-left:4px solid var(--rust); padding:4px 0 4px 14px; margin:0}
+.answer{background:var(--ok-soft); border:2px solid var(--ok); border-radius:6px; padding:16px 18px; display:flex; flex-direction:column; gap:8px}
+.goals{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:4px}
+table.plan td, table.plan th{vertical-align:top}
+.okmark{color:var(--ok); font-weight:700; white-space:nowrap}
+.nowrap{white-space:nowrap}
+.saved .linkbtn{font-size:13px; padding:0 2px; color:var(--err); font-weight:700}
+/* Startfenster: Speicherort als Pflichtschritt */
+body.lm-gated{overflow:hidden}
+#lm-gate{position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; align-items:center; justify-content:center; padding:16px; overflow:auto}
+.lm-gate-card{background:var(--surface); color:var(--ink); max-width:640px; width:100%; margin:auto; border-radius:10px; border-top:10px solid var(--maybe); padding:26px 28px; display:flex; flex-direction:column; gap:14px; box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lm-gate-card h2{display:flex; align-items:center; gap:12px; font-size:24px; margin:0}
+.lm-gate-card .no{flex:none; display:inline-flex; width:40px; height:40px; border-radius:50%; background:var(--maybe); color:#fff; align-items:center; justify-content:center; font-weight:800; font-size:20px}
+.lm-gate-steps{margin:0; padding-left:24px; display:flex; flex-direction:column; gap:6px}
+.lm-gate-card .mono{word-break:break-all}
+.btn.big{font-size:19px; padding:14px 30px}
+.saved.warn{background:var(--err); color:#fff; padding:5px 12px; border-radius:999px; font-weight:700; margin:4px 0}
+.saved.warn .linkbtn{color:#fff; text-decoration:underline; font-weight:800}
+@media (max-width:560px){ .lm-gate-card{padding:20px 18px} .lm-gate-card h2{font-size:20px} }
+
+.lm-gate-card.ok{border-top-color:var(--ok)} .lm-gate-card .no.ok{background:var(--ok)}
+body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-gated .site-foot{visibility:hidden}
+
+/* Das Wichtigste auf einen Blick */
+.merke{border-top:6px solid var(--ok)}
+.mk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px}
+.mk-item{display:flex; gap:10px; align-items:flex-start; background:var(--surface2); border-radius:8px; padding:12px 14px}
+.mk-no{flex:none; width:28px; height:28px; border-radius:50%; background:var(--ok); color:var(--bg); display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+.mk-f{grid-column:1/-1; background:var(--blue-soft); border-radius:8px; padding:12px 14px}
+.mk-f > div{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:6px}
+
+/* Engine-Bausteine */
+.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:10px}
+.tile{display:flex; flex-direction:column; gap:6px; padding:12px; border:1px solid var(--border); border-radius:6px; background:var(--surface)}
+.tile .num{font-size:22px; color:var(--blue)}
+.tile.ok{background:var(--ok-soft); border-color:var(--ok)}
+.tile.err{background:var(--err-soft); border-color:var(--err)}
+.tile .seg{display:flex; flex-wrap:wrap; gap:4px}
+.tile .seg button{border:1px solid var(--line)!important; border-radius:6px!important}
+.helpbar button[aria-disabled="true"]{opacity:.5}
+.numlist{display:flex; flex-direction:column; gap:12px}
+.numrow{display:flex; flex-direction:column; gap:6px}
+.numrow label{font-weight:500}
+input.numin{width:9em; max-width:100%}
+input.txtin{width:16em; max-width:100%}
+input.ok{border-color:var(--ok)!important; background:var(--ok-soft)}
+input.err{border-color:var(--err)!important; background:var(--err-soft)}
+.assign{display:flex; flex-direction:column; gap:8px; margin-top:10px}
+.arow{display:grid; grid-template-columns:minmax(150px,210px) 1fr; gap:10px; align-items:center}
+.arow .slot{min-height:44px; width:100%}
+@media (max-width:560px){ .arow{grid-template-columns:1fr} }
+.okmark{color:var(--ok); font-weight:600}
+.errmark{color:var(--err); font-weight:600}
+.errl{display:flex; flex-direction:column; gap:6px}
+.eline{font:inherit; text-align:left; display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--ink); cursor:pointer}
+.eline .emark{font-weight:700; color:var(--muted); min-width:1em}
+.eline.marked{border-color:var(--err); background:var(--err-soft)}
+.eline.marked .emark{color:var(--err)}
+.eline.ok{outline:2px solid var(--ok)}
+.eline.err{outline:2px dashed var(--err)}
+.sortl{display:flex; flex-direction:column; gap:6px; padding-left:1.6em; margin:0}
+.sortl li{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:6px; background:var(--surface)}
+.sortl li.ok{border-color:var(--ok); background:var(--ok-soft)}
+.sortl li.err{border-color:var(--err); background:var(--err-soft)}
+.sortl .sbtn{display:flex; gap:4px}
+.sortl .sbtn .btn{padding:4px 10px}
+/* Kurznamen-Analysator */
+.ana{display:flex; flex-direction:column; gap:10px}
+.ana-in{font-size:20px!important; width:14em; max-width:100%}
+.ana-name{font-size:26px; display:flex; flex-wrap:wrap; gap:3px; padding:8px 0}
+.ap{display:inline-block; padding:2px 6px; border-radius:4px; font-family:var(--mono)}
+.ap sup{font-size:11px; margin-left:2px; opacity:.8}
+.ap-g{background:#FCE7D6; color:#7A2E00}
+.ap-h{background:var(--blue-soft); color:var(--ink); border:1px solid var(--blue)}
+.ap-z{background:var(--ok-soft); color:var(--ink); border:1px solid var(--ok)}
+.ap-e{background:#F3E8FF; color:#4B1D7A}
+:root[data-theme="dark"] .ap-g{background:#4A2610; color:#FFD9BD}
+:root[data-theme="dark"] .ap-e{background:#33204A; color:#E9D5FF}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .ap-g{background:#4A2610; color:#FFD9BD} :root:not([data-theme="light"]) .ap-e{background:#33204A; color:#E9D5FF} }
+.ana-list{display:flex; flex-direction:column; gap:4px; margin:0; padding-left:1.4em}
+.ana-list .ap{font-size:14px; margin-right:6px}
+.ana-leg .ap{font-size:12px; margin:0 2px 0 8px}
+.video-q{display:flex; flex-wrap:wrap; gap:6px}
+.glossar{border:1px solid var(--border); border-left:4px solid var(--blue); border-radius:6px; background:var(--surface); padding:10px 14px}
+.glossar summary{cursor:pointer; font-weight:600}
+.glossar dl{display:grid; grid-template-columns:minmax(140px,220px) 1fr; gap:6px 14px; margin:12px 0 4px}
+.glossar dt{font-weight:600}
+.glossar dd{margin:0}
+@media (max-width:560px){ .glossar dl{grid-template-columns:1fr} .glossar dd{margin-bottom:6px} }
+
+.ezelle{margin:4px 0 10px; display:flex; flex-direction:column; align-items:center; gap:2px}
+.ezelle .ez-svg{width:100%; max-width:240px}
+.ezelle label{display:flex; gap:6px; align-items:center}
+.ezelle figcaption{text-align:center}
+
+
+/* Link zurück zur Übersicht (nur sichtbar, wenn die Übersicht bekannt ist) */
+.site-inner .lm-back{margin-left:auto; flex:none; font-size:14px; font-weight:600; color:var(--blue); text-decoration:none; border:1px solid var(--blue); border-radius:999px; padding:5px 12px; white-space:nowrap}
+.site-inner .lm-back:hover{background:var(--blue-soft)}
+@media print{ .lm-back{display:none} }
+</style>
+<div class="site-head">
+  <div class="site-inner">
+    <img class="logo" alt="Carl Engler Schule Karlsruhe" src="data:image/png;base64,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">
+    <div class="unit"><span class="unit-k">Fachschule für Technik – Chemie · Produktionstechnologie</span><span class="brand">LPE 1.1.2b · Bezeichnungssystem der Stähle – chemische Zusammensetzung</span></div>
+  </div>
+</div>
+<header class="top">
+  <div class="top-inner">
+    <nav class="tabs" id="tabs" aria-label="Stationen"></nav>
+    <span id="saved" class="saved" role="status"></span>
+  </div>
+</header>
+<div class="resumebar-wrap"><div id="resumebar" class="resumebar" hidden></div></div>
+
+<main>
+
+<!-- START -->
+<section class="station" id="s0" data-title="Start">
+  <p class="eyebrow">Lehrplaneinheit 1.1.2b · Start · 0–5 Min.</p>
+  <h1>Bezeichnungssystem der Stähle: nach der chemischen Zusammensetzung</h1>
+  <div class="intro">
+    <p class="lead">In Teil a hast du Kurznamen nach dem Verwendungszweck gelesen, z. B. <span class="mono">P265GH</span>. Sie sagen, wofür ein Stahl gedacht ist, aber nicht, <b>was drin ist</b>.</p>
+    <p>In der Chemieanlage kommt Stahl mit Säuren, Laugen, Salzlösungen und heißen Gasen in Kontakt. Ob er dabei rostet oder versprödet, hängt von seinen Legierungselementen ab. Deshalb gibt es Kurznamen nach der <b>chemischen Zusammensetzung</b>, z. B. <span class="mono">42CrMo4</span> oder <span class="mono">X5CrNi18-10</span>.</p>
+  </div>
+
+  <div class="stepbox save" id="savestep">
+    <h2><span class="no">0</span>Speicherort festlegen</h2>
+    <p>Bevor du anfängst: Lege fest, wo deine Ergebnisse gespeichert werden. Danach wird jede Eingabe automatisch gesichert, und beim nächsten Öffnen ist alles wieder da.</p>
+    <div id="savepanel" style="display:flex;flex-direction:column;gap:10px"></div>
+  </div>
+
+  <div class="stepbox">
+    <h2><span class="no">1</span>Die Problemstellung: die neue Rührwerkswelle</h2>
+    <p>Die Welle eines Rührwerks taucht in eine <b>warme, chloridhaltige Salzlösung</b> (Chloride sind Salze wie Kochsalz NaCl; sie greifen viele Metalle an). Laut Zeichnung ist sie aus <span class="mono"><b>X2CrNiMoN17-13-3</b></span>. Der Einkauf schlägt den deutlich günstigeren <span class="mono"><b>42CrMo4</b></span> vor: „Da sind doch auch Chrom und Molybdän drin, und mit mehr Kohlenstoff ist er sogar fester.“</p>
+    <div class="figure">
+      <p class="tag" style="color:var(--blue)">Simulation · Auslagerung in feuchter, salzhaltiger Luft</p>
+      <div class="sim"><div id="fig-korr"></div><div class="ctrl" id="ctrl-korr"></div></div>
+    </div>
+    <p class="problem">Ist der Austausch in Ordnung? Begründe mit den Kurznamen.</p>
+    <div>
+      <label for="hyp1">Deine Vermutung in 2–3 Sätzen</label>
+      <textarea id="hyp1" data-field data-req data-label="Erste Vermutung" placeholder="Ich denke, der Austausch ist (nicht) in Ordnung, weil …"></textarea>
+    </div>
+    <p class="muted small">Hier gibt es noch kein Richtig oder Falsch. In Station 5 beantwortest du die Frage mit dem, was du gelernt hast.</p>
+  </div>
+
+  <div class="stepbox">
+    <h2><span class="no">2</span>Deine Lernziele und der Ablauf</h2>
+    <p><b>Am Ende dieser 90 Minuten kannst du …</b></p>
+    <ul class="goals">
+      <li>die vier Gruppen von Kurznamen nach der chemischen Zusammensetzung unterscheiden (unlegiert, niedriglegiert, hochlegiert, Schnellarbeitsstahl),</li>
+      <li>Kohlenstoff- und Legierungsgehalte mithilfe der Faktoren aus dem Kurznamen berechnen,</li>
+      <li>aus einer chemischen Analyse den Kurznamen bilden,</li>
+      <li>nichtrostende Stähle erkennen, austenitische und ferritische Stähle unterscheiden und einen Stahl für ein Bauteil begründet auswählen.</li>
+    </ul>
+    <div id="plan"></div>
+    <div class="fb info small"><b>So arbeitest du:</b> Jede Aufgabe hat <b>Prüfen</b>, <b>Tipp</b> und <b>Lösung</b>. Versuche es immer zuerst selbst, nutze dann den Tipp und vergleiche erst danach mit der Lösung. Vor neuen Aufgabentypen zeigt dir ein <b>Musterbeispiel</b>, wie es geht.</div>
+  </div>
+  <div class="start-cta"><button type="button" class="btn big" data-go="s1">Los geht’s mit Station 1 →</button></div>
+</section>
+
+<!-- STATION 1 -->
+<section class="station" id="s1" data-title="1 Gruppen">
+  <p class="eyebrow">Station 1 · 5–25 Min.</p>
+  <h1>Vier Gruppen von Kurznamen</h1>
+  <details class="glossar"><summary>📖 Begriffe dieser Station <span class="small muted">(antippen zum Aufklappen)</span></summary><dl><dt>legieren / Legierungselement</dt><dd>Einem Metall gezielt weitere Elemente zusetzen (z. B. Cr, Ni, Mo), um Eigenschaften zu verbessern. Diese Elemente heißen Legierungselemente.</dd><dt>Begleitelemente</dt><dd>Elemente, die aus der Herstellung in kleinen Mengen im Stahl bleiben (z. B. Si, Mn, P, S). Sie machen einen Stahl noch nicht zum legierten Stahl.</dd><dt>Werkzeugstahl</dt><dd>Stahl für Werkzeuge wie Bohrer, Messer, Stempel. Muss vor allem hart und verschleißfest sein.</dd><dt>Verschleißfestigkeit</dt><dd>Widerstand gegen Abnutzung durch Reibung oder harte Teilchen.</dd><dt>Warmfestigkeit</dt><dd>Der Werkstoff bleibt auch bei hohen Temperaturen fest und hart.</dd><dt>einsatzgehärtet</dt><dd>Nur die Randschicht eines Bauteils wird mit Kohlenstoff angereichert und gehärtet. Außen hart, innen zäh, typisch für Zahnräder.</dd></dl></details>
+  <p class="lead">Ziel: Du erkennst am Anfang eines Kurznamens, zu welcher Gruppe ein Stahl gehört.</p>
+  <div class="input">
+    <p class="tag">Einführungsauftrag · ca. 7 Min.</p>
+    <h2>Video Teil 2: Bezeichnung nach der chemischen Zusammensetzung</h2>
+    <p>Schau dir das Video ab <b>7:42 bis zum Ende</b> an. Lies vorher die vier Beobachtungsfragen darunter.</p>
+    <p><a class="btn" href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=462s" target="_blank" rel="noopener">▶ Video ab 7:42 öffnen (YouTube)</a></p>
+    <div data-yt="lOUD6R2bOrM" data-start="462"></div>
+    <p class="small">Kapitel: <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=462s" target="_blank" rel="noopener">7:42 Chemische Zusammensetzung</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=548s" target="_blank" rel="noopener">9:08 Unlegierte Stähle</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=606s" target="_blank" rel="noopener">10:06 Niedriglegierte Stähle</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=714s" target="_blank" rel="noopener">11:54 Hochlegierte Stähle</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=773s" target="_blank" rel="noopener">12:53 Schnellarbeitsstähle</a> · <a href="https://www.youtube.com/watch?v=lOUD6R2bOrM&amp;t=831s" target="_blank" rel="noopener">13:51 Zusammenfassung</a></p>
+  </div>
+  <div id="task-b1"></div>
+  <div class="input">
+    <p class="tag">Input · Übersicht</p>
+    <p class="fb info small">📋 Alle Symbole und Faktoren findest du in der Übersichtstabelle: Button <b>📋 Tabelle</b> rechts oben. Diese Tabelle darfst du auch in der Klausur verwenden.</p>
+    <div class="tbl-wrap"><table>
+      <tr><th>Gruppe</th><th>Erkennungszeichen</th><th>Aufbau</th><th>Beispiel</th></tr>
+      <tr><td><b>unlegiert</b></td><td class="mono">C</td><td>C + C-Gehalt · 100 + Zusatzsymbole</td><td class="mono">C45E</td></tr>
+      <tr><td><b>niedriglegiert</b><br><span class="small muted">kein Element über 5 %</span></td><td>kein Buchstabe, beginnt mit Zahl</td><td>C-Gehalt · 100 + Elemente + Gehalte · <b>Faktor</b></td><td class="mono">42CrMo4</td></tr>
+      <tr><td><b>hochlegiert</b><br><span class="small muted">mind. ein Element über 5 %</span></td><td class="mono">X</td><td>X + C-Gehalt · 100 + Elemente + Gehalte in <b>ganzen %</b></td><td class="mono">X5CrNi18-10</td></tr>
+      <tr><td><b>Schnellarbeitsstahl</b></td><td class="mono">HS</td><td>HS + Gehalte von W-Mo-V-Co in ganzen %</td><td class="mono">HS6-5-2-5</td></tr>
+    </table></div>
+    <p class="small">Die Elemente stehen nach <b>abnehmendem Gehalt</b>. Ein Element ohne Zahl ist nur in geringer Menge enthalten.</p>
+  </div>
+  <div id="task-b2"></div>
+  <div id="task-b3"></div>
+  <div class="row"><button class="btn secondary" data-go="s2">Weiter zu Station 2 →</button></div>
+</section>
+
+<!-- STATION 2 -->
+<section class="station" id="s2" data-title="2 Niedriglegiert">
+  <p class="eyebrow">Station 2 · 25–40 Min.</p>
+  <h1>Unlegierte und niedriglegierte Stähle</h1>
+  <details class="glossar"><summary>📖 Begriffe dieser Station <span class="small muted">(antippen zum Aufklappen)</span></summary><dl><dt>Faktor</dt><dd>Zahl, mit der ein Gehalt im Kurznamen multipliziert wurde, damit keine Kommazahl entsteht. Zum Ablesen teilst du durch den Faktor.</dd><dt>Schwefel (S)</dt><dd>Begleitelement. Wenig Schwefel verbessert die Zähigkeit; deshalb schreibt E einen Höchstgehalt vor.</dd><dt>vergütet (+QT)</dt><dd>Härten und anschließend Anlassen: hohe Festigkeit bei guter Zähigkeit.</dd><dt>Vergütungsstahl</dt><dd>Stahl, der für das Vergüten gedacht ist, z. B. für Wellen und Schrauben (C45, 42CrMo4).</dd></dl></details>
+  <div class="input">
+    <p class="tag">Input</p>
+    <p class="fb info small">📋 Alle Symbole und Faktoren findest du in der Übersichtstabelle: Button <b>📋 Tabelle</b> rechts oben. Diese Tabelle darfst du auch in der Klausur verwenden.</p>
+    <h2>Unlegierte Stähle</h2>
+    <p>Kennbuchstabe <span class="mono">C</span>, dann der C-Gehalt mal 100: <span class="mono">C45</span> enthält 0,45 % C. Danach können Zusatzsymbole folgen, z. B. <span class="mono">E</span> vorgeschriebener maximaler Schwefelgehalt, <span class="mono">R</span> vorgeschriebener Schwefelbereich, und Zustände wie <span class="mono">+QT</span> vergütet.</p>
+    <h2>Niedriglegierte Stähle und Legierungsfaktoren</h2>
+    <p>Der Kurzname beginnt direkt mit dem C-Gehalt mal 100. Die Legierungsgehalte sind mit einem <b>Faktor</b> multipliziert, damit keine Kommazahlen entstehen. Zum Ablesen teilst du durch den Faktor.</p>
+    <div class="tbl-wrap"><table>
+      <tr><th>Faktor</th><th>Elemente</th></tr>
+      <tr><td class="mono"><b>4</b></td><td>Cr, Co, Mn, Ni, Si, W</td></tr>
+      <tr><td class="mono"><b>10</b></td><td>Al, Be, Cu, Mo, Nb, Pb, Ta, Ti, V, Zr</td></tr>
+      <tr><td class="mono"><b>100</b></td><td>Ce, N, P, S und C</td></tr>
+      <tr><td class="mono"><b>1000</b></td><td>B</td></tr>
+    </table></div>
+  </div>
+  <div id="task-b4"></div>
+  <div id="ex-b2"></div>
+  <div id="task-b5"></div>
+  <div class="row"><button class="btn secondary" data-go="s3">Weiter zu Station 3 →</button></div>
+</section>
+
+<!-- STATION 3 -->
+<section class="station" id="s3" data-title="3 Hochlegiert">
+  <p class="eyebrow">Station 3 · 40–52 Min.</p>
+  <h1>Hochlegierte Stähle und Schnellarbeitsstähle</h1>
+  <details class="glossar"><summary>📖 Begriffe dieser Station <span class="small muted">(antippen zum Aufklappen)</span></summary><dl><dt>Schnellarbeitsstahl (HSS)</dt><dd>Werkzeugstahl, der auch bei hohen Schnittgeschwindigkeiten und Temperaturen von etwa 600 °C an der Schneide hart bleibt.</dd><dt>Schnittgeschwindigkeit</dt><dd>Geschwindigkeit, mit der die Schneide eines Werkzeugs am Werkstück entlangläuft.</dd></dl></details>
+  <div class="input">
+    <p class="tag">Input</p>
+    <p><b>Hochlegiert (X):</b> Mindestens ein Element liegt über 5 %. Nach dem X folgt der C-Gehalt mal 100, dann die Elemente. Ihre Gehalte stehen <b>direkt in ganzen Prozent</b>, ohne Faktor.</p>
+    <p><b>Schnellarbeitsstähle (HS, high speed):</b> legierte Werkzeugstähle mit großer Härte, hoher Verschleißfestigkeit und Warmfestigkeit, z. B. für Bohrer, Fräser und Drehmeißel. Nach HS folgen immer die Gehalte von <b>W-Mo-V-Co</b> in ganzen Prozent.</p>
+  </div>
+  <div id="ex-b3"></div>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Werkzeug · Kurznamen-Analysator</p>
+    <p class="small">Tippe ein Beispiel an oder gib einen Kurznamen ein. Nutze ihn zum Kontrollieren deiner Ergebnisse.</p>
+    <div id="ana-b"></div>
+  </div>
+  <div id="task-b6"></div>
+  <div id="task-b7"></div>
+  <div class="row"><button class="btn secondary" data-go="s4">Weiter zu Station 4 →</button></div>
+</section>
+
+<!-- STATION 4 -->
+<section class="station" id="s4" data-title="4 Nichtrostend">
+  <p class="eyebrow">Station 4 · 52–77 Min.</p>
+  <h1>Nichtrostende Stähle</h1>
+  <details class="glossar"><summary>📖 Begriffe dieser Station <span class="small muted">(antippen zum Aufklappen)</span></summary><dl><dt>Korrosion</dt><dd>Zerstörung eines Metalls durch chemische Reaktion mit seiner Umgebung, z. B. Rosten von Eisen mit Wasser und Sauerstoff.</dd><dt>Passivschicht</dt><dd>Hauchdünne, dichte Oxidschicht (bei nichtrostendem Stahl aus Chromoxid) auf der Oberfläche. Sie trennt das Metall vom Medium und schützt es.</dd><dt>Chloride</dt><dd>Salze der Salzsäure, z. B. Kochsalz NaCl. Chloridionen können die Passivschicht örtlich durchbrechen.</dd><dt>Lochfraß</dt><dd>Örtliche Korrosion: Kleine, tiefe Löcher entstehen, während der Rest der Oberfläche blank bleibt. Gefährlich, weil schwer zu erkennen.</dd><dt>Gitter / Elementarzelle</dt><dd>Metallatome sind regelmäßig angeordnet (Gitter, siehe 1.1.1). Die kleinste Baueinheit, die sich immer wiederholt, ist ein Würfel: die Elementarzelle.</dd><dt>krz (kubisch-raumzentriert)</dt><dd>Würfel mit je einem Atom an den 8 Ecken und einem Atom in der Würfelmitte. So ist Eisen bei Raumtemperatur aufgebaut.</dd><dt>kfz (kubisch-flächenzentriert)</dt><dd>Würfel mit Atomen an den 8 Ecken und in der Mitte jeder der 6 Flächen. Nickel stabilisiert dieses Gitter im Stahl.</dd><dt>Ferrit / ferritisch</dt><dd>Gefüge mit krz-Gitter. Ferritische Stähle sind magnetisch.</dd><dt>Austenit / austenitisch</dt><dd>Gefüge mit kfz-Gitter. Austenitische Stähle sind unmagnetisch, zäh und gut umformbar.</dd><dt>kaltzäh</dt><dd>Bleibt auch bei sehr tiefen Temperaturen (z. B. −196 °C) zäh und bricht nicht spröde.</dd><dt>kaltverfestigend</dt><dd>Wird beim Umformen im kalten Zustand deutlich fester.</dd><dt>Streckgrenze</dt><dd>Kraft pro mm², bis zu der sich der Stahl nur elastisch verformt (aus Teil a).</dd><dt>Torsion</dt><dd>Verdrehung, z. B. einer Welle, die ein Drehmoment überträgt.</dd><dt>Kryotank</dt><dd>Isolierter Tank für tiefkalte Flüssigkeiten wie flüssigen Stickstoff.</dd></dl></details>
+  <div class="input">
+    <p class="tag">Input</p>
+    <p>Ein Stahl ist <b>nichtrostend</b>, wenn er mindestens etwa <span class="mono">10,5 % Chrom</span> gelöst enthält, in der Praxis meist über <span class="mono">12 %</span>, und wenig Kohlenstoff (meist unter 0,1 %). Das Chrom bildet an der Oberfläche eine hauchdünne, dichte <b>Passivschicht</b> aus Chromoxid. Wird sie verletzt, bildet sie sich an der Luft von selbst neu.</p>
+    <div class="grid2">
+      <div class="card"><h3>Austenitisch (mit viel Ni)</h3><figure class="ezelle"><div data-zelle="kfz"></div><figcaption class="small muted">Elementarzelle kubisch-flächenzentriert (kfz): 8 Eckatome + 6 Flächenmitten (blau hervorgehoben, alle sind Eisenatome)</figcaption></figure><p>z. B. <span class="mono">X5CrNi18-10</span>. Nickel macht das Gitter <b>kubisch-flächenzentriert (kfz)</b>, also Atome an den Ecken und auf den Flächenmitten der Elementarzelle (siehe Simulation): unmagnetisch, kaltzäh, stark kaltumformbar und kaltverfestigend, sehr gut schweißbar, niedrige Streckgrenze, nicht härtbar. Mo erhöht die Beständigkeit gegen Chloride.</p></div>
+      <div class="card"><h3>Ferritisch (ohne Ni)</h3><figure class="ezelle"><div data-zelle="krz"></div><figcaption class="small muted">Elementarzelle kubisch-raumzentriert (krz): 8 Eckatome + 1 Atom in der Würfelmitte (blau hervorgehoben, alle sind Eisenatome)</figcaption></figure><p>z. B. <span class="mono">X6Cr17</span>. Gitter <b>kubisch-raumzentriert (krz)</b>, also Atome an den Ecken und eines in der Würfelmitte: magnetisch, höhere Streckgrenze, weniger kaltumformbar, kaltspröde, schlechter schweißbar. Beständig gegen Wasser und feuchte Luft, günstiger, weil ohne Nickel.</p></div>
+    </div>
+  </div>
+  <div class="figure">
+    <p class="tag" style="color:var(--blue)">Simulation · Chrom, Nickel und der Magnettest</p>
+    <div class="sim"><div id="fig-nr"></div><div class="ctrl" id="ctrl-nr"></div></div>
+    <p class="question">Ab welchem Chromgehalt schließt sich die Passivschicht? Wie viel Nickel braucht es, bis der Magnet den Stahl nicht mehr anzieht?</p>
+    <p class="small muted">Vereinfachtes Modell für Stähle mit etwa 17–18 % Chrom.</p>
+  </div>
+  <div id="task-b8"></div>
+  <div id="task-b9"></div>
+  <div class="row"><button class="btn secondary" data-go="s5">Weiter zu Station 5 →</button></div>
+</section>
+
+<!-- STATION 5 -->
+<section class="station" id="s5" data-title="5 Lösung &amp; Abgabe">
+  <p class="eyebrow">Station 5 · 77–90 Min.</p>
+  <h1>Quiz, Antwort auf die Problemstellung, Abgabe</h1>
+  <div id="task-quiz"></div>
+  <div class="task">
+    <p class="tag">Aufgabe 5b · Antwort auf die Problemstellung</p>
+    <h2>Zurück zur Rührwerkswelle</h2>
+    <p class="problem">Darf die Welle aus 42CrMo4 statt aus X2CrNiMoN17-13-3 gefertigt werden?</p>
+    <div class="fb maybe" id="hyp1-show"></div>
+    <label for="hyp2">Überarbeite deine Vermutung. Entschlüssele dabei beide Kurznamen und verwende die Begriffe Legierungsfaktor, hochlegiert und Passivschicht.</label>
+    <textarea id="hyp2" data-field data-req data-label="Überarbeitete Antwort"></textarea>
+    <div class="row helpbar"><button type="button" class="btn secondary" data-phelp="hint">Tipp</button><button type="button" class="btn secondary" data-phelp="sol">Musterantwort</button></div>
+    <div id="hyp-help"></div>
+    <label for="frage">Was ist noch unklar? Deine Frage für den Unterricht:</label>
+    <textarea id="frage" data-field data-label="Offene Frage"></textarea>
+  </div>
+  <div id="merke"></div>
+  <div class="task">
+    <p class="tag">Abgabe</p>
+    <h2>Ergebnisse sichern</h2>
+    <p>Ist der Speicherordner verbunden, liegt deine Speicherdatei schon fertig im Ordner. Sie ist gleichzeitig deine Abgabe. Sonst speichere sie hier oder kopiere den Text und gib ihn auf dem Weg ab, den deine Lehrkraft genannt hat.</p>
+    <div class="row">
+      <button type="button" class="btn" data-lm="download">Als Textdatei speichern</button>
+      <button class="btn secondary" id="copy">Text kopieren</button>
+      <span class="score" id="save-msg" role="status"></span>
+    </div>
+    <label for="summary">Vorschau</label>
+    <textarea id="summary" class="summary" readonly></textarea>
+  </div>
+</section>
+
+</main>
+<footer class="site-foot">Carl Engler Schule Karlsruhe · Fachschule für Technik – Chemie · Produktionstechnologie</footer>
+
+<script>
+/* ============================================================
+   Gemeinsame Bausteine der Lernmodule (Carl-Engler-Schule)
+   - SaveKit: Speichern in drei Ebenen (Browser, Speicherordner, Datei)
+   - Steps:   Musterbeispiel Schritt für Schritt
+   - G:       SVG-Hilfen für plastische Bilder und flache Diagramme
+   ============================================================ */
+const LM = (function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MARK = "=== WIEDERHERSTELLUNG – diese Zeilen nicht verändern ===";
+const toB64 = s => btoa(unescape(encodeURIComponent(s)));
+const fromB64 = s => decodeURIComponent(escape(atob(s)));
+const hhmm = d => d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+
+/* ---------- IndexedDB: gemerkter Speicherordner ---------- */
+const IDB = {
+  open(){ return new Promise((res,rej)=>{ const r=indexedDB.open("lernmodul-speicher",1); r.onupgradeneeded=()=>r.result.createObjectStore("handles"); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); },
+  async get(k){ try{ const db=await this.open(); return await new Promise((res)=>{ const q=db.transaction("handles").objectStore("handles").get(k); q.onsuccess=()=>res(q.result); q.onerror=()=>res(undefined); }); }catch(e){ return undefined; } },
+  async set(k,v){ try{ const db=await this.open(); await new Promise((res)=>{ const t=db.transaction("handles","readwrite"); t.objectStore("handles").put(v,k); t.oncomplete=res; t.onerror=res; }); }catch(e){} },
+  async del(k){ try{ const db=await this.open(); await new Promise((res)=>{ const t=db.transaction("handles","readwrite"); t.objectStore("handles").delete(k); t.oncomplete=res; t.onerror=res; }); }catch(e){} }
+};
+
+/* ============================================================
+   SaveKit
+   cfg: key, moduleId, moduleTitle, fileStem,
+        getState(), setState(obj), summary() -> lesbarer Text (ohne Speicherblock)
+   ============================================================ */
+function SaveKit(cfg){
+  const PROBE = /lm-probe/.test(location.hash);   // Prüfmodus für die Übersicht
+  const FS_OK = typeof window.showDirectoryPicker === "function" && typeof indexedDB !== "undefined";
+  let dir = null;          // FileSystemDirectoryHandle
+  let perm = "none";       // none | prompt | granted
+  let lastFileSave = null, lastErr = "", writing = false, pending = false, timer = null, choice = null;
+  const statusEl = () => $("#saved"), panel = () => $("#savepanel"), bar = () => $("#resumebar");
+
+  /* --- Text der Datei --- */
+  function fullText(){
+    const st = cfg.getState();
+    const pr = progress();
+    return cfg.summary() + (pr ? `\n\nFORTSCHRITT: ${pr.done}/${pr.total} Stationen erledigt` : "") + "\n\nMODUL-ID: " + cfg.moduleId + "\n" + MARK + "\n" + toB64(JSON.stringify(st)) + "\n";
+  }
+  function parse(txt){
+    const mm = txt.match(/MODUL-ID: (\S+)/);
+    if(mm && mm[1] !== cfg.moduleId){ const t=(txt.match(/LEHRPLANEINHEIT: (.+)/)||[])[1]||mm[1]; return {err:`Diese Datei gehört zu einer anderen Lehrplaneinheit (${t}). Bitte die Datei zu „${cfg.moduleTitle}“ wählen.`}; }
+    const i = txt.indexOf(MARK);
+    if(i<0) return {err:"Diese Datei enthält keinen Speicherstand. Bitte die Datei wählen, die dieses Lernmodul gespeichert hat."};
+    try { return {data: JSON.parse(fromB64(txt.slice(i+MARK.length).trim().split(/\s+/)[0]))}; }
+    catch(e){ return {err:"Der Speicherstand in dieser Datei ist beschädigt."}; }
+  }
+  /* Dateiname nur mit sicheren Zeichen: Umlaute umschreiben, Leerzeichen als _ */
+  const safe = t => String(t||"").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/Ä/g,"Ae").replace(/Ö/g,"Oe").replace(/Ü/g,"Ue").replace(/ß/g,"ss")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[–—]/g,"-").replace(/[^A-Za-z0-9.\- ]+/g,"").trim().replace(/\s+/g,"_");
+  function fileName(){ return `${safe(cfg.fileStem)}_Speicherstand.txt`; }
+
+  /* --- Ebene 1: Browser --- */
+  let lsOk = true;
+  function writeLocal(){ if(PROBE) return; try { localStorage.setItem(cfg.key, JSON.stringify(cfg.getState())); lsOk = true; } catch(e){ lsOk = false; } writeProgress(); }
+  /* Fortschritt für die Übersicht (Stationen wie in der Ablauftabelle) */
+  function progress(){ try { const p = cfg.progress && cfg.progress(); return p && p.total ? {done:p.done|0, total:p.total|0} : null; } catch(e){ return null; } }
+  function writeProgress(){
+    const p = progress(), st = cfg.getState(); if(!p || !st._ts) return;
+    try { const all = JSON.parse(localStorage.getItem("lm-fortschritt")||"{}") || {}; all[cfg.moduleId] = {done:p.done, total:p.total, ts:st._ts}; localStorage.setItem("lm-fortschritt", JSON.stringify(all)); } catch(e){}
+  }
+  function readLocal(){ if(PROBE) return {}; try { return JSON.parse(localStorage.getItem(cfg.key)||"{}") || {}; } catch(e){ return {}; } }
+
+  /* --- Ebene 2: Speicherordner --- */
+  async function writeFile(){
+    if(!dir || perm!=="granted") return;
+    if(writing){ pending = true; return; }
+    writing = true;
+    try {
+      const st = cfg.getState(), name = fileName();
+      const fh = await dir.getFileHandle(name, {create:true});
+      const w = await fh.createWritable(); await w.write(fullText()); await w.close();
+      if(st._file && st._file !== name){ try { await dir.removeEntry(st._file); } catch(e){} }
+      if(st._file !== name){ st._file = name; writeLocal(); }
+      lastFileSave = new Date(); lastErr = "";
+    } catch(e){
+      lastErr = "Datei konnte nicht geschrieben werden."; try{ console.warn("Speicherfehler:", e && e.name, e && e.message); }catch(_){}
+      try { if(await dir.queryPermission({mode:"readwrite"}) !== "granted") perm = "prompt"; } catch(_){}
+    }
+    writing = false; render();
+    if(pending){ pending = false; writeFile(); }
+  }
+  function scheduleFile(){ if(PROBE) return; if(dir && perm==="granted"){ clearTimeout(timer); timer = setTimeout(writeFile, 700); } }
+
+  async function listFiles(){
+    const out = [];
+    for await (const [n,h] of dir.entries()){
+      if(h.kind!=="file" || !/\.txt$/i.test(n)) continue;
+      try {
+        const f = await h.getFile(); if(f.size > 3e6) continue;
+        const txt = await f.text(); if(!txt.includes("MODUL-ID: "+cfg.moduleId)) continue;
+        const p = parse(txt); if(!p.data) continue;
+        out.push({file:n, data:p.data, ts:p.data._ts||f.lastModified, who:(p.data.name||"").trim()});
+      } catch(e){}
+    }
+    return out.sort((a,b)=>b.ts-a.ts);
+  }
+  /* Nach dem Verbinden: passenden Speicherstand suchen und einlesen */
+  async function syncFromDir(){
+    let files = [];
+    try { files = await listFiles(); } catch(e){ files = []; }
+    const st = cfg.getState();
+    const hit = files.find(f => f.file===fileName()) || files[0] || null;   // neuester Speicherstand dieser Einheit
+    if(hit && (!st._ts || hit.ts > st._ts)){ apply(hit.data, `Speicherstand aus „${hit.file}“ eingelesen.`); }
+    else { scheduleFile(); flash(hit ? "Dein Stand im Browser ist neuer als die Datei. Die Datei wird aktualisiert." : "Verbunden. Ab jetzt wird automatisch gespeichert."); }
+  }
+  function apply(data, msg){
+    cfg.setState(data); writeLocal(); flash(msg); render(); scheduleFile();
+  }
+  let skipped = false, failed = false, begun = false;
+  try { skipped = sessionStorage.getItem("lm-skip-"+cfg.moduleId)==="1"; } catch(e){}
+  function skip(){ skipped = true; try { sessionStorage.setItem("lm-skip-"+cfg.moduleId, "1"); } catch(e){} render(); }
+  async function connect(){
+    try {
+      const h = await window.showDirectoryPicker({id:"lernmodul", mode:"readwrite"});
+      dir = h; perm = "granted"; failed = false; await IDB.set("ordner", h); choice = null; render(); await syncFromDir();
+    } catch(e){ failed = true; render(); if(e && e.name!=="AbortError") flash("Ordner konnte nicht verbunden werden."); }
+  }
+  async function resume(){
+    if(!dir) return;
+    try { perm = await dir.requestPermission({mode:"readwrite"}); } catch(e){ perm = "prompt"; }
+    if(perm!=="granted") failed = true;
+    render(); if(perm==="granted") await syncFromDir();
+  }
+
+  /* --- Startfenster: Speicherort ist Schritt 1, erst danach beginnt die Einheit --- */
+  function renderGate(){
+    let g = document.getElementById("lm-gate");
+    const ready = FS_OK && dir && perm==="granted";
+    const need = !skipped && !begun;
+    if(!need){ if(g){ g.remove(); document.body.classList.remove("lm-gated"); window.scrollTo(0,0); } return; }
+    const first = !g;
+    if(!g){ g = document.createElement("div"); g.id = "lm-gate"; g.setAttribute("role","dialog"); g.setAttribute("aria-modal","true"); g.setAttribute("aria-labelledby","lm-gate-h"); document.body.appendChild(g); document.body.classList.add("lm-gated"); }
+    const head = `<p class="eyebrow">${esc(cfg.moduleTitle)}</p>`;
+    let body;
+    if(ready){
+      body = `<h2 id="lm-gate-h"><span class="no ok">✓</span>Speicherort ist verbunden</h2>
+        <p>Ordner <b>„${esc(dir.name)}“</b> · Datei <span class="mono">${esc(fileName())}</span></p>
+        <p>Ab jetzt wird jede Eingabe automatisch gespeichert. Oben rechts siehst du jederzeit, wann zuletzt gespeichert wurde.</p>
+        <div class="row"><button type="button" class="btn big" data-lm="begin">Lerneinheit beginnen →</button></div>`;
+    } else if(!FS_OK){
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Bevor es losgeht: So sicherst du deine Arbeit</h2>
+        <p>Dein Browser kann nicht automatisch in eine Datei speichern (z. B. Firefox, Safari, iPad, Smartphone). Deine Eingaben bleiben in diesem Browser erhalten, aber nur auf diesem Gerät.</p>
+        <ol class="lm-gate-steps"><li>Hast du schon eine Speicherdatei? Dann lade sie jetzt.</li><li>Sichere am Ende der Stunde mit <b>„Zwischenstand als Datei sichern“</b> (Startseite oder letzte Station).</li><li>Tipp: Am PC mit <b>Chrome oder Edge</b> wird automatisch gespeichert.</li></ol>
+        <div class="row"><label class="filebtn" for="lm-gate-load">Speicherdatei laden</label><input type="file" id="lm-gate-load" accept=".txt,text/plain" class="visually-hidden">
+        <button type="button" class="btn big" data-lm="skip">Verstanden – Lerneinheit starten</button></div>`;
+    } else if(dir){
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Willkommen zurück!</h2>
+        <p>Dein Speicherordner <b>„${esc(dir.name)}“</b> ist bekannt. Klicke auf <b>„Weiterarbeiten“</b> und bestätige die Frage des Browsers. Dann wird dein Speicherstand geladen und jede Eingabe wieder automatisch gespeichert.</p>
+        <div class="row"><button type="button" class="btn big" data-lm="resume">Weiterarbeiten</button><button type="button" class="btn secondary" data-lm="connect">Anderen Ordner wählen</button></div>`;
+    } else {
+      body = `<h2 id="lm-gate-h"><span class="no">0</span>Bevor es losgeht: Speicherort wählen</h2>
+        <p>Diese Lerneinheit speichert jede deiner Eingaben automatisch in eine Datei. So geht nichts verloren, und beim nächsten Öffnen ist alles wieder da.</p>
+        <ol class="lm-gate-steps"><li>Klicke auf <b>„Speicherordner wählen“</b>.</li><li>${location.protocol==="file:" ? "Wähle den Ordner, in dem diese HTML-Datei liegt (oder deinen eigenen Schulordner)" : "Wähle einen Ordner auf deinem Rechner für deine Speicherdateien, z. B. deinen Schulordner für Produktionstechnologie"}, und klicke auf <b>„Ordner auswählen“</b>.</li><li>Bestätige die Frage des Browsers mit <b>„Dateien bearbeiten“</b> bzw. <b>„Zulassen“</b>.</li></ol>
+        <div class="row"><button type="button" class="btn big" data-lm="connect">Speicherordner wählen</button></div>
+        <p class="small muted">Deine Datei heißt dann: <span class="mono">${esc(fileName())}</span></p>`;
+    }
+    const esc2 = FS_OK && failed ? `<div class="fb maybe small">Kein Ordner gewählt. Versuche es noch einmal. <b>Geht es gar nicht</b> (z. B. gesperrter Schulrechner)? <button type="button" class="linkbtn" data-lm="skip">Ohne automatisches Speichern starten</button> – dann am Ende unbedingt per Datei sichern.</div>` : "";
+    g.innerHTML = `<div class="lm-gate-card${ready?" ok":""}">${head}${body}${esc2}${msg&&!ready?`<p class="score small" role="status">${esc(msg)}</p>`:""}</div>`;
+    const bt = g.querySelector(".btn.big"); if(bt && (first || ready)) bt.focus();
+  }
+  async function disconnect(){ dir = null; perm = "none"; choice = null; await IDB.del("ordner"); render(); flash("Speicherordner getrennt. Gespeichert wird nur noch im Browser."); }
+
+  /* --- Ebene 3: Datei herunterladen / laden --- */
+  function download(){
+    const t = fullText();
+    try {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([t], {type:"text/plain;charset=utf-8"}));
+      a.download = fileName(); document.body.appendChild(a); a.click(); a.remove();
+      flash(`Datei „${fileName()}“ gespeichert (meist im Ordner „Downloads“).`);
+    } catch(e){ flash("Speichern nicht möglich. Bitte den Text unten kopieren."); }
+    return t;
+  }
+  function loadText(txt){ const p = parse(String(txt)); if(p.err){ flash(p.err); return false; } apply(p.data, "Zwischenstand geladen."); return true; }
+  function loadBlob(f){ if(!f) return; const r = new FileReader(); r.onload = () => loadText(r.result); r.readAsText(f, "utf-8"); }
+
+  /* --- Anzeige --- */
+  let msg = "", msgT = null;
+  function flash(m){ msg = m; render(); clearTimeout(msgT); msgT = setTimeout(()=>{ msg=""; render(); }, 9000); }
+  function render(){
+    const s = statusEl();
+    if(s){
+      const base = lsOk ? "Automatisch gespeichert" : "Speichern im Browser nicht möglich";
+      if(dir && perm==="granted") s.textContent = lastErr ? "⚠ " + lastErr : `✓ Gespeichert in Datei${lastFileSave?" · "+hhmm(lastFileSave):""}`;
+      else if(dir) s.innerHTML = `⚠ Speicherordner: <button type="button" class="linkbtn" data-lm="resume">Weiterarbeiten</button>`;
+      else if(FS_OK) s.innerHTML = `⚠ Nicht in Datei gespeichert · <button type="button" class="linkbtn" data-lm="connect">Speicherort wählen</button>`;
+      else s.textContent = base;
+      s.classList.toggle("warn", !!(lastErr || (FS_OK && !(dir && perm==="granted")) || !lsOk));
+    }
+    const b = bar();
+    if(b){
+      if(choice){
+        b.hidden = false;
+        b.innerHTML = `<div><b>Im Speicherordner liegen mehrere Speicherstände.</b> Wer bist du?</div><div class="row">${choice.map((f,i)=>`<button type="button" class="btn small" data-lm-pick="${i}">${esc(f.file)} · ${new Date(f.ts).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</button>`).join("")}<button type="button" class="btn small secondary" data-lm-pick="new">Neu beginnen</button></div>`;
+      } else { b.hidden = true; b.innerHTML = ""; }
+    }
+    renderGate();
+    const step = document.getElementById("savestep"); if(step) step.classList.toggle("done", !!(dir && perm==="granted"));
+    const p = panel(); if(!p) return;
+    let lvl2;
+    if(!FS_OK){
+      lvl2 = `<div class="fb maybe small"><b>Dieser Browser kann nicht automatisch in eine Datei speichern</b> (z. B. Firefox, Safari, iPad, Smartphone). Deine Eingaben bleiben in diesem Browser gespeichert. Sichere den Zwischenstand zusätzlich am Ende jeder Stunde als Datei. Am PC geht es mit Chrome oder Edge auch automatisch.</div>`;
+    } else if(dir && perm==="granted"){
+      lvl2 = `<div class="fb ok small"><b>✓ Automatisches Speichern ist aktiv.</b> Jede Eingabe wird in den Ordner „${esc(dir.name)}“ geschrieben: <span class="mono">${esc(fileName())}</span>${lastFileSave?` · zuletzt ${hhmm(lastFileSave)}`:""}. Beim nächsten Öffnen genügt ein Klick auf „Weiterarbeiten“.</div>
+        <div class="row"><button type="button" class="btn small secondary" data-lm="connect">Anderen Ordner wählen</button><button type="button" class="linkbtn" data-lm="disconnect">Speicherordner trennen</button></div>`;
+    } else if(dir){
+      lvl2 = `<div class="row"><button type="button" class="btn" data-lm="resume">Weiterarbeiten mit Ordner „${esc(dir.name)}“</button><button type="button" class="btn secondary" data-lm="connect">Anderen Ordner wählen</button></div>`;
+    } else {
+      lvl2 = `<p class="small"><b>Empfohlen am PC (Chrome oder Edge):</b> Wähle einmal den Ordner, in dem diese HTML-Datei liegt. Danach wird jede Eingabe automatisch in die Datei <span class="mono">${esc(fileName())}</span> geschrieben. Beim nächsten Öffnen liest das Lernmodul sie nach einem Klick automatisch wieder ein.</p>
+        <div class="row"><button type="button" class="btn" data-lm="connect">Speicherordner verbinden</button></div>`;
+    }
+    p.innerHTML = `${lvl2}
+      <details class="lm-more" ${FS_OK?"":"open"}><summary>Zwischenstand von Hand sichern oder laden</summary>
+        <div class="row" style="margin-top:10px">
+          <button type="button" class="btn secondary" data-lm="download">Zwischenstand als Datei sichern</button>
+          <label class="filebtn" for="lm-load">Zwischenstand laden</label>
+          <input type="file" id="lm-load" accept=".txt,text/plain" class="visually-hidden">
+          <button type="button" class="linkbtn" data-lm="askreset">Alles löschen</button>
+        </div>
+        <p class="small muted" style="margin-top:6px">Tipp: Du kannst deine txt-Datei auch einfach auf diese Seite ziehen.</p>
+        <div class="fb err small" id="lm-reset" hidden>Wirklich alle Eingaben löschen? <button type="button" class="linkbtn" data-lm="reset">Ja, löschen</button> <button type="button" class="linkbtn" data-lm="askreset">Abbrechen</button></div>
+      </details>
+      <p class="score small" role="status">${esc(msg)}</p>`;
+  }
+
+  /* --- Ereignisse --- */
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-lm],[data-lm-pick]"); if(!b) return;
+    if(b.dataset.lmPick!=null){
+      const k = b.dataset.lmPick, files = choice || []; choice = null;
+      if(k==="new"){ render(); scheduleFile(); flash("Neuer Speicherstand angelegt."); }
+      else apply(files[+k].data, `Speicherstand „${files[+k].file}“ eingelesen.`);
+      return;
+    }
+    const a = b.dataset.lm;
+    if(a==="begin"){ begun = true; render(); }
+    else if(a==="connect") connect();
+    else if(a==="resume") resume();
+    else if(a==="disconnect") disconnect();
+    else if(a==="skip") skip();
+    else if(a==="download") download();
+    else if(a==="askreset"){ const r = $("#lm-reset"); if(r) r.hidden = !r.hidden; }
+    else if(a==="reset"){ cfg.setState({}); writeLocal(); scheduleFile(); flash("Alle Eingaben gelöscht."); }
+  });
+  document.addEventListener("change", e => { if(e.target && (e.target.id==="lm-load" || e.target.id==="lm-gate-load")){ if(e.target.id==="lm-gate-load") skip(); loadBlob(e.target.files && e.target.files[0]); e.target.value=""; } });
+  const hasFiles = e => e.dataTransfer && Array.from(e.dataTransfer.types||[]).includes("Files");
+  document.addEventListener("dragover", e => { if(hasFiles(e)){ e.preventDefault(); document.body.classList.add("lm-drop"); } });
+  document.addEventListener("dragleave", e => { if(e.target===document.documentElement || e.clientX<=0 || e.clientY<=0) document.body.classList.remove("lm-drop"); });
+  document.addEventListener("drop", e => { if(!hasFiles(e)) return; e.preventDefault(); document.body.classList.remove("lm-drop"); loadBlob(e.dataTransfer.files[0]); });
+
+  /* --- Start --- */
+  async function init(){
+    if(PROBE){ probe(); return; }
+    backLink();
+    render();
+    if(!FS_OK) return;
+    const h = window.__lmTestDir || await IDB.get("ordner");
+    if(!h) return;
+    dir = h;
+    try { perm = await h.queryPermission({mode:"readwrite"}); } catch(e){ perm = "prompt"; }
+    render();
+    if(perm==="granted") await syncFromDir();
+  }
+
+  /* Prüfmodus (#lm-probe, unsichtbar im iframe der Übersicht): Speicherstand einlesen, Fortschritt melden, nichts speichern */
+  function probe(){
+    window.addEventListener("message", e => {
+      const m = e.data; if(!m || !m.lmProbe) return;
+      const res = {lmProbeResult:true, req:m.req, id:cfg.moduleId};
+      try { const p = parse(String(m.txt||"")); if(p.data){ cfg.setState(p.data); const pr = progress(); if(pr) Object.assign(res, pr); } else res.err = p.err; } catch(err){ res.err = String(err); }
+      parent.postMessage(res, "*");
+    });
+    const ready = () => setTimeout(() => parent.postMessage({lmProbeReady:true, id:cfg.moduleId}, "*"), 30);
+    if(document.readyState === "complete") ready(); else window.addEventListener("load", ready);
+  }
+
+  return {
+    initial: readLocal,
+    changed(meta){ const st = cfg.getState(); if(meta){ writeLocal(); return; } st._ts = Date.now(); writeLocal(); scheduleFile(); render(); },   // meta: nur Ansicht (z. B. Station), kein neuer Arbeitsstand
+    init, download, fullText, loadText, render,
+    _test:{ setDir(h){ dir=h; perm="granted"; return syncFromDir(); }, writeNow: writeFile, listFiles }
+  };
+}
+
+/* Link „Alle Lerneinheiten“: nur wenn die Übersicht in diesem Browser schon einmal geöffnet wurde */
+function backLink(){
+  let href = ""; try { href = localStorage.getItem("lm-uebersicht") || ""; } catch(e){}
+  const host = $(".site-inner"); if(!href || !host || $(".lm-back", host)) return;
+  const a = document.createElement("a"); a.className = "lm-back"; a.href = href; a.textContent = "← Alle Lerneinheiten";
+  host.appendChild(a);
+}
+
+/* ============================================================
+   Musterbeispiel Schritt für Schritt
+   ex = {title, given, sought, steps:[{h, b}], result}
+   ============================================================ */
+function Steps(host, ex){
+  let n = 0;
+  function render(){
+    host.innerHTML = `<div class="muster">
+      <p class="tag">Musterbeispiel</p>
+      <h3>${ex.title}</h3>
+      ${ex.text?`<p>${ex.text}</p>`:""}
+      ${ex.given?`<p class="small"><b>Gegeben:</b> ${ex.given}</p>`:""}
+      ${ex.sought?`<p class="small"><b>Gesucht:</b> ${ex.sought}</p>`:""}
+      <ol class="msteps">${ex.steps.map((s,i)=>`<li class="${i<n?"on":"off"}" ${i<n?"":"aria-hidden=\"true\""}><b>${s.h}</b>${i<n?`<div class="solbox">${s.b}</div>`:""}</li>`).join("")}</ol>
+      ${n>=ex.steps.length && ex.result?`<div class="fb ok small">${ex.result}</div>`:""}
+      <div class="row">
+        <button type="button" class="btn small" data-step="next" ${n>=ex.steps.length?"disabled":""}>${n===0?"Ersten Schritt zeigen":"Nächster Schritt"}</button>
+        <button type="button" class="btn small secondary" data-step="all" ${n>=ex.steps.length?"disabled":""}>Alle Schritte</button>
+        ${n>0?`<button type="button" class="linkbtn" data-step="reset">Von vorn</button>`:""}
+        <span class="small muted">${n} von ${ex.steps.length} Schritten</span>
+      </div>
+      ${n<ex.steps.length?`<p class="small muted">Überlege vor jedem Klick, wie der nächste Schritt aussehen könnte.</p>`:""}
+    </div>`;
+  }
+  host.addEventListener("click", e => {
+    const b = e.target.closest("[data-step]"); if(!b) return;
+    const a = b.dataset.step;
+    n = a==="next" ? Math.min(n+1, ex.steps.length) : a==="all" ? ex.steps.length : 0;
+    render();
+  });
+  render();
+}
+
+/* ============================================================
+   Merke: „Das Wichtigste auf einen Blick“ (Zusammenfassung, druckbar)
+   m = {title, items:[[Begriff, Text], …], formeln:[…]}
+   ============================================================ */
+function Merke(host, m, unitTitle){
+  if(!host || !m) return;
+  const inner = `${m.items.map((it,i)=>`<div class="mk-item"><span class="mk-no">${i+1}</span><div><b>${it[0]}</b><div>${it[1]}</div></div></div>`).join("")}${m.formeln?`<div class="mk-f"><b>Formeln</b><div>${m.formeln.map(x=>`<span class="mono">${x}</span>`).join("")}</div></div>`:""}`;
+  host.classList.add("task","merke");
+  host.innerHTML = `<p class="tag">Das Wichtigste auf einen Blick</p><h2>${m.title||unitTitle}</h2><p class="muted small">Lies die Kernaussagen und prüfe dich: Kannst du jede mit eigenen Worten erklären? Diese Seite kannst du ausdrucken oder als PDF speichern.</p><div class="mk-grid">${inner}</div><div class="row"><button type="button" class="btn secondary mk-print">🖨 Drucken / als PDF</button></div>`;
+  host.querySelector(".mk-print").addEventListener("click", () => {
+    const css = [...document.querySelectorAll("style")].map(x=>x.textContent).join("\n");
+    const w = window.open("", "_blank"); if(!w) return;
+    w.document.write(`<!doctype html><html lang="de" data-theme="light"><head><meta charset="utf-8"><title>${esc(unitTitle)} – Das Wichtigste</title><style>${css} body{background:#fff;padding:24px} .mk-item{break-inside:avoid}</style></head><body><p class="eyebrow">${esc(unitTitle)}</p><h1>Das Wichtigste auf einen Blick</h1><div class="mk-grid">${inner}</div></body></html>`);
+    w.document.close(); w.focus(); setTimeout(()=>w.print(), 300);
+  });
+}
+
+/* ============================================================
+   SVG-Hilfen
+   ============================================================ */
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, kids){
+  const e = document.createElementNS(NS, tag);
+  if(attrs) for(const k in attrs){ if(attrs[k]!=null) e.setAttribute(k, attrs[k]); }
+  (kids||[]).forEach(k => { if(k==null) return; e.appendChild(typeof k==="string" ? document.createTextNode(k) : k); });
+  return e;
+}
+let gid = 0;
+const uid = p => `${p}${++gid}`;
+/* Farbverlauf: stops = [[offset, color, opacity?], …] */
+function lin(defs, stops, x1=0,y1=0,x2=0,y2=1){
+  const id = uid("lg");
+  defs.appendChild(el("linearGradient",{id,x1,y1,x2,y2}, stops.map(s=>el("stop",{offset:s[0],"stop-color":s[1],"stop-opacity":s[2]??1}))));
+  return `url(#${id})`;
+}
+function rad(defs, stops, cx=.35, cy=.3, r=.75){
+  const id = uid("rg");
+  defs.appendChild(el("radialGradient",{id,cx,cy,r}, stops.map(s=>el("stop",{offset:s[0],"stop-color":s[1],"stop-opacity":s[2]??1}))));
+  return `url(#${id})`;
+}
+function shadow(defs, blur=3, dy=2, op=.3){
+  const id = uid("sh");
+  defs.appendChild(el("filter",{id, x:"-20%", y:"-20%", width:"140%", height:"150%"},[ el("feDropShadow",{dx:0, dy, stdDeviation:blur, "flood-color":"#000", "flood-opacity":op}) ]));
+  return `url(#${id})`;
+}
+/* typische Materialien (plastisch) */
+const MAT = {
+  steel: [[0,"#5b6670"],[.18,"#c9d1d8"],[.32,"#f4f7f9"],[.5,"#a9b4bd"],[.78,"#6f7b85"],[1,"#47515a"]],
+  steelDark: [[0,"#3a434b"],[.3,"#8c98a2"],[.5,"#b8c2ca"],[.8,"#56616b"],[1,"#2f363d"]],
+  enamel: [[0,"#0b3f66"],[.25,"#2f86c4"],[.45,"#8fc6ec"],[.6,"#3b8fcb"],[1,"#0a3558"]],
+  copper: [[0,"#6b3416"],[.25,"#d98a52"],[.4,"#ffd2a8"],[.6,"#c87640"],[1,"#5a2a10"]],
+  brass:  [[0,"#6e5410"],[.3,"#d9b44a"],[.45,"#fff0b3"],[.65,"#c39a2c"],[1,"#5c460c"]],
+  water:  [[0,"#5fb7e8",.85],[1,"#1f6fa8",.9]],
+  oil:    [[0,"#e0a83a",.9],[1,"#9a6512",.95]]
+};
+function svgRoot(host, w, h, label){
+  host.innerHTML = "";
+  const s = el("svg",{viewBox:`0 0 ${w} ${h}`, role:"img", "aria-label":label||"", class:"gfx"});
+  const defs = el("defs"); s.appendChild(defs); host.appendChild(s);
+  return {svg:s, defs};
+}
+const reduced = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* Animationsschleife: läuft nur, wenn die Grafik sichtbar ist */
+function anim(host, step){
+  let run = !reduced(), vis = false, last = 0, raf = 0;
+  const tick = t => { const dt = Math.min(0.05, (t-(last||t))/1000); last = t; step(dt); raf = (run&&vis) ? requestAnimationFrame(tick) : 0; };
+  const go = () => { if(run && vis && !raf){ last = 0; raf = requestAnimationFrame(tick); } };
+  if("IntersectionObserver" in window){ new IntersectionObserver(es => { vis = es[0].isIntersecting; go(); }).observe(host); } else { vis = true; go(); }
+  return { toggle(){ run = !run; go(); return run; }, start(){ run = true; go(); }, get running(){ return run; } };
+}
+function arrowDefs(defs, color){
+  const id = uid("ar");
+  defs.appendChild(el("marker",{id, viewBox:"0 0 10 10", refX:9, refY:5, markerWidth:7, markerHeight:7, orient:"auto-start-reverse"},[el("path",{d:"M0,0 L10,5 L0,10 z", style:`fill:${color}`})]));
+  return `url(#${id})`;
+}
+
+return { SaveKit, Steps, Merke, G:{el, lin, rad, shadow, MAT, svgRoot, uid, reduced, anim, arrowDefs}, esc, MARK };
+})();
+
+</script>
+<script>
+const U = {
+  id:"lpe-1.1.2b", key:"lernmodul-stahlbezeichnung-b-v1",
+  title:"LPE 1.1.2b Bezeichnungssystem der Stähle – chemische Zusammensetzung",
+  fileStem:"LPE 1.1.2b Bezeichnungssystem der Staehle",
+  plan:[
+    ["s1","Vier Gruppen von Kurznamen","5–25 Min.","Video Teil 2, Stähle einer Gruppe zuordnen, Aussagen prüfen"],
+    ["s2","Unlegierte und niedriglegierte Stähle","25–40 Min.","Legierungsfaktoren, Gehalte berechnen"],
+    ["s3","Hochlegierte Stähle und Schnellarbeitsstähle","40–52 Min.","Analysator, nach Chromgehalt sortieren, Kurznamen bilden"],
+    ["s4","Nichtrostende Stähle","52–77 Min.","Gefüge-Simulation, Eigenschaftsmatrix, Stahl für die Anlage auswählen"],
+    ["s5","Quiz, Problemstellung, Abgabe","77–90 Min.","Quiz, Frage zur Rührwerkswelle beantworten, Ergebnisse sichern"]
+  ],
+  merke:{title:"Bezeichnung der Stähle nach der chemischen Zusammensetzung",
+    items:[
+      ["Vier Gruppen","Unlegiert: beginnt mit C. Niedriglegiert: beginnt mit einer Zahl, kein Element über 5 %. Hochlegiert: beginnt mit X, mindestens ein Element über 5 %. Schnellarbeitsstahl: beginnt mit HS."],
+      ["Unlegierte Stähle","C + Kohlenstoffgehalt · 100, z. B. C45 = 0,45 % C. Danach Zusatzsymbole (E, R) und Zustände wie +QT."],
+      ["Niedriglegierte Stähle","C-Gehalt · 100, dann die Elemente nach abnehmendem Gehalt, dann die Gehalte mal Faktor. Zum Ablesen durch den Faktor teilen: 42CrMo4 = 0,42 % C, 1 % Cr, wenig Mo."],
+      ["Legierungsfaktoren","Faktor 4: Cr, Co, Mn, Ni, Si, W. Faktor 10: Al, Be, Cu, Mo, Nb, Pb, Ta, Ti, V, Zr. Faktor 100: Ce, N, P, S. Faktor 1000: B. (Übersichtstabelle, in der Klausur erlaubt)"],
+      ["Hochlegierte Stähle","X + C-Gehalt · 100 + Elemente + Gehalte in ganzen Prozent, ohne Faktor: X5CrNi18-10 = 0,05 % C, 18 % Cr, 10 % Ni."],
+      ["Schnellarbeitsstähle","HS + Gehalte von W-Mo-V-Co in ganzen Prozent, z. B. HS6-5-2-5. Harte, verschleiß- und warmfeste Werkzeugstähle für Bohrer und Fräser."],
+      ["Nichtrostende Stähle","Mindestens etwa 10,5 % gelöstes Chrom (praktisch über 12 %) und wenig Kohlenstoff. Chromoxid bildet eine dichte Passivschicht, die sich an Luft selbst erneuert."],
+      ["Austenitisch oder ferritisch","Austenitisch (mit Ni, kfz), z. B. X5CrNi18-10: unmagnetisch, kaltzäh, gut umformbar und schweißbar; Mo verbessert die Beständigkeit gegen Chloride. Ferritisch (ohne Ni, krz), z. B. X6Cr17: magnetisch, kaltspröde, günstiger."]
+    ],
+    formeln:["Gehalt = Zahl im Kurznamen / Faktor","C-Gehalt = Kennzahl / 100"]
+  },
+  problem:{
+    hint:"Entschlüssele beide Kurznamen vollständig (Gruppe, C-Gehalt, Legierungselemente mit Gehalt). Prüfe dann: Ab welchem Chromgehalt ist ein Stahl nichtrostend? Welches Element hilft gegen Chloride? Denk an die Korrosions-Simulation vom Start.",
+    sol:"Nein, der Austausch ist nicht in Ordnung. <b>42CrMo4</b> ist ein niedriglegierter Vergütungsstahl mit 0,42 % C, 1 % Cr (4 : 4) und wenig Mo. Er ist fest, aber mit 1 % Chrom <b>nicht nichtrostend</b>: In der chloridhaltigen Lösung würde er rosten. <b>X2CrNiMoN17-13-3</b> ist hochlegiert: nur 0,02 % C, 17 % Cr, 13 % Ni, 3 % Mo und etwas N. Der hohe Chromgehalt bildet eine Passivschicht, Nickel macht das Gefüge austenitisch (zäh, gut schweißbar), Molybdän schützt vor Lochfraß durch Chloride. Mehr Kohlenstoff macht den Stahl zwar fester, für die Welle zählt hier aber die <b>Korrosionsbeständigkeit</b>."
+  },
+  tasks:{
+    b1:{type:"mc", tag:"Einführungsauftrag · Beobachtungsfragen", title:"Was hast du im Video gesehen?", intro:"Beantworte die Fragen direkt nach dem Video. Unsicher? Spring mit den Kapitel-Links zur passenden Stelle.",
+      items:[
+        {q:"Warum gibt es neben dem Verwendungszweck ein zweites Bezeichnungssystem?", o:["Weil man daraus die chemische Zusammensetzung ablesen kann","Weil der Verwendungszweck veraltet ist","Weil es kürzer ist","Weil es nur für Gusseisen gilt"], a:0, h:"Kapitel 7:42", e:"Legierungselemente können mit Medien reagieren (Korrosion, Versprödung). Deshalb muss man sie kennen."},
+        {q:"Welcher Kennbuchstabe steht vor einem unlegierten Stahl?", o:["X","C","HS","kein Buchstabe"], a:1, h:"Kapitel 9:08 „Unlegierte Stähle“", e:"C wie Kohlenstoffstahl, gefolgt vom C-Gehalt mal 100."},
+        {q:"Woran erkennt man einen hochlegierten Stahl?", o:["am vorangestellten X","am vorangestellten C","an der Endung +QT","an einer Zahl über 100"], a:0, h:"Kapitel 11:54 „Hochlegierte Stähle“", e:"X steht vorn, wenn mindestens ein Legierungselement über 5 % liegt."},
+        {q:"In welcher Reihenfolge stehen die Gehalte bei Schnellarbeitsstählen?", o:["Cr-Ni-Mo-V","W-Mo-V-Co","C-Si-Mn-P","Mo-W-Co-V"], a:1, h:"Kapitel 12:53 „Schnellarbeitsstähle“", e:"Immer Wolfram, Molybdän, Vanadium, Cobalt, jeweils in ganzen Prozent."}
+      ]},
+    b2:{type:"tiles", tag:"Aufgabe 1a · Kacheln", title:"Zu welcher Gruppe gehört der Stahl?", intro:"Tippe für jeden Kurznamen die Gruppe an. Achte auf den Anfang des Kurznamens. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).",
+      opts:["unlegiert","niedriglegiert","hochlegiert","Schnellarbeitsstahl"],
+      hint:"C + Zahl → unlegiert. Beginnt mit einer Zahl → niedriglegiert. X → hochlegiert. HS → Schnellarbeitsstahl.",
+      items:[
+        {t:"C60", sub:"Federn einer Sicherheitsarmatur", a:0},
+        {t:"16MnCr5", sub:"einsatzgehärtetes Zahnrad", a:1},
+        {t:"X5CrNi18-10", sub:"Lagerbehälter für Lebensmittel", a:2},
+        {t:"HS6-5-2-5", sub:"Spiralbohrer", a:3},
+        {t:"42CrMo4", sub:"hochfeste Flanschschraube", a:1},
+        {t:"X153CrMoV12", sub:"Schneidmesser einer Granuliermaschine", a:2}
+      ]},
+    b3:{type:"toggle", tag:"Aufgabe 1b · Umschalten", title:"Stimmt das?", opts:["stimmt","stimmt nicht"],
+      hint:"Vergleiche mit der Übersicht oben: Wo gibt es Faktoren, wo ganze Prozent? Wo steht ein Kennbuchstabe, wo nicht?",
+      items:[
+        {t:"Bei niedriglegierten Stählen liegt kein Legierungselement über 5 %.", a:0},
+        {t:"Bei hochlegierten Stählen werden die Legierungsgehalte mit Faktoren angegeben.", a:1, e:"Nein: bei X-Stählen in ganzen Prozent, nur der C-Gehalt ist mal 100."},
+        {t:"Bei allen vier Gruppen außer HS steht der Kohlenstoffgehalt mal 100 im Kurznamen.", a:0},
+        {t:"Die Legierungselemente werden nach abnehmendem Gehalt aufgezählt.", a:0},
+        {t:"Ein Element ohne zugehörige Zahl ist im Stahl nicht enthalten.", a:1, e:"Es ist enthalten, aber nur in geringer Menge und wird deshalb nicht beziffert."},
+        {t:"Schnellarbeitsstähle sind Werkzeugstähle mit hoher Härte und Warmfestigkeit.", a:0}
+      ]},
+    b4:{type:"select", tag:"Aufgabe 2a · Dropdown", title:"Welcher Faktor gehört zum Element?", intro:"Versuche es zuerst aus dem Gedächtnis. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben), wenn du unsicher bist.", head:["Element","Faktor"], opts:["4","10","100","1000"],
+      hint:"Merkhilfe: Cr, Co, Mn, Ni, Si, W → 4. Al, Be, Cu, Mo, Nb, Pb, Ta, Ti, V, Zr → 10. Ce, N, P, S und C → 100. B → 1000.",
+      items:[{t:"Chrom (Cr)", a:"4"},{t:"Molybdän (Mo)", a:"10"},{t:"Mangan (Mn)", a:"4"},{t:"Vanadium (V)", a:"10"},{t:"Nickel (Ni)", a:"4"},{t:"Stickstoff (N)", a:"100"},{t:"Bor (B)", a:"1000"},{t:"Aluminium (Al)", a:"10"}]},
+    b5:{type:"num", tag:"Aufgabe 2b · Rechnen", title:"Gehalte aus dem Kurznamen berechnen", intro:"Gehe vor wie im Musterbeispiel. Gib den Gehalt in % an (Komma oder Punkt). Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).",
+      hint:"Gehalt = Zahl im Kurznamen : Faktor. Die Zahlen gehören der Reihe nach zu den Elementen. Elemente ohne Zahl sind nur gering enthalten.",
+      items:[
+        {t:"51CrV4: Kohlenstoffgehalt", a:0.51, tol:0.005, u:"%", w:"51 : 100 = 0,51 %"},
+        {t:"51CrV4: Chromgehalt", a:1, tol:0.01, u:"%", w:"4 : 4 = 1 % (V ist nur gering enthalten)"},
+        {t:"20NiCrMo2-2: Nickelgehalt", a:0.5, tol:0.005, u:"%", w:"2 : 4 = 0,5 % (Cr ebenfalls 2 : 4 = 0,5 %, Mo gering)"},
+        {t:"34CrAlMo5-10: Chromgehalt", a:1.25, tol:0.005, u:"%", w:"5 : 4 = 1,25 %"},
+        {t:"34CrAlMo5-10: Aluminiumgehalt", a:1, tol:0.01, u:"%", w:"10 : 10 = 1 % (Mo gering)"},
+        {t:"16MnCr5: Mangangehalt", a:1.25, tol:0.005, u:"%", w:"5 : 4 = 1,25 % (Cr gering)"},
+        {t:"C45E: Kohlenstoffgehalt", a:0.45, tol:0.005, u:"%", w:"45 : 100 = 0,45 % (E: vorgeschriebener max. Schwefelgehalt)"}
+      ]},
+    b6:{type:"sort", tag:"Aufgabe 3a · Sortieren", title:"Nach steigendem Chromgehalt ordnen", intro:"Bringe die Stähle mit ▲ und ▼ in die richtige Reihenfolge: oben der niedrigste, unten der höchste Chromgehalt. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).",
+      hint:"Berechne für jeden Stahl den Cr-Gehalt: Bei niedriglegierten Stählen durch 4 teilen, bei X-Stählen ist die Zahl schon in %. Steht keine Zahl beim Chrom, ist nur wenig enthalten.",
+      items:[
+        {t:"16MnCr5", e:"Cr gering (ohne Zahl), unter 1 %"},
+        {t:"42CrMo4", e:"Cr = 4 : 4 = 1 %"},
+        {t:"34CrAlMo5-10", e:"Cr = 5 : 4 = 1,25 %"},
+        {t:"X153CrMoV12", e:"Cr = 12 %"},
+        {t:"X2CrNiMoN17-13-3", e:"Cr = 17 %"},
+        {t:"X5CrNi18-10", e:"Cr = 18 %"}
+      ]},
+    b7:{type:"text", tag:"Aufgabe 3b · Kurznamen bilden", title:"Von der Analyse zum Kurznamen", intro:"Schreibe den Kurznamen ohne Leerzeichen. Groß- und Kleinschreibung wird nicht bewertet. Kontrolliere mit dem Analysator. Nutze dazu die Tabelle (<b>📋 Tabelle</b> rechts oben).",
+      hint:"Zuerst die Gruppe festlegen (C, ohne Buchstabe, X, HS). Dann C-Gehalt mal 100, Elemente nach fallendem Gehalt, dann die Zahlen (mit Faktor bei niedriglegiert, ganze % bei X und HS).",
+      items:[
+        {t:"unlegiert, 0,35 % C, vorgeschriebener max. Schwefelgehalt", a:"C35E"},
+        {t:"niedriglegiert, 0,42 % C, 1 % Cr, Mo gering", a:"42CrMo4"},
+        {t:"hochlegiert, 0,05 % C, 18 % Cr, 10 % Ni", a:"X5CrNi18-10"},
+        {t:"Schnellarbeitsstahl, 6 % W, 5 % Mo, 2 % V, 5 % Co", a:"HS6-5-2-5"},
+        {t:"niedriglegiert, 0,16 % C, 1,25 % Mn, Cr gering", a:"16MnCr5"},
+        {t:"unlegiert, 0,45 % C, vergütet", a:"C45+QT"}
+      ]},
+    b8:{type:"matrix", tag:"Aufgabe 4a · Ankreuzen", title:"Austenitisch oder ferritisch?", intro:"Kreuze an, für welche Gruppe nichtrostender Stähle die Eigenschaft typisch ist. Auch zwei Kreuze in einer Zeile sind möglich.",
+      cols:["austenitisch","ferritisch"], rowHead:"Eigenschaft",
+      hint:"Nickel macht das Gitter kubisch-flächenzentriert (kfz): unmagnetisch, kaltzäh, gut schweißbar, stark kaltverfestigend. Ferritische Stähle (kaum Ni, krz) sind magnetisch und haben eine höhere Streckgrenze. Probiere den Magneten in der Simulation aus.",
+      items:[
+        {t:"unmagnetisch", v:[1,0]},
+        {t:"kubisch-raumzentriertes Gitter (krz)", v:[0,1]},
+        {t:"auch bei sehr tiefen Temperaturen zäh (kaltzäh)", v:[1,0]},
+        {t:"sehr gut schweißbar", v:[1,0]},
+        {t:"höhere Streckgrenze", v:[0,1]},
+        {t:"stark kaltverfestigend", v:[1,0]},
+        {t:"korrosionsbeständig durch Chrom-Passivschicht", v:[1,1]},
+        {t:"enthält viel Nickel und ist deshalb teurer", v:[1,0]}
+      ]},
+    b9:{type:"cases", tag:"Aufgabe 4b · Fallaufgabe mit Begründung", title:"Welcher Stahl für welches Bauteil?", intro:"Wähle aus der Liste und begründe in 1–2 Sätzen mit der Zusammensetzung. Der Lösungsvorschlag öffnet sich erst nach deiner Begründung.",
+      choiceLabel:"Stahl", opts:["S235JR","42CrMo4","C45E","X6Cr17","X5CrNi18-10","HS6-5-2-5"],
+      items:[
+        {t:"Spiralbohrer für die Werkstatt", d:"Mit dem Bohrer werden Löcher in Stahlflansche gebohrt. Die Schneide wird dabei sehr heiß.", a:["HS6-5-2-5"], h:"Werkzeug + hohe Temperatur an der Schneide: Welche Gruppe ist dafür gemacht?", s:"HS6-5-2-5: Schnellarbeitsstahl mit W, Mo, V und Co. Er bleibt auch bei hohen Schnitttemperaturen hart und verschleißfest."},
+        {t:"Behälter für Flüssigstickstoff", d:"Innenbehälter eines Kryotanks, Betriebstemperatur −196 °C, geschweißt.", a:["X5CrNi18-10"], h:"Bei −196 °C verspröden viele Stähle. Welches Gefüge ist kaltzäh und gut schweißbar?", s:"X5CrNi18-10: austenitischer nichtrostender Stahl (18 % Cr, 10 % Ni). Das kfz-Gitter bleibt bis zu sehr tiefen Temperaturen zäh, und er ist sehr gut schweißbar."},
+        {t:"Verkleidungsblech mit Magnethaltern", d:"Ein Verkleidungsblech in einer feuchten Abfüllhalle. Schilder sollen mit Magneten daran haften. Möglichst günstig.", a:["X6Cr17"], h:"Nichtrostend und magnetisch zugleich: Welche Gruppe nichtrostender Stähle ist magnetisch? Und was macht Stahl teuer?", s:"X6Cr17: ferritischer nichtrostender Stahl mit 17 % Cr, ohne Nickel. Er ist magnetisch, beständig gegen feuchte Luft und Wasser und günstiger, weil kein teures Nickel enthalten ist."},
+        {t:"Getriebewelle eines Rührwerks", d:"Die Welle sitzt im trockenen Getriebegehäuse, läuft in Öl und wird stark auf Torsion beansprucht. Sie wird vergütet.", a:["42CrMo4","C45E"], h:"Kein Korrosionsangriff, aber hohe Festigkeit gefragt. Welcher Stahl ist ein typischer Vergütungsstahl?", s:"42CrMo4: niedriglegierter Vergütungsstahl. Cr und Mo erlauben eine Vergütung auf hohe Festigkeit, auch bei größeren Durchmessern. Für weniger beanspruchte Wellen geht auch C45E. Ein nichtrostender Stahl wäre hier unnötig teuer."},
+        {t:"Geländer einer Arbeitsbühne", d:"Geländer in einer trockenen, beheizten Halle. Es wird lackiert und geschweißt.", a:["S235JR"], h:"Keine besonderen Anforderungen, nur Stahlbau. Welcher Stahl ist günstig und gut schweißbar?", s:"S235JR: einfacher Baustahl, kohlenstoffarm und daher gut schweißbar. Der Lack schützt vor Korrosion. Hier wählt man nach Verwendungszweck, nicht nach Legierung."}
+      ]},
+    quiz:{type:"mc", tag:"Aufgabe 5a · Quiz", title:"Quiz: 8 Fragen",
+      items:[
+        {q:"Wie viel Kohlenstoff enthält C60?", o:["60 %","6 %","0,6 %","0,06 %"], a:2, h:"Der C-Gehalt steht mal 100 im Kurznamen.", e:"60 : 100 = 0,6 %."},
+        {q:"Wie viel Chrom enthält 41Cr4?", o:["4 %","1 %","0,4 %","41 %"], a:1, h:"Faktor für Chrom?", e:"4 : 4 = 1 %."},
+        {q:"Wie viel Nickel enthält X5CrNi18-10?", o:["2,5 %","10 %","1 %","18 %"], a:1, h:"Bei X-Stählen sind die Zahlen ganze Prozent. Reihenfolge beachten!", e:"Cr 18 %, Ni 10 %."},
+        {q:"Welcher Stahl ist ein Schnellarbeitsstahl?", o:["HS2-9-1-8","X40Cr14","C100S","100Cr6"], a:0, h:"Welche Buchstaben stehen vorn?", e:"HS = high speed, Gehalte W-Mo-V-Co."},
+        {q:"Was bedeutet die Zahl 6 in 100Cr6?", o:["6 % Cr","1,5 % Cr","0,6 % Cr","6 % C"], a:1, h:"100Cr6 ist niedriglegiert: Faktor für Cr?", e:"6 : 4 = 1,5 % Chrom; dazu 1 % C (Wälzlagerstahl)."},
+        {q:"Ab welchem Chromgehalt ist ein Stahl nichtrostend?", o:["ab ca. 1 %","ab ca. 5 %","ab ca. 10,5 % (meist über 12 %)","ab ca. 50 %"], a:2, h:"Probiere es in der Simulation mit dem Cr-Regler aus.", e:"Dann bildet sich eine geschlossene Chromoxid-Passivschicht."},
+        {q:"Ein nichtrostender Stahl wird vom Magneten nicht angezogen. Er ist vermutlich …", o:["ferritisch","austenitisch","unlegiert","ein Schnellarbeitsstahl"], a:1, h:"Welches Gitter ist unmagnetisch?", e:"Austenitische Stähle (kfz-Gitter, viel Ni) sind unmagnetisch."},
+        {q:"Warum enthält X2CrNiMoN17-13-3 Molybdän?", o:["für bessere Beständigkeit gegen Lochfraß durch Chloride","damit er magnetisch wird","damit er sich härten lässt","als Ersatz für Kohlenstoff"], a:0, h:"Denk an die Problemstellung.", e:"Mo verbessert die Beständigkeit gegen chloridinduzierten Lochfraß."}
+      ]}
+  }
+};
+
+/* ============================================================
+   Aufgaben-Engine (datengetrieben) für Lerneinheiten
+   Erwartet global: U = {id, title, fileStem, key, plan, tasks, problem}
+   Aufgabentypen: toggle, tiles, select, num, text, assign, sort, matrix, errors, mc, cases
+   ============================================================ */
+const E = (function(){
+"use strict";
+const {SaveKit} = LM;
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = LM.esc;
+
+let S = {};
+const SK = SaveKit({
+  key:U.key, moduleId:U.id, moduleTitle:U.title, fileStem:U.fileStem,
+  getState:()=>S, setState:o=>{ S = o||{}; ensure(); renderAll(); }, summary:()=>summaryText(),
+  progress:()=>({done:U.plan.filter(p=>doneFor(p[0])).length, total:U.plan.length})
+});
+S = SK.initial();
+function ensure(){ ["t","sc","dirty"].forEach(k => { if(!S[k] || typeof S[k] !== "object") S[k] = {}; }); Object.keys(U.tasks).forEach(id => { if(!S.t[id] || typeof S.t[id] !== "object") S.t[id] = {}; }); }
+ensure();
+function save(){ SK.changed(); renderTabs(); if(current===last) updateSummary(); }
+const H = {};
+
+/* ---------- Navigation ---------- */
+const stations = $$("section.station");
+const last = stations[stations.length-1].id;
+let current = stations[0].id;
+function show(id){
+  if(!document.getElementById(id)) return;
+  stations.forEach(s => { s.hidden = s.id !== id; });
+  current = id; S.tab = id; SK.changed(true); renderTabs();
+  if(id === last) updateSummary();
+  document.dispatchEvent(new CustomEvent("lm-show", {detail:id}));
+  window.scrollTo({top:0, behavior:"auto"});
+}
+function taskDone(id){
+  const t = U.tasks[id], a = S.t[id];
+  if(t.type==="mc") return Object.keys(a).length === t.items.length;
+  if(t.type==="cases") return t.items.every((c,i)=>a[i] && a[i].revealed);
+  return S.sc[id] != null;
+}
+function doneFor(sid){
+  const sec = document.getElementById(sid);
+  const tasks = $$("[data-task]", sec).map(d => d.dataset.task);
+  const req = $$("[data-req]", sec).map(d => d.id);
+  if(!tasks.length && !req.length) return false;
+  return tasks.every(taskDone) && req.every(id => (S[id]||"").trim().length > 0);
+}
+function renderPlan(){
+  const h = $("#plan"); if(!h) return;
+  h.innerHTML = `<div class="tbl-wrap"><table class="plan"><tr><th>Station</th><th>Zeit</th><th>Was du tust</th><th>Stand</th></tr>${U.plan.map(([id,t,z,w],i)=>`<tr><td><a href="#${id}" data-go="${id}"><b>${i+1} · ${t}</b></a></td><td class="nowrap">${z}</td><td class="small">${w}</td><td>${doneFor(id)?'<span class="okmark">✓ erledigt</span>':'<span class="muted small">offen</span>'}</td></tr>`).join("")}</table></div>`;
+}
+function renderTabs(){
+  renderPlan();
+  $("#tabs").innerHTML = stations.map(s => `<button type="button" data-tab="${s.id}" class="${doneFor(s.id)?"done":""}" aria-current="${s.id===current}"><span class="dot" aria-hidden="true"></span>${s.dataset.title}${doneFor(s.id)?' <span class="visually-hidden">erledigt</span>':''}</button>`).join("");
+}
+document.addEventListener("click", e => { const t = e.target.closest("[data-tab],[data-go]"); if(t){ e.preventDefault(); show(t.dataset.tab || t.dataset.go); } });
+
+/* ---------- Freitexte ---------- */
+const fields = $$("textarea[data-field]");
+fields.forEach(f => f.addEventListener("input", () => { S[f.id] = f.value; save(); if(f.id==="hyp2") renderProblemHelp(); if(current===last) updateSummary(); }));
+
+/* ---------- Hilfsfunktionen ---------- */
+const num = v => { const x = parseFloat(String(v||"").replace(/\s/g,"").replace(",", ".")); return isFinite(x) ? x : NaN; };
+const fmt = x => String(x).replace(".", ",");
+const norm = v => String(v||"").replace(/[\s ]/g,"").replace(/[–—]/g,"-").toUpperCase();
+const ckd = id => S.sc[id] != null && !S.dirty[id];
+const fbLine = (ok, it) => ok ? `<div class="fb ok small">✓ Richtig.${it.e?" "+it.e:""}</div>` : `<div class="fb err small">✗ Noch nicht richtig. Nutze den Tipp.</div>`;
+function shuffled(n, seed){ const a = [...Array(n).keys()]; let s = seed||7; for(let i=n-1;i>0;i--){ s=(s*9301+49297)%233280; const j=Math.floor(s/233280*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } if(a.every((v,i)=>v===i) && n>1) [a[0],a[1]]=[a[1],a[0]]; return a; }
+
+/* ---------- Aufgabentypen ---------- */
+const T = {};
+T.toggle = {
+  body(t,a,ck){ const tiles = t.type==="tiles";
+    return `<div class="${tiles?"tiles":"rw"}">` + t.items.map((it,i)=>{ const v=a[i], ok = v===it.a;
+      return `<div class="${tiles?"tile":"rw-item"} ${tiles&&ck&&v!=null?(ok?"ok":"err"):""}">${tiles?`<div class="num mono">${it.t}</div>${it.sub?`<div class="small muted">${it.sub}</div>`:""}`:`<span>${it.t}</span>`}<div class="seg" role="group" aria-label="${esc(String(it.t).replace(/<[^>]+>/g,""))}">${t.opts.map((o,j)=>`<button type="button" data-v="${i}:${j}" aria-pressed="${v===j}">${o}</button>`).join("")}</div>${ck&&v!=null?(tiles?`<div class="small">${ok?"✓ richtig":"✗ falsch"}</div>`:fbLine(ok,it)):""}</div>`; }).join("") + `</div>`; },
+  click(t,a,b){ if(!b.dataset.v) return false; const [i,j]=b.dataset.v.split(":").map(Number); a[i]=j; return true; },
+  ok:(t,it,v)=>v===it.a,
+  sol:t=>`<div class="solbox">${t.items.map(it=>`<b>${it.t}</b> → ${t.opts[it.a]}${it.e?". "+it.e:""}`).join("<br>")}</div>`
+};
+T.tiles = T.toggle;
+T.select = {
+  body(t,a,ck){ return `<div class="tbl-wrap"><table>${t.head?`<tr>${t.head.map(h=>`<th>${h}</th>`).join("")}</tr>`:""}${t.items.map((it,i)=>{ const v=a[i]||"", ok=v===it.a;
+    return `<tr><td>${it.t}</td>${it.sub!=null?`<td class="muted small">${it.sub}</td>`:""}<td class="${ck&&v?(ok?"ok":"err"):""}"><select data-i="${i}" aria-label="Auswahl ${i+1}"><option value="">– wählen –</option>${(it.opts||t.opts).map(o=>`<option ${o===v?"selected":""}>${o}</option>`).join("")}</select>${ck&&v?`<div class="small" style="margin-top:4px">${ok?"✓ "+(it.e||"Richtig."):"✗ Falsch."}</div>`:""}</td></tr>`; }).join("")}</table></div>`; },
+  input(t,a,e){ const s=e.target.closest("select"); if(!s) return false; a[s.dataset.i]=s.value; return true; },
+  ok:(t,it,v)=>v===it.a,
+  sol:t=>`<div class="tbl-wrap"><table>${t.items.map(it=>`<tr><td>${it.t}</td><td><b>${it.a}</b>${it.e?`<div class="small muted">${it.e}</div>`:""}</td></tr>`).join("")}</table></div>`
+};
+T.num = {
+  body(t,a,ck){ return `<div class="numlist">${t.items.map((it,i)=>{ const v=a[i]||"", ok=T.num.ok(t,it,v);
+    return `<div class="numrow"><label for="${t.id}-n${i}">${it.t}</label><div class="row" style="gap:6px;flex-wrap:nowrap"><input type="text" inputmode="decimal" id="${t.id}-n${i}" data-i="${i}" value="${esc(v)}" class="numin ${ck&&v?(ok?"ok":"err"):""}" autocomplete="off"><span class="mono">${it.u||""}</span></div>${ck&&v?fbLine(ok,it):""}</div>`; }).join("")}</div>`; },
+  input(t,a,e){ const s=e.target.closest("input[data-i]"); if(!s) return false; a[s.dataset.i]=s.value; return "soft"; },
+  ok:(t,it,v)=>{ const x=num(v); return isFinite(x) && Math.abs(x-it.a) <= (it.tol!=null?it.tol:Math.abs(it.a)*0.01+1e-9); },
+  sol:t=>`<div class="solbox">${t.items.map(it=>`${it.t} <b>${fmt(it.a)} ${it.u||""}</b>${it.w?`<div class="small">${it.w}</div>`:""}`).join("<br>")}</div>`
+};
+T.text = {
+  body(t,a,ck){ return `<div class="numlist">${t.items.map((it,i)=>{ const v=a[i]||"", ok=T.text.ok(t,it,v);
+    return `<div class="numrow"><label for="${t.id}-x${i}">${it.t}</label><input type="text" id="${t.id}-x${i}" data-i="${i}" value="${esc(v)}" class="mono txtin ${ck&&v?(ok?"ok":"err"):""}" autocomplete="off" spellcheck="false" placeholder="Kurzname">${ck&&v?fbLine(ok,it):""}</div>`; }).join("")}</div>`; },
+  input:T.num.input,
+  ok:(t,it,v)=>v && [].concat(it.a).some(x=>norm(x)===norm(v)),
+  sol:t=>`<div class="solbox">${t.items.map(it=>`${it.t} → <b class="mono">${[].concat(it.a)[0]}</b>${it.e?`<div class="small">${it.e}</div>`:""}`).join("<br>")}</div>`
+};
+let pick = {};
+T.assign = {
+  body(t,a,ck){ const used = Object.values(a);
+    const bank = t.chips.filter(c=>!used.includes(c)).map(c=>`<button type="button" class="chip" draggable="true" data-chip="${esc(c)}" aria-pressed="${pick[t.id]===c}">${c}</button>`).join("") || `<span class="small muted">Alle Begriffe verteilt.</span>`;
+    return `<div class="bank">${bank}</div><div class="assign">${t.items.map((it,i)=>{ const v=a[i], ok=v===it.a;
+      return `<div class="arow"><button type="button" class="slot ${v?"filled":""} ${ck&&v?(ok?"ok":"err"):""}" data-slot="${i}" aria-label="Feld ${i+1}">${v||"…"}</button><div class="small">${it.t}${ck&&v?`<div class="${ok?"okmark":"errmark"}">${ok?"✓":"✗"}</div>`:""}</div></div>`; }).join("")}</div>`; },
+  click(t,a,b){
+    const c=b.closest("[data-chip]"), s=b.closest("[data-slot]");
+    if(c){ pick[t.id] = pick[t.id]===c.dataset.chip ? null : c.dataset.chip; return "view"; }
+    if(s){ const i=s.dataset.slot; if(a[i]){ delete a[i]; return true; } if(pick[t.id]){ a[i]=pick[t.id]; pick[t.id]=null; return true; } }
+    return false; },
+  ok:(t,it,v)=>v===it.a,
+  sol:t=>`<div class="solbox">${t.items.map(it=>`<b>${it.a}</b>: ${it.t}`).join("<br>")}</div>`
+};
+T.sort = {
+  order(t,a){ if(!a.o || a.o.length!==t.items.length) a.o = shuffled(t.items.length, t.items.length*13+t.id.length); return a.o; },
+  body(t,a,ck){ const o=T.sort.order(t,a);
+    return `<ol class="sortl">${o.map((k,p)=>`<li class="${ck?(k===p?"ok":"err"):""}"><span class="mono">${t.items[k].t}</span><span class="sbtn"><button type="button" class="btn small secondary" data-mv="${p}:-1" aria-label="nach oben" ${p===0?"disabled":""}>▲</button><button type="button" class="btn small secondary" data-mv="${p}:1" aria-label="nach unten" ${p===o.length-1?"disabled":""}>▼</button></span></li>`).join("")}</ol>`; },
+  click(t,a,b){ if(!b.dataset.mv) return false; const [p,d]=b.dataset.mv.split(":").map(Number), o=T.sort.order(t,a), q=p+d; if(q<0||q>=o.length) return false; [o[p],o[q]]=[o[q],o[p]]; return true; },
+  score(t,a){ const o=T.sort.order(t,a); return o.filter((k,p)=>k===p).length; },
+  sol:t=>`<div class="solbox"><ol>${t.items.map(it=>`<li><span class="mono"><b>${it.t}</b></span>${it.e?` – ${it.e}`:""}</li>`).join("")}</ol></div>`
+};
+T.matrix = {
+  body(t,a,ck){ return `<div class="tbl-wrap"><table><tr><th>${t.rowHead||""}</th>${t.cols.map(c=>`<th style="text-align:center">${c}</th>`).join("")}</tr>${t.items.map((it,i)=>{ const r=a[i]||[], ok=T.matrix.ok(t,it,r);
+    return `<tr><td>${it.t}${ck?`<div class="small ${ok?"okmark":"errmark"}">${ok?"✓ "+(it.e||""):"✗ Zeile prüfen"}</div>`:""}</td>${t.cols.map((c,j)=>`<td class="c"><input type="checkbox" data-m="${i}:${j}" aria-label="${esc(c)}" ${r[j]?"checked":""}></td>`).join("")}</tr>`; }).join("")}</table></div>`; },
+  input(t,a,e){ const c=e.target.closest("[data-m]"); if(!c) return false; const [i,j]=c.dataset.m.split(":").map(Number); a[i]=a[i]||[]; a[i][j]=c.checked; return true; },
+  ok:(t,it,r)=>it.v.every((v,j)=>!!v===!!(r&&r[j])),
+  sol:t=>`<div class="tbl-wrap"><table><tr><th></th>${t.cols.map(c=>`<th style="text-align:center">${c}</th>`).join("")}</tr>${t.items.map(it=>`<tr><td>${it.t}</td>${it.v.map(v=>`<td style="text-align:center">${v?"✓":"–"}</td>`).join("")}</tr>`).join("")}</table></div>`
+};
+T.errors = {
+  body(t,a,ck){ return `<div class="errl">${t.items.map((it,i)=>{ const m=!!a[i], ok=m===!!it.f;
+    return `<button type="button" class="eline ${m?"marked":""} ${ck?(ok?"ok":"err"):""}" data-el="${i}" aria-pressed="${m}"><span class="emark" aria-hidden="true">${m?"✗":"○"}</span><span>${it.t}${ck&&!ok?`<span class="small"> – ${it.f?"enthält einen Fehler":"stimmt"}</span>`:""}</span></button>`; }).join("")}</div>`; },
+  click(t,a,b){ if(b.dataset.el==null) return false; a[b.dataset.el] = !a[b.dataset.el]; return true; },
+  ok:(t,it,v)=>!!v===!!it.f,
+  sol:t=>`<div class="solbox">${t.items.map(it=>`${it.f?"✗":"✓"} ${it.t}${it.f?`<div class="small"><b>Richtig:</b> ${it.e}</div>`:""}`).join("<br>")}</div>`
+};
+T.mc = {
+  score:(t,a)=>t.items.filter((it,i)=>a[i]===it.a).length,
+  body(t,a){ return `<div style="display:flex;flex-direction:column;gap:12px">${t.items.map((it,i)=>{ const ans=a[i], hk=t.id+"-"+i;
+    const opts = it.o.map((o,j)=>`<button type="button" class="opt ${ans!=null?(j===it.a?"ok":j===ans?"err":""):""}" data-q="${i}" data-o="${j}" ${ans!=null?"disabled":""}>${o}</button>`).join("");
+    const tip = ans==null ? `<div class="row"><button type="button" class="linkbtn" data-mctip="${hk}">${H[hk]?"Tipp ausblenden":"Tipp"}</button></div>${H[hk]?`<div class="fb info small">${it.h}</div>`:""}` : "";
+    const fb = ans!=null ? `<div class="fb ${ans===it.a?"ok":"err"} small"><b>${ans===it.a?"Richtig.":"Nicht ganz."}</b> Lösung: ${it.o[it.a]}. ${it.e}</div>` : "";
+    return `<div class="mc"><div class="q">${i+1}. ${it.q}</div><div class="opts">${opts}</div>${tip}${fb}</div>`; }).join("")}</div>`; },
+  click(t,a,b){ const tp=b.closest("[data-mctip]"); if(tp){ H[tp.dataset.mctip]=!H[tp.dataset.mctip]; return "view"; }
+    const o=b.closest(".opt"); if(!o||o.disabled) return false; a[o.dataset.q]=+o.dataset.o; return true; }
+};
+T.cases = {
+  score:(t,a)=>t.items.filter((c,i)=>a[i]&&a[i].revealed).length,
+  body(t,a){ return `<div style="display:flex;flex-direction:column;gap:14px">${t.items.map((c,i)=>{ const st=a[i]||{}, txt=(st.text||"").trim(), ready=st.choice&&txt.length>=15;
+    const sol = st.revealed ? `<div class="fb ${c.a.includes(st.choice)?"ok":"maybe"}"><b>${c.a.includes(st.choice)?"Deine Wahl passt.":"Vergleiche mit deiner Wahl."}</b> ${c.s}</div>` : "";
+    return `<div class="case"><div class="head"><span class="num">Fall ${i+1}</span><h3>${c.t}</h3></div><p>${c.d}</p>
+      <div class="grid2"><div><label for="${t.id}-c${i}">${t.choiceLabel||"Auswahl"}</label><select id="${t.id}-c${i}" data-ci="${i}" data-f="choice"><option value="">– wählen –</option>${t.opts.map(g=>`<option ${g===st.choice?"selected":""}>${g}</option>`).join("")}</select></div>
+      <div><label for="${t.id}-t${i}">Begründung</label><textarea id="${t.id}-t${i}" data-ci="${i}" data-f="text" style="min-height:70px">${esc(st.text||"")}</textarea></div></div>
+      <div class="row"><button type="button" class="btn secondary small" data-casetip="${i}">${H[t.id+"c"+i]?"Tipp ausblenden":"Tipp"}</button><button type="button" class="btn secondary" data-reveal="${i}" aria-disabled="${ready||st.revealed?"false":"true"}">${st.revealed?"Lösungsvorschlag angezeigt":"Lösungsvorschlag anzeigen"}</button><span class="lock-msg small" role="status" id="${t.id}-lock${i}"></span></div>
+      ${H[t.id+"c"+i]?`<div class="fb info small"><b>Tipp:</b> ${c.h}</div>`:""}${sol}</div>`; }).join("")}</div>`; },
+  input(t,a,e){ const x=e.target; if(x.dataset.ci==null) return false; const i=x.dataset.ci; a[i]=a[i]||{}; a[i][x.dataset.f]=x.value;
+    const st=a[i], b=document.querySelector(`#task-${t.id} [data-reveal="${i}"]`); if(b&&!st.revealed) b.setAttribute("aria-disabled", st.choice&&(st.text||"").trim().length>=15?"false":"true"); return "soft"; },
+  click(t,a,b){ const tp=b.closest("[data-casetip]"); if(tp){ H[t.id+"c"+tp.dataset.casetip]=!H[t.id+"c"+tp.dataset.casetip]; return "view"; }
+    const r=b.closest("[data-reveal]"); if(!r) return false; const i=r.dataset.reveal, st=a[i]||{};
+    if(!st.revealed){ const miss=[]; if(!st.choice) miss.push("eine Auswahl treffen"); if((st.text||"").trim().length<15) miss.push("eine Begründung schreiben");
+      if(miss.length){ document.getElementById(`${t.id}-lock${i}`).textContent = "Erst "+miss.join(" und ")+"."; return false; } }
+    a[i]=st; st.revealed=true; return true; }
+};
+
+/* ---------- Aufgaben rendern ---------- */
+function scoreOf(id){ const t=U.tasks[id], a=S.t[id], ty=T[t.type];
+  if(ty.score) return ty.score(t,a);
+  return t.items.filter((it,i)=>ty.ok(t,it,a[i])).length; }
+function scoreText(id){ const t=U.tasks[id], a=S.t[id];
+  if(t.type==="mc"){ const d=Object.keys(a).length, r=t.items.filter((it,i)=>a[i]===it.a).length; return d?`${r} von ${d} beantworteten Fragen richtig`+(d===t.items.length?" · abgeschlossen":""):""; }
+  if(t.type==="cases") return "";
+  if(S.sc[id]==null) return "";
+  if(S.dirty[id]) return "Geändert: bitte erneut prüfen.";
+  const N=t.items.length, n=S.sc[id];
+  return `${n} von ${N} richtig` + (t.goal ? (n>=t.goal?" · Ziel erreicht":` · Ziel: ${t.goal}`) : ""); }
+function frame(id){
+  const t=U.tasks[id], host=document.getElementById("task-"+id);
+  const help = !["mc","cases"].includes(t.type);
+  host.innerHTML = `<p class="tag">${t.tag}</p><h2>${t.title}</h2>${t.intro?`<p class="muted small">${t.intro}</p>`:""}<div class="tb"></div>
+    ${help?`<div class="row helpbar"><button type="button" class="btn" data-check>Prüfen</button><button type="button" class="btn secondary" data-help="hint">Tipp</button><button type="button" class="btn secondary" data-help="sol">Lösung</button><span class="score" role="status"></span></div><div class="th"></div>`:`<div class="row"><span class="score" role="status"></span></div>`}${t.after||""}`;
+}
+function renderTask(id){
+  const t=U.tasks[id], host=document.getElementById("task-"+id); if(!host) return;
+  $(".tb",host).innerHTML = T[t.type].body(t, S.t[id], ckd(id));
+  $(".score",host).textContent = scoreText(id);
+  renderHelp(id);
+}
+function renderHelp(id){
+  const t=U.tasks[id], host=document.getElementById("task-"+id), th=$(".th",host); if(!th) return;
+  const ready = S.sc[id]!=null;
+  $$("[data-help='sol']",host).forEach(b=>{ b.setAttribute("aria-disabled", ready?"false":"true"); b.title = ready?"":"Erst prüfen, dann ist die Lösung freigeschaltet."; });
+  th.innerHTML = (H[id+"hint"]?`<div class="fb info small"><b>Tipp:</b> ${t.hint}</div>`:"") +
+    (H[id+"sol"] ? (ready ? (t.sol || T[t.type].sol(t)) : `<div class="fb err small">Erst prüfen, dann ist die Lösung freigeschaltet.</div>`) : "");
+}
+function initTasks(){
+  Object.keys(U.tasks).forEach(id => {
+    const t=U.tasks[id]; t.id=id; const host=document.getElementById("task-"+id); if(!host) return;
+    host.classList.add("task"); host.dataset.task=id; frame(id);
+    host.addEventListener("click", e => {
+      const b=e.target.closest("button"); if(!b || b.closest(".th")) return;
+      if(b.hasAttribute("data-check")){ S.sc[id]=scoreOf(id); delete S.dirty[id]; save(); renderTask(id); return; }
+      if(b.dataset.help){ H[id+b.dataset.help]=!H[id+b.dataset.help]; renderHelp(id); return; }
+      const ty=T[t.type]; if(!ty.click) return;
+      const r=ty.click(t,S.t[id],b); if(!r) return;
+      if(r===true){ if(t.type==="mc"||t.type==="cases") S.sc[id]=scoreOf(id); else if(S.sc[id]!=null) S.dirty[id]=true; save(); }
+      renderTask(id);
+    });
+    const onIn = e => { const ty=T[t.type]; if(!ty.input) return; const r=ty.input(t,S.t[id],e); if(!r) return;
+      if(S.sc[id]!=null && t.type!=="cases"){ S.dirty[id]=true; $(".score",host).textContent="Geändert: bitte erneut prüfen."; }
+      save(); if(r!=="soft") renderTask(id); };
+    host.addEventListener("input", onIn);
+    if(t.type==="assign"){
+      host.addEventListener("dragstart", e => { const c=e.target.closest("[data-chip]"); if(c){ e.dataTransfer.setData("text/plain", c.dataset.chip); } });
+      host.addEventListener("dragover", e => { if(e.target.closest("[data-slot]")) e.preventDefault(); });
+      host.addEventListener("drop", e => { const s=e.target.closest("[data-slot]"); if(!s) return; e.preventDefault(); const c=e.dataTransfer.getData("text/plain"); if(!c) return;
+        const a=S.t[id]; Object.keys(a).forEach(k=>{ if(a[k]===c) delete a[k]; }); a[s.dataset.slot]=c; if(S.sc[id]!=null) S.dirty[id]=true; save(); renderTask(id); });
+    }
+  });
+}
+
+
+/* ---------- YouTube: eingebettet nur, wenn die Seite von einem Webserver kommt (lokal blockiert YouTube die Einbettung) ---------- */
+$$("[data-yt]").forEach(h => {
+  if(!/^https?:$/.test(location.protocol)) return;
+  const st = +(h.dataset.start||0);
+  h.innerHTML = `<div style="position:relative;padding-top:56.25%;border-radius:6px;overflow:hidden;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/${h.dataset.yt}?start=${st}&rel=0" title="Video der Lehrkraft" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+});
+
+/* ---------- Problemstellung ---------- */
+function renderProblemHelp(){
+  const h=$("#hyp-help"); if(!h) return; const ready=(S.hyp2||"").trim().length>=40;
+  $$("[data-phelp='sol']").forEach(b=>b.setAttribute("aria-disabled", ready?"false":"true"));
+  h.innerHTML = (H.phint?`<div class="fb info small"><b>Tipp:</b> ${U.problem.hint}</div>`:"") +
+    (H.psol ? (ready?`<div class="solbox"><b>Musterantwort:</b> ${U.problem.sol}</div>`:`<div class="fb err small">Schreib zuerst deine eigene überarbeitete Antwort (mindestens zwei Sätze).</div>`) : "");
+}
+document.addEventListener("click", e => { const b=e.target.closest("[data-phelp]"); if(!b) return; H["p"+b.dataset.phelp]=!H["p"+b.dataset.phelp]; renderProblemHelp(); });
+
+/* ---------- Zusammenfassung ---------- */
+function summaryText(){
+  const L=[], d=new Date();
+  L.push("Carl Engler Schule Karlsruhe · Fachschule für Technik – Chemie · Produktionstechnologie");
+  L.push("LERNEINHEIT: " + U.title);
+  L.push("Stand: " + d.toLocaleDateString("de-DE") + " " + d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}));
+  stations.forEach(sec => {
+    L.push(""); L.push(sec.dataset.title.toUpperCase());
+    $$("[data-task],textarea[data-field]", sec).forEach(x => {
+      if(x.dataset.task){ const id=x.dataset.task, t=U.tasks[id], a=S.t[id];
+        if(t.type==="cases"){ L.push("  "+t.tag); t.items.forEach((c,i)=>{ const st=a[i]||{}; L.push(`    Fall ${i+1} ${c.t}: ${st.choice||"–"}`); L.push(`       Begründung: ${(st.text||"–").trim()}`); }); }
+        else if(t.type==="mc"){ L.push(`  ${t.tag}: ${t.items.filter((it,i)=>a[i]===it.a).length}/${t.items.length} richtig (${Object.keys(a).length} beantwortet)`); }
+        else L.push(`  ${t.tag}: ${S.sc[id]!=null?S.sc[id]+"/"+t.items.length+" richtig":"nicht geprüft"}`);
+      } else { L.push("  " + (x.dataset.label||x.id) + ": " + ((S[x.id]||"–").trim())); }
+    });
+  });
+  return L.join("\n");
+}
+function updateSummary(){
+  const s=$("#summary"); if(s) s.value = SK.fullText();
+  const h=$("#hyp1-show"); if(h) h.innerHTML = "<b>Deine erste Vermutung:</b> " + (esc((S.hyp1||"").trim()) || "<i>noch nichts notiert (siehe Start)</i>");
+}
+const cp=$("#copy"); if(cp) cp.addEventListener("click", () => {
+  const t=SK.fullText(); $("#summary").value=t;
+  const fb=()=>{ const ta=$("#summary"); ta.focus(); ta.select(); $("#save-msg").textContent="Text markiert: jetzt Strg+C drücken."; };
+  try { navigator.clipboard.writeText(t).then(()=>{ $("#save-msg").textContent="Kopiert."; }, fb); } catch(e){ fb(); }
+});
+
+function renderAll(){
+  fields.forEach(f => { f.value = S[f.id] || ""; });
+  Object.keys(U.tasks).forEach(renderTask);
+  renderProblemHelp(); updateSummary(); renderTabs();
+}
+initTasks();
+renderAll();
+SK.init();
+/* ---------- Das Wichtigste auf einen Blick (U.merke) → LM.Merke in common.js ---------- */
+if(U.merke) LM.Merke(document.getElementById("merke"), U.merke, U.title);
+const hs = location.hash.slice(1);
+show(document.getElementById(hs) && hs[0]==="s" ? hs : (document.getElementById(S.tab) ? S.tab : stations[0].id));
+window.__lm = {SK, get S(){ return S; }};
+return {$, $$, esc, num, fmt, get S(){ return S; }, save, show};
+})();
+
+/* ============================================================
+   Kurznamen-Analysator für Stähle (DIN EN 10027-1, Auszug)
+   STAHL.parse(name) -> {art, teile:[{s, k:"g|h|z|e", t}]} | {err}
+   k: g = Stahlguss, h = Hauptsymbol, z = Zusatzsymbol, e = Erzeugnis
+   ============================================================ */
+const STAHL = (function(){
+"use strict";
+const VZ = {S:["Stahl für den Stahlbau","Mindeststreckgrenze","N/mm²"], E:["Maschinenbaustahl","Mindeststreckgrenze","N/mm²"], P:["Stahl für Druckbehälter","Mindeststreckgrenze","N/mm²"],
+  L:["Stahl für Leitungsrohre","Mindeststreckgrenze","N/mm²"], B:["Betonstahl","charakteristische Streckgrenze","N/mm²"], Y:["Spannstahl","Mindestzugfestigkeit","N/mm²"],
+  R:["Schienenstahl","Mindesthärte","HBW"], H:["Flacherzeugnis aus höherfestem Stahl zum Kaltumformen","Mindeststreckgrenze","N/mm²"]};
+const KS = {J:27, K:40, L:60}, KT = {R:"+20", "0":"0", "2":"−20", "3":"−30", "4":"−40", "5":"−50", "6":"−60"};
+const Z1 = {S:{M:"thermomechanisch gewalzt", N:"normalgeglüht bzw. normalisierend gewalzt", Q:"vergütet", G:"andere Merkmale folgen"},
+  P:{G:"andere Merkmale folgen", H:"für Hochtemperatur (warmfest)", L:"für Tieftemperatur", M:"thermomechanisch gewalzt", N:"normalgeglüht bzw. normalisierend gewalzt", Q:"vergütet", R:"für Raumtemperatur", X:"für Hoch- und Tieftemperatur", B:"für Gasflaschen", S:"für einfache Druckbehälter", T:"für Rohre"}};
+const Z2 = {C:"mit besonderer Kaltumformbarkeit", D:"für Schmelztauchüberzüge", E:"für Emaillierung", F:"zum Schmieden", H:"Hohlprofil", L:"für tiefe Temperaturen", M:"thermomechanisch gewalzt", N:"normalgeglüht bzw. normalisierend gewalzt", O:"für Offshore", P:"Spundwandstahl", Q:"vergütet", S:"für den Schiffbau", T:"für Rohre", W:"wetterfest", G:"andere Merkmale folgen"};
+const ZC = {E:"vorgeschriebener maximaler Schwefelgehalt", R:"vorgeschriebener Bereich des Schwefelgehalts", D:"zum Drahtziehen", C:"besondere Kaltumformbarkeit", S:"für Federn", U:"für Werkzeuge", W:"für Schweißdraht", G:"andere Merkmale"};
+const EZ = {A:"weichgeglüht", C:"kaltverfestigt", N:"normalgeglüht", AR:"wie gewalzt (Lieferzustand)", QT:"vergütet", T:"angelassen", U:"unbehandelt", M:"thermomechanisch behandelt", CR:"kaltgewalzt", ZE:"elektrolytisch verzinkt", Z:"feuerverzinkt", H:"besondere Härtbarkeit", S:"behandelt auf Kaltscherbarkeit"};
+const F = {Cr:4, Co:4, Mn:4, Ni:4, Si:4, W:4, Al:10, Be:10, Cu:10, Mo:10, Nb:10, Pb:10, Ta:10, Ti:10, V:10, Zr:10, Ce:100, N:100, P:100, S:100, C:100, B:1000};
+const NAME = {Cr:"Chrom", Co:"Cobalt", Mn:"Mangan", Ni:"Nickel", Si:"Silicium", W:"Wolfram", Al:"Aluminium", Be:"Beryllium", Cu:"Kupfer", Mo:"Molybdän", Nb:"Niob", Pb:"Blei", Ta:"Tantal", Ti:"Titan", V:"Vanadium", Zr:"Zirconium", Ce:"Cer", N:"Stickstoff", P:"Phosphor", S:"Schwefel", C:"Kohlenstoff", B:"Bor"};
+const pc = x => (Math.round(x*1000)/1000).toString().replace(".", ",") + " %";
+
+function produkt(rest, teile){
+  const m = rest.match(/^((?:\+[A-Z]{1,2})*)$/); if(!m) return false;
+  (rest.match(/\+[A-Z]{1,2}/g)||[]).forEach(p => { const k=p.slice(1); teile.push({s:p, k:"e", t: EZ[k] ? "Behandlungszustand: "+EZ[k] : "Zusatzsymbol für Stahlerzeugnisse"}); });
+  return true;
+}
+function parse(raw){
+  let n = String(raw||"").replace(/\s/g,"").replace(/[–—]/g,"-");
+  if(!n) return {err:"Gib einen Kurznamen ein."};
+  const teile = []; let art = "";
+  const plus = n.indexOf("+"), main = plus>=0 ? n.slice(0,plus) : n, prod = plus>=0 ? n.slice(plus) : "";
+  let s = main;
+  if(/^G[SEPLBCX0-9H]/.test(s) && !/^G\d+$/.test(s)){ teile.push({s:"G", k:"g", t:"Stahlguss: Der Stahl wird in Formen gegossen. Nicht mit Gusseisen verwechseln!"}); s = s.slice(1); }
+  let m;
+  if((m = s.match(/^HS(\d+)-(\d+)-(\d+)-(\d+)$/))){
+    art = "Schnellarbeitsstahl (chemische Zusammensetzung)";
+    teile.push({s:"HS", k:"h", t:"Schnellarbeitsstahl (high speed)"});
+    ["W","Mo","V","Co"].forEach((e,i)=>teile.push({s:(i?"-":"")+m[i+1], k:"h", t:`${NAME[e]} (${e}): ${m[i+1]} %`}));
+  } else if((m = s.match(/^X(\d+)((?:[A-Z][a-z]?)+)([\d-]*)$/))){
+    art = "Hochlegierter Stahl (chemische Zusammensetzung)";
+    teile.push({s:"X", k:"h", t:"hochlegiert: mindestens ein Legierungselement über 5 %"});
+    teile.push({s:m[1], k:"h", t:`Kohlenstoff: ${m[1]} : 100 = ${pc(m[1]/100)}`});
+    const el = m[2].match(/[A-Z][a-z]?/g), zs = m[3] ? m[3].split("-").filter(Boolean) : [];
+    if(zs.length > el.length) return {err:"Mehr Zahlen als Legierungselemente: Kurzname prüfen."};
+    el.forEach((e,i)=>teile.push({s:e, k:"h", t: NAME[e] ? `${NAME[e]}${zs[i]!=null?`: ${zs[i]} % (hochlegiert: Zahl = Prozent, kein Faktor)`:": geringer Anteil, nicht beziffert"}` : "unbekanntes Element"}));
+    if(m[3]) teile.push({s:m[3], k:"h", t:"Gehalte in ganzen Prozent, in der Reihenfolge der Elemente"});
+  } else if((m = s.match(/^C(\d+)([A-Z]*)$/))){
+    art = "Unlegierter Stahl (chemische Zusammensetzung)";
+    teile.push({s:"C", k:"h", t:"unlegierter Stahl (Kohlenstoffstahl)"});
+    teile.push({s:m[1], k:"h", t:`Kohlenstoff: ${m[1]} : 100 = ${pc(m[1]/100)}`});
+    for(const c of m[2]) teile.push({s:c, k:"z", t: ZC[c] || "Zusatzsymbol"});
+  } else if((m = s.match(/^(\d+)((?:[A-Z][a-z]?)+)([\d-]*)$/))){
+    art = "Niedriglegierter Stahl (chemische Zusammensetzung)";
+    teile.push({s:m[1], k:"h", t:`kein Kennbuchstabe → niedriglegiert (kein Element über 5 %). Kohlenstoff: ${m[1]} : 100 = ${pc(m[1]/100)}`});
+    const el = m[2].match(/[A-Z][a-z]?/g), zs = m[3] ? m[3].split("-").filter(Boolean) : [];
+    if(zs.length > el.length) return {err:"Mehr Zahlen als Legierungselemente: Kurzname prüfen."};
+    el.forEach((e,i)=>teile.push({s:e, k:"h", t: !NAME[e] ? "unbekanntes Element" : zs[i]!=null ? `${NAME[e]}: ${zs[i]} : ${F[e]} = ${pc(zs[i]/F[e])} (Faktor ${F[e]})` : `${NAME[e]}: geringer Anteil, nicht beziffert`}));
+    if(m[3]) teile.push({s:m[3], k:"h", t:"Gehalte mit Faktor multipliziert, in der Reihenfolge der Elemente"});
+  } else if((m = s.match(/^([SEPLBYRH])(\d+)(.*)$/))){
+    const v = VZ[m[1]]; art = "Bezeichnung nach dem Verwendungszweck";
+    teile.push({s:m[1], k:"h", t:v[0]});
+    teile.push({s:m[2], k:"h", t:`${v[1]}: ${m[2]} ${v[2]}`});
+    let r = m[3];
+    const k = r.match(/^([JKL])([R0-6])/);
+    if(k && (m[1]==="S")){ teile.push({s:k[0], k:"z", t:`Kerbschlagarbeit mindestens ${KS[k[1]]} J bei ${KT[k[2]]} °C`}); r = r.slice(2); }
+    const z1 = Z1[m[1]] || {};
+    for(const c of r){ teile.push({s:c, k:"z", t: (m[1]==="P"||m[1]==="L") ? (z1[c]||Z2[c]||"Zusatzsymbol") : (Z2[c] || z1[c] || "Zusatzsymbol")}); }
+  } else return {err:"Diesen Kurznamen kann der Analysator nicht lesen. Prüfe die Schreibweise (z. B. S235JR, C45E, 42CrMo4, X5CrNi18-10, HS6-5-2-5)."};
+  if(prod && !produkt(prod, teile)) return {err:"Die Zusatzsymbole nach dem „+“ sind nicht lesbar."};
+  return {art, teile};
+}
+function widget(host, presets, start){
+  host.innerHTML = `<div class="ana"><div class="row" style="gap:8px"><input type="text" class="mono ana-in" aria-label="Kurzname eingeben" spellcheck="false" autocomplete="off" value="${start||presets[0]}"><span class="small muted">oder Beispiel antippen:</span></div>
+    <div class="row ana-pre" style="gap:6px">${presets.map(p=>`<button type="button" class="chip mono" data-pre="${p}">${p}</button>`).join("")}</div><div class="ana-out" aria-live="polite"></div></div>`;
+  const inp = host.querySelector(".ana-in"), out = host.querySelector(".ana-out");
+  const draw = () => { const r = parse(inp.value);
+    if(r.err){ out.innerHTML = `<div class="fb err small">${r.err}</div>`; return; }
+    out.innerHTML = `<p class="small muted">${r.art}</p><div class="ana-name mono">${r.teile.map((p,i)=>`<span class="ap ap-${p.k}" title="${p.t}">${p.s}<sup>${i+1}</sup></span>`).join("")}</div>
+      <ol class="ana-list">${r.teile.map(p=>`<li><span class="ap ap-${p.k} mono">${p.s}</span> ${p.t}</li>`).join("")}</ol>
+      <p class="small muted ana-leg"><span class="ap ap-g">G</span> Stahlguss <span class="ap ap-h">Haupt</span> Hauptsymbol <span class="ap ap-z">Zusatz</span> Zusatzsymbol <span class="ap ap-e">+</span> Stahlerzeugnis</p>`; };
+  inp.addEventListener("input", draw);
+  host.addEventListener("click", e => { const b = e.target.closest("[data-pre]"); if(b){ inp.value = b.dataset.pre; draw(); } });
+  draw();
+}
+return {parse, widget, F, NAME};
+})();
+
+/* ============================================================
+   Übersichtstabelle „Einteilung der Stähle“ (auch Klausur-Hilfsmittel)
+   Button im Kopf + [data-tabelle] öffnen ein Fenster; Drucken möglich.
+   ============================================================ */
+(function(){
+"use strict";
+const VZ = [["S","Stahlbau","Streckgrenze"],["E","Maschinenbau","Streckgrenze"],["P","Druckbehälterbau","Streckgrenze"],["L","Leitungsrohre","Streckgrenze"],["B","Betonstahl","Streckgrenze"],["T","Verpackungsblech und -band","Streckgrenze"],["Y","Spannstähle","Zugfestigkeit"],
+  ["D","Flacherzeugnisse zum Kaltumformen","C: kaltgewalzt / D: warmgewalzt / X: nicht festgelegt; gefolgt von zwei Symbolen für die Stahlsorte"],
+  ["H","Flacherzeugnisse aus höherfesten Stählen zum Kaltumformen","Walzzustand C, D, X und Streckgrenze bzw. Walzzustand CT, DT, XT und Zugfestigkeit"],
+  ["R","Schienenstähle","Mindesthärte nach Brinell (HBW)"],["M","Elektroblech und -band","Ummagnetisierungsverlust in W/kg × 100 und Nenndicke × 100"]];
+const CH = [["C","unlegierte Stähle","100 × C-Gehalt"],["–","niedriglegierte Stähle, Automatenstähle (ohne Kennbuchstabe)","100 × C-Gehalt sowie Legierungsbestandteile und -zusammensetzung (<b>Faktoren</b> beachten)"],
+  ["X","hochlegierte Stähle mit mehr als 5 % Legierungsbestandteil","100 × C-Gehalt sowie Legierungsbestandteile und -zusammensetzung (in ganzen %)"],["HS","Schnellarbeitsstähle","Legierungszusammensetzung in der Reihenfolge W-Mo-V-Co (in ganzen %)"]];
+const G1 = [["M","thermomechanisch gewalzt"],["N","normalgeglüht bzw. normalisierend gewalzt"],["Q","vergütet"],["E","vorgeschriebener max. Schwefelgehalt (< 0,035 %)"],["B","Gasflaschen"],["S","einfache Druckbehälter"],["T","Rohre"],["S","Litze"],["Mn","hoher Mangangehalt"],["Cr","chromlegiert"],["P","phosphorlegiert"],["H","Hohlprofil"],["G","andere Merkmale folgen"]];
+const G2 = [["C","besondere Kaltumformbarkeit"],["D","für Schmelztauchüberzüge"],["E","für Emaillierung"],["F","zum Schmieden"],["H","Hohlprofil (Stahlbau)"],["H","Hochtemperatur (Druckbehälterbau)"],["L","Tieftemperatur"],["M","thermomechanisch gewalzt"],["N","normalgeglüht bzw. normalisierend gewalzt"],["O","für Offshore"],["P","Spundwandstahl"],["Q","vergütet"],["R","Raumtemperatur"],["S","Schiffbau"],["T","für Rohre"],["W","wetterfest"],["X","Hoch- und Tieftemperatur"]];
+const EZ = [["+A","weichgeglüht"],["+C","kaltverfestigt"],["+N","normalgeglüht bzw. normalisierend gewalzt"],["+AR","Lieferzustand wie gewalzt"],["+QT","vergütet"],["+T","angelassen"],["+U","unbehandelt"],["+M","thermomechanisch behandelt"],["+CR","kaltgewalzt"],["+ZE","elektrolytisch verzinkt"],["+C","Grobkornstahl"],["+F","Feinkornstahl"],["+H","besondere Härtbarkeit"]];
+const FK = [["Cr, Co, Mn, Ni, Si, W","4"],["Al, Be, Cu, Mo, Nb, Pb, Ta, Ti, V, Zr","10"],["C, Ce, N, P, S","100"],["B","1000"]];
+const dl = l => `<dl class="st-dl">${l.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>`;
+const rows = VZ.length + CH.length + 2;
+const html = `<table class="st-tab"><colgroup><col style="width:18%"><col style="width:21%"><col style="width:22%"><col style="width:19%"><col style="width:20%"></colgroup>
+  <tr><th colspan="2" class="st-hb">Hauptsymbole <span class="st-note">bei Stahlguss wird dem Hauptsymbol ein G vorangestellt</span></th><th colspan="3" class="st-hb">Zusatzsymbole</th></tr>
+  <tr><th class="c-art">Stahlart</th><th class="c-eig">Eigenschaftswerte</th><th class="c-g1">Gruppe 1</th><th class="c-g2">Gruppe 2</th><th class="c-ez">für Stahlerzeugnisse</th></tr>
+  <tr><th colspan="2" class="st-sec">Bezeichnung nach dem Verwendungszweck</th>
+    <td rowspan="${rows}" class="c-g1"><p><b>Für Stahlbau (S):</b> Kerbschlagarbeit</p>
+      <table class="st-ks"><colgroup><col><col><col><col style="width:4.8em"></colgroup><tr><th>27 J</th><th>40 J</th><th>60 J</th><th>bei</th></tr><tr><td>JR</td><td>KR</td><td>LR</td><td>+20 °C</td></tr><tr><td>J0</td><td>K0</td><td>L0</td><td>0 °C</td></tr><tr><td>J2</td><td>K2</td><td>L2</td><td>−20 °C</td></tr></table>${dl(G1)}</td>
+    <td rowspan="${rows}" class="c-g2">${dl(G2)}</td>
+    <td rowspan="${rows}" class="c-ez">${dl(EZ)}<table class="st-fk"><colgroup><col><col style="width:4.8em"></colgroup><tr><th colspan="2"><b>Faktoren</b> für Legierungsanteile</th></tr><tr><th>Legierungselemente</th><th>Faktor</th></tr>${FK.map(([e,f])=>`<tr><td>${e}</td><td>${f}</td></tr>`).join("")}</table></td></tr>
+  ${VZ.map(([k,a,e])=>`<tr><td class="c-art"><div class="st-k"><b>${k}</b><span>${a}</span></div></td><td class="c-eig">${e}</td></tr>`).join("")}
+  <tr><th colspan="2" class="st-sec">Bezeichnung nach der chemischen Zusammensetzung</th></tr>
+  ${CH.map(([k,a,e])=>`<tr><td class="c-art"><div class="st-k"><b>${k}</b><span>${a}</span></div></td><td class="c-eig">${e}</td></tr>`).join("")}
+</table>`;
+const css = `
+.st-open{margin-left:auto; font:inherit; font-size:14px; font-weight:600; padding:6px 12px; border-radius:6px; border:1px solid var(--blue); background:var(--blue-soft); color:var(--ink); cursor:pointer; white-space:nowrap}
+dialog.st-dlg{width:min(1240px,96vw); max-height:92vh; padding:0; border:0; border-radius:10px; background:var(--surface); color:var(--ink); box-shadow:0 20px 60px rgba(0,0,0,.4)}
+dialog.st-dlg::backdrop{background:rgba(0,0,0,.55)}
+.st-bar{position:sticky; top:0; z-index:1; display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--border)}
+.st-bar h2{margin:0 auto 0 0; font-size:20px}
+.st-body{padding:12px 16px 18px; overflow:auto}
+.st-hint{font-size:13px; color:var(--muted); margin:0 0 8px}
+.st-tab{border-collapse:collapse; width:100%; min-width:960px; table-layout:fixed; font-size:13px; line-height:1.35}
+.st-tab th,.st-tab td{border:1px solid #6b7680; padding:5px 7px; vertical-align:top; text-align:left; color:#1D1D1B}
+.st-tab .st-hb{background:#1f74b4; color:#fff; text-align:center; font-size:15px}
+.st-note{display:block; font-weight:400; font-style:italic; font-size:11px}
+.st-tab .st-sec{background:#cfd4d8; text-align:center; font-size:14px}
+.st-tab th.c-art,.st-tab td.c-art{background:#fbd6d6} .st-tab th.c-art{background:#ec9aa0}
+.st-tab th.c-eig,.st-tab td.c-eig{background:#e1e8f0} .st-tab th.c-eig{background:#a9c3df}
+.st-tab th.c-g1,.st-tab td.c-g1{background:#e3eccf} .st-tab th.c-g1{background:#a9cf8f}
+.st-tab th.c-g2,.st-tab td.c-g2{background:#fdf6cf} .st-tab th.c-g2{background:#f7e18a}
+.st-tab th.c-ez,.st-tab td.c-ez{background:#ecd5df} .st-tab th.c-ez{background:#c58aa8}
+.st-k{display:grid; grid-template-columns:2.2em 1fr; gap:0 4px}
+.st-dl{display:grid; grid-template-columns:auto 1fr; gap:3px 8px; margin:6px 0}
+.st-dl dt{font-weight:700} .st-dl dd{margin:0}
+.st-tab .st-ks,.st-tab .st-fk{border-collapse:collapse; margin:4px 0 8px; width:100%; min-width:0; table-layout:fixed}
+.st-tab .st-ks th,.st-tab .st-ks td,.st-tab .st-fk th,.st-tab .st-fk td{white-space:normal; overflow-wrap:anywhere; font-size:12px}
+.st-tab .st-fk td:last-child,.st-tab .st-fk tr:nth-child(3) th:last-child{text-align:right; overflow-wrap:normal}
+.st-tab .st-ks th:last-child,.st-tab .st-ks td:last-child{width:4.8em}
+.st-ks th,.st-ks td{border:0!important; border-bottom:1px solid #9aa3aa!important; padding:2px 4px!important; background:transparent!important; font-weight:400}
+.st-fk{margin-top:14px} .st-fk th,.st-fk td{background:#fff!important}
+.st-fk tr:first-child th{background:#cfd4d8!important}
+@media print{ body>*:not(dialog.st-dlg){display:none!important} dialog.st-dlg{position:static; width:auto; max-height:none; box-shadow:none} .st-bar button{display:none} .st-body{overflow:visible} .st-tab{min-width:0; font-size:10px} @page{size:A4 landscape; margin:8mm} }`;
+const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
+const dlg = document.createElement("dialog"); dlg.className = "st-dlg"; dlg.setAttribute("aria-label","Übersichtstabelle Einteilung der Stähle");
+dlg.innerHTML = `<div class="st-bar"><h2>Einteilung der Stähle (DIN EN 10027-1)</h2><button type="button" class="btn secondary small" data-st="print">Drucken</button><button type="button" class="btn small" data-st="close">Schließen</button></div>
+  <div class="st-body"><p class="st-hint">Diese Tabelle darfst du auch in der Klausur verwenden. Auf dem Handy seitlich wischen.</p>
+  <div class="ana-name mono" style="font-size:22px"><span class="ap ap-h">S</span><span class="ap ap-h">235</span><span class="ap ap-z">JR</span><span class="ap ap-z">C</span><span class="ap ap-e">+C</span></div>${html}</div>`;
+document.body.appendChild(dlg);
+const top = document.querySelector(".top-inner");
+if(top){ const b = document.createElement("button"); b.type = "button"; b.className = "st-open"; b.dataset.tabelle = ""; b.textContent = "📋 Tabelle"; b.title = "Übersichtstabelle Einteilung der Stähle"; top.insertBefore(b, document.getElementById("saved")); }
+document.addEventListener("click", e => {
+  if(e.target.closest("[data-tabelle]")){ dlg.showModal(); return; }
+  const a = e.target.closest("[data-st]"); if(a){ if(a.dataset.st==="close") dlg.close(); else window.print(); return; }
+  if(e.target === dlg) dlg.close();
+});
+})();
+
+/* ============ Grafiken LE 1.1.2b ============ */
+(function(){
+"use strict";
+const {el, lin, rad, shadow, MAT, svgRoot, anim} = LM.G;
+const $ = E.$;
+const f1 = (x,d=1) => x.toFixed(d).replace(".", ",");
+const T = (svg, x, y, txt, cls="lbl-s", extra={}) => svg.appendChild(el("text", Object.assign({x, y, class:cls}, extra), [txt]));
+const RUST = [[0,"#e08a3c"],[.5,"#a4521c"],[1,"#5c2a0c"]];
+
+/* ---------- Problemstellung: Auslagerungsversuch (Simulation) ---------- */
+(function figKorr(){
+  const host = $("#fig-korr"), ctrl = $("#ctrl-korr"); if(!host) return;
+  let d = 0, play = false;
+  let s = 11; const rnd = () => { s = (s*9301+49297)%233280; return s/233280; };
+  const spots = Array.from({length:34}, () => ({x:70+rnd()*480, y:rnd(), r:4+rnd()*9, t:rnd()*12}));
+  ctrl.innerHTML = `<label><span>Auslagerungsdauer <span class="val" id="k-v"></span></span><input type="range" id="k-r" min="0" max="60" step="1" value="0"></label>
+    <div class="row"><button type="button" class="btn small" id="k-play">Zeitraffer starten</button></div><div class="readout" id="k-out"></div>`;
+  function draw(){
+    const {svg, defs} = svgRoot(host, 640, 300, `Zwei Stahlwellen nach ${Math.round(d)} Tagen in salzhaltiger, feuchter Luft.`);
+    const st = lin(defs, MAT.steel), rs = rad(defs, RUST, .4, .35, .7), sh = shadow(defs, 4, 4, .25);
+    // Prüfkammer
+    svg.appendChild(el("rect",{x:10, y:10, width:620, height:280, rx:10, style:"fill:var(--surface2);stroke:var(--border)"}));
+    for(let i=0;i<26;i++){ const x = 30+((i*97)%590), y = 24+((i*53)%40); svg.appendChild(el("circle",{cx:x, cy:y+((d*7+i*13)%30), r:2.2, style:"fill:#5fb7e8;opacity:.45"})); }
+    T(svg, 26, 34, "Salznebel 5 % NaCl · 35 °C", "lbl-s");
+    const rod = (y, name, rust) => {
+      svg.appendChild(el("rect",{x:60, y, width:500, height:56, rx:4, fill:st, filter:sh}));
+      svg.appendChild(el("ellipse",{cx:560, cy:y+28, rx:10, ry:28, fill:lin(defs,MAT.steelDark,0,0,1,0)}));
+      if(rust){ const k = Math.min(1, d/60);
+        svg.appendChild(el("rect",{x:60, y, width:500, height:56, rx:4, fill:rs, opacity:(0.75*k).toFixed(2)}));
+        const cid = LM.G.uid("rc"); defs.appendChild(el("clipPath",{id:cid},[el("rect",{x:60, y, width:500, height:56, rx:4})])); const g = el("g",{"clip-path":`url(#${cid})`}); svg.appendChild(g);
+        spots.forEach(p => { if(d < p.t) return; const r = p.r*Math.min(1.3, 0.3+(d-p.t)/35); g.appendChild(el("ellipse",{cx:p.x, cy:y+6+p.y*44, rx:r*1.4, ry:r*.8, fill:rs, opacity:.9})); }); }
+      T(svg, 60, y-10, name, "lbl", {style:"font-family:var(--mono)"});
+    };
+    rod(96, "42CrMo4", true);
+    rod(206, "X2CrNiMoN17-13-3", false);
+    $("#k-v").textContent = Math.round(d)+" Tage";
+    $("#k-out").innerHTML = `<span>42CrMo4</span><b>${d<4?"blank":d<20?"erste Rostpunkte":d<40?"deutlicher Rost":"stark verrostet"}</b><span>X2CrNiMoN17-13-3</span><b>blank</b>`;
+  }
+  const A = anim(host, dt => { if(!play) return; d = Math.min(60, d + 8*dt); $("#k-r").value = d; if(d>=60){ play=false; $("#k-play").textContent="Zeitraffer starten"; if(A.running) A.toggle(); } draw(); });
+  if(A.running) A.toggle();
+  $("#k-play").addEventListener("click", () => { play = !play; if(play && d>=60) d = 0; if(play !== A.running) A.toggle(); $("#k-play").textContent = play ? "Anhalten" : "Zeitraffer starten"; });
+  $("#k-r").addEventListener("input", e => { d = +e.target.value; draw(); });
+  draw();
+})();
+
+/* ---------- Nichtrostende Stähle: Chrom, Nickel, Gitter, Magnet (Simulation) ---------- */
+(function figNR(){
+  const host = $("#fig-nr"), ctrl = $("#ctrl-nr"); if(!host) return;
+  const PRE = {"S235JR":[0,0], "X6Cr17":[17,0], "X5CrNi18-10":[18,10], "X2CrNiMoN17-13-3":[17,13]};
+  let cr = 17, ni = 0, lift = 0;
+  ctrl.innerHTML = `<div class="segbtns">${Object.keys(PRE).map(k=>`<button type="button" data-p="${k}" class="mono">${k}</button>`).join("")}</div>
+    <label><span>Chromgehalt <span class="val" id="nr-cv"></span></span><input type="range" id="nr-c" min="0" max="25" step="0.5" value="${cr}"></label>
+    <label><span>Nickelgehalt <span class="val" id="nr-nv"></span></span><input type="range" id="nr-n" min="0" max="15" step="0.5" value="${ni}"></label>
+    <div class="readout" id="nr-out"></div>`;
+  const state = () => { const mag = ni < 2 ? 1 : ni < 8 ? 0.45 : 0; return {mag, gef: ni < 2 ? "ferritisch" : ni < 8 ? "Mischgefüge (austenitisch-ferritisch)" : "austenitisch", git: ni < 2 ? "krz" : ni < 8 ? "krz + kfz" : "kfz", pas: cr >= 10.5 ? 1 : cr >= 5 ? (cr-5)/5.5 : 0}; };
+  function draw(){
+    const z = state();
+    const {svg, defs} = svgRoot(host, 660, 340, `Stahl mit ${f1(cr)} % Cr und ${f1(ni)} % Ni: ${z.gef}, ${z.mag?"magnetisch":"unmagnetisch"}.`);
+    const st = lin(defs, MAT.steel), stX = lin(defs, MAT.steel, 0,0,1,0), sh = shadow(defs, 4, 4, .3);
+    // Magnet
+    const red = lin(defs, [[0,"#7a120c"],[.3,"#e0473c"],[.5,"#ff9a8f"],[.7,"#c62f25"],[1,"#6a0f09"]], 0,0,1,0);
+    svg.appendChild(el("path",{d:"M60,20 H240 V110 H195 V60 H105 V110 H60 Z", fill:red, filter:sh}));
+    svg.appendChild(el("rect",{x:60, y:110, width:45, height:18, fill:stX})); svg.appendChild(el("rect",{x:195, y:110, width:45, height:18, fill:stX}));
+    T(svg, 82, 146, "N", "lbl", {"text-anchor":"middle"}); T(svg, 218, 146, "S", "lbl", {"text-anchor":"middle"});
+    // Feldlinien bei magnetischem Stahl
+    const yb = 250 - lift*102;
+    if(z.mag>0) for(let i=0;i<3;i++){ svg.appendChild(el("path",{d:`M${82+i*4},128 Q150,${150+i*14+ (yb-148)*.5} ${218-i*4},128`, style:`stroke:var(--blue);stroke-width:1.5;fill:none;opacity:${(.3+.2*z.mag).toFixed(2)};stroke-dasharray:4 4`})); }
+    // Stahlblock
+    svg.appendChild(el("rect",{x:50, y:yb, width:200, height:46, rx:3, fill:st, filter:sh}));
+    // Oberfläche: Passivschicht oder Rost
+    if(z.pas>=1) svg.appendChild(el("rect",{x:50, y:yb-4, width:200, height:5, rx:2, style:"fill:#2fb39a;opacity:.85"}));
+    else { const n = 10; for(let i=0;i<n;i++){ const covered = i/n < z.pas; const x = 50+i*20;
+      svg.appendChild(el("rect",{x, y:yb-4, width:20, height:5, style:covered?"fill:#2fb39a;opacity:.85":"fill:#a4521c"}));
+      if(!covered) svg.appendChild(el("ellipse",{cx:x+10, cy:yb+8, rx:7, ry:4, fill:rad(defs,RUST)})); } }
+    T(svg, 150, yb+28, z.mag===1?"wird angezogen":z.mag?"wird schwach angezogen":"bleibt liegen", "lbl-s", {"text-anchor":"middle", style:"fill:#1D1D1B;font-weight:600"});
+    svg.appendChild(el("rect",{x:20, y:298, width:260, height:10, rx:3, fill:lin(defs,MAT.steelDark)}));
+    T(svg, 150, 330, z.pas>=1 ? "Passivschicht geschlossen (grün)" : z.pas>0 ? "Passivschicht lückenhaft: Rost an den Lücken" : "keine Passivschicht: Stahl rostet", "lbl-s", {"text-anchor":"middle"});
+    // Elementarzelle
+    const ox = 400, oy = 110, a = 130, dx = 55, dy = -40;
+    const P = (i,j,k) => [ox + i*a + k*dx, oy + (1-j)*a + k*dy + 60];
+    const edges = [[0,0,0,1,0,0],[0,0,0,0,1,0],[0,0,0,0,0,1],[1,1,1,0,1,1],[1,1,1,1,0,1],[1,1,1,1,1,0],[1,0,0,1,1,0],[1,0,0,1,0,1],[0,1,0,1,1,0],[0,1,0,0,1,1],[0,0,1,1,0,1],[0,0,1,0,1,1]];
+    edges.forEach(e => { const p=P(e[0],e[1],e[2]), q=P(e[3],e[4],e[5]); svg.appendChild(el("line",{x1:p[0], y1:p[1], x2:q[0], y2:q[1], style:"stroke:var(--line);stroke-width:1.5"})); });
+    const ball = (p, r, col) => svg.appendChild(el("circle",{cx:p[0], cy:p[1], r, fill:rad(defs, col)}));
+    const FE = [[0,"#ffffff"],[.35,"#b8c2ca"],[1,"#3a434b"]];
+    const pts = []; for(const i of [0,1]) for(const j of [0,1]) for(const k of [0,1]) pts.push([i,j,k]);
+    const kfz = ni >= 8, krz = ni < 2;
+    if(!kfz) pts.push([.5,.5,.5]);
+    if(!krz){ [[.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]].forEach(p=>pts.push(p)); }
+    pts.sort((p,q)=>q[2]-p[2]).forEach(p => ball(P(...p), 15, FE));
+    T(svg, ox+a/2+dx/2, 34, kfz ? "kubisch-flächenzentriert (kfz)" : krz ? "kubisch-raumzentriert (krz)" : "Mischgefüge: krz und kfz", "lbl", {"text-anchor":"middle"});
+    T(svg, ox+a/2+dx/2, 330, kfz ? "Austenit: Atome auch auf den Flächenmitten" : krz ? "Ferrit: ein Atom in der Würfelmitte" : "beide Gittertypen nebeneinander", "lbl-s", {"text-anchor":"middle"});
+    $("#nr-cv").textContent = f1(cr)+" %"; $("#nr-nv").textContent = f1(ni)+" %";
+    const name = Object.keys(PRE).find(k => PRE[k][0]===cr && PRE[k][1]===ni);
+    $("#nr-out").innerHTML = `<span>Gefüge</span><b>${z.gef}</b><span>Gitter</span><b>${z.git}</b><span>Magnet</span><b>${z.mag===1?"zieht an":z.mag?"zieht schwach an":"zieht nicht an"}</b><span>Nichtrostend</span><b>${cr>=10.5?"ja":"nein"}</b>${name?`<span>Beispiel</span><b>${name}</b>`:""}`;
+    ctrl.querySelectorAll("[data-p]").forEach(b => b.setAttribute("aria-pressed", b.dataset.p===name));
+  }
+  const A = anim(host, dt => { const tg = state().mag; if(Math.abs(lift-tg) < 0.01){ lift = tg; draw(); if(A.running) A.toggle(); return; } lift += Math.sign(tg-lift)*Math.min(Math.abs(tg-lift), 2.5*dt); draw(); });
+  const go = () => { if(LM.G.reduced()){ lift = state().mag; draw(); return; } if(!A.running) A.toggle(); draw(); };
+  lift = state().mag;
+  if(A.running) A.toggle();
+  $("#nr-c").addEventListener("input", e => { cr = +e.target.value; go(); });
+  $("#nr-n").addEventListener("input", e => { ni = +e.target.value; go(); });
+  ctrl.addEventListener("click", e => { const b = e.target.closest("[data-p]"); if(!b) return; [cr, ni] = PRE[b.dataset.p]; $("#nr-c").value = cr; $("#nr-n").value = ni; go(); });
+  draw();
+})();
+
+
+/* ---------- Elementarzellen kfz / krz (plastisch, drehbar per Schieberegler) ---------- */
+document.querySelectorAll("[data-zelle]").forEach(host => {
+  const typ = host.dataset.zelle;
+  host.innerHTML = `<div class="ez-svg"></div><label class="small">Drehen <input type="range" min="-60" max="60" value="25" aria-label="Elementarzelle drehen"></label>`;
+  const box = host.querySelector(".ez-svg"), rng = host.querySelector("input");
+  const pts = []; for(const i of [0,1]) for(const j of [0,1]) for(const k of [0,1]) pts.push([i,j,k,"e"]);
+  if(typ==="krz") pts.push([.5,.5,.5,"m"]);
+  else [[.5,.5,0],[.5,.5,1],[.5,0,.5],[.5,1,.5],[0,.5,.5],[1,.5,.5]].forEach(p => pts.push([...p,"f"]));
+  const edges = [[0,0,0,1,0,0],[0,0,0,0,1,0],[0,0,0,0,0,1],[1,1,1,0,1,1],[1,1,1,1,0,1],[1,1,1,1,1,0],[1,0,0,1,1,0],[1,0,0,1,0,1],[0,1,0,1,1,0],[0,1,0,0,1,1],[0,0,1,1,0,1],[0,0,1,0,1,1]];
+  function draw(){
+    const a = (+rng.value)*Math.PI/180, tilt = 0.32, S = 120, cx = 130, cy = 120;
+    const P = (x,y,z) => { const X=x-.5, Y=y-.5, Z=z-.5; const xr = X*Math.cos(a)+Z*Math.sin(a), zr = -X*Math.sin(a)+Z*Math.cos(a); return [cx+S*xr, cy-S*(Y*Math.cos(tilt) - zr*Math.sin(tilt)), zr]; };
+    const {svg, defs} = svgRoot(box, 260, 240, typ==="kfz" ? "Elementarzelle kubisch-flächenzentriert" : "Elementarzelle kubisch-raumzentriert");
+    const FE = rad(defs, [[0,"#ffffff"],[.35,"#b8c2ca"],[1,"#3a434b"]]), IN = rad(defs, [[0,"#ffffff"],[.35,"#7fb6e0"],[1,"#0a4a78"]]);
+    edges.forEach(e => { const p=P(e[0],e[1],e[2]), q=P(e[3],e[4],e[5]); svg.appendChild(el("line",{x1:p[0], y1:p[1], x2:q[0], y2:q[1], style:"stroke:var(--line);stroke-width:1.5"})); });
+    pts.map(p => [...P(p[0],p[1],p[2]), p[3]]).sort((u,v)=>u[2]-v[2]).forEach(([x,y,z,k]) => svg.appendChild(el("circle",{cx:x, cy:y, r:(k==="e"?13:15)*(1+0.25*z), fill:k==="e"?FE:IN, opacity:k==="e"?.95:1})));
+  }
+  rng.addEventListener("input", draw); draw();
+});
+const ana = $("#ana-b"); if(ana) STAHL.widget(ana, ["C45E","39MnCrB6-2+QT","51CrV4","X2CrNiMoN17-13-3","X153CrMoV12","HS2-9-1-8"]);
+})();
+
+/* ============ Musterbeispiele LE 1.1.2b ============ */
+(function(){
+const {Steps} = LM, $ = E.$;
+Steps($("#ex-b2"), {
+  title:"So liest du einen niedriglegierten Stahl: 34CrNiMo6+QT",
+  text:"Eine hochfeste Kupplungswelle ist aus 34CrNiMo6+QT. Was steckt im Stahl?",
+  steps:[
+    {h:"Gruppe bestimmen", b:"Kein Kennbuchstabe, der Name beginnt mit einer Zahl → <b>niedriglegiert</b> (kein Element über 5 %)."},
+    {h:"Kohlenstoff", b:"34 : 100 = <b>0,34 % C</b>"},
+    {h:"Elemente und Zahlen zuordnen", b:"Elemente: Cr, Ni, Mo. Es gibt nur eine Zahl (6). Sie gehört zum <b>ersten</b> Element, also zu Cr. Ni und Mo sind nur gering enthalten."},
+    {h:"Faktor anwenden", b:"Cr hat den Faktor 4: 6 : 4 = <b>1,5 % Cr</b>"},
+    {h:"Zusatzsymbol", b:"+QT = <b>vergütet</b> (gehärtet und angelassen)."}
+  ],
+  result:"34CrNiMo6+QT: niedriglegierter Stahl mit 0,34 % C, 1,5 % Cr, wenig Ni und Mo, vergütet."
+});
+Steps($("#ex-b3"), {
+  title:"So liest du einen hochlegierten Stahl: X5CrNi18-10",
+  text:"Der Stahl ist einer der häufigsten Edelstähle in Chemie- und Lebensmittelanlagen.",
+  steps:[
+    {h:"Gruppe", b:"X vorn → <b>hochlegiert</b>"},
+    {h:"Kohlenstoff", b:"5 : 100 = <b>0,05 % C</b> (der Faktor 100 gilt auch hier)"},
+    {h:"Elemente und Gehalte", b:"Cr und Ni mit 18 und 10 → <b>18 % Cr, 10 % Ni</b> (ganze Prozent, kein Faktor)"},
+    {h:"Einordnen", b:"Über 12 % Cr und wenig C → <b>nichtrostend</b>. Viel Ni → austenitisch (dazu mehr in Station 4)."}
+  ],
+  result:"Vergleich HS6-5-2-5: HS → Schnellarbeitsstahl mit 6 % W, 5 % Mo, 2 % V, 5 % Co."
+});
+})();
+
+</script>

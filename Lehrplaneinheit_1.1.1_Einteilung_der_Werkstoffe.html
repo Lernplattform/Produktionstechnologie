@@ -586,10 +586,10 @@ body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-
 </section>
 
 <!-- STATION 5 -->
-<section class="station" id="s5" data-title="5 Lösung &amp; Abgabe">
+<section class="station" id="s5" data-title="5 Lösung">
   <p class="eyebrow">Station 5 · 77–90 Min.</p>
-  <h1>Quiz, Antwort auf die Problemstellung, Abgabe</h1>
-  <p class="lead">Zum Schluss prüfst du dein Wissen, beantwortest die Frage vom Anfang und sicherst deine Ergebnisse.</p>
+  <h1>Quiz, Antwort auf die Problemstellung</h1>
+  <p class="lead">Zum Schluss prüfst du dein Wissen und beantwortest die Frage vom Anfang.</p>
   <div class="task">
     <p class="tag">Aufgabe 5a · Quiz</p>
     <h2>Quiz: 10 Fragen</h2>
@@ -609,18 +609,6 @@ body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-
     <textarea id="frage"></textarea>
   </div>
   <div id="merke"></div>
-  <div class="task">
-    <p class="tag">Abgabe</p>
-    <h2>Ergebnisse sichern</h2>
-    <p>Ist der Speicherordner verbunden, liegt deine Speicherdatei schon fertig im Ordner. Sie ist gleichzeitig deine Abgabe. Sonst speichere sie hier oder kopiere den Text und gib ihn auf dem Weg ab, den deine Lehrkraft genannt hat.</p>
-    <div class="row">
-      <button type="button" class="btn" data-lm="download">Als Textdatei speichern</button>
-      <button class="btn secondary" id="copy">Text kopieren</button>
-      <span class="score" id="save-msg" role="status"></span>
-    </div>
-    <label for="summary">Vorschau</label>
-    <textarea id="summary" class="summary" readonly></textarea>
-  </div>
 </section>
 
 </main>
@@ -1488,11 +1476,11 @@ function summaryText(){
   return L.join("\n");
 }
 function updateSummary(){
-  $("#summary").value = SK.fullText();
+  const sm = $("#summary"); if(sm) sm.value = SK.fullText();
   $("#hyp1-show").innerHTML = "<b>Deine erste Vermutung:</b> " + (esc((S.hyp1||"").trim()) || "<i>noch nichts notiert (siehe Start)</i>");
 }
 ["hyp2","frage"].forEach(id => document.getElementById(id).addEventListener("input", updateSummary));
-$("#copy").addEventListener("click", () => {
+if($("#copy")) $("#copy").addEventListener("click", () => {
   const t = SK.fullText(); $("#summary").value = t;
   const fallback = () => { const ta = $("#summary"); ta.focus(); ta.select(); $("#save-msg").textContent = "Text markiert: jetzt Strg+C drücken."; };
   try { navigator.clipboard.writeText(t).then(() => { $("#save-msg").textContent = "Kopiert."; }, fallback); } catch(e) { fallback(); }

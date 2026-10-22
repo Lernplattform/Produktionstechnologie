@@ -515,18 +515,6 @@ body.lm-gated .site-head, body.lm-gated header.top, body.lm-gated main, body.lm-
     <textarea id="frage"></textarea>
   </div>
   <div id="merke"></div>
-  <div class="task">
-    <p class="tag">Übersicht und Abgabe</p>
-    <div id="overview" class="small"></div>
-    <p class="small">Ist der Speicherordner verbunden, liegt deine Speicherdatei schon fertig im Ordner. Sie ist gleichzeitig deine Abgabe. Sonst hier speichern:</p>
-    <div class="row">
-      <button type="button" class="btn" data-lm="download">Als Textdatei speichern</button>
-      <button type="button" class="btn secondary" id="copy">Text kopieren</button>
-      <span class="score" id="save-msg" role="status"></span>
-    </div>
-    <label for="summary">Vorschau</label>
-    <textarea id="summary" class="summary" readonly></textarea>
-  </div>
 </section>
 
 </main>
@@ -1459,10 +1447,10 @@ function summaryText(){
   return L.join("\n");
 }
 function updateSummary(){
-  $("#summary").value = SK.fullText();
-  $("#overview").innerHTML = `<div class="tbl-wrap"><table><tr><th>Aufgabentyp</th><th>komplett gelöst</th></tr>${TASKS.map(t=>`<tr><td><a href="#${t.st}" data-go="${t.st}">${t.title}</a></td><td>${S.rounds[t.id]||0}× ${(S.rounds[t.id]||0)>=2?"✓":""}</td></tr>`).join("")}</table></div>`;
+  const sm = $("#summary"); if(sm) sm.value = SK.fullText();
+  const ov = $("#overview"); if(ov) ov.innerHTML = `<div class="tbl-wrap"><table><tr><th>Aufgabentyp</th><th>komplett gelöst</th></tr>${TASKS.map(t=>`<tr><td><a href="#${t.st}" data-go="${t.st}">${t.title}</a></td><td>${S.rounds[t.id]||0}× ${(S.rounds[t.id]||0)>=2?"✓":""}</td></tr>`).join("")}</table></div>`;
 }
-$("#copy").addEventListener("click", () => {
+if($("#copy")) $("#copy").addEventListener("click", () => {
   const t = SK.fullText(); $("#summary").value = t;
   const fb = () => { const ta=$("#summary"); ta.focus(); ta.select(); $("#save-msg").textContent="Text markiert: jetzt Strg+C drücken."; };
   try { navigator.clipboard.writeText(t).then(() => { $("#save-msg").textContent="Kopiert."; }, fb); } catch(e) { fb(); }

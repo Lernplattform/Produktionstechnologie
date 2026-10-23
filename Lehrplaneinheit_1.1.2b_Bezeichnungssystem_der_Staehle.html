@@ -1498,7 +1498,7 @@ dialog.st-dlg::backdrop{background:rgba(0,0,0,.55)}
 .st-ks th,.st-ks td{border:0!important; border-bottom:1px solid #9aa3aa!important; padding:2px 4px!important; background:transparent!important; font-weight:400}
 .st-fk{margin-top:14px} .st-fk th,.st-fk td{background:#fff!important}
 .st-fk tr:first-child th{background:#cfd4d8!important}
-@media print{ body>*:not(dialog.st-dlg){display:none!important} dialog.st-dlg{position:static; width:auto; max-height:none; box-shadow:none} .st-bar button{display:none} .st-body{overflow:visible} .st-tab{min-width:0; font-size:10px} @page{size:A4 landscape; margin:8mm} }`;
+@media print{ html.st-print body>*:not(dialog.st-dlg){display:none!important} html.st-print dialog.st-dlg{position:static; width:auto; max-height:none; box-shadow:none} html.st-print .st-bar button{display:none} html.st-print .st-body{overflow:visible} html.st-print .st-tab{min-width:0; font-size:10px} }`;
 const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 const dlg = document.createElement("dialog"); dlg.className = "st-dlg"; dlg.setAttribute("aria-label","Übersichtstabelle Einteilung der Stähle");
 dlg.innerHTML = `<div class="st-bar"><h2>Einteilung der Stähle (DIN EN 10027-1)</h2><button type="button" class="btn secondary small" data-st="print">Drucken</button><button type="button" class="btn small" data-st="close">Schließen</button></div>
@@ -1507,6 +1507,10 @@ dlg.innerHTML = `<div class="st-bar"><h2>Einteilung der Stähle (DIN EN 10027-1)
 document.body.appendChild(dlg);
 const top = document.querySelector(".top-inner");
 if(top){ const b = document.createElement("button"); b.type = "button"; b.className = "st-open"; b.dataset.tabelle = ""; b.textContent = "📋 Tabelle"; b.title = "Übersichtstabelle Einteilung der Stähle"; top.insertBefore(b, document.getElementById("saved")); }
+/* Druck-Regeln nur, wenn die Tabelle offen ist (sonst druckt „Das Wichtigste“ bzw. Strg+P ein leeres Blatt) */
+const pg = document.createElement("style"); pg.textContent = "@page{size:A4 landscape; margin:8mm}";
+window.addEventListener("beforeprint", () => { document.documentElement.classList.toggle("st-print", dlg.open); if(dlg.open) document.head.appendChild(pg); });
+window.addEventListener("afterprint", () => { document.documentElement.classList.remove("st-print"); pg.remove(); });
 document.addEventListener("click", e => {
   if(e.target.closest("[data-tabelle]")){ dlg.showModal(); return; }
   const a = e.target.closest("[data-st]"); if(a){ if(a.dataset.st==="close") dlg.close(); else window.print(); return; }

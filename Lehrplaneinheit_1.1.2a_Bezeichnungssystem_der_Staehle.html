@@ -1077,7 +1077,7 @@ const U = {
         {q:"Warum muss bei der Kerbschlagarbeit immer die Prüftemperatur angegeben werden?", o:["Weil Stähle bei Kälte verspröden können","Weil das Pendel bei Kälte langsamer ist","Weil sich die Probe bei Wärme verlängert","Weil die Norm das aus Tradition fordert"], a:0, h:"Erinnere dich an die Kurve in der Kerbschlag-Simulation.", e:"Unterhalb der Übergangstemperatur bricht der Stahl spröde und nimmt kaum Energie auf."},
         {q:"Was bedeutet +N am Ende eines Kurznamens?", o:["Nickel legiert","normalgeglüht","nicht schweißbar","für Offshore"], a:1, h:"Symbole nach dem + beschreiben den Behandlungszustand.", e:"+N = normalgeglüht bzw. normalisierend gewalzt."},
         {q:"Welcher Stahl ist für einen Druckbehälter bei 200 °C gedacht?", o:["S355J2","E335","P265GH","S235JRC"], a:2, h:"P und H …", e:"P = Druckbehälter, H = Hochtemperatur."},
-        {q:"GP240GH ist …", o:["Gusseisen","Stahlguss","ein Grauguss","ein Gleitlagerwerkstoff"], a:1, h:"Was bedeutet das G vor dem Hauptsymbol?", e:"Stahlguss ist in Formen gegossener Stahl, mit unter 2 % C. Gusseisen hat über 2 % C."},
+        {q:"GP240GH ist …", o:["Gusseisen","Stahlguss","ein Grauguss","ein Gleitlagerwerkstoff"], a:1, h:"Was bedeutet das G vor dem Hauptsymbol? Zur Unterscheidung: <b>Stahlguss</b> ist Stahl (unter 2 % C), der in eine Form gegossen wird. Er bleibt zäh und schweißbar wie Stahl. <b>Gusseisen</b> hat über 2 % C, der Kohlenstoff liegt meist als Graphit vor. Es lässt sich gut gießen, ist aber spröde und kaum umformbar. Gegossen werden beide, entscheidend ist der Kohlenstoffgehalt.", e:"<br><b>Stahlguss</b> ist Stahl (unter 2 % C), der in eine Form gegossen wird. Er bleibt zäh und schweißbar wie Stahl. <b>Gusseisen</b> hat über 2 % C, der Kohlenstoff liegt meist als Graphit vor. Es lässt sich gut gießen, ist aber spröde und kaum umformbar. Gegossen werden beide, entscheidend ist der Kohlenstoffgehalt."},
         {q:"Welcher unlegierte Stahl ist am besten schweißbar?", o:["mit 0,15 % C","mit 0,45 % C","mit 0,8 % C","mit 1,0 % C"], a:0, h:"Station 1: Wo endet der grüne Bereich im Diagramm?", e:"Bis etwa 0,2 % C gilt unlegierter Stahl als gut schweißbar."}
       ]}
   }
@@ -1515,7 +1515,7 @@ dialog.st-dlg::backdrop{background:rgba(0,0,0,.55)}
 .st-ks th,.st-ks td{border:0!important; border-bottom:1px solid #9aa3aa!important; padding:2px 4px!important; background:transparent!important; font-weight:400}
 .st-fk{margin-top:14px} .st-fk th,.st-fk td{background:#fff!important}
 .st-fk tr:first-child th{background:#cfd4d8!important}
-@media print{ body>*:not(dialog.st-dlg){display:none!important} dialog.st-dlg{position:static; width:auto; max-height:none; box-shadow:none} .st-bar button{display:none} .st-body{overflow:visible} .st-tab{min-width:0; font-size:10px} @page{size:A4 landscape; margin:8mm} }`;
+@media print{ html.st-print body>*:not(dialog.st-dlg){display:none!important} html.st-print dialog.st-dlg{position:static; width:auto; max-height:none; box-shadow:none} html.st-print .st-bar button{display:none} html.st-print .st-body{overflow:visible} html.st-print .st-tab{min-width:0; font-size:10px} }`;
 const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
 const dlg = document.createElement("dialog"); dlg.className = "st-dlg"; dlg.setAttribute("aria-label","Übersichtstabelle Einteilung der Stähle");
 dlg.innerHTML = `<div class="st-bar"><h2>Einteilung der Stähle (DIN EN 10027-1)</h2><button type="button" class="btn secondary small" data-st="print">Drucken</button><button type="button" class="btn small" data-st="close">Schließen</button></div>
@@ -1524,6 +1524,10 @@ dlg.innerHTML = `<div class="st-bar"><h2>Einteilung der Stähle (DIN EN 10027-1)
 document.body.appendChild(dlg);
 const top = document.querySelector(".top-inner");
 if(top){ const b = document.createElement("button"); b.type = "button"; b.className = "st-open"; b.dataset.tabelle = ""; b.textContent = "📋 Tabelle"; b.title = "Übersichtstabelle Einteilung der Stähle"; top.insertBefore(b, document.getElementById("saved")); }
+/* Druck-Regeln nur, wenn die Tabelle offen ist (sonst druckt „Das Wichtigste“ bzw. Strg+P ein leeres Blatt) */
+const pg = document.createElement("style"); pg.textContent = "@page{size:A4 landscape; margin:8mm}";
+window.addEventListener("beforeprint", () => { document.documentElement.classList.toggle("st-print", dlg.open); if(dlg.open) document.head.appendChild(pg); });
+window.addEventListener("afterprint", () => { document.documentElement.classList.remove("st-print"); pg.remove(); });
 document.addEventListener("click", e => {
   if(e.target.closest("[data-tabelle]")){ dlg.showModal(); return; }
   const a = e.target.closest("[data-st]"); if(a){ if(a.dataset.st==="close") dlg.close(); else window.print(); return; }
